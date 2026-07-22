@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "zalo-service-navigator"
+version = "0.1.0"
+description = "Bộ khung trợ lý Zalo OA điều hướng người dùng tới registry dịch vụ kiểm soát."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "httpx>=0.28,<1",
+  "pydantic-settings>=2.7,<3",
+  "redis>=5.2,<7",
+  "rq>=2.8,<3",
+  "uvicorn[standard]>=0.32,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx2>=2.7,<3",
+  "mypy>=1.13,<2",
+  "pre-commit>=4,<5",
+  "pytest>=8.3,<10",
+  "pytest-cov>=6,<8",
+  "ruff>=0.8,<1",
+]
+
+[project.scripts]
+zsn-worker = "worker.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = [
+  "src/api",
+  "src/domain",
+  "src/llm",
+  "src/skills",
+  "src/voice",
+  "src/worker",
+  "src/zalo",
+]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/config.py" = "config.py"
+"src/main.py" = "main.py"
+
+[tool.pytest.ini_options]
+addopts = "-q"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests"]

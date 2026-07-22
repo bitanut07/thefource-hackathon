@@ -1,0 +1,50 @@
+# Secret và cấu hình ghi đè trên máy local
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+ENV/
+env/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Artifact của test, type-check và coverage
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+coverage.xml
+junit.xml
+
+# Artifact khi chạy ứng dụng
+*.log
+*.pid
+*.sqlite3
+media/
+uploads/
+
+# Trình soạn thảo và hệ điều hành
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Công cụ local và ảnh render tạm của tài liệu plan
+.cache/
+/tmp/
+
+# Kế hoạch nguồn được giữ cục bộ, không xuất bản cùng repository
+/docs/Zalo_AI_Service_Navigator_Plan.pdf

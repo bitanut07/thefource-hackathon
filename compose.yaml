@@ -1,0 +1,100 @@
+name: zalo-service-navigator
+
+# Chỉ dùng cho phát triển local; chưa phải cấu hình triển khai production.
+
+x-app-environment: &app-environment
+  APP_ENV: ${APP_ENV:-local}
+  LOG_LEVEL: ${LOG_LEVEL:-INFO}
+  API_HOST: 0.0.0.0
+  API_PORT: 8000
+  PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-}
+  REGISTRY_DATA_PATH: ${REGISTRY_DATA_PATH:-data/seed/services.example.json}
+  REDIS_URL: redis://redis:6379/0
+  RQ_QUEUE_NAME: ${RQ_QUEUE_NAME:-zalo-navigator}
+  ZALO_API_BASE_URL: ${ZALO_API_BASE_URL:-}
+  ZALO_APP_ID: ${ZALO_APP_ID:-}
+  ZALO_OA_ID: ${ZALO_OA_ID:-}
+  ZALO_APP_SECRET: ${ZALO_APP_SECRET:-}
+  ZALO_WEBHOOK_SECRET: ${ZALO_WEBHOOK_SECRET:-}
+  ZALO_ACCESS_TOKEN: ${ZALO_ACCESS_TOKEN:-}
+  ZALO_REFRESH_TOKEN: ${ZALO_REFRESH_TOKEN:-}
+  LLM_PROVIDER: ${LLM_PROVIDER:-fake}
+  LLM_MODEL: ${LLM_MODEL:-}
+  LLM_API_KEY: ${LLM_API_KEY:-}
+  STT_PROVIDER: ${STT_PROVIDER:-fake}
+  STT_API_KEY: ${STT_API_KEY:-}
+  ALLOWED_LAUNCH_HOSTS: ${ALLOWED_LAUNCH_HOSTS:-}
+  AUDIO_RETENTION_SECONDS: ${AUDIO_RETENTION_SECONDS:-900}
+  UID_HASH_SALT: ${UID_HASH_SALT:-}
+  SENTRY_DSN: ${SENTRY_DSN:-}
+
+x-app-service: &app-service
+  build:
+    context: .
+    dockerfile: Dockerfile
+  image: zalo-service-navigator:local
+  restart: unless-stopped
+  init: true
+  environment: *app-environment
+  depends_on:
+    redis:
+      condition: service_healthy
+
+services:
+  api:
+    <<: *app-service
+    command:
+      - uvicorn
+      - main:app
+      - --host
+      - "0.0.0.0"
+      - --port
+      - "8000"
+      - --reload
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      - ./src:/app/src:ro
+      - ./data:/app/data:ro
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/live', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  worker:
+    <<: *app-service
+    command: ["zsn-worker"]
+    volumes:
+      - ./src:/app/src:ro
+      - ./data:/app/data:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - rq info --url "$$REDIS_URL" >/dev/null
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  redis_data:

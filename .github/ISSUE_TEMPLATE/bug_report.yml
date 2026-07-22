@@ -1,0 +1,76 @@
+name: Báo lỗi
+description: Báo hành vi sai có thể tái hiện trong API, worker, registry hoặc demo.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Không đăng token, UID, raw webhook, attachment URL có thời hạn hoặc audio người dùng thật. Với lỗ hổng bảo mật, làm theo SECURITY.md thay vì tạo issue công khai.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Mô tả lỗi
+      description: Hành vi nào sai và ảnh hưởng tới ai?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Cách tái hiện
+      description: Dùng fixture/dữ liệu giả và các bước tối thiểu.
+      placeholder: |
+        1. Chạy ...
+        2. Gửi fixture ...
+        3. Quan sát ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Kết quả mong đợi
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Log hoặc bằng chứng đã làm sạch
+      description: Redact secret, UID, raw content và URL nhạy cảm; ưu tiên correlation ID đã hash.
+
+  - type: input
+    id: version
+    attributes:
+      label: Commit/tag
+      placeholder: SHA hoặc tag
+    validations:
+      required: true
+
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Môi trường
+      options:
+        - Local Python
+        - Docker Compose
+        - Test OA
+        - Production-like
+        - Khác
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Xác nhận
+      options:
+        - label: Tôi đã tìm issue trùng.
+          required: true
+        - label: Báo cáo không chứa secret hoặc dữ liệu cá nhân thật.
+          required: true
+        - label: Đây không phải báo cáo lỗ hổng cần xử lý riêng tư.
+          required: true

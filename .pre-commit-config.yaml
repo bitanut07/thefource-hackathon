@@ -1,0 +1,21 @@
+# Hook local chủ động không tải môi trường riêng.
+# Cài dependency phát triển trước khi chạy `pre-commit run --all-files`.
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: python -m ruff check
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: ruff format check
+        entry: python -m ruff format --check
+        language: system
+        types: [python]
+      - id: mypy
+        name: mypy
+        entry: python -m mypy src
+        language: system
+        pass_filenames: false
+        types: [python]

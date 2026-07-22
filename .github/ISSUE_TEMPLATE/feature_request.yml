@@ -1,0 +1,69 @@
+name: Đề xuất tính năng
+description: Đề xuất thay đổi có mục tiêu, tiêu chí nghiệm thu và giới hạn rõ.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Vấn đề cần giải quyết
+      description: Ai gặp vấn đề, trong tình huống nào và bằng chứng là gì?
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Kết quả mong muốn
+      description: Mô tả outcome/acceptance criteria, không chỉ mô tả implementation.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Khu vực ảnh hưởng
+      options:
+        - Zalo webhook/OA adapter
+        - Agent/prompt
+        - Registry/search
+        - Voice/STT
+        - Data/evaluation
+        - Operations/infrastructure
+        - Documentation
+        - Khác
+    validations:
+      required: true
+
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Ràng buộc và ngoài phạm vi
+      description: Nêu privacy, policy, latency, quyền Zalo hoặc phần không cần làm.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Tài liệu/bằng chứng
+      description: Với thay đổi integration, dẫn link tài liệu chính thức và ngày kiểm tra.
+
+  - type: textarea
+    id: testing
+    attributes:
+      label: Cách đánh giá
+      description: Metric, test cases hoặc demo scenario chứng minh hoàn thành.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Xác nhận phạm vi MVP
+      options:
+        - label: Đề xuất không giả định tìm kiếm toàn bộ hệ sinh thái Zalo nếu chưa có API/quyền đã xác minh.
+          required: true
+        - label: Đề xuất không cho LLM tự tạo tên hoặc URL dịch vụ.
+          required: true

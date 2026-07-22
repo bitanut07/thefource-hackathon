@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "notice": "Dữ liệu hoàn toàn giả để minh họa schema. Không bật hoặc dùng như dịch vụ đã xác minh.",
+  "services": [
+    {
+      "id": "00000000-0000-4000-8000-000000000001",
+      "name": "Dịch vụ khám mắt minh họa",
+      "provider": "Example Healthcare Provider",
+      "service_type": "website",
+      "category": "healthcare",
+      "description": "Bản ghi giả minh họa nhu cầu tìm nơi khám mắt.",
+      "launch_url": "https://example.com/services/healthcare",
+      "region": "Quận 5, TP.HCM",
+      "target_user": "general",
+      "active": false,
+      "owner": "demo-only",
+      "last_verified_at": null,
+      "service_priority": 0,
+      "aliases": ["khám mắt minh họa", "dịch vụ mắt mẫu"],
+      "intents": [
+        {
+          "intent": "find_medical_service",
+          "example_query": "Tìm chỗ khám mắt ở Quận 5 cuối tuần."
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000002",
+      "name": "Dịch vụ tiện ích minh họa",
+      "provider": "Example Utilities Provider",
+      "service_type": "website",
+      "category": "utilities",
+      "description": "Bản ghi giả minh họa nhu cầu tra cứu hoặc thanh toán tiện ích.",
+      "launch_url": "https://example.com/services/utilities",
+      "region": "TP.HCM",
+      "target_user": "general",
+      "active": false,
+      "owner": "demo-only",
+      "last_verified_at": null,
+      "service_priority": 0,
+      "aliases": ["tiện ích minh họa", "thanh toán hóa đơn mẫu"],
+      "intents": [
+        {
+          "intent": "pay_utility_bill",
+          "example_query": "Tôi muốn đóng tiền điện ở TP.HCM."
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000003",
+      "name": "Dịch vụ học toán minh họa",
+      "provider": "Example Education Provider",
+      "service_type": "website",
+      "category": "education",
+      "description": "Bản ghi giả minh họa nhu cầu tìm nội dung học toán lớp 5.",
+      "launch_url": "https://example.com/services/education",
+      "region": "online",
+      "target_user": "grade_5_student",
+      "active": false,
+      "owner": "demo-only",
+      "last_verified_at": null,
+      "service_priority": 0,
+      "aliases": ["học toán mẫu", "toán lớp năm minh họa"],
+      "intents": [
+        {
+          "intent": "find_education_service",
+          "example_query": "Tìm ứng dụng học toán cho cháu lớp 5."
+        }
+      ]
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000004",
+      "name": "Dịch vụ tuyến xe minh họa",
+      "provider": "Example Public Services Provider",
+      "service_type": "website",
+      "category": "transport_public",
+      "description": "Bản ghi giả minh họa nhu cầu tra cứu tuyến xe.",
+      "launch_url": "https://example.com/services/transport",
+      "region": "TP.HCM",
+      "target_user": "general",
+      "active": false,
+      "owner": "demo-only",
+      "last_verified_at": null,
+      "service_priority": 0,
+      "aliases": ["tuyến xe mẫu", "tra cứu xe minh họa"],
+      "intents": [
+        {
+          "intent": "find_public_transport",
+          "example_query": "Tìm dịch vụ tra cứu tuyến xe đến bệnh viện."
+        }
+      ]
+    }
+  ]
+}
