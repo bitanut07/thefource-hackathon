@@ -8,7 +8,7 @@ x-app-environment: &app-environment
   API_HOST: 0.0.0.0
   API_PORT: 8000
   PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-}
-  REGISTRY_DATA_PATH: ${REGISTRY_DATA_PATH:-data/seed/services.example.json}
+  REGISTRY_DATA_PATH: ${REGISTRY_DATA_PATH:-data/demo/services.local.json}
   REDIS_URL: redis://redis:6379/0
   RQ_QUEUE_NAME: ${RQ_QUEUE_NAME:-zalo-navigator}
   ZALO_API_BASE_URL: ${ZALO_API_BASE_URL:-}
@@ -23,7 +23,7 @@ x-app-environment: &app-environment
   LLM_API_KEY: ${LLM_API_KEY:-}
   STT_PROVIDER: ${STT_PROVIDER:-fake}
   STT_API_KEY: ${STT_API_KEY:-}
-  ALLOWED_LAUNCH_HOSTS: ${ALLOWED_LAUNCH_HOSTS:-}
+  ALLOWED_LAUNCH_HOSTS: ${ALLOWED_LAUNCH_HOSTS:-example.com}
   AUDIO_RETENTION_SECONDS: ${AUDIO_RETENTION_SECONDS:-900}
   UID_HASH_SALT: ${UID_HASH_SALT:-}
   SENTRY_DSN: ${SENTRY_DSN:-}
@@ -52,7 +52,7 @@ services:
       - "8000"
       - --reload
     ports:
-      - "${API_PORT:-8000}:8000"
+      - "127.0.0.1:${API_PORT:-8000}:8000"
     volumes:
       - ./src:/app/src:ro
       - ./data:/app/data:ro

@@ -1,21 +1,38 @@
 from fastapi import FastAPI
+from redis import Redis
+from rq import Queue
 
-from api import health, webhook
+from api import demo, health, webhook
 from config import Settings, get_settings
+from skills.factory import build_navigator
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
-    """Tạo FastAPI app tối thiểu cho API process."""
+    """Tạo FastAPI app và các dependency của local text MVP."""
     app_settings = settings or get_settings()
-    docs_url = None if app_settings.app_env == "production" else "/docs"
+    is_production = app_settings.app_env.strip().casefold() == "production"
+    docs_url = None if is_production else "/docs"
     app = FastAPI(
         title="Zalo AI Service Navigator",
         version="0.1.0",
         docs_url=docs_url,
         redoc_url=None,
     )
+    redis_connection = Redis.from_url(
+        app_settings.redis_url,
+        socket_connect_timeout=2,
+        socket_timeout=2,
+        health_check_interval=30,
+    )
+    app.state.settings = app_settings
+    app.state.redis_connection = redis_connection
+    app.state.queue = Queue(app_settings.rq_queue_name, connection=redis_connection)
+    app.state.navigator = build_navigator(app_settings)
+
     app.include_router(health.router)
     app.include_router(webhook.router)
+    if not is_production:
+        app.include_router(demo.router)
     return app
 
 

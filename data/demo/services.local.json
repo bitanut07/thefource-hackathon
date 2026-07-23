@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "notice": "Dữ liệu giả chỉ dùng để chạy local demo; không phải dịch vụ đã xác minh.",
+  "services": [
+    {
+      "id": "10000000-0000-4000-8000-000000000001",
+      "name": "Phòng khám mắt Demo",
+      "provider": "Demo Healthcare",
+      "service_type": "website",
+      "category": "healthcare",
+      "description": "Dịch vụ minh họa hỗ trợ tìm nơi khám mắt.",
+      "launch_url": "https://example.com/demo/healthcare/eye-care",
+      "region": "Quận 5, TP.HCM",
+      "target_user": "general",
+      "active": true,
+      "owner": "local-demo",
+      "last_verified_at": "2026-07-23T00:00:00+07:00",
+      "service_priority": 80,
+      "aliases": ["khám mắt", "bác sĩ mắt", "nhãn khoa"],
+      "intents": [
+        {
+          "intent": "find_medical_service",
+          "example_query": "Tìm chỗ khám mắt ở Quận 5."
+        }
+      ]
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000002",
+      "name": "Thanh toán tiện ích Demo",
+      "provider": "Demo Utilities",
+      "service_type": "website",
+      "category": "utilities",
+      "description": "Dịch vụ minh họa tra cứu và thanh toán hóa đơn điện nước.",
+      "launch_url": "https://example.com/demo/utilities/bills",
+      "region": "TP.HCM",
+      "target_user": "general",
+      "active": true,
+      "owner": "local-demo",
+      "last_verified_at": "2026-07-23T00:00:00+07:00",
+      "service_priority": 70,
+      "aliases": ["đóng tiền điện", "thanh toán hóa đơn", "tiền nước"],
+      "intents": [
+        {
+          "intent": "pay_utility_bill",
+          "example_query": "Tôi muốn đóng tiền điện ở TP.HCM."
+        }
+      ]
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000003",
+      "name": "Học toán lớp 5 Demo",
+      "provider": "Demo Education",
+      "service_type": "website",
+      "category": "education",
+      "description": "Dịch vụ minh họa nội dung học toán dành cho học sinh lớp 5.",
+      "launch_url": "https://example.com/demo/education/math-grade-5",
+      "region": "online",
+      "target_user": "grade_5_student",
+      "active": true,
+      "owner": "local-demo",
+      "last_verified_at": "2026-07-23T00:00:00+07:00",
+      "service_priority": 60,
+      "aliases": ["học toán", "toán lớp 5", "toán lớp năm"],
+      "intents": [
+        {
+          "intent": "find_education_service",
+          "example_query": "Tìm ứng dụng học toán cho cháu lớp 5."
+        }
+      ]
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000004",
+      "name": "Tra cứu tuyến xe Demo",
+      "provider": "Demo Public Services",
+      "service_type": "website",
+      "category": "transport_public",
+      "description": "Dịch vụ minh họa tra cứu tuyến xe buýt và giao thông công cộng.",
+      "launch_url": "https://example.com/demo/transport/routes",
+      "region": "TP.HCM",
+      "target_user": "general",
+      "active": true,
+      "owner": "local-demo",
+      "last_verified_at": "2026-07-23T00:00:00+07:00",
+      "service_priority": 50,
+      "aliases": ["tuyến xe", "xe buýt", "bus"],
+      "intents": [
+        {
+          "intent": "find_public_transport",
+          "example_query": "Tìm dịch vụ tra cứu tuyến xe đến bệnh viện."
+        }
+      ]
+    }
+  ]
+}

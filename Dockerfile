@@ -5,7 +5,6 @@ ARG PYTHON_VERSION=3.12
 FROM python:${PYTHON_VERSION}-slim AS builder
 
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
-    PIP_NO_CACHE_DIR=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     VIRTUAL_ENV=/opt/venv
 
@@ -15,7 +14,7 @@ ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
 WORKDIR /build
 COPY pyproject.toml README.md ./
 COPY src ./src
-RUN pip install .
+RUN --mount=type=cache,target=/root/.cache/pip pip install .
 
 
 FROM python:${PYTHON_VERSION}-slim AS runtime

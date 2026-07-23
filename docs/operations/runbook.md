@@ -2,7 +2,11 @@
 
 ## Sơ đồ vận hành
 
-`compose.yaml` chạy API, RQ worker và Redis cho môi trường phát triển. Service Registry là file JSON 20-40 record được review và sẽ nạp vào bộ nhớ process. Hiện API chỉ có health và webhook chặn bằng `501`; worker cùng adapter nghiệp vụ vẫn là hàm `# TODO` và ném `NotImplementedError`. Loader registry, xử lý event, LLM, STT, Zalo, guardrail và audit chưa phải năng lực runtime hiện có.
+`compose.yaml` chạy API, RQ worker và Redis cho môi trường phát triển. Local MVP
+nạp Service Registry JSON vào bộ nhớ và xử lý text bằng fake deterministic
+provider qua `/demo/query` hoặc `/demo/queue`. Webhook Zalo vẫn chặn bằng `501`;
+signature/idempotency, adapter Zalo thật, LLM/STT thật và audio chưa phải năng
+lực runtime hiện có.
 
 ## Khởi động local
 
@@ -48,13 +52,15 @@ Chạy ở terminal B:
 
 ```bash
 make check PYTHON=.venv/bin/python       # lint + typecheck + test
-make seed PYTHON=.venv/bin/python        # chỉ validate fixture; loader bộ nhớ là TODO
+make seed PYTHON=.venv/bin/python        # validate fixture registry mặc định
 make tree        # xem cấu trúc repo
 docker compose logs -f api worker
 docker compose down
 ```
 
-`make seed` trong scaffold là validation gate cho `data/seed/services.example.json`. Loader nạp file JSON vào registry bộ nhớ là TODO có chủ đích; không tuyên bố registry đã sẵn sàng chỉ vì validation pass.
+`make seed` là validation gate cho `data/seed/services.example.json`. Runtime
+loader validate đầy đủ file tại `REGISTRY_DATA_PATH` khi dựng pipeline. Registry
+demo pass không có nghĩa các dịch vụ đã được xác minh để dùng thật.
 
 ## Kiểm tra trước khi bật webhook thật
 

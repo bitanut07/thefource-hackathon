@@ -1,8 +1,16 @@
 # Tổng quan kiến trúc mục tiêu của MVP
 
-## Trạng thái skeleton
+## Trạng thái local MVP
 
-Các sơ đồ dưới đây mô tả đích triển khai theo plan, không phải tính năng hiện đã chạy. Hiện tại webhook cố ý trả `501 ZALO_CONTRACT_NOT_CONFIGURED`; worker và các adapter nghiệp vụ chủ động ném `NotImplementedError` tại vị trí `# TODO`. Readiness chưa probe dependency. Mọi xử lý signature, idempotency, audio, search, allowlist, response finalization và audit writer phải được hoàn thiện trước khi bật dữ liệu/provider thật.
+Luồng text local đã chạy qua `POST /demo/query` hoặc Redis/RQ qua
+`POST /demo/queue`: rule-based intent extraction, registry JSON trong bộ nhớ,
+hard filter, ranking, URL allowlist và response finalization. Readiness hiện
+probe Redis và registry được validate fail-fast khi app/worker dựng pipeline.
+
+Webhook Zalo vẫn cố ý trả `501 ZALO_CONTRACT_NOT_CONFIGURED`. Signature,
+idempotency, Zalo send-message, provider LLM/STT thật và xử lý audio vẫn phải
+được hoàn thiện trước khi bật OA hoặc dữ liệu thật. Dữ liệu trong `data/demo/`
+chỉ là fixture local.
 
 ## Bối cảnh và phạm vi
 

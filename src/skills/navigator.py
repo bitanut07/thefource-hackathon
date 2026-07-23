@@ -6,8 +6,8 @@ from llm.schemas import AgentResponse, ServiceCandidate, StructuredQuery
 
 class IntentExtractor(Protocol):
     async def extract_structured_query(self, text: str) -> StructuredQuery:
-        # TODO: Trích xuất truy vấn có cấu trúc bằng LLM client đã cấu hình.
-        raise NotImplementedError("Chưa triển khai contract trích xuất ý định")
+        """Extract a structured query from untrusted user text."""
+        ...
 
 
 class ResponseComposer(Protocol):
@@ -16,8 +16,61 @@ class ResponseComposer(Protocol):
         query: StructuredQuery,
         candidates: list[ServiceCandidate],
     ) -> AgentResponse:
-        # TODO: Soạn phản hồi chỉ từ candidate đã được backend phê duyệt.
-        raise NotImplementedError("Chưa triển khai contract soạn phản hồi")
+        """Compose a response using only backend-provided candidates."""
+        ...
+
+
+class TemplateResponseComposer:
+    """Deterministic response policy that never creates services or URLs."""
+
+    async def compose(
+        self,
+        query: StructuredQuery,
+        candidates: list[ServiceCandidate],
+    ) -> AgentResponse:
+        if query.out_of_scope:
+            return AgentResponse(
+                message=(
+                    "Mình chưa thể thực hiện yêu cầu này. "
+                    "Mình có thể giúp bạn tìm dịch vụ y tế, điện - hóa đơn, "
+                    "giáo dục hoặc giao thông công cộng."
+                )
+            )
+
+        if query.needs_clarification:
+            question = self._clarification_question(query.clarification_field)
+            return AgentResponse(
+                message=question,
+                clarification_question=question,
+            )
+
+        safe_candidates = candidates[:3]
+        if not safe_candidates:
+            return AgentResponse(
+                message=(
+                    "Mình chưa tìm thấy dịch vụ phù hợp trong danh mục đã được kiểm chứng. "
+                    "Bạn có thể thử nới điều kiện hoặc chọn một nhóm dịch vụ khác."
+                )
+            )
+
+        return AgentResponse(
+            message=(
+                f"Mình tìm thấy {len(safe_candidates)} lựa chọn phù hợp "
+                "trong danh mục đã được kiểm chứng."
+            ),
+            choices=safe_candidates,
+        )
+
+    @staticmethod
+    def _clarification_question(field: str | None) -> str:
+        questions = {
+            "service": "Bạn muốn tìm dịch vụ cụ thể nào?",
+            "location": "Bạn muốn tìm dịch vụ ở khu vực nào?",
+            "time": "Bạn cần sử dụng dịch vụ vào thời gian nào?",
+            "target_user": "Dịch vụ này dành cho ai?",
+        }
+        fallback = "Bạn có thể cho biết rõ hơn dịch vụ mình cần không?"
+        return questions.get(field, fallback) if field is not None else fallback
 
 
 class NavigatorSkill:
@@ -31,9 +84,14 @@ class NavigatorSkill:
         search_service: SearchService,
         response_composer: ResponseComposer,
     ) -> None:
-        # TODO: Gắn các contract trích xuất, tìm kiếm và soạn phản hồi.
-        raise NotImplementedError("Chưa triển khai khởi tạo kỹ năng điều hướng")
+        self.intent_extractor = intent_extractor
+        self.search_service = search_service
+        self.response_composer = response_composer
 
     async def process_text(self, text: str) -> AgentResponse:
-        # TODO: Điều phối trích xuất, tìm candidate và soạn phản hồi an toàn.
-        raise NotImplementedError("Chưa triển khai xử lý truy vấn văn bản")
+        query = await self.intent_extractor.extract_structured_query(text)
+        if query.out_of_scope or query.needs_clarification:
+            return await self.response_composer.compose(query, [])
+
+        candidates = await self.search_service.search(query, limit=3)
+        return await self.response_composer.compose(query, candidates[:3])

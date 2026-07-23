@@ -15,6 +15,19 @@ class QueryAudit:
 
 
 class AuditService:
+    """Minimal in-memory audit writer for local development and tests."""
+
+    def __init__(self) -> None:
+        self._entries: list[QueryAudit] = []
+
+    @property
+    def entries(self) -> tuple[QueryAudit, ...]:
+        """Return an immutable snapshot in insertion order."""
+        return tuple(self._entries)
+
     async def record(self, entry: QueryAudit) -> None:
-        # TODO: Ghi audit đã giảm thiểu dữ liệu vào nơi lưu trữ được cấu hình.
-        raise NotImplementedError("Chưa triển khai ghi audit truy vấn")
+        self._entries.append(entry)
+
+
+class InMemoryAuditService(AuditService):
+    """Explicit name for callers that select an in-memory audit backend."""

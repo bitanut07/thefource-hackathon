@@ -2,9 +2,16 @@
 
 Scaffold cho MVP trợ lý AI chạy dưới dạng Zalo Official Account (OA): người dùng nhập text hoặc gửi voice message, hệ thống hiểu nhu cầu, tìm/xếp hạng trong **Service Registry do nhóm kiểm soát** và trả tối đa ba dịch vụ hợp lệ.
 
-> **Trạng thái:** khung khởi đầu cho hackathon, chưa phải tích hợp Zalo production. Endpoint/payload/signature/token lifecycle của Zalo, provider LLM/STT, danh mục dịch vụ thật và ngưỡng chất lượng vẫn cần được xác minh/chốt trước khi demo.
+> **Trạng thái:** nhánh local MVP có thể nhận truy vấn text qua API demo, trích xuất
+> nhu cầu bằng rule deterministic, tìm trong registry JSON và trả tối đa ba kết quả.
+> Đây chưa phải tích hợp Zalo production. Endpoint/payload/signature/token lifecycle
+> của Zalo, provider LLM/STT thật, danh mục dịch vụ thật và ngưỡng chất lượng vẫn
+> cần được xác minh/chốt trước khi demo trên OA.
 
-Các module hiện là skeleton: health endpoint chạy được, webhook chủ động trả `501`, còn worker, adapter và nghiệp vụ chính đều dừng ở chữ ký hàm với `# TODO`. Prompt trong `src/llm/prompts/` mới là policy draft, chưa chứng minh guardrail đã được load hoặc enforce ở runtime.
+Local text flow đã có registry loader, hard filter, rule-based ranking, URL allowlist,
+fake intent extractor, response composer và RQ job. `POST /webhooks/zalo` vẫn chủ
+động trả `501`; adapter Zalo thật và voice/STT chưa được bật. Prompt trong
+`src/llm/prompts/` vẫn là policy draft và chưa được dùng làm provider LLM thật.
 
 PDF kế hoạch gốc được giữ cục bộ tại `docs/Zalo_AI_Service_Navigator_Plan.pdf` và không commit lên GitHub. Tài liệu kỹ thuật đã tổng hợp nằm tại [docs/README.md](./docs/README.md).
 
@@ -67,6 +74,13 @@ make setup
 
 `make setup` chỉ tạo `.env` và `.venv`, không cài dependency. Giữ `LLM_PROVIDER=fake` và `STT_PROVIDER=fake` khi chưa có integration đã xác minh.
 
+Trên Windows/PowerShell có thể tạo cấu hình local mà không cần Make:
+
+```powershell
+Copy-Item .env.example .env
+docker compose up --build -d
+```
+
 Ở terminal A:
 
 ```bash
@@ -82,7 +96,36 @@ curl --fail http://localhost:8000/health/ready
 
 `POST /webhooks/zalo` hiện cố ý trả `501 ZALO_CONTRACT_NOT_CONFIGURED`. Đây là safety gate cho đến khi signature, event schema, acknowledgement và retry contract được xác minh bằng fixture/test chính thức.
 
-`/health/ready` hiện cũng là scaffold response và chưa probe Redis; không dùng endpoint này làm production readiness gate cho đến khi dependency checks được triển khai.
+`/health/ready` kiểm tra kết nối Redis. Các provider Zalo/LLM/STT thật vẫn cần
+dependency check riêng trước khi dùng endpoint này làm production readiness gate.
+
+### Chạy local text MVP không cần Zalo OA
+
+Mở Swagger tại `http://localhost:8000/docs`, chọn `POST /demo/query` và gửi:
+
+```json
+{
+  "text": "Tôi muốn đóng tiền điện ở TP.HCM."
+}
+```
+
+Hoặc gọi bằng PowerShell:
+
+```powershell
+$body = @{ text = "Tìm chỗ khám mắt ở Quận 5." } | ConvertTo-Json
+Invoke-RestMethod `
+  -Method Post `
+  -Uri http://localhost:8000/demo/query `
+  -ContentType application/json `
+  -Body $body
+```
+
+`POST /demo/queue` đưa cùng payload qua Redis/RQ. Dùng `job_id` trả về để đọc
+kết quả tại `GET /demo/jobs/{job_id}`. Các route `/demo/*` chỉ được bật ngoài
+môi trường `production`.
+
+Dữ liệu tại `data/demo/services.local.json` hoàn toàn giả và chỉ dùng để thử
+pipeline. Không dùng các URL hoặc bản ghi này như dịch vụ đã được xác minh.
 
 Dừng local stack:
 
@@ -90,7 +133,9 @@ Dừng local stack:
 docker compose down
 ```
 
-Scaffold không tự chạy `git init`, không tạo remote và không ghi credential. `make seed` hiện chỉ validate fixture; loader nạp registry JSON vào bộ nhớ vẫn là TODO.
+Scaffold không tự chạy `git init`, không tạo remote và không ghi credential.
+`make seed` vẫn validate fixture mặc định; runtime loader đọc file được cấu hình
+bởi `REGISTRY_DATA_PATH`.
 
 ## Lệnh thường dùng
 
