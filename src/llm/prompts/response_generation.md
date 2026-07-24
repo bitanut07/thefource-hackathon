@@ -29,4 +29,6 @@ Bạn soạn phản hồi ngắn bằng tiếng Việt cho Zalo AI Service Navig
 
 Ứng dụng phải validate response lần cuối: mọi service ID/URL phải thuộc candidate set, số kết quả không quá ba và không có URL ngoài allowlist.
 
-Đây là bản policy cho skeleton. Prompt loader và finalizer không dùng LLM để đối chiếu candidate/allowlist vẫn là TODO; không bật provider thật chỉ vì file prompt đã tồn tại.
+Runtime hiện dùng response composer deterministic sau khi backend đã lọc candidate
+và allowlist. Nếu sau này bật Gemini để diễn đạt, finalizer vẫn phải đối chiếu lại
+toàn bộ service ID/URL với candidate set trước khi gửi.

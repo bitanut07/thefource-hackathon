@@ -27,7 +27,7 @@ typecheck: ## Chạy kiểm tra kiểu tĩnh.
 check: ## Chạy lint, kiểm tra kiểu và test.
 	PYTHON=$(PYTHON) ./scripts/check.sh
 
-seed: ## Kiểm tra fixture registry JSON; chưa nạp vào runtime.
+seed: ## Kiểm tra registry thật mặc định; không thay đổi dữ liệu.
 	$(PYTHON) scripts/seed_registry.py
 
 tree: ## In cây repository và bỏ qua file sinh tự động.

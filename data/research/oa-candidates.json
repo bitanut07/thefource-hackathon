@@ -1,0 +1,2815 @@
+{
+  "schema_version": "0.1",
+  "generated_at": "2026-07-23T00:00:00+07:00",
+  "source_scope": "public_first_party_only",
+  "services": [
+    {
+      "candidate_id": "education-edupia-oa",
+      "name": "Edupia",
+      "provider": "Công ty Cổ phần Giáo dục Educa Corporation",
+      "channel_type": "oa",
+      "category": "education",
+      "subcategory": "online_english_learning",
+      "description": "Nền tảng học tiếng Anh trực tuyến cho học sinh từ 6 đến 15 tuổi, gồm chương trình tự học và gia sư online. OA công khai được website Edupia liên kết và Zalo liệt kê trong danh sách đối tác.",
+      "launch_url": "https://zalo.me/3359099682314876895",
+      "official_website": "https://edupia.vn/",
+      "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/edu.png",
+      "regions": [
+        "Trực tuyến toàn quốc, Việt Nam"
+      ],
+      "target_users": [
+        "Học sinh từ 6 đến 15 tuổi",
+        "Học sinh tiểu học và trung học cơ sở",
+        "Phụ huynh cần theo dõi và hỗ trợ việc học"
+      ],
+      "capabilities": [
+        "Học tiếng Anh trực tuyến",
+        "Chương trình tự học",
+        "Gia sư tiếng Anh online",
+        "Luyện nghe, nói, đọc và viết",
+        "Theo dõi kết quả học tập"
+      ],
+      "aliases": [
+        "EDUPIA",
+        "Edupia AI",
+        "Edupia Pro",
+        "tiếng Anh online cho trẻ"
+      ],
+      "intents": [
+        {
+          "intent": "find_online_english_course",
+          "example_queries": [
+            "Tìm khóa học tiếng Anh online cho bé lớp 5",
+            "Con tôi 10 tuổi muốn học tiếng Anh",
+            "Tìm ứng dụng luyện phát âm cho học sinh"
+          ]
+        },
+        {
+          "intent": "get_education_support",
+          "example_queries": [
+            "Tư vấn khóa học Edupia",
+            "Tôi muốn nhận kết quả học của con qua Zalo",
+            "Tìm gia sư tiếng Anh online"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://edupia.vn/about-us",
+          "publisher": "Edupia",
+          "supports": [
+            "Trang giới thiệu chính thức mô tả chương trình học online, đối tượng 6-15 tuổi, sản phẩm tự học và gia sư; footer liên kết đúng OA."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://oa.zalo.me/home",
+          "publisher": "Zalo Official Account",
+          "supports": [
+            "Dữ liệu PARTNERS trên trang Zalo OA chính thức liệt kê Edupia với launch URL và logo tham chiếu tương ứng."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://oa.zalo.me/3359099682314876895",
+          "publisher": "Edupia trên Zalo",
+          "supports": [
+            "Đường dẫn OA được website Edupia chính chủ công khai liên kết và trả về nội dung công khai."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "oa_badge_status": "unknown",
+        "confidence": "high",
+        "notes": "Website chính chủ và danh sách đối tác Zalo cùng trỏ tới một OA. Chưa quan sát trực tiếp dấu xác minh trên giao diện OA."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "education-monkey-math-web",
+      "name": "Monkey Math",
+      "provider": "Công ty Cổ phần Early Start",
+      "channel_type": "website",
+      "category": "education",
+      "subcategory": "primary_math_in_english",
+      "description": "Ứng dụng học Toán bằng tiếng Anh theo chương trình giáo dục phổ thông cho trẻ mầm non và tiểu học, sử dụng hình ảnh và trò chơi tương tác để phát triển tư duy toán học.",
+      "launch_url": "https://monkey.edu.vn/san-pham/monkey-math",
+      "official_website": "https://monkey.edu.vn/",
+      "logo_url": "https://vnmedia2.monkeyuni.net/upload/web/storage_web/23-12-2021_16:49:30_MM.png",
+      "regions": [
+        "Trực tuyến tại Việt Nam"
+      ],
+      "target_users": [
+        "Trẻ mầm non",
+        "Học sinh tiểu học",
+        "Phụ huynh muốn con học Toán bằng tiếng Anh"
+      ],
+      "capabilities": [
+        "Học Toán bằng tiếng Anh",
+        "Nội dung theo chương trình giáo dục phổ thông",
+        "Học qua hình ảnh và trò chơi tương tác",
+        "Phát triển tư duy logic",
+        "Dùng thử và tải ứng dụng"
+      ],
+      "aliases": [
+        "MonkeyMath",
+        "Monkey Math App",
+        "toán tiếng Anh cho trẻ",
+        "ứng dụng học toán tiểu học"
+      ],
+      "intents": [
+        {
+          "intent": "learn_primary_math_in_english",
+          "example_queries": [
+            "Tìm ứng dụng học Toán bằng tiếng Anh cho bé",
+            "Con lớp 5 muốn học Toán tiếng Anh",
+            "Tìm chương trình Toán cho học sinh tiểu học"
+          ]
+        },
+        {
+          "intent": "find_game_based_math_learning",
+          "example_queries": [
+            "Có app học Toán qua trò chơi không?",
+            "Tìm cách giúp bé luyện tư duy logic",
+            "Tôi muốn cho con dùng thử Monkey Math"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://monkey.edu.vn/san-pham/monkey-math",
+          "publisher": "Monkey",
+          "supports": [
+            "Trang sản phẩm chính thức xác nhận đối tượng mầm non và tiểu học, học Toán bằng tiếng Anh, nội dung theo chương trình giáo dục phổ thông, trò chơi tương tác và đơn vị vận hành Early Start."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website; chưa xác minh OA hoặc Mini App. Logo URL là tài sản công khai trên hạ tầng của nhà cung cấp, chỉ dùng làm tham chiếu."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "education-olm-web",
+      "name": "OLM",
+      "provider": "Công ty Cổ phần Khoa học và Công nghệ Giáo dục",
+      "channel_type": "website",
+      "category": "education",
+      "subcategory": "k12_learning_platform",
+      "description": "Nền tảng giáo dục số có học liệu tương tác bám sát sách giáo khoa từ mầm non đến lớp 12, hỗ trợ học, luyện đề, hỏi đáp, thi đấu và theo dõi tiến độ.",
+      "launch_url": "https://olm.vn/",
+      "official_website": "https://olm.vn/",
+      "logo_url": "https://olm.vn/images/logo-og-1.jpg",
+      "regions": [
+        "Trực tuyến toàn quốc, Việt Nam"
+      ],
+      "target_users": [
+        "Học sinh từ mầm non đến lớp 12",
+        "Phụ huynh",
+        "Giáo viên và nhà trường"
+      ],
+      "capabilities": [
+        "Học liệu Toán, Tiếng Việt, Ngữ văn và Tiếng Anh",
+        "Kho bài giảng và bài tập",
+        "Hỏi đáp với cộng đồng",
+        "Luyện đề và đánh giá năng lực",
+        "Theo dõi tiến độ học",
+        "Học trực tiếp với giáo viên OLM"
+      ],
+      "aliases": [
+        "OLM.vn",
+        "Ô Lờ Mờ",
+        "nền tảng OLM",
+        "học trực tuyến lớp 5"
+      ],
+      "intents": [
+        {
+          "intent": "learn_k12_subject",
+          "example_queries": [
+            "Tìm khóa học Toán lớp 5",
+            "Con tôi cần ôn tập lớp 4 lên lớp 5",
+            "Tìm học liệu bám sát sách giáo khoa"
+          ]
+        },
+        {
+          "intent": "practice_exam_or_ask_question",
+          "example_queries": [
+            "Tìm đề kiểm tra Toán lớp 5",
+            "Tôi muốn hỏi đáp bài tập",
+            "Tìm lớp học trực tiếp với giáo viên"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://olm.vn/",
+          "publisher": "OLM",
+          "supports": [
+            "Trang chính thức liệt kê học liệu theo khối lớp và môn học, hỏi đáp, kho đề, thi đấu, báo cáo tiến độ, sản phẩm OLM Class và đơn vị vận hành."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://class.olm.vn/",
+          "publisher": "OLM Class",
+          "supports": [
+            "Trang chính thức mô tả dịch vụ học trực tiếp với giáo viên, lộ trình học và cập nhật tiến độ cho phụ huynh."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website; footer có biểu tượng Zalo nhưng chưa xác minh đích OA nên không gán channel_type là OA."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "education-qanda-web",
+      "name": "QANDA",
+      "provider": "Mathpresso, Inc.",
+      "channel_type": "website",
+      "category": "education",
+      "subcategory": "ai_homework_help",
+      "description": "Dịch vụ hỗ trợ học tập bằng chat và hình ảnh, có tìm kiếm lời giải, lời giải AI theo từng bước và hỏi đáp với giáo viên; cung cấp giao diện tiếng Việt.",
+      "launch_url": "https://qanda.ai/vi",
+      "official_website": "https://qanda.ai/vi",
+      "logo_url": "https://qanda.ai/og-image.png",
+      "regions": [
+        "Trực tuyến tại Việt Nam"
+      ],
+      "target_users": [
+        "Học sinh cần hỗ trợ làm bài",
+        "Người học cần lời giải từng bước",
+        "Học sinh cần hỏi giáo viên"
+      ],
+      "capabilities": [
+        "Đặt câu hỏi bằng chat",
+        "Chụp ảnh bài tập để tìm lời giải",
+        "Lời giải AI theo từng bước",
+        "Tìm lời giải tương tự",
+        "Hỏi đáp với giáo viên"
+      ],
+      "aliases": [
+        "Qanda",
+        "QANDA Study",
+        "gia sư AI",
+        "app giải bài tập"
+      ],
+      "intents": [
+        {
+          "intent": "solve_homework_with_ai",
+          "example_queries": [
+            "Tìm ứng dụng giải toán lớp 5",
+            "Tôi muốn chụp bài toán để xem lời giải",
+            "Giải thích từng bước bài tập này"
+          ]
+        },
+        {
+          "intent": "ask_teacher_for_homework_help",
+          "example_queries": [
+            "Tôi muốn hỏi giáo viên về bài toán",
+            "Có gia sư online giải thích bài này không?",
+            "Tìm hỗ trợ học Toán và Khoa học"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://qanda.ai/vi",
+          "publisher": "QANDA / Mathpresso",
+          "supports": [
+            "Website chính thức có giao diện tiếng Việt, chat học tập, tải ứng dụng và xác nhận đơn vị cung cấp Mathpresso."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://qandahelp.qanda.ai/hc/en-us/articles/32992015661337-How-can-I-solve-my-problems",
+          "publisher": "QANDA Help Center",
+          "supports": [
+            "Trung tâm trợ giúp chính thức mô tả giải bài bằng chat, ảnh, tìm kiếm lời giải, lời giải AI và phản hồi theo từng bước."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://qandahelp.qanda.ai/hc/en-us/articles/32993041388057-How-do-I-ask-a-question",
+          "publisher": "QANDA Help Center",
+          "supports": [
+            "Trung tâm trợ giúp chính thức mô tả quy trình gửi câu hỏi bằng ảnh cho giáo viên và hỏi tiếp trong chat."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh website và trung tâm trợ giúp chính thức; không xác minh OA hoặc Mini App."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "education-vioedu-web",
+      "name": "VioEdu",
+      "provider": "Công ty TNHH FPT IS",
+      "channel_type": "website",
+      "category": "education",
+      "subcategory": "adaptive_k12_learning",
+      "description": "Nền tảng tự học trực tuyến với AI, có Toán, Tiếng Việt và Toán tiếng Anh theo khối lớp; cung cấp lộ trình cá nhân hóa, bài kiểm tra, thách đấu và báo cáo học tập.",
+      "launch_url": "https://www.vio.edu.vn/",
+      "official_website": "https://www.vio.edu.vn/",
+      "logo_url": "https://s3.vio.edu.vn/assets/img/icon.png",
+      "regions": [
+        "Trực tuyến toàn quốc, Việt Nam"
+      ],
+      "target_users": [
+        "Học sinh lớp 1 đến lớp 12",
+        "Phụ huynh",
+        "Giáo viên và nhà trường"
+      ],
+      "capabilities": [
+        "Học Toán lớp 1 đến lớp 12",
+        "Học Tiếng Việt và Toán tiếng Anh ở tiểu học",
+        "Lộ trình học cá nhân hóa bằng AI",
+        "Bài kiểm tra và luyện tập",
+        "Thách đấu và đấu trường",
+        "Báo cáo tiến độ cho phụ huynh"
+      ],
+      "aliases": [
+        "Vio Edu",
+        "VioEdu Toán",
+        "toán trực tuyến",
+        "học toán lớp 5"
+      ],
+      "intents": [
+        {
+          "intent": "learn_grade_5_math",
+          "example_queries": [
+            "Tìm ứng dụng học toán lớp 5",
+            "Con tôi cần luyện Toán lớp 5",
+            "Có lộ trình Toán cá nhân hóa cho học sinh không?"
+          ]
+        },
+        {
+          "intent": "practice_and_track_learning",
+          "example_queries": [
+            "Tìm bài kiểm tra Toán online",
+            "Tôi muốn xem tiến độ học của con",
+            "Tìm đấu trường Toán cho học sinh"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://www.vio.edu.vn/",
+          "publisher": "VioEdu",
+          "supports": [
+            "Trang chính thức mô tả nền tảng AI, môn học và khối lớp, lộ trình cá nhân hóa, kiểm tra, thách đấu, báo cáo và xác nhận đơn vị vận hành là Công ty TNHH FPT IS."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website và ứng dụng được liên kết từ website; chưa xác minh OA hoặc Mini App."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "cgv-cinemas-vietnam-oa",
+      "name": "CGV Cinemas Vietnam",
+      "provider": "CGV Việt Nam",
+      "channel_type": "oa",
+      "category": "entertainment",
+      "subcategory": "cinema",
+      "description": "Kênh CGV Cinemas Vietnam trên Zalo cung cấp thông tin trải nghiệm điện ảnh và hỗ trợ trao đổi với rạp.",
+      "launch_url": "https://zalo.me/1884424922722396289",
+      "official_website": "https://www.cgv.vn/",
+      "logo_url": null,
+      "regions": [
+        "Nhiều tỉnh thành Việt Nam"
+      ],
+      "target_users": [
+        "người xem phim",
+        "khách hàng CGV"
+      ],
+      "capabilities": [
+        "xem thông tin rạp phim",
+        "tìm nội dung điện ảnh",
+        "nhắn tin với OA"
+      ],
+      "aliases": [
+        "CGV",
+        "CGV Cinemas",
+        "rạp CGV"
+      ],
+      "intents": [
+        {
+          "intent": "find_cinema",
+          "example_queries": [
+            "Tìm rạp CGV gần tôi.",
+            "Mở kênh CGV để hỏi lịch chiếu."
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://zalo.me/1884424922722396289",
+          "publisher": "CGV Cinemas Vietnam trên Zalo",
+          "supports": [
+            "tên trang",
+            "lĩnh vực điện ảnh",
+            "khả năng nhắn tin"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://www.cgv.vn/",
+          "publisher": "CGV Việt Nam",
+          "supports": [
+            "miền dịch vụ chính chủ"
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": null,
+        "oa_badge_status": "unknown",
+        "confidence": "medium",
+        "notes": "Chưa xác minh được badge, liên kết ngược hoặc logo có thể tái sử dụng. Không nên hứa đặt vé ngay trong OA khi chưa kiểm thử."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "galaxy-play-oa",
+      "name": "Galaxy Play",
+      "provider": "Galaxy Play",
+      "channel_type": "oa",
+      "category": "entertainment",
+      "subcategory": "video_streaming",
+      "description": "Kênh Galaxy Play giới thiệu dịch vụ xem phim Việt, phim châu Á, Hollywood và anime trên nền tảng trực tuyến.",
+      "launch_url": "https://zalo.me/3855721373518931649",
+      "official_website": "https://galaxyplay.vn/",
+      "logo_url": "https://assets.glxplay.io/web/images/logo-glxplay.original.png",
+      "regions": [
+        "Trực tuyến"
+      ],
+      "target_users": [
+        "người xem phim trực tuyến",
+        "khách hàng Galaxy Play"
+      ],
+      "capabilities": [
+        "xem thông tin dịch vụ phim",
+        "tìm nội dung giải trí",
+        "nhắn tin với OA"
+      ],
+      "aliases": [
+        "Galaxy Play",
+        "GalaxyPlay",
+        "xem phim Galaxy"
+      ],
+      "intents": [
+        {
+          "intent": "find_video_streaming",
+          "example_queries": [
+            "Tìm dịch vụ xem phim Việt online.",
+            "Mở Galaxy Play để xem thông tin gói phim."
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://zalo.me/3855721373518931649",
+          "publisher": "Galaxy Play trên Zalo",
+          "supports": [
+            "tên OA",
+            "các nhóm nội dung phim",
+            "website và hotline"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://galaxyplay.vn/",
+          "publisher": "Galaxy Play",
+          "supports": [
+            "dịch vụ trực tuyến",
+            "logo tham chiếu chính chủ"
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": null,
+        "oa_badge_status": "unknown",
+        "confidence": "medium",
+        "notes": "OA trỏ đúng website Galaxy Play; badge và liên kết ngược cần review thủ công."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "nang-cap-zing-mp3-oa",
+      "name": "Nâng cấp Zing MP3",
+      "provider": "Zalo Group",
+      "channel_type": "oa",
+      "category": "entertainment",
+      "subcategory": "music_streaming",
+      "description": "Kênh Zalo cung cấp thông tin mới nhất về các gói nâng cấp của dịch vụ nghe nhạc Zing MP3.",
+      "launch_url": "https://zalo.me/3978989352859844186",
+      "official_website": "https://zingmp3.vn/",
+      "logo_url": "https://static-zmp3.zmdcdn.me/skins/zmp3-v5.2/images/icon_zing_mp3_60.png",
+      "regions": [
+        "Trực tuyến"
+      ],
+      "target_users": [
+        "người nghe nhạc trực tuyến",
+        "người dùng Zing MP3"
+      ],
+      "capabilities": [
+        "xem thông tin gói nâng cấp",
+        "tìm dịch vụ nghe nhạc",
+        "nhận cập nhật Zing MP3"
+      ],
+      "aliases": [
+        "Zing MP3",
+        "ZingMP3",
+        "nâng cấp Zing",
+        "gói Zing MP3"
+      ],
+      "intents": [
+        {
+          "intent": "find_music_streaming",
+          "example_queries": [
+            "Tìm dịch vụ nghe nhạc Zing MP3.",
+            "Tôi muốn xem thông tin gói nâng cấp Zing MP3."
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://zalo.me/3978989352859844186",
+          "publisher": "Nâng cấp Zing MP3 trên Zalo",
+          "supports": [
+            "tên kênh",
+            "mục đích cập nhật gói nâng cấp"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://zalo.me/vi/product/zing-mp3",
+          "publisher": "Zalo",
+          "supports": [
+            "Zing MP3 là sản phẩm trong hệ sinh thái Zalo",
+            "tính năng tìm kiếm nhạc và trải nghiệm nghe nhạc"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://zingmp3.vn/",
+          "publisher": "Zing MP3",
+          "supports": [
+            "dịch vụ nghe nhạc",
+            "icon tham chiếu chính chủ"
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "oa_badge_status": "unknown",
+        "confidence": "medium",
+        "notes": "Kênh chỉ nói về gói nâng cấp, không nên coi là toàn bộ OA hỗ trợ Zing MP3 nếu chưa kiểm thử. Badge vẫn chưa xác minh."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "finance-momo",
+      "name": "MoMo",
+      "provider": "Công ty Cổ phần Dịch vụ Di động Trực tuyến",
+      "channel_type": "website",
+      "category": "finance_banking",
+      "subcategory": "e_wallet",
+      "description": "MoMo cung cấp chuyển tiền, thanh toán hóa đơn điện, nước, Internet và nhiều tiện ích tài chính. Dịch vụ hóa đơn hỗ trợ nhắc hạn, thanh toán tự động và tra cứu lịch sử.",
+      "launch_url": "https://www.momo.vn/",
+      "official_website": "https://www.momo.vn/",
+      "logo_url": "https://www.momo.vn/favicon.ico",
+      "regions": [
+        "Toàn quốc"
+      ],
+      "target_users": [
+        "Người dùng MoMo",
+        "Người cần thanh toán hóa đơn",
+        "Người cần chuyển tiền hoặc quản lý chi tiêu"
+      ],
+      "capabilities": [
+        "transfer_money",
+        "pay_utility_bills",
+        "automatic_bill_payment",
+        "bill_reminders",
+        "view_bill_history"
+      ],
+      "aliases": [
+        "MoMo",
+        "Ví MoMo",
+        "Siêu ứng dụng MoMo",
+        "Siêu MoMo"
+      ],
+      "intents": [
+        {
+          "intent": "pay_bill_with_ewallet",
+          "example_queries": [
+            "Tôi muốn thanh toán hóa đơn bằng MoMo",
+            "Trả tiền điện nước trên MoMo",
+            "Mở dịch vụ hóa đơn MoMo"
+          ]
+        },
+        {
+          "intent": "setup_automatic_bill_payment",
+          "example_queries": [
+            "Cài thanh toán hóa đơn tự động trên MoMo",
+            "Nhắc tôi khi hóa đơn đến hạn",
+            "Tôi muốn không bị trễ hạn tiền điện nước"
+          ]
+        },
+        {
+          "intent": "transfer_money_with_ewallet",
+          "example_queries": [
+            "Chuyển tiền bằng MoMo",
+            "Tôi cần mở tính năng chuyển tiền MoMo",
+            "Tìm ứng dụng MoMo chính thức"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://www.momo.vn/",
+          "publisher": "MoMo",
+          "supports": [
+            "Trang chính thức liệt kê chuyển tiền, thanh toán hóa đơn, quản lý chi tiêu và các tiện ích tài chính."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://www.momo.vn/thanh-toan-hoa-don",
+          "publisher": "MoMo",
+          "supports": [
+            "Trang dịch vụ chính thức mô tả thanh toán hóa đơn điện, nước, Internet, nhắc hạn, thanh toán tự động và tra cứu lịch sử."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "high",
+        "oa_badge_status": "not_applicable",
+        "notes": "Chỉ xác minh website chính chủ; chưa xác minh OA hoặc Mini App Zalo. Navigator chỉ điều hướng, không thu OTP, mật khẩu hoặc dữ liệu tài khoản."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "finance-bidv-oa",
+      "name": "Ngân hàng BIDV",
+      "provider": "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam",
+      "channel_type": "oa",
+      "category": "finance_banking",
+      "subcategory": "banking_support",
+      "description": "Kênh Zalo của BIDV được website chính thức của ngân hàng liên kết. Hệ sinh thái BIDV SmartBanking hỗ trợ thanh toán hóa đơn định kỳ, chuyển tiền và nhiều tiện ích thanh toán.",
+      "launch_url": "https://zalo.me/3644272514222140240",
+      "official_website": "https://bidv.com.vn/",
+      "logo_url": "https://bidv.com.vn/favicon.ico",
+      "regions": [
+        "Toàn quốc"
+      ],
+      "target_users": [
+        "Khách hàng cá nhân BIDV",
+        "Người cần kênh hỗ trợ BIDV chính thức",
+        "Người cần thông tin về BIDV SmartBanking"
+      ],
+      "capabilities": [
+        "banking_customer_support",
+        "find_smartbanking_information",
+        "bill_payment_guidance",
+        "bank_transfer_guidance",
+        "open_official_bidv_channel"
+      ],
+      "aliases": [
+        "BIDV",
+        "Ngân hàng BIDV",
+        "BIDV SmartBanking",
+        "SmartBanking BIDV",
+        "CSKH BIDV"
+      ],
+      "intents": [
+        {
+          "intent": "banking_customer_support",
+          "example_queries": [
+            "Mở Zalo BIDV chính thức",
+            "Tôi cần hỗ trợ từ BIDV",
+            "Tìm kênh chăm sóc khách hàng BIDV"
+          ]
+        },
+        {
+          "intent": "pay_bill_with_bank",
+          "example_queries": [
+            "Thanh toán tiền điện bằng BIDV",
+            "Tôi muốn trả hóa đơn trên BIDV SmartBanking",
+            "Tìm hướng dẫn thanh toán định kỳ BIDV"
+          ]
+        },
+        {
+          "intent": "open_digital_banking",
+          "example_queries": [
+            "Tìm BIDV SmartBanking",
+            "Mở ngân hàng số BIDV",
+            "Tôi muốn dùng tiện ích SmartBanking"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://bidv.com.vn/vn/ca-nhan/san-pham-dich-vu/thanh-toan/don-vi-thanh-toan",
+          "publisher": "BIDV",
+          "supports": [
+            "Trang chính thức mô tả thanh toán hóa đơn qua BIDV SmartBanking và chứa liên kết công khai tới https://zalo.me/3644272514222140240."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://zalo.me/3644272514222140240",
+          "publisher": "Ngân hàng BIDV trên Zalo",
+          "supports": [
+            "Trang Zalo công khai mở được và metadata nhận diện tên “Ngân hàng BIDV”."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "high",
+        "oa_badge_status": "unknown",
+        "notes": "OA URL được lấy từ website BIDV chính chủ. Không quan sát trực tiếp dấu xác minh nên giữ badge ở trạng thái unknown. Chưa xác nhận giao dịch ngân hàng diễn ra trong OA; các capability giao dịch chỉ là thông tin/điều hướng sang SmartBanking."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "finance-vcb-digibank",
+      "name": "VCB Digibank",
+      "provider": "Ngân hàng TMCP Ngoại thương Việt Nam",
+      "channel_type": "website",
+      "category": "finance_banking",
+      "subcategory": "digital_banking",
+      "description": "VCB Digibank là dịch vụ ngân hàng số 24/7 của Vietcombank, hỗ trợ chuyển tiền trong và ngoài ngân hàng, thanh toán điện nước, nạp ví điện tử và mở tiết kiệm.",
+      "launch_url": "https://www.vietcombank.com.vn/vi-VN/KHCN/SPDV/Ngan-hang-so/Ngan-hang-so-VCB-Digibank",
+      "official_website": "https://www.vietcombank.com.vn/",
+      "logo_url": "https://www.vietcombank.com.vn/favicon.ico",
+      "regions": [
+        "Toàn quốc"
+      ],
+      "target_users": [
+        "Khách hàng cá nhân Vietcombank",
+        "Người cần chuyển tiền 24/7",
+        "Người cần thanh toán hóa đơn qua ngân hàng"
+      ],
+      "capabilities": [
+        "bank_transfer",
+        "pay_utility_bills",
+        "ewallet_topup",
+        "open_savings_account",
+        "manage_bank_account"
+      ],
+      "aliases": [
+        "Vietcombank Digibank",
+        "VCB Digital",
+        "ngân hàng số Vietcombank",
+        "app Vietcombank"
+      ],
+      "intents": [
+        {
+          "intent": "open_digital_banking",
+          "example_queries": [
+            "Mở VCB Digibank",
+            "Tôi cần ngân hàng số Vietcombank",
+            "Tìm trang VCB Digibank chính thức"
+          ]
+        },
+        {
+          "intent": "bank_transfer",
+          "example_queries": [
+            "Tôi muốn chuyển tiền bằng Vietcombank",
+            "Mở dịch vụ chuyển tiền 24/7 VCB",
+            "Chuyển tiền liên ngân hàng trên VCB Digibank"
+          ]
+        },
+        {
+          "intent": "pay_bill_with_bank",
+          "example_queries": [
+            "Thanh toán tiền điện nước bằng Vietcombank",
+            "Tôi muốn trả hóa đơn trên VCB Digibank",
+            "Mở dịch vụ thanh toán hóa đơn Vietcombank"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://www.vietcombank.com.vn/vi-VN/KHCN/SPDV/Ngan-hang-so/Ngan-hang-so-VCB-Digibank",
+          "publisher": "Vietcombank",
+          "supports": [
+            "Trang sản phẩm chính thức mô tả dịch vụ 24/7 và các tính năng chuyển tiền, thanh toán điện nước, nạp ví điện tử, mở tiết kiệm."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "high",
+        "oa_badge_status": "not_applicable",
+        "notes": "Chỉ xác minh website sản phẩm chính chủ; chưa xác minh OA hoặc Mini App Zalo. Navigator không được yêu cầu người dùng cung cấp mật khẩu, OTP hoặc số dư tài khoản."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "finance-zalopay",
+      "name": "ZaloPay",
+      "provider": "Công ty Cổ phần ZION",
+      "channel_type": "website",
+      "category": "finance_banking",
+      "subcategory": "e_wallet",
+      "description": "ZaloPay cung cấp chuyển tiền, nạp tiền điện thoại và thanh toán hóa đơn; dịch vụ thanh toán điện có thể được mở ngay trong Zalo hoặc ứng dụng ZaloPay và hỗ trợ nhắc hóa đơn đến kỳ.",
+      "launch_url": "https://zalopay.vn/",
+      "official_website": "https://zalopay.vn/",
+      "logo_url": "https://zalopay.vn/favicon.ico",
+      "regions": [
+        "Toàn quốc"
+      ],
+      "target_users": [
+        "Người dùng ZaloPay",
+        "Người cần chuyển tiền",
+        "Người cần thanh toán hóa đơn trực tuyến"
+      ],
+      "capabilities": [
+        "transfer_money",
+        "pay_utility_bills",
+        "mobile_topup",
+        "bill_reminders",
+        "payment_history"
+      ],
+      "aliases": [
+        "Zalopay",
+        "Zalo Pay",
+        "Ví ZaloPay",
+        "trả hóa đơn trên Zalo"
+      ],
+      "intents": [
+        {
+          "intent": "pay_bill_with_ewallet",
+          "example_queries": [
+            "Thanh toán tiền điện bằng ZaloPay",
+            "Tôi muốn trả hóa đơn trên Zalo",
+            "Mở dịch vụ thanh toán hóa đơn ZaloPay"
+          ]
+        },
+        {
+          "intent": "transfer_money_with_ewallet",
+          "example_queries": [
+            "Tôi muốn chuyển tiền bằng ZaloPay",
+            "Chuyển tiền đến tài khoản ngân hàng qua ZaloPay",
+            "Mở tính năng chuyển tiền ZaloPay"
+          ]
+        },
+        {
+          "intent": "mobile_topup",
+          "example_queries": [
+            "Nạp tiền điện thoại bằng ZaloPay",
+            "Tôi muốn mua mã thẻ điện thoại",
+            "Mở dịch vụ nạp tiền ZaloPay"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://zalopay.vn/?lang=vi",
+          "publisher": "ZaloPay",
+          "supports": [
+            "Trang chính thức liệt kê chuyển tiền, nạp tiền điện thoại, thanh toán hóa đơn, mua sắm và giải trí; đồng thời nêu khả năng chuyển tiền và thanh toán trong Zalo."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://zalopay.vn/dich-vu/dien",
+          "publisher": "ZaloPay",
+          "supports": [
+            "Trang dịch vụ điện mô tả thanh toán trong Zalo/ZaloPay, tra cứu hóa đơn, nhắc kỳ hạn và quản lý lịch sử giao dịch."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://zalopay.vn/dich-vu/chuyen-tien-den-the-tai-khoan-ngan-hang",
+          "publisher": "ZaloPay",
+          "supports": [
+            "Trang chính thức mô tả chuyển tiền đến tài khoản ngân hàng 24/7."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "high",
+        "oa_badge_status": "not_applicable",
+        "notes": "Nguồn xác nhận dịch vụ có thể được truy cập trong Zalo nhưng không đủ bằng chứng để phân loại kỹ thuật là Zalo Mini App; vì vậy bản ghi hiện dùng website. Navigator chỉ điều hướng, không xử lý tiền hoặc thông tin xác thực."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "health-bookingcare-web",
+      "name": "BookingCare",
+      "provider": "Công ty Cổ phần Công nghệ BookingCare",
+      "channel_type": "website",
+      "category": "healthcare",
+      "subcategory": "healthcare_discovery_and_booking",
+      "description": "Nền tảng tìm kiếm bác sĩ, bệnh viện, phòng khám và dịch vụ y tế, hỗ trợ đặt lịch khám tại viện hoặc tư vấn từ xa.",
+      "launch_url": "https://bookingcare.vn/",
+      "official_website": "https://bookingcare.vn/",
+      "logo_url": "https://bookingcare.vn/_next/images/icon-32.png",
+      "regions": [
+        "Hà Nội",
+        "TP. Hồ Chí Minh",
+        "Trực tuyến"
+      ],
+      "target_users": [
+        "Người cần tìm bác sĩ hoặc cơ sở y tế",
+        "Người cần đặt lịch khám",
+        "Người cần tư vấn sức khỏe từ xa"
+      ],
+      "capabilities": [
+        "Tìm bác sĩ, bệnh viện và phòng khám",
+        "Tìm dịch vụ y tế gần người dùng",
+        "Đặt lịch khám",
+        "Khám và tư vấn từ xa",
+        "Tìm theo chuyên khoa"
+      ],
+      "aliases": [
+        "Booking Care",
+        "đặt lịch khám online",
+        "tìm bác sĩ",
+        "tìm phòng khám gần đây"
+      ],
+      "intents": [
+        {
+          "intent": "find_nearby_healthcare",
+          "example_queries": [
+            "Tìm chỗ khám mắt cho mẹ gần đây",
+            "Tìm phòng khám gần Quận 3",
+            "Có bác sĩ chuyên khoa nào gần tôi?"
+          ]
+        },
+        {
+          "intent": "book_medical_appointment",
+          "example_queries": [
+            "Tôi muốn đặt lịch khám",
+            "Đặt lịch với bác sĩ chuyên khoa",
+            "Tôi muốn khám từ xa"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://bookingcare.vn/",
+          "publisher": "BookingCare",
+          "supports": [
+            "Trang chủ chính thức nêu rõ chức năng tìm bác sĩ, bệnh viện, phòng khám, dịch vụ y tế, đặt lịch và các dịch vụ khám từ xa."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://bookingcare.vn/thong-tin/dieu-khoan-su-dung-p7",
+          "publisher": "BookingCare",
+          "supports": [
+            "Điều khoản chính thức mô tả vai trò của nền tảng và nguồn thông tin về bác sĩ, cơ sở cùng dịch vụ khám chữa bệnh."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website; chưa xác minh OA hoặc Mini App tương ứng."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "health-benh-vien-mat-trung-uong-web",
+      "name": "Bệnh viện Mắt Trung ương",
+      "provider": "Bệnh viện Mắt Trung ương",
+      "channel_type": "website",
+      "category": "healthcare",
+      "subcategory": "ophthalmology_hospital",
+      "description": "Cổng thông tin chính thức của Bệnh viện Mắt Trung ương tại Hà Nội, cung cấp thông tin khoa phòng, lịch khám, dịch vụ khám chữa bệnh và liên hệ cấp cứu nhãn khoa.",
+      "launch_url": "https://vneh.vn/",
+      "official_website": "https://vneh.vn/",
+      "logo_url": "https://vneh.vn/Data/Sites/1/logos/logo.png",
+      "regions": [
+        "Hà Nội"
+      ],
+      "target_users": [
+        "Người cần khám và điều trị chuyên khoa mắt",
+        "Người cần lịch khám tại Bệnh viện Mắt Trung ương",
+        "Người cần thông tin cấp cứu nhãn khoa"
+      ],
+      "capabilities": [
+        "Xem lịch khám chữa bệnh",
+        "Xem thông tin khoa phòng và dịch vụ",
+        "Tra cứu thông tin liên hệ bệnh viện",
+        "Thông tin cấp cứu nhãn khoa"
+      ],
+      "aliases": [
+        "Viện Mắt Trung ương",
+        "Bệnh viện mắt Bà Triệu",
+        "VNEH",
+        "bệnh viện mắt Hà Nội"
+      ],
+      "intents": [
+        {
+          "intent": "find_eye_hospital",
+          "example_queries": [
+            "Bệnh viện Mắt Trung ương ở đâu?",
+            "Tìm bệnh viện mắt ở Hà Nội",
+            "Tôi cần khám mắt tại Bà Triệu"
+          ]
+        },
+        {
+          "intent": "check_eye_hospital_schedule",
+          "example_queries": [
+            "Xem lịch khám Bệnh viện Mắt Trung ương",
+            "Liên hệ cấp cứu nhãn khoa",
+            "Tôi muốn xem dịch vụ khám mắt"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://vneh.vn/lien-he",
+          "publisher": "Bệnh viện Mắt Trung ương",
+          "supports": [
+            "Trang liên hệ chính thức xác nhận tên bệnh viện, địa chỉ 85 Bà Triệu, Hà Nội và các kênh liên hệ."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://vneh.vn/",
+          "publisher": "Bệnh viện Mắt Trung ương",
+          "supports": [
+            "Cổng thông tin chính thức có mục khoa phòng, lịch khám chữa bệnh, dịch vụ và cấp cứu nhãn khoa."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website; không suy diễn có OA hoặc chức năng đặt lịch trực tuyến."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "health-mat-sai-gon-web",
+      "name": "Hệ thống Bệnh viện Mắt Sài Gòn",
+      "provider": "Hệ thống Bệnh viện Mắt Sài Gòn",
+      "channel_type": "website",
+      "category": "healthcare",
+      "subcategory": "ophthalmology_network",
+      "description": "Hệ thống chuyên khoa mắt có nhiều bệnh viện và phòng khám trên cả ba miền, hỗ trợ tìm cơ sở, xem dịch vụ nhãn khoa và gửi yêu cầu đặt lịch khám.",
+      "launch_url": "https://www.matsaigon.com/he-thong-benh-vien/",
+      "official_website": "https://www.matsaigon.com/",
+      "logo_url": "https://www.matsaigon.com/wp-content/uploads/avatar-web-01.jpg",
+      "regions": [
+        "Hà Nội",
+        "Hải Phòng",
+        "Quảng Ninh",
+        "Nghệ An",
+        "Hà Tĩnh",
+        "Đà Nẵng",
+        "Quảng Ngãi",
+        "Gia Lai",
+        "Đắk Lắk",
+        "Lâm Đồng",
+        "Khánh Hòa",
+        "Bình Định",
+        "TP. Hồ Chí Minh",
+        "Đồng Nai",
+        "Tây Ninh",
+        "An Giang",
+        "Cần Thơ",
+        "Cà Mau"
+      ],
+      "target_users": [
+        "Người cần khám mắt",
+        "Trẻ em và người cao tuổi có bệnh lý mắt",
+        "Người cần điều trị tật khúc xạ hoặc đục thủy tinh thể"
+      ],
+      "capabilities": [
+        "Tìm bệnh viện hoặc phòng khám mắt theo tỉnh thành",
+        "Đăng ký tư vấn và đặt lịch khám",
+        "Khám và điều trị bệnh lý mắt",
+        "Phẫu thuật khúc xạ và đục thủy tinh thể",
+        "Kiểm soát cận thị"
+      ],
+      "aliases": [
+        "Mắt Sài Gòn",
+        "Bệnh viện Mắt Sài Gòn",
+        "phòng khám mắt",
+        "khám mắt gần đây"
+      ],
+      "intents": [
+        {
+          "intent": "find_eye_clinic_nearby",
+          "example_queries": [
+            "Tìm chỗ khám mắt cho mẹ gần đây",
+            "Bệnh viện mắt nào ở TP.HCM?",
+            "Tìm phòng khám mắt ở Cần Thơ"
+          ]
+        },
+        {
+          "intent": "book_eye_exam_or_treatment",
+          "example_queries": [
+            "Tôi muốn đặt lịch khám mắt",
+            "Tư vấn điều trị cận thị",
+            "Khám đục thủy tinh thể cho người lớn tuổi"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://www.matsaigon.com/he-thong-benh-vien/",
+          "publisher": "Hệ thống Bệnh viện Mắt Sài Gòn",
+          "supports": [
+            "Trang chính thức liệt kê tỉnh thành, danh sách cơ sở, form tư vấn và lưu ý đặt lịch khám."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://www.matsaigon.com/dich-vu/",
+          "publisher": "Hệ thống Bệnh viện Mắt Sài Gòn",
+          "supports": [
+            "Trang dịch vụ chính thức cung cấp các nhóm khám và điều trị nhãn khoa cùng chức năng đặt lịch."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Danh sách tỉnh thành được lấy từ bộ lọc công khai trên trang hệ thống. Chưa xác minh OA hoặc Mini App."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "health-long-chau-oa",
+      "name": "Nhà thuốc Long Châu",
+      "provider": "Công ty Cổ phần Dược phẩm FPT Long Châu",
+      "channel_type": "oa",
+      "category": "healthcare",
+      "subcategory": "pharmacy_and_vaccination",
+      "description": "Chuỗi nhà thuốc và dịch vụ sức khỏe có tra cứu thuốc, tìm nhà thuốc, tư vấn dược sĩ và tiêm chủng. OA công khai được Zalo liệt kê trong danh sách đối tác.",
+      "launch_url": "https://zalo.me/3822805105108870889",
+      "official_website": "https://nhathuoclongchau.com.vn/",
+      "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/longchau.png",
+      "regions": [
+        "Toàn quốc, Việt Nam"
+      ],
+      "target_users": [
+        "Người cần mua hoặc tra cứu thuốc",
+        "Người cần tìm nhà thuốc gần đây",
+        "Người cần tư vấn dược sĩ hoặc tiêm chủng"
+      ],
+      "capabilities": [
+        "Tìm nhà thuốc",
+        "Tra cứu thuốc",
+        "Tư vấn với dược sĩ",
+        "Mua thuốc trực tuyến",
+        "Thông tin và tư vấn tiêm chủng"
+      ],
+      "aliases": [
+        "Long Châu",
+        "Nhà thuốc FPT Long Châu",
+        "FPT Long Châu",
+        "nhà thuốc gần đây"
+      ],
+      "intents": [
+        {
+          "intent": "find_nearby_pharmacy",
+          "example_queries": [
+            "Tìm nhà thuốc Long Châu gần tôi",
+            "Có nhà thuốc nào gần khu vực này không?",
+            "Tôi cần mua thuốc ở đâu?"
+          ]
+        },
+        {
+          "intent": "pharmacy_or_vaccination_support",
+          "example_queries": [
+            "Tôi muốn hỏi dược sĩ",
+            "Tôi muốn tra cứu thuốc",
+            "Tôi muốn tiêm vắc xin"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://nhathuoclongchau.com.vn/",
+          "publisher": "Nhà thuốc Long Châu",
+          "supports": [
+            "Website chính chủ hiển thị các chức năng tìm nhà thuốc, tra cứu thuốc, tư vấn dược sĩ, mua thuốc trực tuyến và tiêm chủng; HTML công khai liên kết tới đúng OA này."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://oa.zalo.me/home",
+          "publisher": "Zalo Official Account",
+          "supports": [
+            "Dữ liệu PARTNERS trên trang Zalo OA chính thức liệt kê Nhà thuốc Long Châu với launch URL và logo tham chiếu tương ứng."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "oa_badge_status": "unknown",
+        "confidence": "high",
+        "notes": "OA xuất hiện trong danh sách đối tác của Zalo và website chính chủ liên kết cùng URL. Chưa quan sát trực tiếp dấu xác minh trên giao diện OA."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "health-vinmec-web",
+      "name": "Vinmec",
+      "provider": "Công ty Cổ phần Bệnh viện Đa khoa Quốc tế Vinmec",
+      "channel_type": "website",
+      "category": "healthcare",
+      "subcategory": "hospital_network",
+      "description": "Hệ thống bệnh viện đa khoa cung cấp nhiều chuyên khoa, tìm bác sĩ, gói dịch vụ và đặt lịch hẹn tại các cơ sở ở nhiều tỉnh thành.",
+      "launch_url": "https://www.vinmec.com/vie/",
+      "official_website": "https://www.vinmec.com/vie/",
+      "logo_url": "https://www.vinmec.com/static/uploads/logo_2bd10ad933.svg",
+      "regions": [
+        "Hà Nội",
+        "TP. Hồ Chí Minh",
+        "Đà Nẵng",
+        "Nha Trang",
+        "Hải Phòng",
+        "Hạ Long",
+        "Phú Quốc",
+        "Cần Thơ",
+        "Hưng Yên"
+      ],
+      "target_users": [
+        "Người cần khám đa khoa hoặc chuyên khoa",
+        "Gia đình cần tìm cơ sở bệnh viện",
+        "Người cần đặt lịch với bác sĩ"
+      ],
+      "capabilities": [
+        "Tìm chuyên khoa",
+        "Tìm bác sĩ",
+        "Tìm cơ sở y tế",
+        "Xem gói dịch vụ",
+        "Đặt lịch hẹn"
+      ],
+      "aliases": [
+        "Bệnh viện Vinmec",
+        "Vin Mec",
+        "MyVinmec",
+        "bệnh viện quốc tế"
+      ],
+      "intents": [
+        {
+          "intent": "find_hospital_or_specialty",
+          "example_queries": [
+            "Vinmec có chuyên khoa mắt không?",
+            "Tìm bệnh viện Vinmec gần tôi",
+            "Tôi cần khám chuyên khoa"
+          ]
+        },
+        {
+          "intent": "book_hospital_appointment",
+          "example_queries": [
+            "Đặt lịch khám Vinmec",
+            "Tìm bác sĩ và ngày khám",
+            "Tôi muốn đặt hẹn tại Vinmec Central Park"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://www.vinmec.com/vie/chuyen-khoa/",
+          "publisher": "Vinmec",
+          "supports": [
+            "Trang chuyên khoa chính thức cung cấp danh mục chuyên khoa, tìm bác sĩ, hệ thống cơ sở và chức năng đặt lịch hẹn."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://www.vinmec.com/vie/chuyen-khoa/",
+          "publisher": "Vinmec",
+          "supports": [
+            "Phần liên hệ chính thức liệt kê các cơ sở tại Hà Nội, TP.HCM, Đà Nẵng, Nha Trang, Hải Phòng, Hạ Long, Phú Quốc, Cần Thơ và Ocean Park 2."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website; chưa xác minh OA hoặc Mini App tương ứng."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "public-dvcqg",
+      "name": "Cổng Dịch vụ công Quốc gia",
+      "provider": "Văn phòng Chính phủ",
+      "channel_type": "website",
+      "category": "public_admin",
+      "subcategory": "national_public_services",
+      "description": "Cổng Dịch vụ công Quốc gia cung cấp thông tin thủ tục hành chính và dịch vụ công trực tuyến trên toàn quốc, hỗ trợ nộp và theo dõi hồ sơ, thanh toán phí lệ phí và gửi phản ánh kiến nghị.",
+      "launch_url": "https://dichvucong.gov.vn/p/home/dvc-trang-chu.html",
+      "official_website": "https://dichvucong.gov.vn/",
+      "logo_url": "https://dichvucong.gov.vn/favicon.ico",
+      "regions": [
+        "Toàn quốc"
+      ],
+      "target_users": [
+        "Công dân Việt Nam",
+        "Doanh nghiệp",
+        "Tổ chức thực hiện thủ tục hành chính"
+      ],
+      "capabilities": [
+        "search_administrative_procedure",
+        "submit_online_application",
+        "track_application_status",
+        "pay_public_service_fees",
+        "submit_feedback_or_petition"
+      ],
+      "aliases": [
+        "Dịch vụ công Quốc gia",
+        "Cổng DVCQG",
+        "dichvucong.gov.vn",
+        "cổng thủ tục hành chính"
+      ],
+      "intents": [
+        {
+          "intent": "find_public_service",
+          "example_queries": [
+            "Tôi cần tìm thủ tục hành chính",
+            "Mở Cổng Dịch vụ công Quốc gia",
+            "Tìm dịch vụ công trực tuyến cho doanh nghiệp"
+          ]
+        },
+        {
+          "intent": "track_public_application",
+          "example_queries": [
+            "Tra cứu tình trạng hồ sơ dịch vụ công",
+            "Tôi muốn theo dõi hồ sơ đã nộp",
+            "Kiểm tra kết quả thủ tục hành chính"
+          ]
+        },
+        {
+          "intent": "pay_public_service_fee",
+          "example_queries": [
+            "Thanh toán lệ phí hồ sơ trực tuyến",
+            "Tôi muốn trả phí dịch vụ công",
+            "Mở trang thanh toán phí lệ phí hành chính"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://dichvucong.gov.vn/p./home/dvc-gioi-thieu.html",
+          "publisher": "Cổng Dịch vụ công Quốc gia - Văn phòng Chính phủ",
+          "supports": [
+            "Trang giới thiệu chính thức mô tả tra cứu thủ tục, theo dõi quá trình giải quyết, thanh toán trực tuyến và gửi phản ánh kiến nghị."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://dichvucong.gov.vn/p/home/dvc-trang-chu.html",
+          "publisher": "Cổng Dịch vụ công Quốc gia - Văn phòng Chính phủ",
+          "supports": [
+            "URL đích chính thức của cổng đang hoạt động."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "high",
+        "oa_badge_status": "not_applicable",
+        "notes": "Cổng quốc gia chính chủ. Một số chức năng cần đăng nhập bằng tài khoản định danh điện tử; Navigator chỉ tìm và điều hướng, không thu thông tin đăng nhập."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "public-dvc-hcmc",
+      "name": "Cổng Dịch vụ công TP.HCM",
+      "provider": "Ủy ban nhân dân Thành phố Hồ Chí Minh",
+      "channel_type": "website",
+      "category": "public_admin",
+      "subcategory": "local_public_services",
+      "description": "Cổng Dịch vụ công TP.HCM là điểm truy cập trực tuyến cho thủ tục hành chính của thành phố. Người dân và tổ chức có thể tìm thủ tục, đăng nhập để nộp hồ sơ trực tuyến và theo dõi xử lý theo hướng dẫn của cơ quan thành phố.",
+      "launch_url": "https://dichvucong.hochiminhcity.gov.vn/",
+      "official_website": "https://hochiminhcity.gov.vn/",
+      "logo_url": "https://staticv2.vnptigate.vn/icon/quoc-huy.ico",
+      "regions": [
+        "Thành phố Hồ Chí Minh"
+      ],
+      "target_users": [
+        "Công dân tại TP.HCM",
+        "Doanh nghiệp hoạt động tại TP.HCM",
+        "Tổ chức thực hiện thủ tục hành chính địa phương"
+      ],
+      "capabilities": [
+        "search_local_administrative_procedure",
+        "submit_local_online_application",
+        "track_local_application_status",
+        "access_city_public_service_guidance"
+      ],
+      "aliases": [
+        "Dịch vụ công TP.HCM",
+        "Cổng DVC TPHCM",
+        "dịch vụ công thành phố",
+        "thủ tục hành chính TP.HCM"
+      ],
+      "intents": [
+        {
+          "intent": "find_local_public_service",
+          "example_queries": [
+            "Tìm thủ tục hành chính ở TP.HCM",
+            "Mở Cổng Dịch vụ công TP.HCM",
+            "Tôi cần làm dịch vụ công của thành phố"
+          ]
+        },
+        {
+          "intent": "submit_local_application",
+          "example_queries": [
+            "Nộp hồ sơ trực tuyến TP.HCM",
+            "Tôi muốn gửi hồ sơ hành chính của thành phố",
+            "Đăng nhập cổng dịch vụ công TP.HCM"
+          ]
+        },
+        {
+          "intent": "track_local_application",
+          "example_queries": [
+            "Tra cứu hồ sơ hành chính TP.HCM",
+            "Kiểm tra tình trạng hồ sơ của thành phố",
+            "Theo dõi hồ sơ dịch vụ công địa phương"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://dichvucong.hochiminhcity.gov.vn/",
+          "publisher": "Cổng Dịch vụ công TP.HCM",
+          "supports": [
+            "URL cổng trực tuyến đang hoạt động tại thời điểm kiểm tra."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://qhkt.hochiminhcity.gov.vn/huong-dan-nop-ho-so-truc-tuyen/huong-dan-su-dung-dich-vu-cong-truc-tuyen-1727.html",
+          "publisher": "Sở Quy hoạch - Kiến trúc TP.HCM",
+          "supports": [
+            "Trang cơ quan thành phố cung cấp hướng dẫn nộp hồ sơ và sử dụng dịch vụ công trực tuyến."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://dost.hochiminhcity.gov.vn/chuyen-doi-so/dich-vu-cong-truc-tuyen-an-trinh-nang-cao-hieu-qua-phuc-vu-nguoi-dan-va-doanh-nghiep/",
+          "publisher": "Sở Khoa học và Công nghệ TP.HCM",
+          "supports": [
+            "Nguồn thành phố nêu xu hướng thực hiện thủ tục qua Cổng Dịch vụ công Quốc gia hoặc VNeID, là căn cứ cần rà soát luồng chuyển tiếp của cổng địa phương."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "medium",
+        "oa_badge_status": "not_applicable",
+        "notes": "Cổng địa phương vẫn trả HTTP 200, nhưng tài liệu thành phố giai đoạn 2025-2026 cho thấy nhiều thủ tục đang chuyển về Cổng Dịch vụ công Quốc gia/VNeID. Cần kiểm duyệt lại CTA và hành trình cụ thể trước khi active."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "public-etax-mobile",
+      "name": "eTax Mobile",
+      "provider": "Cục Thuế - Bộ Tài chính",
+      "channel_type": "website",
+      "category": "public_admin",
+      "subcategory": "tax",
+      "description": "eTax Mobile là kênh dịch vụ thuế điện tử cho cá nhân và hộ kinh doanh, hỗ trợ đăng ký thuế, tra cứu nghĩa vụ thuế, nộp thuế và hỗ trợ quyết toán thuế thu nhập cá nhân.",
+      "launch_url": "https://binhphuoc.gdt.gov.vn/wps/portal/Home/etax-mobile",
+      "official_website": "https://gdt.gov.vn/",
+      "logo_url": "https://gdt.gov.vn/wps/themes/html/GDT/images/favicon.ico",
+      "regions": [
+        "Toàn quốc"
+      ],
+      "target_users": [
+        "Cá nhân nộp thuế",
+        "Hộ kinh doanh",
+        "Cá nhân kinh doanh",
+        "Người cần tra cứu nghĩa vụ thuế"
+      ],
+      "capabilities": [
+        "tax_registration",
+        "view_tax_obligations",
+        "pay_tax",
+        "personal_income_tax_settlement_support",
+        "lookup_tax_payment_documents"
+      ],
+      "aliases": [
+        "eTax Mobile",
+        "Etax Mobile",
+        "Thuế điện tử",
+        "ứng dụng thuế cá nhân",
+        "app Tổng cục Thuế"
+      ],
+      "intents": [
+        {
+          "intent": "view_tax_obligation",
+          "example_queries": [
+            "Tôi muốn tra cứu nghĩa vụ thuế",
+            "Kiểm tra thuế cá nhân phải nộp",
+            "Mở eTax Mobile để xem khoản thuế"
+          ]
+        },
+        {
+          "intent": "pay_tax_online",
+          "example_queries": [
+            "Tôi muốn nộp thuế trên điện thoại",
+            "Mở dịch vụ nộp thuế eTax Mobile",
+            "Nộp thuế trực tuyến cho hộ kinh doanh"
+          ]
+        },
+        {
+          "intent": "personal_tax_support",
+          "example_queries": [
+            "Hỗ trợ quyết toán thuế thu nhập cá nhân",
+            "Tôi quên mã số thuế cá nhân",
+            "Tìm ứng dụng thuế điện tử chính thức"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://gdt.gov.vn/wps/portal/!ut/p/z0/jY9BT8MwDIX_yjjkmMZrujXlVm2XMU0CiZWRS5WmXjrokq0N7fj3ZCBxASEu9ntPn2WbSbZj0qrhYJQ_OKva4J_lvFw8rBfFugAQ2_slrDabtNiulgCPKbtj0rSu-kJzW3FhmOxwjx120VsX4sb7U39LgMA4jpFxzrQYaXeMBkvgt6nG9Z7tfsBX9PByPsucSe2sx0ugTO0nn8Z6Ar0qgyfgz6E0VzWvBUdRKap5hjTRgtNMJUhFxqs4i-sq3cfXF_7-8d-LQ7c49t-i9OpCIIY4CUc1ypqJIKCyGcc9II1RT2kynaU0CxEVUy601goVpuz0Kqt33g7Hp_zmA8egnbQ!/",
+          "publisher": "Cục Thuế - Bộ Tài chính",
+          "supports": [
+            "Bài chính thức về eTax Mobile 3.2.0 mô tả đăng ký thuế, nộp thuế, hỗ trợ quyết toán thuế thu nhập cá nhân và tra cứu nghĩa vụ thuế."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://gdt.gov.vn/wps/portal/!ut/p/z1/tVVLc9owEP4r6cFHj1ayLFtHYqgxYMAETNDFo_gBbsFA40L67yuXtpNAwXRCdJF2tPvttw-tkEAzbBoEbMvmHD0iUchdPpdlvi7kUskzwSIn6DphNwSwJ8MmeL5vhROvCTC2UIgEEnFRbsoFms2T8i5eF2ValBo8y0jJv_Yi3T__PUSlfNGAACEalAtZzO-YBjJLzTglXE94HOuU0kTnFgY9oxkGEmMrplnlaRPnCZpdpT19Sx24SRT1VtjsNRgMMCBRXbuNNrV66nrMTfDoPR1xpwmuYxzbn4Ze2cOZ1YA_9ucdiNfwbkAVvZbbue-PWpj1TvyfKojL9I7829SFyv-g33YCDN6V9hcCrLHvIDFfrp8OTZR_2W5FQ3VK1R0vJXo81yo7WTzJ4tVxs5Cb7fcfGhzESJ3TMsmLhQYZyRjBzNZNnNo65cTWZRpTXZpGQrk0aQpchSEOlaLc69nhw2AEw8_g4UEQjPzQ6E6M3wqXMlVXa3GUjGFL2fmBxZiFie2Zxxw6gJWLSX849DnD0LRqEBhFM1UO62w7twma7vJ0jybF-ttK5fyhQnTGKvUa3CLXy3Qul5FiDdiMMDNVM6M21LHC_2J1eMNXFa8G3vhQeA63hT96Ih12Hv6qAXcR3u3Cx8KTd8J36ubH_0yNG30wNQWj7wx5JTa7vr2u1m411b-OWiN7P84W81Xktwzz7bbcrZxZ49NPySTXmg!!/",
+          "publisher": "Cục Thuế - Bộ Tài chính",
+          "supports": [
+            "Nguồn chính thức xác định eTax Mobile là kênh dịch vụ thuế điện tử dành cho cá nhân và hộ kinh doanh."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://binhphuoc.gdt.gov.vn/wps/portal/Home/etax-mobile",
+          "publisher": "Cổng thông tin ngành Thuế",
+          "supports": [
+            "Trang eTax Mobile trên tên miền ngành Thuế cung cấp hướng dẫn và nội dung sử dụng ứng dụng."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "high",
+        "oa_badge_status": "not_applicable",
+        "notes": "Trang đích thuộc hệ thống gdt.gov.vn. Chưa xác minh OA hoặc Mini App Zalo. Navigator không thu mã số thuế, thông tin ngân hàng, mật khẩu hoặc OTP."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "public-vneid",
+      "name": "VNeID",
+      "provider": "Bộ Công an",
+      "channel_type": "website",
+      "category": "public_admin",
+      "subcategory": "digital_identity",
+      "description": "VNeID là ứng dụng định danh quốc gia phục vụ định danh và xác thực điện tử, truy cập dữ liệu số của công dân và thực hiện dịch vụ công trực tuyến. Trang chính thức cung cấp liên kết tải ứng dụng.",
+      "launch_url": "https://universal.vneid.gov.vn/",
+      "official_website": "https://vneid.gov.vn/",
+      "logo_url": "https://universal.vneid.gov.vn/login-sso/logo192.png",
+      "regions": [
+        "Toàn quốc"
+      ],
+      "target_users": [
+        "Công dân Việt Nam",
+        "Người sử dụng dịch vụ công trực tuyến",
+        "Người cần định danh hoặc xác thực điện tử"
+      ],
+      "capabilities": [
+        "digital_identity",
+        "electronic_authentication",
+        "access_citizen_digital_data",
+        "submit_public_service_application",
+        "use_integrated_digital_documents"
+      ],
+      "aliases": [
+        "VNeID",
+        "định danh điện tử",
+        "ứng dụng định danh quốc gia",
+        "tài khoản VNeID"
+      ],
+      "intents": [
+        {
+          "intent": "open_digital_identity_app",
+          "example_queries": [
+            "Mở VNeID chính thức",
+            "Tôi cần ứng dụng định danh điện tử",
+            "Tải VNeID ở đâu an toàn"
+          ]
+        },
+        {
+          "intent": "use_public_service_with_vneid",
+          "example_queries": [
+            "Làm dịch vụ công bằng VNeID",
+            "Tôi muốn nộp hồ sơ hành chính trên VNeID",
+            "Dùng VNeID để đăng nhập dịch vụ công"
+          ]
+        },
+        {
+          "intent": "use_digital_documents",
+          "example_queries": [
+            "Xem giấy tờ tích hợp trên VNeID",
+            "Tôi muốn dùng căn cước điện tử",
+            "Mở ví giấy tờ VNeID"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://universal.vneid.gov.vn/",
+          "publisher": "VNeID",
+          "supports": [
+            "Trang chính thức đang hoạt động và cung cấp liên kết tải ứng dụng phục vụ định danh, xác thực."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://xaydungchinhsach.chinhphu.vn/nghi-quyet-6622-2026-nq-cp-ve-phat-trien-cong-dan-so-119260713165753546.htm",
+          "publisher": "Cổng Thông tin điện tử Chính phủ",
+          "supports": [
+            "Nguồn Chính phủ mô tả VNeID hỗ trợ truy cập dữ liệu số, định danh/xác thực điện tử, dịch vụ công trực tuyến và nộp hồ sơ điện tử."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://xaydungchinhsach.chinhphu.vn/pho-thu-tuong-tran-luu-quang-chi-su-dung-tai-khoan-vneid-thuc-hien-dich-vu-cong-truc-tuyen-tu-1-7-119240503165614921.htm",
+          "publisher": "Cổng Thông tin điện tử Chính phủ",
+          "supports": [
+            "Nguồn Chính phủ xác nhận VNeID do Bộ Công an phát triển và được dùng làm tài khoản cho dịch vụ công trực tuyến."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "high",
+        "oa_badge_status": "not_applicable",
+        "notes": "Chỉ ghi nhận website/app launcher chính chủ, không ghi OA. Navigator không thu số định danh, ảnh căn cước, passcode hay dữ liệu giấy tờ."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "coopmart-ban-cua-moi-nha-oa",
+      "name": "Co.opmart - Bạn của mọi nhà",
+      "provider": "Saigon Co.op",
+      "channel_type": "oa",
+      "category": "shopping_delivery",
+      "subcategory": "supermarket",
+      "description": "Kênh Co.opmart trên Zalo hỗ trợ chọn siêu thị gần nhất, mua nhu yếu phẩm và theo dõi đơn ngay trong luồng mua sắm trực tuyến.",
+      "launch_url": "https://zalo.me/coopmart",
+      "official_website": "https://cooponline.vn/",
+      "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/coop.png",
+      "regions": [
+        "Toàn quốc"
+      ],
+      "target_users": [
+        "người tiêu dùng",
+        "hộ gia đình"
+      ],
+      "capabilities": [
+        "mua hàng siêu thị",
+        "chọn chi nhánh gần nhất",
+        "giao hàng tận nơi"
+      ],
+      "aliases": [
+        "Co.opmart",
+        "Coopmart",
+        "Co.op Online",
+        "đi chợ online"
+      ],
+      "intents": [
+        {
+          "intent": "shop_groceries",
+          "example_queries": [
+            "Tôi muốn mua thực phẩm ở Co.opmart.",
+            "Tìm siêu thị giao nhu yếu phẩm gần tôi."
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://oa.zalo.me/home",
+          "publisher": "Zalo Official Account",
+          "supports": [
+            "Co.opmart được Zalo OA liệt kê trong danh sách đối tác công khai",
+            "launch URL và logo tham chiếu"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://cooponline.vn/tin-tuc/cach-mua-hang-online-coopmart/",
+          "publisher": "Co.op Online",
+          "supports": [
+            "tên OA Co.opmart - Bạn của mọi nhà",
+            "quy trình chọn địa chỉ, chi nhánh, giỏ hàng và thanh toán qua Zalo OA"
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "oa_badge_status": "unknown",
+        "confidence": "high",
+        "notes": "OA có liên kết từ trang đối tác Zalo và bài hướng dẫn chính chủ của Co.op Online; dấu xác minh vẫn cần kiểm tra trong ứng dụng Zalo."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "milo-bi-quyet-dinh-duong-oa",
+      "name": "MILO Bí quyết dinh dưỡng",
+      "provider": "Nestlé Việt Nam",
+      "channel_type": "oa",
+      "category": "shopping_delivery",
+      "subcategory": "consumer_brand_information",
+      "description": "Kênh MILO chia sẻ thông tin sản phẩm, nội dung dinh dưỡng và hoạt động thể thao dành cho trẻ em và phụ huynh.",
+      "launch_url": "https://zalo.me/1947994230037588383",
+      "official_website": "https://www.nestlemilo.com.vn/",
+      "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/milo.png",
+      "regions": [
+        "Toàn quốc",
+        "Trực tuyến"
+      ],
+      "target_users": [
+        "phụ huynh",
+        "trẻ em trong độ tuổi phù hợp"
+      ],
+      "capabilities": [
+        "xem thông tin sản phẩm",
+        "tham khảo nội dung dinh dưỡng",
+        "tham khảo hoạt động thể thao"
+      ],
+      "aliases": [
+        "MILO",
+        "Nestlé MILO",
+        "MILO dinh dưỡng"
+      ],
+      "intents": [
+        {
+          "intent": "find_consumer_product_information",
+          "example_queries": [
+            "Tìm thông tin chính thức về sản phẩm MILO.",
+            "Cho tôi kênh MILO có nội dung vận động cho trẻ."
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://oa.zalo.me/home",
+          "publisher": "Zalo Official Account",
+          "supports": [
+            "MILO được liệt kê trong danh sách đối tác công khai",
+            "launch URL và logo tham chiếu"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://zalo.me/1947994230037588383",
+          "publisher": "MILO Bí quyết dinh dưỡng trên Zalo",
+          "supports": [
+            "tên OA",
+            "nội dung dinh dưỡng và thể thao"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://www.nestlemilo.com.vn/",
+          "publisher": "Nestlé MILO Việt Nam",
+          "supports": [
+            "thông tin thương hiệu và nội dung vận động"
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "oa_badge_status": "unknown",
+        "confidence": "high",
+        "notes": "Chỉ dùng để điều hướng tới thông tin thương hiệu; không diễn giải nội dung thành tư vấn y tế hoặc tuyên bố sức khỏe."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "telio-oa",
+      "name": "Telio",
+      "provider": "Telio",
+      "channel_type": "oa",
+      "category": "shopping_delivery",
+      "subcategory": "b2b_retail_supply",
+      "description": "Nền tảng nhập hàng cho cửa hàng tạp hóa và nhà thuốc, hỗ trợ xem giá, khuyến mãi và giao hàng qua ứng dụng.",
+      "launch_url": "https://zalo.me/4580689828120920371",
+      "official_website": null,
+      "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/telio.png",
+      "regions": [
+        "Nhiều tỉnh thành Việt Nam"
+      ],
+      "target_users": [
+        "chủ cửa hàng tạp hóa",
+        "nhà thuốc",
+        "nhà bán lẻ"
+      ],
+      "capabilities": [
+        "nhập hàng bán lẻ",
+        "xem giá và khuyến mãi",
+        "đặt giao hàng"
+      ],
+      "aliases": [
+        "Telio nhập hàng",
+        "nhập hàng tạp hóa",
+        "nguồn hàng nhà thuốc"
+      ],
+      "intents": [
+        {
+          "intent": "source_retail_inventory",
+          "example_queries": [
+            "Tôi cần nhập hàng cho cửa hàng tạp hóa.",
+            "Tìm nền tảng giao hàng sỉ cho nhà thuốc."
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://oa.zalo.me/home",
+          "publisher": "Zalo Official Account",
+          "supports": [
+            "Telio được liệt kê trong danh sách đối tác công khai",
+            "launch URL và logo tham chiếu"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://zalo.me/4580689828120920371",
+          "publisher": "Telio trên Zalo",
+          "supports": [
+            "đối tượng cửa hàng tạp hóa và nhà thuốc",
+            "giá, khuyến mãi và giao hàng"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://assets.telio.me/telio-website/Delivery-Policy.pdf",
+          "publisher": "Telio",
+          "supports": [
+            "đặt hàng qua ứng dụng Zalo/Telio",
+            "phạm vi và chính sách giao hàng"
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "oa_badge_status": "unknown",
+        "confidence": "high",
+        "notes": "Ứng viên B2B, không nên xếp cho người mua lẻ. Website telio.vn không phân giải tại thời điểm kiểm tra nên để trống."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "th-official-oa",
+      "name": "TH Official",
+      "provider": "Tập đoàn TH",
+      "channel_type": "oa",
+      "category": "shopping_delivery",
+      "subcategory": "consumer_brand_information",
+      "description": "Kênh thông tin của Tập đoàn TH cập nhật sản phẩm và các hoạt động vì sức khỏe cộng đồng của thương hiệu.",
+      "launch_url": "https://zalo.me/4120031368333625231",
+      "official_website": "https://www.thtruemart.vn/",
+      "logo_url": "https://stc-oa.zdn.vn/uploads/976aaabe958f92f0cef91dba61ee98d9.png",
+      "regions": [
+        "Toàn quốc",
+        "Trực tuyến"
+      ],
+      "target_users": [
+        "người tiêu dùng",
+        "hộ gia đình"
+      ],
+      "capabilities": [
+        "xem thông tin sản phẩm TH",
+        "theo dõi hoạt động thương hiệu",
+        "nhắn tin với OA"
+      ],
+      "aliases": [
+        "TH true MILK",
+        "TH true mart",
+        "Tập đoàn TH"
+      ],
+      "intents": [
+        {
+          "intent": "find_brand_product_channel",
+          "example_queries": [
+            "Mở kênh chính thức của TH true MILK.",
+            "Tôi muốn xem thông tin sản phẩm TH."
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://oa.zalo.me/home",
+          "publisher": "Zalo Official Account",
+          "supports": [
+            "TH true milk được liệt kê trong danh sách đối tác công khai",
+            "launch URL và logo tham chiếu"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://zalo.me/4120031368333625231",
+          "publisher": "TH Official trên Zalo",
+          "supports": [
+            "tên kênh",
+            "thông tin sản phẩm và hoạt động cộng đồng"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://www.thtruemart.vn/",
+          "publisher": "TH true mart",
+          "supports": [
+            "danh mục sản phẩm",
+            "chủ thể vận hành website"
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "oa_badge_status": "unknown",
+        "confidence": "high",
+        "notes": "OA phù hợp cho thông tin thương hiệu. Tính năng mua hàng trực tiếp trong OA chưa được xác minh."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "trang-suc-pnj-oa",
+      "name": "Trang Sức PNJ",
+      "provider": "Công ty Cổ phần Vàng bạc Đá quý Phú Nhuận",
+      "channel_type": "oa",
+      "category": "shopping_delivery",
+      "subcategory": "jewelry",
+      "description": "Kênh PNJ hỗ trợ tìm hiểu trang sức, đồng hồ, chương trình ưu đãi và trao đổi tư vấn với thương hiệu.",
+      "launch_url": "https://zalo.me/4082136522598975631",
+      "official_website": "https://www.pnj.com.vn/",
+      "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/pnj.png",
+      "regions": [
+        "Toàn quốc",
+        "Trực tuyến"
+      ],
+      "target_users": [
+        "người mua trang sức",
+        "khách hàng PNJ"
+      ],
+      "capabilities": [
+        "tìm hiểu sản phẩm trang sức",
+        "xem chương trình ưu đãi",
+        "nhắn tin tư vấn"
+      ],
+      "aliases": [
+        "PNJ",
+        "Trang Sức PNJ",
+        "tiệm vàng PNJ"
+      ],
+      "intents": [
+        {
+          "intent": "shop_jewelry",
+          "example_queries": [
+            "Tìm kênh PNJ để xem nhẫn cưới.",
+            "Tôi muốn được PNJ tư vấn trang sức."
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://oa.zalo.me/home",
+          "publisher": "Zalo Official Account",
+          "supports": [
+            "PNJ được liệt kê trong danh sách đối tác công khai",
+            "launch URL và logo tham chiếu"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://zalo.me/4082136522598975631",
+          "publisher": "Trang Sức PNJ trên Zalo",
+          "supports": [
+            "tên OA",
+            "lĩnh vực trang sức và đồng hồ"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://ads.zalo.me/business/cau-chuyen-thanh-cong-cua-pnj-cung-zalo-ad/",
+          "publisher": "Zalo Ads",
+          "supports": [
+            "PNJ dùng Zalo OA làm kênh tương tác",
+            "menu sản phẩm, ưu đãi, tư vấn và chốt đơn"
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "oa_badge_status": "unknown",
+        "confidence": "high",
+        "notes": "Có case study chính thức của Zalo về cách PNJ vận hành OA; vẫn cần kiểm tra badge trực tiếp."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "dai-sieu-thi-go-oa",
+      "name": "Đại Siêu Thị GO!",
+      "provider": "Central Retail Việt Nam",
+      "channel_type": "oa",
+      "category": "shopping_delivery",
+      "subcategory": "hypermarket",
+      "description": "Kênh Zalo của Đại Siêu Thị GO! cung cấp thông tin về hàng hóa, giá, chất lượng dịch vụ và các chương trình của hệ thống.",
+      "launch_url": "https://zalo.me/2823598328947213047",
+      "official_website": "https://sieuthi-go.vn/",
+      "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/bigc.png",
+      "regions": [
+        "Toàn quốc"
+      ],
+      "target_users": [
+        "người tiêu dùng",
+        "hộ gia đình"
+      ],
+      "capabilities": [
+        "xem thông tin siêu thị",
+        "theo dõi chương trình mua sắm",
+        "nhắn tin với OA"
+      ],
+      "aliases": [
+        "GO!",
+        "Big C",
+        "siêu thị GO",
+        "đại siêu thị"
+      ],
+      "intents": [
+        {
+          "intent": "find_hypermarket",
+          "example_queries": [
+            "Tìm Đại Siêu Thị GO! gần tôi.",
+            "Tôi muốn xem chương trình mua sắm của GO!."
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://oa.zalo.me/home",
+          "publisher": "Zalo Official Account",
+          "supports": [
+            "BigC/GO! được liệt kê trong danh sách đối tác công khai",
+            "launch URL và logo tham chiếu"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://zalo.me/2823598328947213047",
+          "publisher": "Đại Siêu Thị GO! trên Zalo",
+          "supports": [
+            "tên OA",
+            "mô tả giá cả, chất lượng và dịch vụ"
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "oa_badge_status": "unknown",
+        "confidence": "high",
+        "notes": "Zalo OA công khai vẫn dùng logo BigC trong danh sách đối tác; cần review lại asset thương hiệu GO! trước khi đưa vào giao diện."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "vexere-thue-xe-oa",
+      "name": "Vexere Thuê xe",
+      "provider": "Vexere",
+      "channel_type": "oa",
+      "category": "transport_travel",
+      "subcategory": "vehicle_rental",
+      "description": "Kênh Vexere dành cho nhu cầu thuê xe du lịch và xe máy, có thông tin liên hệ và điều hướng tới dịch vụ thuê xe.",
+      "launch_url": "https://zalo.me/4361926090352307976",
+      "official_website": "https://vexere.com/vn/thue-xe/",
+      "logo_url": "https://vexere.com/vn/thue-xe/wp-content/uploads/2023/05/vxr_logo.png",
+      "regions": [
+        "Nhiều tỉnh thành Việt Nam"
+      ],
+      "target_users": [
+        "khách du lịch",
+        "người cần thuê xe"
+      ],
+      "capabilities": [
+        "tìm dịch vụ thuê xe du lịch",
+        "tìm dịch vụ thuê xe máy",
+        "liên hệ tư vấn"
+      ],
+      "aliases": [
+        "Vexere",
+        "Vé Xe Rẻ",
+        "thuê xe du lịch",
+        "thuê xe máy"
+      ],
+      "intents": [
+        {
+          "intent": "rent_vehicle",
+          "example_queries": [
+            "Tôi cần thuê xe du lịch.",
+            "Tìm chỗ thuê xe máy cho chuyến đi."
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://zalo.me/4361926090352307976",
+          "publisher": "Vexere Thuê xe trên Zalo",
+          "supports": [
+            "tên dịch vụ",
+            "thuê xe du lịch và xe máy",
+            "website và hotline"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://vexere.com/vn/thue-xe/",
+          "publisher": "Vexere",
+          "supports": [
+            "dịch vụ thuê xe",
+            "logo tham chiếu chính chủ"
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": null,
+        "oa_badge_status": "unknown",
+        "confidence": "medium",
+        "notes": "OA trỏ về đúng miền Vexere; cần kiểm tra badge và liên kết ngược trước khi kích hoạt."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "vietnam-airlines-oa",
+      "name": "Vietnam Airlines",
+      "provider": "Tổng công ty Hàng không Việt Nam",
+      "channel_type": "oa",
+      "category": "transport_travel",
+      "subcategory": "airline",
+      "description": "Trang Zalo của Vietnam Airlines cung cấp thông tin hãng và kênh nhắn tin hỗ trợ cho nhu cầu đi lại bằng đường hàng không.",
+      "launch_url": "https://zalo.me/3149253679280388721",
+      "official_website": "https://www.vietnamairlines.com/",
+      "logo_url": "https://www.vietnamairlines.com/content/dam/vna/logos/vna-logo.svg",
+      "regions": [
+        "Việt Nam",
+        "Quốc tế"
+      ],
+      "target_users": [
+        "hành khách",
+        "người tìm chuyến bay"
+      ],
+      "capabilities": [
+        "xem thông tin hãng bay",
+        "theo dõi cập nhật chuyến đi",
+        "nhắn tin với OA"
+      ],
+      "aliases": [
+        "Vietnam Airlines",
+        "VNA",
+        "Hãng hàng không quốc gia"
+      ],
+      "intents": [
+        {
+          "intent": "find_airline_service",
+          "example_queries": [
+            "Tìm kênh Vietnam Airlines để hỏi chuyến bay.",
+            "Tôi cần hỗ trợ từ Vietnam Airlines."
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://zalo.me/3149253679280388721",
+          "publisher": "Vietnam Airlines trên Zalo",
+          "supports": [
+            "tên trang",
+            "tuyên bố là trang Zalo chính thức",
+            "website và hotline hãng"
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://www.vietnamairlines.com/",
+          "publisher": "Vietnam Airlines",
+          "supports": [
+            "thông tin hãng",
+            "logo tham chiếu chính chủ"
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": null,
+        "oa_badge_status": "unknown",
+        "confidence": "medium",
+        "notes": "OA tự mô tả là trang chính thức và trỏ về website hãng; chưa tìm thấy liên kết ngược từ website hãng hoặc kiểm tra badge trong app."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "utilities-evnhanoi-cskh",
+      "name": "EVNHANOI",
+      "provider": "Tổng công ty Điện lực Thành phố Hà Nội",
+      "channel_type": "website",
+      "category": "utilities",
+      "subcategory": "electricity",
+      "description": "Hệ sinh thái chăm sóc khách hàng EVNHANOI hỗ trợ tra cứu lịch tạm ngừng cấp điện, sản lượng tiêu thụ và gửi yêu cầu dịch vụ điện trực tuyến cho khách hàng tại Hà Nội.",
+      "launch_url": "https://evnhanoi.vn/",
+      "official_website": "https://evnhanoi.vn/",
+      "logo_url": "https://evnhanoi.vn/favicon.ico",
+      "regions": [
+        "Thành phố Hà Nội"
+      ],
+      "target_users": [
+        "Hộ gia đình sử dụng điện",
+        "Khách hàng doanh nghiệp sử dụng điện",
+        "Người cần tra cứu lịch tạm ngừng cấp điện"
+      ],
+      "capabilities": [
+        "view_outage_schedule",
+        "view_electricity_consumption",
+        "submit_electricity_service_request",
+        "customer_support"
+      ],
+      "aliases": [
+        "EVN Hà Nội",
+        "Điện lực Hà Nội",
+        "CSKH EVNHANOI",
+        "EVNHANOI"
+      ],
+      "intents": [
+        {
+          "intent": "view_outage_schedule",
+          "example_queries": [
+            "Hà Nội hôm nay khu tôi có cắt điện không",
+            "Tra cứu lịch tạm ngừng cấp điện EVNHANOI",
+            "Tôi muốn xem lịch mất điện ở Hà Nội"
+          ]
+        },
+        {
+          "intent": "view_electricity_consumption",
+          "example_queries": [
+            "Cho tôi xem lượng điện đã dùng",
+            "Tra cứu sản lượng điện EVNHANOI",
+            "Tôi muốn kiểm tra mức tiêu thụ điện"
+          ]
+        },
+        {
+          "intent": "request_electricity_service",
+          "example_queries": [
+            "Gửi yêu cầu dịch vụ điện tại Hà Nội",
+            "Tôi cần hỗ trợ từ EVNHANOI",
+            "Mở cổng chăm sóc khách hàng điện lực Hà Nội"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://evnhanoi.vn/",
+          "publisher": "EVNHANOI",
+          "supports": [
+            "Website chính thức và URL mở dịch vụ đang hoạt động."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://apicskh.evnhanoi.vn/media/ThongTinDoanhNghiep/2025/BC%20Ket%20qua%20thuc%20hien%20nhiem%20vu%20cong%20ich%20va%20trach%20nhiem%20XH%20nam%202024.pdf",
+          "publisher": "EVNHANOI",
+          "supports": [
+            "Báo cáo chính thức mô tả tra cứu lịch tạm ngừng cấp điện, sản lượng tiêu thụ, gửi yêu cầu dịch vụ và liệt kê website cùng trang EVNHANOI trên Zalo."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "high",
+        "oa_badge_status": "not_applicable",
+        "notes": "Nguồn chính thức xác nhận EVNHANOI có trang trên Zalo nhưng không cung cấp URL OA công khai có thể đối chiếu; do đó bản ghi hiện mở website, không suy đoán OA ID."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "utilities-evnhcmc-cskh",
+      "name": "EVNHCMC CSKH",
+      "provider": "Tổng công ty Điện lực Thành phố Hồ Chí Minh",
+      "channel_type": "website",
+      "category": "utilities",
+      "subcategory": "electricity",
+      "description": "Cổng chăm sóc khách hàng điện lực TP.HCM cho phép thanh toán hóa đơn và gửi các yêu cầu dịch vụ điện, gồm báo sửa điện, báo chỉ số, thay đổi hình thức thanh toán và ký hợp đồng điện tử.",
+      "launch_url": "https://cskh.evnhcmc.vn/",
+      "official_website": "https://cskh.evnhcmc.vn/",
+      "logo_url": "https://cskh.evnhcmc.vn/public/images/LogoEVNHCMC.jpg",
+      "regions": [
+        "Thành phố Hồ Chí Minh"
+      ],
+      "target_users": [
+        "Hộ gia đình sử dụng điện",
+        "Khách hàng doanh nghiệp sử dụng điện",
+        "Người cần báo sự cố điện tại TP.HCM"
+      ],
+      "capabilities": [
+        "pay_electricity_bill",
+        "submit_electricity_service_request",
+        "report_power_issue",
+        "change_payment_method",
+        "sign_electricity_contract_online"
+      ],
+      "aliases": [
+        "EVNHCMC",
+        "Điện lực TP.HCM",
+        "CSKH EVNHCMC",
+        "điện lực Sài Gòn"
+      ],
+      "intents": [
+        {
+          "intent": "pay_electricity_bill",
+          "example_queries": [
+            "Tôi muốn đóng tiền điện ở TP.HCM",
+            "Mở trang thanh toán hóa đơn điện EVNHCMC",
+            "Cho tôi tra cứu và thanh toán tiền điện"
+          ]
+        },
+        {
+          "intent": "report_power_issue",
+          "example_queries": [
+            "Nhà tôi bị mất điện cần báo ở đâu",
+            "Báo sửa điện EVNHCMC",
+            "Tôi muốn gửi yêu cầu kiểm tra sự cố điện"
+          ]
+        },
+        {
+          "intent": "request_electricity_service",
+          "example_queries": [
+            "Tôi muốn thay đổi hình thức thanh toán tiền điện",
+            "Gửi yêu cầu dịch vụ điện trực tuyến",
+            "Tôi cần ký hợp đồng điện tử"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://cskh.evnhcmc.vn/",
+          "publisher": "Trung tâm Chăm sóc khách hàng EVNHCMC",
+          "supports": [
+            "Cổng chính chủ và URL mở dịch vụ đang hoạt động."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://cskh.evnhcmc.vn/GiaoDichTrucTuyen/baoMatDien/1000",
+          "publisher": "Trung tâm Chăm sóc khách hàng EVNHCMC",
+          "supports": [
+            "Trang giao dịch trực tuyến nêu thanh toán hóa đơn và các nhóm yêu cầu dịch vụ điện như báo sửa điện, báo chỉ số, thay đổi hình thức thanh toán và ký hợp đồng điện tử."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "high",
+        "oa_badge_status": "not_applicable",
+        "notes": "URL thuộc tên miền CSKH chính thức của EVNHCMC. Chưa tìm được URL OA công khai được nguồn chính chủ xác nhận nên chỉ ghi nhận kênh website."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở dịch vụ",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "utilities-viettel-cskh-oa",
+      "name": "Viettel chăm sóc khách hàng",
+      "provider": "Tổng Công ty Viễn thông Viettel",
+      "channel_type": "oa",
+      "category": "utilities",
+      "subcategory": "telecom",
+      "description": "Kênh Zalo OA chăm sóc khách hàng của Viettel Telecom được một trang dịch vụ chính chủ của Viettel liên kết trực tiếp. Website Viettel hỗ trợ nạp tiền hoặc thanh toán dịch vụ di động, Internet-TV và dịch vụ 1800/1900.",
+      "launch_url": "https://zalo.me/1570758701534064697",
+      "official_website": "https://www.vietteltelecom.vn/",
+      "logo_url": "https://www.vietteltelecom.vn/favicon.ico",
+      "regions": [
+        "Toàn quốc"
+      ],
+      "target_users": [
+        "Thuê bao di động Viettel",
+        "Khách hàng Internet và truyền hình Viettel",
+        "Khách hàng cần hỗ trợ dịch vụ Viettel"
+      ],
+      "capabilities": [
+        "customer_support",
+        "mobile_topup",
+        "postpaid_bill_payment",
+        "internet_tv_payment",
+        "service_information"
+      ],
+      "aliases": [
+        "Viettel",
+        "Viettel Telecom",
+        "My Viettel",
+        "CSKH Viettel",
+        "Viettel chăm sóc khách hàng"
+      ],
+      "intents": [
+        {
+          "intent": "telecom_customer_support",
+          "example_queries": [
+            "Tôi cần hỗ trợ từ Viettel",
+            "Mở Zalo chăm sóc khách hàng Viettel",
+            "Tìm kênh Viettel chính thức"
+          ]
+        },
+        {
+          "intent": "pay_telecom_bill",
+          "example_queries": [
+            "Tôi muốn thanh toán cước Viettel",
+            "Nạp tiền điện thoại Viettel",
+            "Thanh toán Internet Viettel ở đâu"
+          ]
+        },
+        {
+          "intent": "find_telecom_service",
+          "example_queries": [
+            "Tìm gói cước Viettel",
+            "Tôi muốn hỏi về dịch vụ Internet-TV Viettel",
+            "Mở kênh thông tin dịch vụ Viettel"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://business-sinvoice.vietteltelecom.vn/",
+          "publisher": "Viettel Telecom",
+          "supports": [
+            "Trang dịch vụ trên tên miền chính thức ghi rõ kênh hỗ trợ Zalo “Viettel Chăm sóc Khách hàng” và liên kết https://zalo.me/1570758701534064697."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://zalo.me/1570758701534064697",
+          "publisher": "Viettel chăm sóc khách hàng trên Zalo",
+          "supports": [
+            "Trang Zalo công khai mở được; metadata nhận diện đây là kênh Zalo OA chăm sóc khách hàng của Viettel Telecom."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://www.vietteltelecom.vn/vx/pay",
+          "publisher": "Viettel Telecom",
+          "supports": [
+            "Trang thanh toán chính thức cho dịch vụ di động, Internet-TV và dịch vụ 1800/1900."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "high",
+        "oa_badge_status": "unknown",
+        "notes": "OA được liên kết từ tên miền Viettel chính chủ và metadata công khai nhận diện đúng nhà cung cấp. Không quan sát trực tiếp dấu xác minh nên giữ badge ở trạng thái unknown. Các giao dịch thanh toán cần điều hướng sang kênh chính thức, không thu OTP hoặc thông tin tài khoản trong Navigator."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    },
+    {
+      "candidate_id": "utilities-vinaphone-oa",
+      "name": "VinaPhone",
+      "provider": "Tập đoàn Bưu chính Viễn thông Việt Nam (VNPT)",
+      "channel_type": "oa",
+      "category": "utilities",
+      "subcategory": "telecom",
+      "description": "Kênh VinaPhone được Zalo OA liệt kê trong danh sách đối tác công khai. Trong hệ sinh thái chính chủ, My VNPT hỗ trợ tra cứu hóa đơn, quản lý chi tiết và nhận thông báo cước.",
+      "launch_url": "https://oa.zalo.me/vinaphone",
+      "official_website": "https://my.vnpt.com.vn/",
+      "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/vina.png",
+      "regions": [
+        "Toàn quốc"
+      ],
+      "target_users": [
+        "Thuê bao VinaPhone",
+        "Khách hàng Internet và MyTV của VNPT",
+        "Người cần tra cứu cước viễn thông"
+      ],
+      "capabilities": [
+        "customer_support",
+        "find_plan_information",
+        "bill_lookup_via_my_vnpt",
+        "manage_charges_via_my_vnpt",
+        "receive_charge_notifications_via_my_vnpt"
+      ],
+      "aliases": [
+        "Vinaphone",
+        "VinaPhone",
+        "VNPT",
+        "My VNPT",
+        "CSKH VinaPhone"
+      ],
+      "intents": [
+        {
+          "intent": "telecom_bill_lookup",
+          "example_queries": [
+            "Tôi muốn tra cứu cước VinaPhone",
+            "Kiểm tra hóa đơn VNPT tháng này",
+            "Mở kênh hỗ trợ quản lý cước My VNPT"
+          ]
+        },
+        {
+          "intent": "telecom_customer_support",
+          "example_queries": [
+            "Tôi cần hỗ trợ thuê bao VinaPhone",
+            "Mở OA VinaPhone chính thức",
+            "Tìm kênh chăm sóc khách hàng VNPT trên Zalo"
+          ]
+        },
+        {
+          "intent": "find_telecom_plan",
+          "example_queries": [
+            "Tìm gói cước VinaPhone phù hợp",
+            "Tôi muốn đăng ký gói data VinaPhone",
+            "Mở kênh thông tin gói cước VNPT"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://oa.zalo.me/home",
+          "publisher": "Zalo Official Account",
+          "supports": [
+            "Trang chủ Zalo OA công khai liệt kê VinaPhone trong nhóm đối tác và liên kết trực tiếp đến https://oa.zalo.me/vinaphone."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://vnpt.com.vn/tu-van/huong-dan-tra-cuu-hoa-don-va-quan-ly-cuoc-tren-ung-dung-my-vnpt.html",
+          "publisher": "VNPT",
+          "supports": [
+            "Bài hướng dẫn chính thức xác nhận My VNPT hỗ trợ tra cứu hóa đơn, quản lý chi tiết và thông báo cước."
+          ],
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://my.vnpt.com.vn/tinh-nang/hoa-don-dien-tu",
+          "publisher": "VNPT",
+          "supports": [
+            "Trang chính chủ liệt kê tra cứu hóa đơn, hỗ trợ trực tuyến, phản ánh chất lượng dịch vụ và các tiện ích chăm sóc khách hàng."
+          ],
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "confidence": "high",
+        "oa_badge_status": "unknown",
+        "notes": "OA URL do chính trang Zalo OA công khai liên kết. Không quan sát trực tiếp dấu xác minh trên giao diện OA, nên không gắn trạng thái verified. Các chức năng quản lý tài khoản được xác nhận cho My VNPT; cần kiểm duyệt riêng xem OA có cung cấp CTA tương ứng hay chỉ điều hướng."
+      },
+      "active": false,
+      "review_status": "candidate",
+      "logo_usage": "reference_only_needs_review",
+      "cta_label": "Mở OA",
+      "organization_contexts": []
+    }
+  ]
+}

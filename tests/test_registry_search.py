@@ -20,6 +20,9 @@ def _service(
     region: str = "Quận 5, TP.HCM",
     launch_url: str = "https://example.com/service",
     priority: int = 0,
+    target_user: str = "general",
+    organization: str | None = None,
+    intent: str = "find_medical_service",
 ) -> dict[str, object]:
     return {
         "id": service_id,
@@ -30,7 +33,8 @@ def _service(
         "description": f"Dịch vụ {name}",
         "launch_url": launch_url,
         "region": region,
-        "target_user": "general",
+        "target_user": target_user,
+        "organization": organization,
         "active": active,
         "owner": "test",
         "last_verified_at": "2026-07-23T00:00:00+07:00",
@@ -38,7 +42,7 @@ def _service(
         "aliases": [name.casefold()],
         "intents": [
             {
-                "intent": "find_medical_service",
+                "intent": intent,
                 "example_query": f"Tìm {name} ở Quận 5",
             }
         ],
@@ -109,6 +113,110 @@ def test_registry_hard_filters_and_orders_deterministically(tmp_path: Path) -> N
     assert asyncio.run(registry.search(query, limit=0)) == []
 
 
+def test_registry_prioritizes_matching_organization_context(tmp_path: Path) -> None:
+    vng_id = "00000000-0000-4000-8000-000000000013"
+    registry = JsonServiceRegistry(
+        _write_registry(
+            tmp_path,
+            [
+                _service(
+                    "00000000-0000-4000-8000-000000000014",
+                    name="Quầy đồ ăn chung",
+                    category="shopping_delivery",
+                    target_user="vng_employee",
+                    intent="find_food_service",
+                    priority=100,
+                ),
+                _service(
+                    vng_id,
+                    name="Ba Sao",
+                    category="shopping_delivery",
+                    region="VNG Campus, TP.HCM",
+                    target_user="vng_employee",
+                    organization="VNG",
+                    intent="find_food_service",
+                    priority=1,
+                ),
+                _service(
+                    "00000000-0000-4000-8000-000000000015",
+                    name="Canteen công ty khác",
+                    category="shopping_delivery",
+                    target_user="vng_employee",
+                    organization="Công ty khác",
+                    intent="find_food_service",
+                ),
+            ],
+        )
+    )
+    query = StructuredQuery(
+        intent="find_food_service",
+        category="shopping_delivery",
+        service="đồ ăn",
+        target_user="vng_employee",
+        organization="VNG",
+    )
+
+    results = asyncio.run(registry.search(query))
+
+    assert [service.id for service in results] == [UUID(vng_id)]
+
+
+def test_registry_hard_filters_do_not_match_substrings_or_missing_company(
+    tmp_path: Path,
+) -> None:
+    registry = JsonServiceRegistry(
+        _write_registry(
+            tmp_path,
+            [
+                _service(
+                    "00000000-0000-4000-8000-000000000016",
+                    name="Quận 1 VNG",
+                    region="Quận 1; TP.HCM",
+                    organization="VNG",
+                ),
+                _service(
+                    "00000000-0000-4000-8000-000000000017",
+                    name="Quận 10 VNGX",
+                    region="Quận 10; TP.HCM",
+                    organization="VNGX",
+                ),
+                _service(
+                    "00000000-0000-4000-8000-000000000018",
+                    name="Không có công ty",
+                    region="Quận 1; TP.HCM",
+                    organization=None,
+                ),
+            ],
+        )
+    )
+
+    results = asyncio.run(
+        registry.search(
+            StructuredQuery(
+                intent="find_medical_service",
+                category="healthcare",
+                location="Quận 1",
+                organization="VNG",
+            )
+        )
+    )
+
+    assert [service.name for service in results] == ["Quận 1 VNG"]
+
+    synonym_results = asyncio.run(
+        registry.search(
+            StructuredQuery(
+                intent="find_medical_service",
+                category="healthcare",
+                location="Hồ Chí Minh",
+                organization="Công ty VNG",
+            )
+        )
+    )
+
+    assert [service.name for service in synonym_results] == ["Quận 1 VNG"]
+
+
 def test_registry_rejects_duplicate_ids_and_invalid_records(tmp_path: Path) -> None:
     service_id = "00000000-0000-4000-8000-000000000001"
     duplicate_path = _write_registry(
@@ -124,6 +232,22 @@ def test_registry_rejects_duplicate_ids_and_invalid_records(tmp_path: Path) -> N
     )
     with pytest.raises(ValidationError):
         JsonServiceRegistry(invalid_path)
+
+    missing_verification = _service(
+        "00000000-0000-4000-8000-000000000003",
+        name="Missing verification",
+    )
+    missing_verification["last_verified_at"] = None
+    with pytest.raises(ValidationError, match="requires last_verified_at"):
+        JsonServiceRegistry(_write_registry(tmp_path, [missing_verification]))
+
+    naive_verification = _service(
+        "00000000-0000-4000-8000-000000000004",
+        name="Naive verification",
+    )
+    naive_verification["last_verified_at"] = "2026-07-23T00:00:00"
+    with pytest.raises(ValidationError, match="include a timezone"):
+        JsonServiceRegistry(_write_registry(tmp_path, [naive_verification]))
 
 
 def test_final_score_clamps_each_component_before_weighting() -> None:

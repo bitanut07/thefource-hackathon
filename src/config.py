@@ -20,7 +20,8 @@ class Settings(BaseSettings):
     api_host: str = "0.0.0.0"
     api_port: int = 8000
     public_base_url: str = ""
-    registry_data_path: Path = Path("data/seed/services.example.json")
+    registry_data_path: Path = Path("data/registry/services.real.json")
+    rag_data_path: Path = Path("data/rag/service-catalog.sqlite3")
     redis_url: str = "redis://localhost:6379/0"
     rq_queue_name: str = "zalo-navigator"
 
@@ -32,10 +33,15 @@ class Settings(BaseSettings):
     zalo_access_token: SecretStr | None = None
     zalo_refresh_token: SecretStr | None = None
 
-    llm_provider: str = "fake"
-    llm_model: str = ""
-    llm_api_key: SecretStr | None = None
-    stt_provider: str = "fake"
+    llm_provider: str = "gemini"
+    llm_model: str = "gemini-3.5-flash-lite"
+    gemini_api_key: SecretStr | None = None
+    llm_timeout_seconds: int = Field(default=20, gt=0, le=120)
+    llm_max_retries: int = Field(default=2, ge=0, le=5)
+    navigator_api_key: SecretStr | None = None
+    navigator_max_concurrency: int = Field(default=4, gt=0, le=64)
+    navigator_queue_timeout_seconds: float = Field(default=0.1, gt=0, le=5)
+    stt_provider: str = "disabled"
     stt_api_key: SecretStr | None = None
 
     allowed_launch_hosts: str = ""

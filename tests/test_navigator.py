@@ -1,12 +1,21 @@
 import asyncio
+from typing import Any
 from uuid import UUID
 
+import httpx
 import pytest
-from pydantic import HttpUrl
+from google.genai import errors
+from pydantic import HttpUrl, SecretStr
 
 from config import Settings
 from domain.search import SearchService
-from llm.client import ConfiguredLLMClient
+from llm.client import (
+    ConfiguredLLMClient,
+    GoogleGenAIGateway,
+    LLMProviderError,
+    LLMUnavailableError,
+)
+from llm.fake import FakeLLMClient
 from llm.schemas import ServiceCandidate, StructuredQuery
 from skills.navigator import NavigatorSkill, TemplateResponseComposer
 
@@ -31,6 +40,52 @@ class StubSearchService(SearchService):
         return self.candidates
 
 
+class StubStructuredGateway:
+    output_text: str
+    calls: list[dict[str, object]]
+
+    def __init__(self, output_text: str) -> None:
+        self.output_text = output_text
+        self.calls = []
+
+    async def generate_json(
+        self,
+        *,
+        model: str,
+        user_input: str,
+        system_instruction: str,
+        schema: dict[str, Any],
+    ) -> str:
+        self.calls.append(
+            {
+                "model": model,
+                "user_input": user_input,
+                "system_instruction": system_instruction,
+                "schema": schema,
+            }
+        )
+        return self.output_text
+
+
+class FailingGoogleGateway(GoogleGenAIGateway):
+    def __init__(self, error: Exception, *, max_retries: int) -> None:
+        super().__init__("test-only", timeout_seconds=1, max_retries=max_retries)
+        self.error = error
+        self.attempts = 0
+
+    async def _generate_once(
+        self,
+        *,
+        model: str,
+        user_input: str,
+        system_instruction: str,
+        schema: dict[str, Any],
+    ) -> str:
+        del model, user_input, system_instruction, schema
+        self.attempts += 1
+        raise self.error
+
+
 def _candidate(index: int) -> ServiceCandidate:
     return ServiceCandidate(
         service_id=UUID(f"00000000-0000-4000-8000-{index:012d}"),
@@ -43,97 +98,127 @@ def _candidate(index: int) -> ServiceCandidate:
     )
 
 
-def _client(provider: str = "fake") -> ConfiguredLLMClient:
-    return ConfiguredLLMClient(Settings(llm_provider=provider))
+def _configured_client(
+    query: StructuredQuery,
+) -> tuple[ConfiguredLLMClient, StubStructuredGateway]:
+    gateway = StubStructuredGateway(query.model_dump_json())
+    settings = Settings(
+        llm_provider="gemini",
+        llm_model="gemini-3.5-flash-lite",
+        gemini_api_key=SecretStr("test-only"),
+    )
+    return ConfiguredLLMClient(settings, gateway=gateway), gateway
 
 
-@pytest.mark.parametrize(
-    ("text", "intent", "category", "service", "location", "time", "target_user"),
-    [
-        (
-            "Tìm chỗ khám mắt ở Quận 5 cuối tuần.",
-            "find_medical_service",
-            "healthcare",
-            "khám mắt",
-            "Quận 5",
-            "cuối tuần",
-            None,
+def test_gemini_adapter_requests_structured_output_and_validates_response() -> None:
+    expected = StructuredQuery(
+        intent="find_food_service",
+        category="shopping_delivery",
+        service="đồ ăn",
+        target_user="vng_employee",
+        organization="VNG",
+    )
+    client, gateway = _configured_client(expected)
+
+    query = asyncio.run(client.extract_structured_query("Là nhân viên VNG hiện tôi cần mua đồ ăn."))
+
+    assert query == expected
+    assert len(gateway.calls) == 1
+    assert gateway.calls[0]["model"] == "gemini-3.5-flash-lite"
+    assert gateway.calls[0]["user_input"] == "Là nhân viên VNG hiện tôi cần mua đồ ăn."
+    schema = gateway.calls[0]["schema"]
+    assert isinstance(schema, dict)
+    assert schema["additionalProperties"] is False
+    assert "organization" in schema["properties"]
+
+
+def test_gemini_adapter_rejects_invalid_provider_json() -> None:
+    gateway = StubStructuredGateway('{"intent":"x","category":"not-supported"}')
+    client = ConfiguredLLMClient(
+        Settings(llm_provider="gemini", gemini_api_key=SecretStr("test-only")),
+        gateway=gateway,
+    )
+
+    with pytest.raises(LLMProviderError, match="không vượt qua schema"):
+        asyncio.run(client.extract_structured_query("query"))
+
+
+def test_missing_gemini_key_fails_only_when_serving_a_query() -> None:
+    client = ConfiguredLLMClient(
+        Settings(llm_provider="gemini", gemini_api_key=None),
+    )
+
+    with pytest.raises(LLMUnavailableError, match="GEMINI_API_KEY"):
+        asyncio.run(client.extract_structured_query("Tìm dịch vụ"))
+
+
+def test_gemini_gateway_bounds_transport_retries_and_maps_unknown_responses() -> None:
+    transport_gateway = FailingGoogleGateway(
+        httpx.ConnectError("offline"),
+        max_retries=1,
+    )
+    with pytest.raises(LLMUnavailableError, match="kết nối") as transport_error:
+        asyncio.run(
+            transport_gateway.generate_json(
+                model="gemini-3.5-flash-lite",
+                user_input="query",
+                system_instruction="instruction",
+                schema={"type": "object"},
+            )
+        )
+    assert transport_gateway.attempts == 2
+    assert transport_error.value.retry_after_seconds == 1
+
+    unknown_gateway = FailingGoogleGateway(
+        errors.UnknownApiResponseError("invalid"),
+        max_retries=3,
+    )
+    with pytest.raises(LLMProviderError, match="không thể đọc"):
+        asyncio.run(
+            unknown_gateway.generate_json(
+                model="gemini-3.5-flash-lite",
+                user_input="query",
+                system_instruction="instruction",
+                schema={"type": "object"},
+            )
+        )
+    assert unknown_gateway.attempts == 1
+
+    quota_gateway = FailingGoogleGateway(
+        errors.ClientError(
+            429,
+            {"error": {"message": "quota", "status": "RESOURCE_EXHAUSTED"}},
         ),
-        (
-            "Tôi muốn đóng tiền điện ở TP.HCM.",
-            "pay_utility_bill",
-            "utilities",
-            "thanh toán tiền điện",
-            "TP.HCM",
-            None,
-            None,
-        ),
-        (
-            "mún tìm app học toán lớp năm cho cháu",
-            "find_education_service",
-            "education",
-            "học toán",
-            None,
-            None,
-            "grade_5_student",
-        ),
-        (
-            "Tìm dịch vụ tra cứu tuyến xe đến bệnh viện.",
-            "find_public_transport",
-            "transport_public",
-            "tra cứu tuyến xe",
-            None,
-            None,
-            None,
-        ),
-    ],
-)
-def test_fake_provider_extracts_supported_vietnamese_queries(
-    text: str,
-    intent: str,
-    category: str,
-    service: str,
-    location: str | None,
-    time: str | None,
-    target_user: str | None,
-) -> None:
-    query = asyncio.run(_client().extract_structured_query(text))
-
-    assert query.intent == intent
-    assert query.category == category
-    assert query.service == service
-    assert query.location == location
-    assert query.time == time
-    assert query.target_user == target_user
-    assert query.needs_clarification is False
-    assert query.out_of_scope is False
+        max_retries=0,
+    )
+    with pytest.raises(LLMUnavailableError) as quota_error:
+        asyncio.run(
+            quota_gateway.generate_json(
+                model="gemini-3.5-flash-lite",
+                user_input="query",
+                system_instruction="instruction",
+                schema={"type": "object"},
+            )
+        )
+    assert quota_error.value.retry_after_seconds == 1
 
 
-def test_ambiguous_education_query_requests_one_clarification() -> None:
-    query = asyncio.run(_client().extract_structured_query("Tìm chỗ học cho cháu."))
-
-    assert query.intent == "find_education_service"
-    assert query.category == "education"
-    assert query.service is None
-    assert query.needs_clarification is True
-    assert query.clarification_field == "service"
-    assert query.out_of_scope is False
-
-
-def test_action_request_is_out_of_scope() -> None:
-    query = asyncio.run(_client().extract_structured_query("Đặt cho tôi vé máy bay sang Nhật."))
-
-    assert query == StructuredQuery(intent="unknown", out_of_scope=True)
-
-
-def test_non_fake_provider_fails_with_actionable_message() -> None:
-    with pytest.raises(ValueError, match=r"LLM_PROVIDER=fake"):
-        _client("unconfigured-provider")
+def test_non_gemini_runtime_provider_fails_with_actionable_message() -> None:
+    with pytest.raises(ValueError, match=r"LLM_PROVIDER=gemini"):
+        ConfiguredLLMClient(Settings(llm_provider="fake"))
 
 
 def test_navigator_skips_search_for_clarification() -> None:
     search = StubSearchService([_candidate(1)])
-    navigator = NavigatorSkill(_client(), search, TemplateResponseComposer())
+    extractor = FakeLLMClient(
+        StructuredQuery(
+            intent="find_education_service",
+            category="education",
+            needs_clarification=True,
+            clarification_field="service",
+        )
+    )
+    navigator = NavigatorSkill(extractor, search, TemplateResponseComposer())
 
     response = asyncio.run(navigator.process_text("Tìm chỗ học cho cháu."))
 
@@ -143,9 +228,28 @@ def test_navigator_skips_search_for_clarification() -> None:
     assert response.message == response.clarification_question
 
 
+def test_navigator_asks_the_specific_organization_clarification() -> None:
+    search = StubSearchService()
+    extractor = FakeLLMClient(
+        StructuredQuery(
+            intent="find_food_service",
+            category="shopping_delivery",
+            needs_clarification=True,
+            clarification_field="organization",
+        )
+    )
+    navigator = NavigatorSkill(extractor, search, TemplateResponseComposer())
+
+    response = asyncio.run(navigator.process_text("Tìm chỗ ăn cho nhân viên công ty."))
+
+    assert search.queries == []
+    assert response.clarification_question == ("Bạn đang cần dịch vụ cho công ty hoặc tổ chức nào?")
+
+
 def test_navigator_skips_search_and_candidates_for_out_of_scope_request() -> None:
     search = StubSearchService([_candidate(1)])
-    navigator = NavigatorSkill(_client(), search, TemplateResponseComposer())
+    extractor = FakeLLMClient(StructuredQuery(intent="unknown", out_of_scope=True))
+    navigator = NavigatorSkill(extractor, search, TemplateResponseComposer())
 
     response = asyncio.run(navigator.process_text("Đặt cho tôi vé máy bay sang Nhật."))
 
@@ -158,20 +262,40 @@ def test_navigator_skips_search_and_candidates_for_out_of_scope_request() -> Non
 def test_navigator_returns_only_backend_candidates_and_limits_search() -> None:
     candidates = [_candidate(index) for index in range(1, 5)]
     search = StubSearchService(candidates)
-    navigator = NavigatorSkill(_client(), search, TemplateResponseComposer())
+    extractor = FakeLLMClient(
+        StructuredQuery(
+            intent="pay_utility_bill",
+            category="utilities",
+            service="thanh toán tiền điện",
+            location="TP.HCM",
+        )
+    )
+    navigator = NavigatorSkill(extractor, search, TemplateResponseComposer())
 
     response = asyncio.run(navigator.process_text("Tôi muốn đóng tiền điện ở TP.HCM."))
 
     assert search.limits == [3]
     assert search.queries[0].intent == "pay_utility_bill"
-    assert response.choices == candidates[:3]
     assert len(response.choices) == 3
+    assert [choice.service_id for choice in response.choices] == [
+        candidate.service_id for candidate in candidates[:3]
+    ]
     assert str(response.choices[0].launch_url) == "https://example.com/services/1"
+    assert "score" not in response.model_dump_json()
 
 
 def test_navigator_no_result_does_not_invent_service_or_url() -> None:
     search = StubSearchService()
-    navigator = NavigatorSkill(_client(), search, TemplateResponseComposer())
+    extractor = FakeLLMClient(
+        StructuredQuery(
+            intent="find_medical_service",
+            category="healthcare",
+            service="khám mắt",
+            location="Quận 5",
+            time="cuối tuần",
+        )
+    )
+    navigator = NavigatorSkill(extractor, search, TemplateResponseComposer())
 
     response = asyncio.run(navigator.process_text("Tìm chỗ khám mắt ở Quận 5 cuối tuần."))
 

@@ -1,0 +1,1031 @@
+[
+  {
+    "candidate_id": "utilities_evnhcmc_cskh",
+    "name": "EVNHCMC CSKH",
+    "provider": "Tổng công ty Điện lực Thành phố Hồ Chí Minh",
+    "channel_type": "website",
+    "category": "utilities",
+    "subcategory": "electricity",
+    "description": "Cổng chăm sóc khách hàng điện lực TP.HCM cho phép thanh toán hóa đơn và gửi các yêu cầu dịch vụ điện, gồm báo sửa điện, báo chỉ số, thay đổi hình thức thanh toán và ký hợp đồng điện tử.",
+    "launch_url": "https://cskh.evnhcmc.vn/",
+    "official_website": "https://cskh.evnhcmc.vn/",
+    "logo_url": "https://cskh.evnhcmc.vn/public/images/LogoEVNHCMC.jpg",
+    "regions": [
+      "Thành phố Hồ Chí Minh"
+    ],
+    "target_users": [
+      "Hộ gia đình sử dụng điện",
+      "Khách hàng doanh nghiệp sử dụng điện",
+      "Người cần báo sự cố điện tại TP.HCM"
+    ],
+    "capabilities": [
+      "pay_electricity_bill",
+      "submit_electricity_service_request",
+      "report_power_issue",
+      "change_payment_method",
+      "sign_electricity_contract_online"
+    ],
+    "aliases": [
+      "EVNHCMC",
+      "Điện lực TP.HCM",
+      "CSKH EVNHCMC",
+      "điện lực Sài Gòn"
+    ],
+    "intents": [
+      {
+        "intent": "pay_electricity_bill",
+        "example_queries": [
+          "Tôi muốn đóng tiền điện ở TP.HCM",
+          "Mở trang thanh toán hóa đơn điện EVNHCMC",
+          "Cho tôi tra cứu và thanh toán tiền điện"
+        ]
+      },
+      {
+        "intent": "report_power_issue",
+        "example_queries": [
+          "Nhà tôi bị mất điện cần báo ở đâu",
+          "Báo sửa điện EVNHCMC",
+          "Tôi muốn gửi yêu cầu kiểm tra sự cố điện"
+        ]
+      },
+      {
+        "intent": "request_electricity_service",
+        "example_queries": [
+          "Tôi muốn thay đổi hình thức thanh toán tiền điện",
+          "Gửi yêu cầu dịch vụ điện trực tuyến",
+          "Tôi cần ký hợp đồng điện tử"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://cskh.evnhcmc.vn/",
+        "publisher": "Trung tâm Chăm sóc khách hàng EVNHCMC",
+        "supports": "Cổng chính chủ và URL mở dịch vụ đang hoạt động.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://cskh.evnhcmc.vn/GiaoDichTrucTuyen/baoMatDien/1000",
+        "publisher": "Trung tâm Chăm sóc khách hàng EVNHCMC",
+        "supports": "Trang giao dịch trực tuyến nêu thanh toán hóa đơn và các nhóm yêu cầu dịch vụ điện như báo sửa điện, báo chỉ số, thay đổi hình thức thanh toán và ký hợp đồng điện tử.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "not_applicable",
+      "notes": "URL thuộc tên miền CSKH chính thức của EVNHCMC. Chưa tìm được URL OA công khai được nguồn chính chủ xác nhận nên chỉ ghi nhận kênh website."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "utilities_evnhanoi_cskh",
+    "name": "EVNHANOI",
+    "provider": "Tổng công ty Điện lực Thành phố Hà Nội",
+    "channel_type": "website",
+    "category": "utilities",
+    "subcategory": "electricity",
+    "description": "Hệ sinh thái chăm sóc khách hàng EVNHANOI hỗ trợ tra cứu lịch tạm ngừng cấp điện, sản lượng tiêu thụ và gửi yêu cầu dịch vụ điện trực tuyến cho khách hàng tại Hà Nội.",
+    "launch_url": "https://evnhanoi.vn/",
+    "official_website": "https://evnhanoi.vn/",
+    "logo_url": "https://evnhanoi.vn/favicon.ico",
+    "regions": [
+      "Thành phố Hà Nội"
+    ],
+    "target_users": [
+      "Hộ gia đình sử dụng điện",
+      "Khách hàng doanh nghiệp sử dụng điện",
+      "Người cần tra cứu lịch tạm ngừng cấp điện"
+    ],
+    "capabilities": [
+      "view_outage_schedule",
+      "view_electricity_consumption",
+      "submit_electricity_service_request",
+      "customer_support"
+    ],
+    "aliases": [
+      "EVN Hà Nội",
+      "Điện lực Hà Nội",
+      "CSKH EVNHANOI",
+      "EVNHANOI"
+    ],
+    "intents": [
+      {
+        "intent": "view_outage_schedule",
+        "example_queries": [
+          "Hà Nội hôm nay khu tôi có cắt điện không",
+          "Tra cứu lịch tạm ngừng cấp điện EVNHANOI",
+          "Tôi muốn xem lịch mất điện ở Hà Nội"
+        ]
+      },
+      {
+        "intent": "view_electricity_consumption",
+        "example_queries": [
+          "Cho tôi xem lượng điện đã dùng",
+          "Tra cứu sản lượng điện EVNHANOI",
+          "Tôi muốn kiểm tra mức tiêu thụ điện"
+        ]
+      },
+      {
+        "intent": "request_electricity_service",
+        "example_queries": [
+          "Gửi yêu cầu dịch vụ điện tại Hà Nội",
+          "Tôi cần hỗ trợ từ EVNHANOI",
+          "Mở cổng chăm sóc khách hàng điện lực Hà Nội"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://evnhanoi.vn/",
+        "publisher": "EVNHANOI",
+        "supports": "Website chính thức và URL mở dịch vụ đang hoạt động.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://apicskh.evnhanoi.vn/media/ThongTinDoanhNghiep/2025/BC%20Ket%20qua%20thuc%20hien%20nhiem%20vu%20cong%20ich%20va%20trach%20nhiem%20XH%20nam%202024.pdf",
+        "publisher": "EVNHANOI",
+        "supports": "Báo cáo chính thức mô tả tra cứu lịch tạm ngừng cấp điện, sản lượng tiêu thụ, gửi yêu cầu dịch vụ và liệt kê website cùng trang EVNHANOI trên Zalo.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "not_applicable",
+      "notes": "Nguồn chính thức xác nhận EVNHANOI có trang trên Zalo nhưng không cung cấp URL OA công khai có thể đối chiếu; do đó bản ghi hiện mở website, không suy đoán OA ID."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "utilities_vinaphone_oa",
+    "name": "VinaPhone",
+    "provider": "Tập đoàn Bưu chính Viễn thông Việt Nam (VNPT)",
+    "channel_type": "oa",
+    "category": "utilities",
+    "subcategory": "telecom",
+    "description": "Kênh VinaPhone được Zalo OA liệt kê trong danh sách đối tác công khai. Trong hệ sinh thái chính chủ, My VNPT hỗ trợ tra cứu hóa đơn, quản lý chi tiết và nhận thông báo cước.",
+    "launch_url": "https://oa.zalo.me/vinaphone",
+    "official_website": "https://my.vnpt.com.vn/",
+    "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/vina.png",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Thuê bao VinaPhone",
+      "Khách hàng Internet và MyTV của VNPT",
+      "Người cần tra cứu cước viễn thông"
+    ],
+    "capabilities": [
+      "customer_support",
+      "find_plan_information",
+      "bill_lookup_via_my_vnpt",
+      "manage_charges_via_my_vnpt",
+      "receive_charge_notifications_via_my_vnpt"
+    ],
+    "aliases": [
+      "Vinaphone",
+      "VinaPhone",
+      "VNPT",
+      "My VNPT",
+      "CSKH VinaPhone"
+    ],
+    "intents": [
+      {
+        "intent": "telecom_bill_lookup",
+        "example_queries": [
+          "Tôi muốn tra cứu cước VinaPhone",
+          "Kiểm tra hóa đơn VNPT tháng này",
+          "Mở kênh hỗ trợ quản lý cước My VNPT"
+        ]
+      },
+      {
+        "intent": "telecom_customer_support",
+        "example_queries": [
+          "Tôi cần hỗ trợ thuê bao VinaPhone",
+          "Mở OA VinaPhone chính thức",
+          "Tìm kênh chăm sóc khách hàng VNPT trên Zalo"
+        ]
+      },
+      {
+        "intent": "find_telecom_plan",
+        "example_queries": [
+          "Tìm gói cước VinaPhone phù hợp",
+          "Tôi muốn đăng ký gói data VinaPhone",
+          "Mở kênh thông tin gói cước VNPT"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://oa.zalo.me/home",
+        "publisher": "Zalo Official Account",
+        "supports": "Trang chủ Zalo OA công khai liệt kê VinaPhone trong nhóm đối tác và liên kết trực tiếp đến https://oa.zalo.me/vinaphone.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://vnpt.com.vn/tu-van/huong-dan-tra-cuu-hoa-don-va-quan-ly-cuoc-tren-ung-dung-my-vnpt.html",
+        "publisher": "VNPT",
+        "supports": "Bài hướng dẫn chính thức xác nhận My VNPT hỗ trợ tra cứu hóa đơn, quản lý chi tiết và thông báo cước.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://my.vnpt.com.vn/tinh-nang/hoa-don-dien-tu",
+        "publisher": "VNPT",
+        "supports": "Trang chính chủ liệt kê tra cứu hóa đơn, hỗ trợ trực tuyến, phản ánh chất lượng dịch vụ và các tiện ích chăm sóc khách hàng.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "OA URL do chính trang Zalo OA công khai liên kết. Không quan sát trực tiếp dấu xác minh trên giao diện OA, nên không gắn trạng thái verified. Các chức năng quản lý tài khoản được xác nhận cho My VNPT; cần kiểm duyệt riêng xem OA có cung cấp CTA tương ứng hay chỉ điều hướng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "utilities_viettel_cskh_oa",
+    "name": "Viettel chăm sóc khách hàng",
+    "provider": "Tổng Công ty Viễn thông Viettel",
+    "channel_type": "oa",
+    "category": "utilities",
+    "subcategory": "telecom",
+    "description": "Kênh Zalo OA chăm sóc khách hàng của Viettel Telecom được một trang dịch vụ chính chủ của Viettel liên kết trực tiếp. Website Viettel hỗ trợ nạp tiền hoặc thanh toán dịch vụ di động, Internet-TV và dịch vụ 1800/1900.",
+    "launch_url": "https://zalo.me/1570758701534064697",
+    "official_website": "https://www.vietteltelecom.vn/",
+    "logo_url": "https://www.vietteltelecom.vn/favicon.ico",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Thuê bao di động Viettel",
+      "Khách hàng Internet và truyền hình Viettel",
+      "Khách hàng cần hỗ trợ dịch vụ Viettel"
+    ],
+    "capabilities": [
+      "customer_support",
+      "mobile_topup",
+      "postpaid_bill_payment",
+      "internet_tv_payment",
+      "service_information"
+    ],
+    "aliases": [
+      "Viettel",
+      "Viettel Telecom",
+      "My Viettel",
+      "CSKH Viettel",
+      "Viettel chăm sóc khách hàng"
+    ],
+    "intents": [
+      {
+        "intent": "telecom_customer_support",
+        "example_queries": [
+          "Tôi cần hỗ trợ từ Viettel",
+          "Mở Zalo chăm sóc khách hàng Viettel",
+          "Tìm kênh Viettel chính thức"
+        ]
+      },
+      {
+        "intent": "pay_telecom_bill",
+        "example_queries": [
+          "Tôi muốn thanh toán cước Viettel",
+          "Nạp tiền điện thoại Viettel",
+          "Thanh toán Internet Viettel ở đâu"
+        ]
+      },
+      {
+        "intent": "find_telecom_service",
+        "example_queries": [
+          "Tìm gói cước Viettel",
+          "Tôi muốn hỏi về dịch vụ Internet-TV Viettel",
+          "Mở kênh thông tin dịch vụ Viettel"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://business-sinvoice.vietteltelecom.vn/",
+        "publisher": "Viettel Telecom",
+        "supports": "Trang dịch vụ trên tên miền chính thức ghi rõ kênh hỗ trợ Zalo “Viettel Chăm sóc Khách hàng” và liên kết https://zalo.me/1570758701534064697.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://zalo.me/1570758701534064697",
+        "publisher": "Viettel chăm sóc khách hàng trên Zalo",
+        "supports": "Trang Zalo công khai mở được; metadata nhận diện đây là kênh Zalo OA chăm sóc khách hàng của Viettel Telecom.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://www.vietteltelecom.vn/vx/pay",
+        "publisher": "Viettel Telecom",
+        "supports": "Trang thanh toán chính thức cho dịch vụ di động, Internet-TV và dịch vụ 1800/1900.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "OA được liên kết từ tên miền Viettel chính chủ và metadata công khai nhận diện đúng nhà cung cấp. Không quan sát trực tiếp dấu xác minh nên giữ badge ở trạng thái unknown. Các giao dịch thanh toán cần điều hướng sang kênh chính thức, không thu OTP hoặc thông tin tài khoản trong Navigator."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "finance_zalopay",
+    "name": "ZaloPay",
+    "provider": "Công ty Cổ phần ZION",
+    "channel_type": "website",
+    "category": "finance_banking",
+    "subcategory": "e_wallet",
+    "description": "ZaloPay cung cấp chuyển tiền, nạp tiền điện thoại và thanh toán hóa đơn; dịch vụ thanh toán điện có thể được mở ngay trong Zalo hoặc ứng dụng ZaloPay và hỗ trợ nhắc hóa đơn đến kỳ.",
+    "launch_url": "https://zalopay.vn/",
+    "official_website": "https://zalopay.vn/",
+    "logo_url": "https://zalopay.vn/favicon.ico",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Người dùng ZaloPay",
+      "Người cần chuyển tiền",
+      "Người cần thanh toán hóa đơn trực tuyến"
+    ],
+    "capabilities": [
+      "transfer_money",
+      "pay_utility_bills",
+      "mobile_topup",
+      "bill_reminders",
+      "payment_history"
+    ],
+    "aliases": [
+      "Zalopay",
+      "Zalo Pay",
+      "Ví ZaloPay",
+      "trả hóa đơn trên Zalo"
+    ],
+    "intents": [
+      {
+        "intent": "pay_bill_with_ewallet",
+        "example_queries": [
+          "Thanh toán tiền điện bằng ZaloPay",
+          "Tôi muốn trả hóa đơn trên Zalo",
+          "Mở dịch vụ thanh toán hóa đơn ZaloPay"
+        ]
+      },
+      {
+        "intent": "transfer_money_with_ewallet",
+        "example_queries": [
+          "Tôi muốn chuyển tiền bằng ZaloPay",
+          "Chuyển tiền đến tài khoản ngân hàng qua ZaloPay",
+          "Mở tính năng chuyển tiền ZaloPay"
+        ]
+      },
+      {
+        "intent": "mobile_topup",
+        "example_queries": [
+          "Nạp tiền điện thoại bằng ZaloPay",
+          "Tôi muốn mua mã thẻ điện thoại",
+          "Mở dịch vụ nạp tiền ZaloPay"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalopay.vn/?lang=vi",
+        "publisher": "ZaloPay",
+        "supports": "Trang chính thức liệt kê chuyển tiền, nạp tiền điện thoại, thanh toán hóa đơn, mua sắm và giải trí; đồng thời nêu khả năng chuyển tiền và thanh toán trong Zalo.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://zalopay.vn/dich-vu/dien",
+        "publisher": "ZaloPay",
+        "supports": "Trang dịch vụ điện mô tả thanh toán trong Zalo/ZaloPay, tra cứu hóa đơn, nhắc kỳ hạn và quản lý lịch sử giao dịch.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://zalopay.vn/dich-vu/chuyen-tien-den-the-tai-khoan-ngan-hang",
+        "publisher": "ZaloPay",
+        "supports": "Trang chính thức mô tả chuyển tiền đến tài khoản ngân hàng 24/7.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "not_applicable",
+      "notes": "Nguồn xác nhận dịch vụ có thể được truy cập trong Zalo nhưng không đủ bằng chứng để phân loại kỹ thuật là Zalo Mini App; vì vậy bản ghi hiện dùng website. Navigator chỉ điều hướng, không xử lý tiền hoặc thông tin xác thực."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "finance_momo",
+    "name": "MoMo",
+    "provider": "Công ty Cổ phần Dịch vụ Di động Trực tuyến",
+    "channel_type": "website",
+    "category": "finance_banking",
+    "subcategory": "e_wallet",
+    "description": "MoMo cung cấp chuyển tiền, thanh toán hóa đơn điện, nước, Internet và nhiều tiện ích tài chính. Dịch vụ hóa đơn hỗ trợ nhắc hạn, thanh toán tự động và tra cứu lịch sử.",
+    "launch_url": "https://www.momo.vn/",
+    "official_website": "https://www.momo.vn/",
+    "logo_url": "https://www.momo.vn/favicon.ico",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Người dùng MoMo",
+      "Người cần thanh toán hóa đơn",
+      "Người cần chuyển tiền hoặc quản lý chi tiêu"
+    ],
+    "capabilities": [
+      "transfer_money",
+      "pay_utility_bills",
+      "automatic_bill_payment",
+      "bill_reminders",
+      "view_bill_history"
+    ],
+    "aliases": [
+      "MoMo",
+      "Ví MoMo",
+      "Siêu ứng dụng MoMo",
+      "Siêu MoMo"
+    ],
+    "intents": [
+      {
+        "intent": "pay_bill_with_ewallet",
+        "example_queries": [
+          "Tôi muốn thanh toán hóa đơn bằng MoMo",
+          "Trả tiền điện nước trên MoMo",
+          "Mở dịch vụ hóa đơn MoMo"
+        ]
+      },
+      {
+        "intent": "setup_automatic_bill_payment",
+        "example_queries": [
+          "Cài thanh toán hóa đơn tự động trên MoMo",
+          "Nhắc tôi khi hóa đơn đến hạn",
+          "Tôi muốn không bị trễ hạn tiền điện nước"
+        ]
+      },
+      {
+        "intent": "transfer_money_with_ewallet",
+        "example_queries": [
+          "Chuyển tiền bằng MoMo",
+          "Tôi cần mở tính năng chuyển tiền MoMo",
+          "Tìm ứng dụng MoMo chính thức"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://www.momo.vn/",
+        "publisher": "MoMo",
+        "supports": "Trang chính thức liệt kê chuyển tiền, thanh toán hóa đơn, quản lý chi tiêu và các tiện ích tài chính.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://www.momo.vn/thanh-toan-hoa-don",
+        "publisher": "MoMo",
+        "supports": "Trang dịch vụ chính thức mô tả thanh toán hóa đơn điện, nước, Internet, nhắc hạn, thanh toán tự động và tra cứu lịch sử.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "not_applicable",
+      "notes": "Chỉ xác minh website chính chủ; chưa xác minh OA hoặc Mini App Zalo. Navigator chỉ điều hướng, không thu OTP, mật khẩu hoặc dữ liệu tài khoản."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "finance_vcb_digibank",
+    "name": "VCB Digibank",
+    "provider": "Ngân hàng TMCP Ngoại thương Việt Nam",
+    "channel_type": "website",
+    "category": "finance_banking",
+    "subcategory": "digital_banking",
+    "description": "VCB Digibank là dịch vụ ngân hàng số 24/7 của Vietcombank, hỗ trợ chuyển tiền trong và ngoài ngân hàng, thanh toán điện nước, nạp ví điện tử và mở tiết kiệm.",
+    "launch_url": "https://www.vietcombank.com.vn/vi-VN/KHCN/SPDV/Ngan-hang-so/Ngan-hang-so-VCB-Digibank",
+    "official_website": "https://www.vietcombank.com.vn/",
+    "logo_url": "https://www.vietcombank.com.vn/favicon.ico",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Khách hàng cá nhân Vietcombank",
+      "Người cần chuyển tiền 24/7",
+      "Người cần thanh toán hóa đơn qua ngân hàng"
+    ],
+    "capabilities": [
+      "bank_transfer",
+      "pay_utility_bills",
+      "ewallet_topup",
+      "open_savings_account",
+      "manage_bank_account"
+    ],
+    "aliases": [
+      "Vietcombank Digibank",
+      "VCB Digital",
+      "ngân hàng số Vietcombank",
+      "app Vietcombank"
+    ],
+    "intents": [
+      {
+        "intent": "open_digital_banking",
+        "example_queries": [
+          "Mở VCB Digibank",
+          "Tôi cần ngân hàng số Vietcombank",
+          "Tìm trang VCB Digibank chính thức"
+        ]
+      },
+      {
+        "intent": "bank_transfer",
+        "example_queries": [
+          "Tôi muốn chuyển tiền bằng Vietcombank",
+          "Mở dịch vụ chuyển tiền 24/7 VCB",
+          "Chuyển tiền liên ngân hàng trên VCB Digibank"
+        ]
+      },
+      {
+        "intent": "pay_bill_with_bank",
+        "example_queries": [
+          "Thanh toán tiền điện nước bằng Vietcombank",
+          "Tôi muốn trả hóa đơn trên VCB Digibank",
+          "Mở dịch vụ thanh toán hóa đơn Vietcombank"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://www.vietcombank.com.vn/vi-VN/KHCN/SPDV/Ngan-hang-so/Ngan-hang-so-VCB-Digibank",
+        "publisher": "Vietcombank",
+        "supports": "Trang sản phẩm chính thức mô tả dịch vụ 24/7 và các tính năng chuyển tiền, thanh toán điện nước, nạp ví điện tử, mở tiết kiệm.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "not_applicable",
+      "notes": "Chỉ xác minh website sản phẩm chính chủ; chưa xác minh OA hoặc Mini App Zalo. Navigator không được yêu cầu người dùng cung cấp mật khẩu, OTP hoặc số dư tài khoản."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "finance_bidv_oa",
+    "name": "Ngân hàng BIDV",
+    "provider": "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam",
+    "channel_type": "oa",
+    "category": "finance_banking",
+    "subcategory": "banking_support",
+    "description": "Kênh Zalo của BIDV được website chính thức của ngân hàng liên kết. Hệ sinh thái BIDV SmartBanking hỗ trợ thanh toán hóa đơn định kỳ, chuyển tiền và nhiều tiện ích thanh toán.",
+    "launch_url": "https://zalo.me/3644272514222140240",
+    "official_website": "https://bidv.com.vn/",
+    "logo_url": "https://bidv.com.vn/favicon.ico",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Khách hàng cá nhân BIDV",
+      "Người cần kênh hỗ trợ BIDV chính thức",
+      "Người cần thông tin về BIDV SmartBanking"
+    ],
+    "capabilities": [
+      "banking_customer_support",
+      "find_smartbanking_information",
+      "bill_payment_guidance",
+      "bank_transfer_guidance",
+      "open_official_bidv_channel"
+    ],
+    "aliases": [
+      "BIDV",
+      "Ngân hàng BIDV",
+      "BIDV SmartBanking",
+      "SmartBanking BIDV",
+      "CSKH BIDV"
+    ],
+    "intents": [
+      {
+        "intent": "banking_customer_support",
+        "example_queries": [
+          "Mở Zalo BIDV chính thức",
+          "Tôi cần hỗ trợ từ BIDV",
+          "Tìm kênh chăm sóc khách hàng BIDV"
+        ]
+      },
+      {
+        "intent": "pay_bill_with_bank",
+        "example_queries": [
+          "Thanh toán tiền điện bằng BIDV",
+          "Tôi muốn trả hóa đơn trên BIDV SmartBanking",
+          "Tìm hướng dẫn thanh toán định kỳ BIDV"
+        ]
+      },
+      {
+        "intent": "open_digital_banking",
+        "example_queries": [
+          "Tìm BIDV SmartBanking",
+          "Mở ngân hàng số BIDV",
+          "Tôi muốn dùng tiện ích SmartBanking"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://bidv.com.vn/vn/ca-nhan/san-pham-dich-vu/thanh-toan/don-vi-thanh-toan",
+        "publisher": "BIDV",
+        "supports": "Trang chính thức mô tả thanh toán hóa đơn qua BIDV SmartBanking và chứa liên kết công khai tới https://zalo.me/3644272514222140240.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://zalo.me/3644272514222140240",
+        "publisher": "Ngân hàng BIDV trên Zalo",
+        "supports": "Trang Zalo công khai mở được và metadata nhận diện tên “Ngân hàng BIDV”.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "OA URL được lấy từ website BIDV chính chủ. Không quan sát trực tiếp dấu xác minh nên giữ badge ở trạng thái unknown. Chưa xác nhận giao dịch ngân hàng diễn ra trong OA; các capability giao dịch chỉ là thông tin/điều hướng sang SmartBanking."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "public_dvcqg",
+    "name": "Cổng Dịch vụ công Quốc gia",
+    "provider": "Văn phòng Chính phủ",
+    "channel_type": "website",
+    "category": "public_admin",
+    "subcategory": "national_public_services",
+    "description": "Cổng Dịch vụ công Quốc gia cung cấp thông tin thủ tục hành chính và dịch vụ công trực tuyến trên toàn quốc, hỗ trợ nộp và theo dõi hồ sơ, thanh toán phí lệ phí và gửi phản ánh kiến nghị.",
+    "launch_url": "https://dichvucong.gov.vn/p/home/dvc-trang-chu.html",
+    "official_website": "https://dichvucong.gov.vn/",
+    "logo_url": "https://dichvucong.gov.vn/favicon.ico",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Công dân Việt Nam",
+      "Doanh nghiệp",
+      "Tổ chức thực hiện thủ tục hành chính"
+    ],
+    "capabilities": [
+      "search_administrative_procedure",
+      "submit_online_application",
+      "track_application_status",
+      "pay_public_service_fees",
+      "submit_feedback_or_petition"
+    ],
+    "aliases": [
+      "Dịch vụ công Quốc gia",
+      "Cổng DVCQG",
+      "dichvucong.gov.vn",
+      "cổng thủ tục hành chính"
+    ],
+    "intents": [
+      {
+        "intent": "find_public_service",
+        "example_queries": [
+          "Tôi cần tìm thủ tục hành chính",
+          "Mở Cổng Dịch vụ công Quốc gia",
+          "Tìm dịch vụ công trực tuyến cho doanh nghiệp"
+        ]
+      },
+      {
+        "intent": "track_public_application",
+        "example_queries": [
+          "Tra cứu tình trạng hồ sơ dịch vụ công",
+          "Tôi muốn theo dõi hồ sơ đã nộp",
+          "Kiểm tra kết quả thủ tục hành chính"
+        ]
+      },
+      {
+        "intent": "pay_public_service_fee",
+        "example_queries": [
+          "Thanh toán lệ phí hồ sơ trực tuyến",
+          "Tôi muốn trả phí dịch vụ công",
+          "Mở trang thanh toán phí lệ phí hành chính"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://dichvucong.gov.vn/p./home/dvc-gioi-thieu.html",
+        "publisher": "Cổng Dịch vụ công Quốc gia - Văn phòng Chính phủ",
+        "supports": "Trang giới thiệu chính thức mô tả tra cứu thủ tục, theo dõi quá trình giải quyết, thanh toán trực tuyến và gửi phản ánh kiến nghị.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://dichvucong.gov.vn/p/home/dvc-trang-chu.html",
+        "publisher": "Cổng Dịch vụ công Quốc gia - Văn phòng Chính phủ",
+        "supports": "URL đích chính thức của cổng đang hoạt động.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "not_applicable",
+      "notes": "Cổng quốc gia chính chủ. Một số chức năng cần đăng nhập bằng tài khoản định danh điện tử; Navigator chỉ tìm và điều hướng, không thu thông tin đăng nhập."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "public_vneid",
+    "name": "VNeID",
+    "provider": "Bộ Công an",
+    "channel_type": "website",
+    "category": "public_admin",
+    "subcategory": "digital_identity",
+    "description": "VNeID là ứng dụng định danh quốc gia phục vụ định danh và xác thực điện tử, truy cập dữ liệu số của công dân và thực hiện dịch vụ công trực tuyến. Trang chính thức cung cấp liên kết tải ứng dụng.",
+    "launch_url": "https://universal.vneid.gov.vn/",
+    "official_website": "https://vneid.gov.vn/",
+    "logo_url": "https://universal.vneid.gov.vn/login-sso/logo192.png",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Công dân Việt Nam",
+      "Người sử dụng dịch vụ công trực tuyến",
+      "Người cần định danh hoặc xác thực điện tử"
+    ],
+    "capabilities": [
+      "digital_identity",
+      "electronic_authentication",
+      "access_citizen_digital_data",
+      "submit_public_service_application",
+      "use_integrated_digital_documents"
+    ],
+    "aliases": [
+      "VNeID",
+      "định danh điện tử",
+      "ứng dụng định danh quốc gia",
+      "tài khoản VNeID"
+    ],
+    "intents": [
+      {
+        "intent": "open_digital_identity_app",
+        "example_queries": [
+          "Mở VNeID chính thức",
+          "Tôi cần ứng dụng định danh điện tử",
+          "Tải VNeID ở đâu an toàn"
+        ]
+      },
+      {
+        "intent": "use_public_service_with_vneid",
+        "example_queries": [
+          "Làm dịch vụ công bằng VNeID",
+          "Tôi muốn nộp hồ sơ hành chính trên VNeID",
+          "Dùng VNeID để đăng nhập dịch vụ công"
+        ]
+      },
+      {
+        "intent": "use_digital_documents",
+        "example_queries": [
+          "Xem giấy tờ tích hợp trên VNeID",
+          "Tôi muốn dùng căn cước điện tử",
+          "Mở ví giấy tờ VNeID"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://universal.vneid.gov.vn/",
+        "publisher": "VNeID",
+        "supports": "Trang chính thức đang hoạt động và cung cấp liên kết tải ứng dụng phục vụ định danh, xác thực.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://xaydungchinhsach.chinhphu.vn/nghi-quyet-6622-2026-nq-cp-ve-phat-trien-cong-dan-so-119260713165753546.htm",
+        "publisher": "Cổng Thông tin điện tử Chính phủ",
+        "supports": "Nguồn Chính phủ mô tả VNeID hỗ trợ truy cập dữ liệu số, định danh/xác thực điện tử, dịch vụ công trực tuyến và nộp hồ sơ điện tử.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://xaydungchinhsach.chinhphu.vn/pho-thu-tuong-tran-luu-quang-chi-su-dung-tai-khoan-vneid-thuc-hien-dich-vu-cong-truc-tuyen-tu-1-7-119240503165614921.htm",
+        "publisher": "Cổng Thông tin điện tử Chính phủ",
+        "supports": "Nguồn Chính phủ xác nhận VNeID do Bộ Công an phát triển và được dùng làm tài khoản cho dịch vụ công trực tuyến.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "not_applicable",
+      "notes": "Chỉ ghi nhận website/app launcher chính chủ, không ghi OA. Navigator không thu số định danh, ảnh căn cước, passcode hay dữ liệu giấy tờ."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "public_etax_mobile",
+    "name": "eTax Mobile",
+    "provider": "Cục Thuế - Bộ Tài chính",
+    "channel_type": "website",
+    "category": "public_admin",
+    "subcategory": "tax",
+    "description": "eTax Mobile là kênh dịch vụ thuế điện tử cho cá nhân và hộ kinh doanh, hỗ trợ đăng ký thuế, tra cứu nghĩa vụ thuế, nộp thuế và hỗ trợ quyết toán thuế thu nhập cá nhân.",
+    "launch_url": "https://binhphuoc.gdt.gov.vn/wps/portal/Home/etax-mobile",
+    "official_website": "https://gdt.gov.vn/",
+    "logo_url": "https://gdt.gov.vn/wps/themes/html/GDT/images/favicon.ico",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Cá nhân nộp thuế",
+      "Hộ kinh doanh",
+      "Cá nhân kinh doanh",
+      "Người cần tra cứu nghĩa vụ thuế"
+    ],
+    "capabilities": [
+      "tax_registration",
+      "view_tax_obligations",
+      "pay_tax",
+      "personal_income_tax_settlement_support",
+      "lookup_tax_payment_documents"
+    ],
+    "aliases": [
+      "eTax Mobile",
+      "Etax Mobile",
+      "Thuế điện tử",
+      "ứng dụng thuế cá nhân",
+      "app Tổng cục Thuế"
+    ],
+    "intents": [
+      {
+        "intent": "view_tax_obligation",
+        "example_queries": [
+          "Tôi muốn tra cứu nghĩa vụ thuế",
+          "Kiểm tra thuế cá nhân phải nộp",
+          "Mở eTax Mobile để xem khoản thuế"
+        ]
+      },
+      {
+        "intent": "pay_tax_online",
+        "example_queries": [
+          "Tôi muốn nộp thuế trên điện thoại",
+          "Mở dịch vụ nộp thuế eTax Mobile",
+          "Nộp thuế trực tuyến cho hộ kinh doanh"
+        ]
+      },
+      {
+        "intent": "personal_tax_support",
+        "example_queries": [
+          "Hỗ trợ quyết toán thuế thu nhập cá nhân",
+          "Tôi quên mã số thuế cá nhân",
+          "Tìm ứng dụng thuế điện tử chính thức"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://gdt.gov.vn/wps/portal/!ut/p/z0/jY9BT8MwDIX_yjjkmMZrujXlVm2XMU0CiZWRS5WmXjrokq0N7fj3ZCBxASEu9ntPn2WbSbZj0qrhYJQ_OKva4J_lvFw8rBfFugAQ2_slrDabtNiulgCPKbtj0rSu-kJzW3FhmOxwjx120VsX4sb7U39LgMA4jpFxzrQYaXeMBkvgt6nG9Z7tfsBX9PByPsucSe2sx0ugTO0nn8Z6Ar0qgyfgz6E0VzWvBUdRKap5hjTRgtNMJUhFxqs4i-sq3cfXF_7-8d-LQ7c49t-i9OpCIIY4CUc1ypqJIKCyGcc9II1RT2kynaU0CxEVUy601goVpuz0Kqt33g7Hp_zmA8egnbQ!/",
+        "publisher": "Cục Thuế - Bộ Tài chính",
+        "supports": "Bài chính thức về eTax Mobile 3.2.0 mô tả đăng ký thuế, nộp thuế, hỗ trợ quyết toán thuế thu nhập cá nhân và tra cứu nghĩa vụ thuế.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://gdt.gov.vn/wps/portal/!ut/p/z1/tVVLc9owEP4r6cFHj1ayLFtHYqgxYMAETNDFo_gBbsFA40L67yuXtpNAwXRCdJF2tPvttw-tkEAzbBoEbMvmHD0iUchdPpdlvi7kUskzwSIn6DphNwSwJ8MmeL5vhROvCTC2UIgEEnFRbsoFms2T8i5eF2ValBo8y0jJv_Yi3T__PUSlfNGAACEalAtZzO-YBjJLzTglXE94HOuU0kTnFgY9oxkGEmMrplnlaRPnCZpdpT19Sx24SRT1VtjsNRgMMCBRXbuNNrV66nrMTfDoPR1xpwmuYxzbn4Ze2cOZ1YA_9ucdiNfwbkAVvZbbue-PWpj1TvyfKojL9I7829SFyv-g33YCDN6V9hcCrLHvIDFfrp8OTZR_2W5FQ3VK1R0vJXo81yo7WTzJ4tVxs5Cb7fcfGhzESJ3TMsmLhQYZyRjBzNZNnNo65cTWZRpTXZpGQrk0aQpchSEOlaLc69nhw2AEw8_g4UEQjPzQ6E6M3wqXMlVXa3GUjGFL2fmBxZiFie2Zxxw6gJWLSX849DnD0LRqEBhFM1UO62w7twma7vJ0jybF-ttK5fyhQnTGKvUa3CLXy3Qul5FiDdiMMDNVM6M21LHC_2J1eMNXFa8G3vhQeA63hT96Ih12Hv6qAXcR3u3Cx8KTd8J36ubH_0yNG30wNQWj7wx5JTa7vr2u1m411b-OWiN7P84W81Xktwzz7bbcrZxZ49NPySTXmg!!/",
+        "publisher": "Cục Thuế - Bộ Tài chính",
+        "supports": "Nguồn chính thức xác định eTax Mobile là kênh dịch vụ thuế điện tử dành cho cá nhân và hộ kinh doanh.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://binhphuoc.gdt.gov.vn/wps/portal/Home/etax-mobile",
+        "publisher": "Cổng thông tin ngành Thuế",
+        "supports": "Trang eTax Mobile trên tên miền ngành Thuế cung cấp hướng dẫn và nội dung sử dụng ứng dụng.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "not_applicable",
+      "notes": "Trang đích thuộc hệ thống gdt.gov.vn. Chưa xác minh OA hoặc Mini App Zalo. Navigator không thu mã số thuế, thông tin ngân hàng, mật khẩu hoặc OTP."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "public_dvc_hcmc",
+    "name": "Cổng Dịch vụ công TP.HCM",
+    "provider": "Ủy ban nhân dân Thành phố Hồ Chí Minh",
+    "channel_type": "website",
+    "category": "public_admin",
+    "subcategory": "local_public_services",
+    "description": "Cổng Dịch vụ công TP.HCM là điểm truy cập trực tuyến cho thủ tục hành chính của thành phố. Người dân và tổ chức có thể tìm thủ tục, đăng nhập để nộp hồ sơ trực tuyến và theo dõi xử lý theo hướng dẫn của cơ quan thành phố.",
+    "launch_url": "https://dichvucong.hochiminhcity.gov.vn/",
+    "official_website": "https://hochiminhcity.gov.vn/",
+    "logo_url": "https://staticv2.vnptigate.vn/icon/quoc-huy.ico",
+    "regions": [
+      "Thành phố Hồ Chí Minh"
+    ],
+    "target_users": [
+      "Công dân tại TP.HCM",
+      "Doanh nghiệp hoạt động tại TP.HCM",
+      "Tổ chức thực hiện thủ tục hành chính địa phương"
+    ],
+    "capabilities": [
+      "search_local_administrative_procedure",
+      "submit_local_online_application",
+      "track_local_application_status",
+      "access_city_public_service_guidance"
+    ],
+    "aliases": [
+      "Dịch vụ công TP.HCM",
+      "Cổng DVC TPHCM",
+      "dịch vụ công thành phố",
+      "thủ tục hành chính TP.HCM"
+    ],
+    "intents": [
+      {
+        "intent": "find_local_public_service",
+        "example_queries": [
+          "Tìm thủ tục hành chính ở TP.HCM",
+          "Mở Cổng Dịch vụ công TP.HCM",
+          "Tôi cần làm dịch vụ công của thành phố"
+        ]
+      },
+      {
+        "intent": "submit_local_application",
+        "example_queries": [
+          "Nộp hồ sơ trực tuyến TP.HCM",
+          "Tôi muốn gửi hồ sơ hành chính của thành phố",
+          "Đăng nhập cổng dịch vụ công TP.HCM"
+        ]
+      },
+      {
+        "intent": "track_local_application",
+        "example_queries": [
+          "Tra cứu hồ sơ hành chính TP.HCM",
+          "Kiểm tra tình trạng hồ sơ của thành phố",
+          "Theo dõi hồ sơ dịch vụ công địa phương"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://dichvucong.hochiminhcity.gov.vn/",
+        "publisher": "Cổng Dịch vụ công TP.HCM",
+        "supports": "URL cổng trực tuyến đang hoạt động tại thời điểm kiểm tra.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://qhkt.hochiminhcity.gov.vn/huong-dan-nop-ho-so-truc-tuyen/huong-dan-su-dung-dich-vu-cong-truc-tuyen-1727.html",
+        "publisher": "Sở Quy hoạch - Kiến trúc TP.HCM",
+        "supports": "Trang cơ quan thành phố cung cấp hướng dẫn nộp hồ sơ và sử dụng dịch vụ công trực tuyến.",
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://dost.hochiminhcity.gov.vn/chuyen-doi-so/dich-vu-cong-truc-tuyen-an-trinh-nang-cao-hieu-qua-phuc-vu-nguoi-dan-va-doanh-nghiep/",
+        "publisher": "Sở Khoa học và Công nghệ TP.HCM",
+        "supports": "Nguồn thành phố nêu xu hướng thực hiện thủ tục qua Cổng Dịch vụ công Quốc gia hoặc VNeID, là căn cứ cần rà soát luồng chuyển tiếp của cổng địa phương.",
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "medium",
+      "oa_badge_status": "not_applicable",
+      "notes": "Cổng địa phương vẫn trả HTTP 200, nhưng tài liệu thành phố giai đoạn 2025-2026 cho thấy nhiều thủ tục đang chuyển về Cổng Dịch vụ công Quốc gia/VNeID. Cần kiểm duyệt lại CTA và hành trình cụ thể trước khi active."
+    },
+    "active": false,
+    "review_status": "candidate"
+  }
+]

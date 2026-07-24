@@ -120,6 +120,7 @@ def _service_text(service: RegistryService) -> str:
             service.description,
             service.region or "",
             service.target_user or "",
+            service.organization or "",
             *service.aliases,
             *(intent.intent for intent in service.intents),
             *(intent.example_query for intent in service.intents),
@@ -136,6 +137,7 @@ def _semantic_similarity(query: StructuredQuery, service: RegistryService) -> fl
             query.service,
             query.location,
             query.target_user,
+            query.organization,
         )
         if value is not None
     )
@@ -178,7 +180,13 @@ def _reason(query: StructuredQuery, service: RegistryService, components: ScoreC
         reasons.append("khớp nhu cầu")
     if query.location is not None and components.location_match > 0.0:
         reasons.append(f"phù hợp khu vực {service.region}")
-    if query.service is not None and components.keyword_match > 0.0:
+    if (
+        query.organization is not None
+        and service.organization is not None
+        and _normalize(query.organization) == _normalize(service.organization)
+    ):
+        reasons.append(f"phù hợp ngữ cảnh {service.organization}")
+    if query.service is not None and components.keyword_match >= 0.75:
         reasons.append(f"khớp dịch vụ {query.service}")
     return ", ".join(reasons) if reasons else "phù hợp nhất trong danh mục dịch vụ"
 
@@ -231,6 +239,7 @@ class SearchService:
                 service_type=service.service_type.value,
                 launch_url=HttpUrl(service.launch_url),
                 region=service.region,
+                organization=service.organization,
                 reason=_reason(query, service, components),
                 score=final_score(components),
             )

@@ -33,7 +33,7 @@ class TemplateResponseComposer:
                 message=(
                     "Mình chưa thể thực hiện yêu cầu này. "
                     "Mình có thể giúp bạn tìm dịch vụ y tế, điện - hóa đơn, "
-                    "giáo dục hoặc giao thông công cộng."
+                    "giáo dục, giao thông công cộng hoặc ăn uống."
                 )
             )
 
@@ -58,7 +58,7 @@ class TemplateResponseComposer:
                 f"Mình tìm thấy {len(safe_candidates)} lựa chọn phù hợp "
                 "trong danh mục đã được kiểm chứng."
             ),
-            choices=safe_candidates,
+            choices=[candidate.to_public_choice() for candidate in safe_candidates],
         )
 
     @staticmethod
@@ -68,6 +68,7 @@ class TemplateResponseComposer:
             "location": "Bạn muốn tìm dịch vụ ở khu vực nào?",
             "time": "Bạn cần sử dụng dịch vụ vào thời gian nào?",
             "target_user": "Dịch vụ này dành cho ai?",
+            "organization": "Bạn đang cần dịch vụ cho công ty hoặc tổ chức nào?",
         }
         fallback = "Bạn có thể cho biết rõ hơn dịch vụ mình cần không?"
         return questions.get(field, fallback) if field is not None else fallback

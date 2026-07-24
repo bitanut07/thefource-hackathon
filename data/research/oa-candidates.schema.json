@@ -1,0 +1,349 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/oa-candidates.schema.json",
+  "title": "Public service discovery candidates",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_at",
+    "source_scope",
+    "services"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_scope": {
+      "const": "public_first_party_only"
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/service"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "intent": {
+      "type": "object",
+      "required": [
+        "intent",
+        "example_queries"
+      ],
+      "properties": {
+        "intent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "example_queries": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "url",
+        "publisher",
+        "supports",
+        "checked_at"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supports": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "checked_at": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "additionalProperties": false
+    },
+    "verification": {
+      "type": "object",
+      "required": [
+        "official_source",
+        "link_reachable",
+        "cross_linked",
+        "oa_badge_status",
+        "confidence",
+        "notes"
+      ],
+      "properties": {
+        "official_source": {
+          "type": "boolean"
+        },
+        "link_reachable": {
+          "type": "boolean"
+        },
+        "cross_linked": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "oa_badge_status": {
+          "enum": [
+            "verified",
+            "not_verified",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "organization_context": {
+      "type": "object",
+      "required": [
+        "organization",
+        "site",
+        "relationship",
+        "access_scope",
+        "verification_status"
+      ],
+      "properties": {
+        "organization": {
+          "type": "string",
+          "minLength": 1
+        },
+        "organization_aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "site": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "site_aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "relationship": {
+          "enum": [
+            "employee_service",
+            "onsite",
+            "nearby"
+          ]
+        },
+        "access_scope": {
+          "enum": [
+            "employees_only",
+            "public",
+            "unknown"
+          ]
+        },
+        "verification_status": {
+          "enum": [
+            "verified",
+            "user_reported",
+            "historical",
+            "unverified"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "service": {
+      "type": "object",
+      "required": [
+        "candidate_id",
+        "name",
+        "provider",
+        "channel_type",
+        "category",
+        "subcategory",
+        "description",
+        "launch_url",
+        "official_website",
+        "logo_url",
+        "logo_usage",
+        "cta_label",
+        "regions",
+        "target_users",
+        "organization_contexts",
+        "capabilities",
+        "aliases",
+        "intents",
+        "evidence",
+        "verification",
+        "active",
+        "review_status"
+      ],
+      "properties": {
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "channel_type": {
+          "enum": [
+            "oa",
+            "mini_app",
+            "website",
+            "unknown"
+          ]
+        },
+        "category": {
+          "enum": [
+            "utilities",
+            "healthcare",
+            "education",
+            "transport_travel",
+            "public_admin",
+            "finance_banking",
+            "shopping_delivery",
+            "entertainment"
+          ]
+        },
+        "subcategory": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 360
+        },
+        "launch_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "official_website": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "logo_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "logo_usage": {
+          "const": "reference_only_needs_review"
+        },
+        "cta_label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "regions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "target_users": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "organization_contexts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/organization_context"
+          }
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "aliases": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "intents": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/intent"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "verification": {
+          "$ref": "#/$defs/verification"
+        },
+        "active": {
+          "const": false
+        },
+        "review_status": {
+          "const": "candidate"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -2,22 +2,35 @@
 
 ## Sơ đồ vận hành
 
-`compose.yaml` chạy API, RQ worker và Redis cho môi trường phát triển. Local MVP
-nạp Service Registry JSON vào bộ nhớ và xử lý text bằng fake deterministic
-provider qua `/demo/query` hoặc `/demo/queue`. Webhook Zalo vẫn chặn bằng `501`;
-signature/idempotency, adapter Zalo thật, LLM/STT thật và audio chưa phải năng
-lực runtime hiện có.
+`compose.yaml` chạy API, RQ worker và Redis cho môi trường phát triển. API text
+`POST /api/v1/navigate` gọi Gemini đồng bộ, sau đó tìm trong Service Registry
+JSON ở bộ nhớ và trả tối đa ba candidate qua URL allowlist. Runtime mặc định đọc
+`data/registry/services.real.json`, hiện có 8 dịch vụ với danh tính và URL công
+khai đã review.
+
+Fake LLM adapter chỉ dùng trong test/CI. Webhook Zalo vẫn chặn bằng
+`501 ZALO_CONTRACT_NOT_CONFIGURED`; signature/idempotency, send-message, OA
+token lifecycle, STT thật và audio chưa phải năng lực runtime hiện có.
 
 ## Khởi động local
 
-Yêu cầu: Python 3.12, Docker có Compose plugin và GNU Make hoặc lệnh tương đương.
+Yêu cầu: Python 3.12, uv 0.11.19, Docker có Compose plugin và GNU Make hoặc
+lệnh tương đương.
 
 ```bash
 make setup
-.venv/bin/python -m pip install -e '.[dev]'
+uv sync --locked --extra dev --link-mode copy
 ```
 
-`make setup` chỉ tạo `.env` và `.venv`, không cài dependency. Chạy stack ở terminal A:
+`make setup` chỉ tạo `.env` và `.venv`, không cài dependency. Trước khi chạy,
+trong `.env` giữ `LLM_PROVIDER=gemini`, xác nhận
+`REGISTRY_DATA_PATH=data/registry/services.real.json` và đặt
+`GEMINI_API_KEY` bằng key mới chưa từng công khai. Tạo thêm
+`NAVIGATOR_API_KEY` ngẫu nhiên, dài ít nhất 16 ký tự và độc lập với Gemini key,
+để bảo vệ toàn bộ API `/api/v1/*`.
+Không dùng lại key từng xuất hiện trong chat, log, issue hoặc commit.
+
+Chạy stack ở terminal A:
 
 ```bash
 make dev
@@ -31,7 +44,33 @@ curl --fail http://localhost:8000/health/ready
 docker compose ps
 ```
 
-Trong scaffold hiện tại, `/health/ready` chưa probe Redis hoặc xác nhận registry JSON đã load. Trước khi demo thật phải bổ sung dependency/config checks có timeout và test; trạng thái `200` hiện chỉ chứng minh API process trả được response.
+`/health/live` chỉ kiểm tra API process. `/health/ready` yêu cầu Gemini key,
+Navigator API key, Registry có record hoạt động, allowlist bao phủ các URL đang
+hoạt động và Redis trả ping; cấu hình thiếu/sai hoặc Redis lỗi trả `503`.
+Registry được validate fail-fast khi API dựng pipeline lúc khởi động; worker
+validate khi dựng pipeline để xử lý job.
+
+Gọi API text:
+
+```bash
+read -rsp "NAVIGATOR_API_KEY: " NAVIGATOR_API_KEY && echo
+curl --fail \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: $NAVIGATOR_API_KEY" \
+  -d '{"text":"Tôi muốn đóng tiền điện ở TP.HCM."}' \
+  http://localhost:8000/api/v1/navigate
+```
+
+API trả `401` khi key truy cập sai, `429` khi hết slot xử lý, `503` khi thiếu
+cấu hình và `502` khi provider trả lỗi hoặc structured output không hợp lệ.
+Không có fallback tạo service/URL ngoài Registry.
+
+Swagger cũng cung cấp API kiểm chứng từng lớp:
+
+- `/api/v1/intents/extract`: structured query từ Gemini;
+- `/api/v1/services` và `/api/v1/services/{service_id}`: Registry runtime;
+- `/api/v1/research/search`: RAG research-only, không URL/CTA;
+- `/api/v1/navigate`: flow end-to-end.
 
 Nếu chỉ chạy Redis bằng container, chạy API trực tiếp ở terminal A:
 
@@ -40,9 +79,9 @@ docker compose up -d redis
 .venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
-Worker trực tiếp:
-
-Chạy ở terminal B:
+Đường dẫn trực tiếp vẫn cần `.env` chứa Gemini key, registry path và allowlist.
+Worker chưa tham gia request đồng bộ `/api/v1/navigate`, nhưng vẫn được giữ cho
+queue và luồng webhook mục tiêu. Chạy worker trực tiếp ở terminal B:
 
 ```bash
 .venv/bin/zsn-worker
@@ -52,43 +91,88 @@ Chạy ở terminal B:
 
 ```bash
 make check PYTHON=.venv/bin/python       # lint + typecheck + test
-make seed PYTHON=.venv/bin/python        # validate fixture registry mặc định
+make seed PYTHON=.venv/bin/python        # chỉ validate fixture kiểm thử mặc định
+.venv/bin/python scripts/seed_registry.py --file data/registry/services.real.json
 make tree        # xem cấu trúc repo
 docker compose logs -f api worker
 docker compose down
 ```
 
-`make seed` là validation gate cho `data/seed/services.example.json`. Runtime
-loader validate đầy đủ file tại `REGISTRY_DATA_PATH` khi dựng pipeline. Registry
-demo pass không có nghĩa các dịch vụ đã được xác minh để dùng thật.
+`make seed` và lệnh có `--file` ở trên đều kiểm tra registry thật mặc định mà
+không ghi dữ liệu. Kiểm tra tĩnh URL theo allowlist:
+
+```bash
+ALLOWED_LAUNCH_HOSTS=zalo.me,oa.zalo.me,www.vio.edu.vn,www.matsaigon.com,cskh.evnhcmc.vn \
+  .venv/bin/python scripts/verify_links.py \
+  --file data/registry/services.real.json \
+  --require-allowlist
+```
+
+Script URL chỉ kiểm tra cấu trúc/host, không gọi mạng. Việc 8 liên kết pass không
+đồng nghĩa mọi OA badge, tính năng trong channel hoặc tích hợp OA production đã
+được xác minh; mục tiêu Sprint 2 vẫn là 20-40 dịch vụ đã review.
+
+Kho research có thể được index để reviewer tra cứu:
+
+```bash
+.venv/bin/python scripts/build_rag_db.py
+```
+
+Output mặc định là `data/rag/service-catalog.sqlite3`. API research-only có thể
+đọc kho này để kiểm chứng dữ liệu, nhưng kho chưa tham gia ranking của Navigator
+và không được dùng để tạo CTA. Nếu sau này index record đã approved/verified,
+truyền
+`--allowed-launch-hosts` bằng danh sách host chính xác; host ngoài allowlist hoặc
+status không nằm trong positive allowlist làm build thất bại.
 
 ## Kiểm tra trước khi bật webhook thật
 
 - [ ] Hoàn tất [checklist Zalo](../integrations/zalo-checklist.md) và contract tests.
 - [ ] Secret production nằm trong secret manager, không nằm trong `.env`/log/image.
-- [ ] Registry JSON thật có 20-40 record đã xác minh, schema hợp lệ và được load thành công; sample `active=false` không được bật tự động.
+- [ ] Mở rộng 8 record hiện tại thành 20-40 record đã review, schema hợp lệ và
+  được load thành công; evidence/candidate chưa xác minh không được bật tự động.
 - [ ] URL allowlist, audio retention và UID hash salt đã cấu hình.
 - [ ] API public dùng HTTPS; readiness không công khai secret/dependency detail.
 - [ ] Dashboard/alert cho queue backlog, error rate, latency và failed jobs hoạt động.
 
-## Chẩn đoán mục tiêu sau khi hoàn thiện integration
+## Chẩn đoán
 
-Các mục dưới đây là runbook đích. Skeleton chưa enqueue webhook, chưa gọi provider và chưa có audit writer/redaction runtime hoàn chỉnh; vì vậy không dùng chúng để tuyên bố các kiểm soát đã hoạt động.
+Mục Gemini/API text áp dụng cho runtime hiện tại. Các mục webhook, queue,
+send-message và STT là runbook đích cho các sprint sau; không dùng chúng để
+tuyên bố tích hợp OA production đã hoạt động.
 
 ### API live nhưng readiness lỗi
 
 1. Xem `docker compose ps` và log API.
-2. Kiểm tra kết nối Redis và trạng thái loader registry mà không log dữ liệu nhạy cảm.
-3. Xác nhận file registry đúng phiên bản/hash dự kiến.
-4. Nếu dependency bên ngoài không thuộc readiness contract, không để nó làm API flap.
+2. Xác nhận Gemini key và Navigator API key có giá trị mà không in key.
+3. Kiểm tra Registry có record hoạt động và allowlist bao phủ chính xác host.
+4. Kiểm tra kết nối Redis.
+5. Nếu app không khởi động, kiểm tra `REGISTRY_DATA_PATH`, schema và allowlist mà
+   không log dữ liệu nhạy cảm.
+6. Xác nhận file registry đúng phiên bản/hash dự kiến.
+
+### API điều hướng trả `502` hoặc `503`
+
+1. `401`: kiểm tra header `X-API-Key` có khớp `NAVIGATOR_API_KEY`.
+2. `429`: chờ theo `Retry-After`; kiểm tra tải và giới hạn đồng thời.
+3. `503`: kiểm tra key đã cấu hình/rotate, Registry/allowlist, quota và trạng thái
+   Gemini; không dán key vào log hoặc ticket.
+4. `502`: kiểm tra lỗi provider, timeout và structured-output compatibility của
+   model đã cấu hình.
+5. Giữ retry hữu hạn; không retry đồng loạt khi gặp quota/rate limit.
+6. Không chuyển sang fake runtime và không tạo candidate từ output lỗi.
+7. Xác nhận response lỗi không lộ request, secret hoặc nội dung provider thô.
 
 ### Webhook không vào queue
 
-1. Tìm correlation/event ID đã hash hoặc redacted trong structured log.
-2. Kiểm tra validation/signature failure và clock skew theo contract đã xác minh.
-3. Kiểm tra Redis connectivity và queue name.
-4. Đối chiếu fixture với tài liệu/event version hiện hành.
-5. Không log raw body nếu nó chứa dữ liệu cá nhân hoặc URL attachment.
+1. Nếu response là `501 ZALO_CONTRACT_NOT_CONFIGURED`, đây là safety gate hiện
+   tại; không cố bypass khi contract chưa được xác minh.
+2. Sau khi gate được thay bằng integration đã review, tìm correlation/event ID
+   đã hash hoặc redacted trong structured log.
+3. Kiểm tra validation/signature failure và clock skew theo contract đã xác minh.
+4. Kiểm tra Redis connectivity và queue name.
+5. Đối chiếu fixture với tài liệu/event version hiện hành.
+6. Không log raw body nếu nó chứa dữ liệu cá nhân hoặc URL attachment.
 
 ### Event bị xử lý hai lần
 
@@ -105,13 +189,12 @@ Các mục dưới đây là runbook đích. Skeleton chưa enqueue webhook, ch�
 4. Scale worker chỉ khi Redis/provider quota và memory footprint của registry chịu được tải tăng.
 5. Khi backlog vượt khả năng phục hồi, tạm ngừng intake hoặc trả fallback được duyệt.
 
-### LLM/STT lỗi hoặc timeout
+### STT lỗi hoặc timeout sau khi bật voice
 
 1. Kiểm tra provider status/quota mà không lộ request data.
 2. Xác nhận timeout và circuit breaker; không retry đồng loạt.
-3. LLM lỗi: dùng no-result/fallback an toàn, không tạo câu trả lời từ dữ liệu chưa kiểm soát.
-4. STT lỗi/confidence thấp: xin người dùng nhập chữ hoặc xác nhận transcript.
-5. Kiểm tra job cleanup để audio tạm vẫn bị xóa khi exception.
+3. STT lỗi/confidence thấp: xin người dùng nhập chữ hoặc xác nhận transcript.
+4. Kiểm tra job cleanup để audio tạm vẫn bị xóa khi exception.
 
 ### OA API không gửi được phản hồi
 

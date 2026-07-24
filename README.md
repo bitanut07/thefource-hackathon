@@ -2,16 +2,18 @@
 
 Scaffold cho MVP trợ lý AI chạy dưới dạng Zalo Official Account (OA): người dùng nhập text hoặc gửi voice message, hệ thống hiểu nhu cầu, tìm/xếp hạng trong **Service Registry do nhóm kiểm soát** và trả tối đa ba dịch vụ hợp lệ.
 
-> **Trạng thái:** nhánh local MVP có thể nhận truy vấn text qua API demo, trích xuất
-> nhu cầu bằng rule deterministic, tìm trong registry JSON và trả tối đa ba kết quả.
-> Đây chưa phải tích hợp Zalo production. Endpoint/payload/signature/token lifecycle
-> của Zalo, provider LLM/STT thật, danh mục dịch vụ thật và ngưỡng chất lượng vẫn
-> cần được xác minh/chốt trước khi demo trên OA.
+> **Trạng thái:** API text `POST /api/v1/navigate` đã dùng Gemini để trích xuất
+> structured query, tìm trong Service Registry JSON và trả tối đa ba kết quả đã
+> qua URL allowlist. Registry hiện có 8 dịch vụ với danh tính và liên kết công khai
+> đã review; mục tiêu Sprint 2 vẫn là 20-40 dịch vụ. Đây chưa phải tích hợp Zalo
+> production.
 
-Local text flow đã có registry loader, hard filter, rule-based ranking, URL allowlist,
-fake intent extractor, response composer và RQ job. `POST /webhooks/zalo` vẫn chủ
-động trả `501`; adapter Zalo thật và voice/STT chưa được bật. Prompt trong
-`src/llm/prompts/` vẫn là policy draft và chưa được dùng làm provider LLM thật.
+Runtime thật chỉ hỗ trợ `LLM_PROVIDER=gemini` và đọc key từ `GEMINI_API_KEY`.
+API text yêu cầu khóa truy cập riêng qua header `X-API-Key`, đồng thời giới hạn
+số request Gemini chạy đồng thời. Fake LLM adapter chỉ còn dùng trong test/CI,
+không phải chế độ runtime. Endpoint `POST /webhooks/zalo` vẫn chủ động trả
+`501 ZALO_CONTRACT_NOT_CONFIGURED`; gửi tin qua OA, signature/idempotency và
+voice/STT thật chưa được bật.
 
 PDF kế hoạch gốc được giữ cục bộ tại `docs/Zalo_AI_Service_Navigator_Plan.pdf` và không commit lên GitHub. Tài liệu kỹ thuật đã tổng hợp nằm tại [docs/README.md](./docs/README.md).
 
@@ -26,7 +28,11 @@ PDF kế hoạch gốc được giữ cục bộ tại `docs/Zalo_AI_Service_Nav
 | URL lấy từ registry và allowlist | LLM tự tạo tên dịch vụ hoặc URL |
 | Fallback/no-result và handoff rõ ràng | Broadcast/nhắn chủ động hàng loạt |
 
-Stack hiện tại của bộ khung: **Python 3.12 + FastAPI + RQ/Redis + Service Registry JSON nạp vào bộ nhớ**. Zalo OA, LLM và STT nằm sau adapter để local/CI có thể dùng fake implementation khi các adapter đó được hoàn thiện, không cần credential thật. PostgreSQL/pgvector chỉ là phương án nâng cấp tương lai, không phải dependency của scaffold hackathon.
+Stack hiện tại: **Python 3.12 + FastAPI + Gemini + RQ/Redis + Service Registry
+JSON nạp vào bộ nhớ**. Zalo OA, LLM và STT nằm sau adapter; test/CI dùng
+implementation deterministic được inject và không cần credential thật.
+PostgreSQL/pgvector chỉ là phương án nâng cấp khi có bằng chứng về quy mô, không
+phải dependency của MVP hackathon.
 
 ## Cấu trúc repository
 
@@ -35,7 +41,9 @@ Stack hiện tại của bộ khung: **Python 3.12 + FastAPI + RQ/Redis + Servic
 ├── .github/                       # CI, Dependabot, issue/PR templates
 ├── data/
 │   ├── evaluation/                # JSONL minh họa schema benchmark
-│   └── seed/                      # 4 service giả, example.com, active=false
+│   ├── registry/                  # Registry runtime đã review
+│   ├── research/                  # Evidence/candidate; không tự động publish
+│   └── seed/                      # Fixture kiểm thử, không dùng ở runtime thật
 ├── docs/
 │   ├── architecture/              # Kiến trúc và dependency boundaries
 │   ├── decisions/                 # ADR cho quyết định khó đảo ngược
@@ -54,7 +62,7 @@ Stack hiện tại của bộ khung: **Python 3.12 + FastAPI + RQ/Redis + Servic
 │   ├── zalo/                       # Contract/client Zalo OA
 │   ├── config.py                   # Cấu hình ứng dụng
 │   └── main.py                     # FastAPI entrypoint
-├── tests/                         # Smoke test hiện tại và kế hoạch test TODO
+├── tests/                         # Unit/integration tests không gọi provider thật
 ├── compose.yaml                   # API + worker + Redis
 ├── Dockerfile
 ├── Makefile
@@ -65,43 +73,71 @@ Chi tiết ranh giới và luồng xử lý nằm trong [architecture overview](
 
 ## Khởi động nhanh
 
-Yêu cầu: Python 3.12, Docker có Compose plugin và Make.
+Yêu cầu: Python 3.12, uv 0.11.19, Docker có Compose plugin và Make.
 
 ```bash
 make setup
-.venv/bin/python -m pip install -e '.[dev]'
+uv sync --locked --extra dev --link-mode copy
 ```
 
-`make setup` chỉ tạo `.env` và `.venv`, không cài dependency. Giữ `LLM_PROVIDER=fake` và `STT_PROVIDER=fake` khi chưa có integration đã xác minh.
+`make setup` chỉ tạo `.env` và `.venv`, không cài dependency. Trong `.env`, giữ
+`LLM_PROVIDER=gemini` và đặt một key mới, chưa từng công khai:
 
-Trên Windows/PowerShell có thể tạo cấu hình local mà không cần Make:
-
-```powershell
-Copy-Item .env.example .env
-docker compose up --build -d
+```dotenv
+GEMINI_API_KEY=your-rotated-key
+NAVIGATOR_API_KEY=your-separate-random-api-key-at-least-16-characters
 ```
 
-Ở terminal A:
+Không commit key. Nếu một key từng được gửi qua chat, log, issue hoặc commit, hãy
+thu hồi/rotate key đó trước khi dùng.
+
+Khởi động stack bằng Make:
 
 ```bash
 make dev
 ```
 
-Sau khi container sẵn sàng, kiểm tra ở terminal B:
+Trên Windows/PowerShell, có thể dùng Compose trực tiếp thay cho `make setup` và
+`make dev`:
+
+```powershell
+Copy-Item .env.example .env
+uv sync --locked --extra dev --link-mode copy
+# Mở .env, đặt GEMINI_API_KEY mới đã rotate và một NAVIGATOR_API_KEY riêng.
+docker compose up --build -d
+```
+
+Sau khi container sẵn sàng, kiểm tra ở terminal khác:
 
 ```bash
 curl --fail http://localhost:8000/health/live
 curl --fail http://localhost:8000/health/ready
 ```
 
-`POST /webhooks/zalo` hiện cố ý trả `501 ZALO_CONTRACT_NOT_CONFIGURED`. Đây là safety gate cho đến khi signature, event schema, acknowledgement và retry contract được xác minh bằng fixture/test chính thức.
+`/health/live` chỉ kiểm tra process. `/health/ready` trả `200` khi hai key đã
+được cấu hình, Registry có record hoạt động, allowlist bao phủ toàn bộ URL đang
+hoạt động và Redis sẵn sàng; cấu hình thiếu/sai hoặc mất Redis trả `503`.
+Registry được validate fail-fast khi API dựng pipeline lúc khởi động.
 
-`/health/ready` kiểm tra kết nối Redis. Các provider Zalo/LLM/STT thật vẫn cần
-dependency check riêng trước khi dùng endpoint này làm production readiness gate.
+`POST /webhooks/zalo` hiện cố ý trả `501 ZALO_CONTRACT_NOT_CONFIGURED`. Đây là
+safety gate cho đến khi signature, event schema, acknowledgement, retry và
+send-message contract được xác minh bằng fixture/test chính thức.
 
-### Chạy local text MVP không cần Zalo OA
+### Gọi API điều hướng text
 
-Mở Swagger tại `http://localhost:8000/docs`, chọn `POST /demo/query` và gửi:
+Mở Swagger tại `http://localhost:8000/docs`, bấm **Authorize**, nhập
+`NAVIGATOR_API_KEY` từ `.env`, sau đó dùng các API:
+
+| API | Dùng để kiểm tra |
+| --- | --- |
+| `POST /api/v1/intents/extract` | JSON intent Gemini đã trích xuất và validate |
+| `GET /api/v1/services` | Danh sách Registry active, URL đã qua allowlist |
+| `GET /api/v1/services/{service_id}` | Chi tiết một dịch vụ runtime |
+| `POST /api/v1/research/search` | Dữ liệu crawl/RAG ở chế độ `research_only`, không URL/CTA |
+| `POST /api/v1/navigate` | Toàn bộ flow và tối đa ba service card |
+| `GET /health/live`, `GET /health/ready` | Trạng thái process và dependency |
+
+Ví dụ cho API điều hướng:
 
 ```json
 {
@@ -113,19 +149,36 @@ Hoặc gọi bằng PowerShell:
 
 ```powershell
 $body = @{ text = "Tìm chỗ khám mắt ở Quận 5." } | ConvertTo-Json
+$navigatorApiKey = Read-Host "Nhập NAVIGATOR_API_KEY từ .env"
+$headers = @{ "X-API-Key" = $navigatorApiKey }
 Invoke-RestMethod `
   -Method Post `
-  -Uri http://localhost:8000/demo/query `
+  -Uri http://localhost:8000/api/v1/navigate `
+  -Headers $headers `
   -ContentType application/json `
   -Body $body
 ```
 
-`POST /demo/queue` đưa cùng payload qua Redis/RQ. Dùng `job_id` trả về để đọc
-kết quả tại `GET /demo/jobs/{job_id}`. Các route `/demo/*` chỉ được bật ngoài
-môi trường `production`.
+Endpoint gọi Gemini đồng bộ để hiểu câu hỏi, sau đó backend lọc và xếp hạng
+`data/registry/services.real.json`. Gemini không được tạo service ID hoặc URL;
+response builder chỉ trả tối đa ba candidate từ Registry. Thiếu cấu hình key
+làm endpoint trả `503`, key truy cập sai trả `401`, hết slot xử lý trả `429`,
+và lỗi provider hoặc structured output không hợp lệ trả `502`.
 
-Dữ liệu tại `data/demo/services.local.json` hoàn toàn giả và chỉ dùng để thử
-pipeline. Không dùng các URL hoặc bản ghi này như dịch vụ đã được xác minh.
+### Kho RAG nghiên cứu
+
+Dữ liệu crawl/research có thể được dựng thành SQLite để tra cứu nội bộ:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\build_rag_db.py
+```
+
+Lệnh tạo `data/rag/service-catalog.sqlite3` (file sinh, không commit). Hiện kho
+này có 38 tài liệu knowledge staging, gồm cả dữ liệu VNG Campus chưa xác minh.
+Swagger cho phép tra cứu qua `POST /api/v1/research/search`, nhưng endpoint luôn
+gắn `usage=research_only` và không trả URL/metadata thô. Kho này **không tham gia
+luồng `/api/v1/navigate`** và không có quyền sinh CTA; Registry thật + URL
+allowlist vẫn là nguồn duy nhất cho candidate có thể mở.
 
 Dừng local stack:
 
@@ -134,8 +187,9 @@ docker compose down
 ```
 
 Scaffold không tự chạy `git init`, không tạo remote và không ghi credential.
-`make seed` vẫn validate fixture mặc định; runtime loader đọc file được cấu hình
-bởi `REGISTRY_DATA_PATH`.
+`make seed` validate registry thật mặc định nhưng không ghi dữ liệu. Runtime đọc
+`data/registry/services.real.json` qua `REGISTRY_DATA_PATH`; 8 record hiện tại
+không thay cho mục tiêu review đủ 20-40 dịch vụ trước demo OA.
 
 ## Lệnh thường dùng
 
@@ -143,11 +197,13 @@ bởi `REGISTRY_DATA_PATH`.
 | --- | --- |
 | `make help` | Liệt kê target |
 | `make setup` | Tạo `.env`/`.venv`, không cài package |
-| `.venv/bin/python -m pip install -e '.[dev]'` | Cài project và tool phát triển |
+| `uv sync --locked --extra dev --link-mode copy` | Cài đúng dependency từ `uv.lock` |
 | `make dev` | Build/chạy API, worker và Redis |
 | `make check PYTHON=.venv/bin/python` | Ruff format/lint + mypy + pytest |
-| `make seed PYTHON=.venv/bin/python` | Validate seed JSON; chưa nạp vào runtime |
-| `ALLOWED_LAUNCH_HOSTS=example.com .venv/bin/python scripts/verify_links.py --require-allowlist` | Kiểm tra tĩnh URL seed mẫu theo allowlist |
+| `make seed PYTHON=.venv/bin/python` | Validate registry thật mặc định, không ghi dữ liệu |
+| `.venv/bin/python scripts/seed_registry.py --file data/registry/services.real.json` | Validate tối thiểu 8 record runtime, không ghi dữ liệu |
+| `ALLOWED_LAUNCH_HOSTS=zalo.me,oa.zalo.me,www.vio.edu.vn,www.matsaigon.com,cskh.evnhcmc.vn .venv/bin/python scripts/verify_links.py --file data/registry/services.real.json --require-allowlist` | Kiểm tra tĩnh URL registry thật theo allowlist; không gọi mạng |
+| `.venv/bin/python scripts/build_rag_db.py` | Dựng SQLite knowledge staging; chưa nối runtime và không cấp quyền tạo CTA |
 | `docker build -t zalo-service-navigator:local .` | Build image giống CI |
 | `make tree` | In cây repo, bỏ generated files |
 
@@ -159,7 +215,7 @@ bởi `REGISTRY_DATA_PATH`.
 | Message Queue | `src/worker/`, Redis trong `compose.yaml` | RQ job, timeout, retry có giới hạn, failed-job handling |
 | AI Agent Worker | `src/skills/`, `src/llm/` | Structured query, clarification, gọi search, response policy |
 | Speech-to-Text | `src/voice/` | Tải tạm an toàn, STT, confidence flow, cleanup |
-| Service Registry | `src/domain/registry.py`, `data/seed/` | Nạp JSON vào bộ nhớ; nguồn sự thật cho dịch vụ và URL |
+| Service Registry | `src/domain/registry.py`, `data/registry/services.real.json` | Nạp JSON vào bộ nhớ; nguồn sự thật cho dịch vụ và URL |
 | Search MVP | `src/domain/search.py` | Hard filter, chuẩn hóa, keyword/rule scoring và optional rerank |
 | Query/Audit | `src/domain/audit.py`, `src/domain/privacy.py` | Dữ liệu debug tối thiểu, redaction và UID hash |
 | OA OpenAPI | `src/zalo/` | Token, request formatting và error mapping sau khi contract được xác minh |
@@ -182,7 +238,7 @@ Scaffold chỉ là nền móng của các sprint; file/thư mục tồn tại kh
 - [ ] OA và Zalo App nào dùng cho dev/demo? Loại OA, gói, quyền và owner là ai?
 - [ ] Với từng text/voice event: URL tài liệu chính thức, event name, payload/attachment, acknowledgement, retry và signature contract hiện hành là gì?
 - [ ] Endpoint/body/loại tin gửi phản hồi, access/refresh-token lifecycle, hạn mức và cửa sổ tương tác đã được contract-test chưa?
-- [ ] Chọn provider LLM/model; chốt structured-output support, data processing/retention, timeout, quota/cost và fallback.
+- [ ] Gemini/model đã chọn cho runtime; cần chốt data processing/retention, quota/cost, ngưỡng timeout/retry và fallback vận hành.
 - [ ] Chọn provider STT tiếng Việt; chốt codec, giới hạn audio, confidence semantics, data region/retention và UX khi không có confidence.
 - [ ] Chốt thời gian lưu audio/raw event/transcript/audit log, cơ chế xóa và UID hashing.
 - [ ] Review/cấp owner cho 20-40 service thật; quyền công bố, allowlist và `last_verified_at` thế nào?

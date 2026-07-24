@@ -10,6 +10,7 @@ readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
   "fastapi>=0.115,<1",
+  "google-genai>=2.14,<3",
   "httpx>=0.28,<1",
   "pydantic-settings>=2.7,<3",
   "redis>=5.2,<7",

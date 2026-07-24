@@ -1,0 +1,806 @@
+[
+  {
+    "candidate_id": "coopmart-ban-cua-moi-nha-oa",
+    "name": "Co.opmart - Bạn của mọi nhà",
+    "provider": "Saigon Co.op",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "supermarket",
+    "description": "Kênh Co.opmart trên Zalo hỗ trợ chọn siêu thị gần nhất, mua nhu yếu phẩm và theo dõi đơn ngay trong luồng mua sắm trực tuyến.",
+    "launch_url": "https://zalo.me/coopmart",
+    "official_website": "https://cooponline.vn/",
+    "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/coop.png",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "người tiêu dùng",
+      "hộ gia đình"
+    ],
+    "capabilities": [
+      "mua hàng siêu thị",
+      "chọn chi nhánh gần nhất",
+      "giao hàng tận nơi"
+    ],
+    "aliases": [
+      "Co.opmart",
+      "Coopmart",
+      "Co.op Online",
+      "đi chợ online"
+    ],
+    "intents": [
+      {
+        "intent": "shop_groceries",
+        "example_queries": [
+          "Tôi muốn mua thực phẩm ở Co.opmart.",
+          "Tìm siêu thị giao nhu yếu phẩm gần tôi."
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://oa.zalo.me/home",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Co.opmart được Zalo OA liệt kê trong danh sách đối tác công khai",
+          "launch URL và logo tham chiếu"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://cooponline.vn/tin-tuc/cach-mua-hang-online-coopmart/",
+        "publisher": "Co.op Online",
+        "supports": [
+          "tên OA Co.opmart - Bạn của mọi nhà",
+          "quy trình chọn địa chỉ, chi nhánh, giỏ hàng và thanh toán qua Zalo OA"
+        ],
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "OA có liên kết từ trang đối tác Zalo và bài hướng dẫn chính chủ của Co.op Online; dấu xác minh vẫn cần kiểm tra trong ứng dụng Zalo."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "dai-sieu-thi-go-oa",
+    "name": "Đại Siêu Thị GO!",
+    "provider": "Central Retail Việt Nam",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "hypermarket",
+    "description": "Kênh Zalo của Đại Siêu Thị GO! cung cấp thông tin về hàng hóa, giá, chất lượng dịch vụ và các chương trình của hệ thống.",
+    "launch_url": "https://zalo.me/2823598328947213047",
+    "official_website": "https://sieuthi-go.vn/",
+    "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/bigc.png",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "người tiêu dùng",
+      "hộ gia đình"
+    ],
+    "capabilities": [
+      "xem thông tin siêu thị",
+      "theo dõi chương trình mua sắm",
+      "nhắn tin với OA"
+    ],
+    "aliases": [
+      "GO!",
+      "Big C",
+      "siêu thị GO",
+      "đại siêu thị"
+    ],
+    "intents": [
+      {
+        "intent": "find_hypermarket",
+        "example_queries": [
+          "Tìm Đại Siêu Thị GO! gần tôi.",
+          "Tôi muốn xem chương trình mua sắm của GO!."
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://oa.zalo.me/home",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "BigC/GO! được liệt kê trong danh sách đối tác công khai",
+          "launch URL và logo tham chiếu"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://zalo.me/2823598328947213047",
+        "publisher": "Đại Siêu Thị GO! trên Zalo",
+        "supports": [
+          "tên OA",
+          "mô tả giá cả, chất lượng và dịch vụ"
+        ],
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Zalo OA công khai vẫn dùng logo BigC trong danh sách đối tác; cần review lại asset thương hiệu GO! trước khi đưa vào giao diện."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "telio-oa",
+    "name": "Telio",
+    "provider": "Telio",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "b2b_retail_supply",
+    "description": "Nền tảng nhập hàng cho cửa hàng tạp hóa và nhà thuốc, hỗ trợ xem giá, khuyến mãi và giao hàng qua ứng dụng.",
+    "launch_url": "https://zalo.me/4580689828120920371",
+    "official_website": null,
+    "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/telio.png",
+    "regions": [
+      "Nhiều tỉnh thành Việt Nam"
+    ],
+    "target_users": [
+      "chủ cửa hàng tạp hóa",
+      "nhà thuốc",
+      "nhà bán lẻ"
+    ],
+    "capabilities": [
+      "nhập hàng bán lẻ",
+      "xem giá và khuyến mãi",
+      "đặt giao hàng"
+    ],
+    "aliases": [
+      "Telio nhập hàng",
+      "nhập hàng tạp hóa",
+      "nguồn hàng nhà thuốc"
+    ],
+    "intents": [
+      {
+        "intent": "source_retail_inventory",
+        "example_queries": [
+          "Tôi cần nhập hàng cho cửa hàng tạp hóa.",
+          "Tìm nền tảng giao hàng sỉ cho nhà thuốc."
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://oa.zalo.me/home",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Telio được liệt kê trong danh sách đối tác công khai",
+          "launch URL và logo tham chiếu"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://zalo.me/4580689828120920371",
+        "publisher": "Telio trên Zalo",
+        "supports": [
+          "đối tượng cửa hàng tạp hóa và nhà thuốc",
+          "giá, khuyến mãi và giao hàng"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://assets.telio.me/telio-website/Delivery-Policy.pdf",
+        "publisher": "Telio",
+        "supports": [
+          "đặt hàng qua ứng dụng Zalo/Telio",
+          "phạm vi và chính sách giao hàng"
+        ],
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Ứng viên B2B, không nên xếp cho người mua lẻ. Website telio.vn không phân giải tại thời điểm kiểm tra nên để trống."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "milo-bi-quyet-dinh-duong-oa",
+    "name": "MILO Bí quyết dinh dưỡng",
+    "provider": "Nestlé Việt Nam",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "consumer_brand_information",
+    "description": "Kênh MILO chia sẻ thông tin sản phẩm, nội dung dinh dưỡng và hoạt động thể thao dành cho trẻ em và phụ huynh.",
+    "launch_url": "https://zalo.me/1947994230037588383",
+    "official_website": "https://www.nestlemilo.com.vn/",
+    "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/milo.png",
+    "regions": [
+      "Toàn quốc",
+      "Trực tuyến"
+    ],
+    "target_users": [
+      "phụ huynh",
+      "trẻ em trong độ tuổi phù hợp"
+    ],
+    "capabilities": [
+      "xem thông tin sản phẩm",
+      "tham khảo nội dung dinh dưỡng",
+      "tham khảo hoạt động thể thao"
+    ],
+    "aliases": [
+      "MILO",
+      "Nestlé MILO",
+      "MILO dinh dưỡng"
+    ],
+    "intents": [
+      {
+        "intent": "find_consumer_product_information",
+        "example_queries": [
+          "Tìm thông tin chính thức về sản phẩm MILO.",
+          "Cho tôi kênh MILO có nội dung vận động cho trẻ."
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://oa.zalo.me/home",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "MILO được liệt kê trong danh sách đối tác công khai",
+          "launch URL và logo tham chiếu"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://zalo.me/1947994230037588383",
+        "publisher": "MILO Bí quyết dinh dưỡng trên Zalo",
+        "supports": [
+          "tên OA",
+          "nội dung dinh dưỡng và thể thao"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://www.nestlemilo.com.vn/",
+        "publisher": "Nestlé MILO Việt Nam",
+        "supports": [
+          "thông tin thương hiệu và nội dung vận động"
+        ],
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Chỉ dùng để điều hướng tới thông tin thương hiệu; không diễn giải nội dung thành tư vấn y tế hoặc tuyên bố sức khỏe."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "th-official-oa",
+    "name": "TH Official",
+    "provider": "Tập đoàn TH",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "consumer_brand_information",
+    "description": "Kênh thông tin của Tập đoàn TH cập nhật sản phẩm và các hoạt động vì sức khỏe cộng đồng của thương hiệu.",
+    "launch_url": "https://zalo.me/4120031368333625231",
+    "official_website": "https://www.thtruemart.vn/",
+    "logo_url": "https://stc-oa.zdn.vn/uploads/976aaabe958f92f0cef91dba61ee98d9.png",
+    "regions": [
+      "Toàn quốc",
+      "Trực tuyến"
+    ],
+    "target_users": [
+      "người tiêu dùng",
+      "hộ gia đình"
+    ],
+    "capabilities": [
+      "xem thông tin sản phẩm TH",
+      "theo dõi hoạt động thương hiệu",
+      "nhắn tin với OA"
+    ],
+    "aliases": [
+      "TH true MILK",
+      "TH true mart",
+      "Tập đoàn TH"
+    ],
+    "intents": [
+      {
+        "intent": "find_brand_product_channel",
+        "example_queries": [
+          "Mở kênh chính thức của TH true MILK.",
+          "Tôi muốn xem thông tin sản phẩm TH."
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://oa.zalo.me/home",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "TH true milk được liệt kê trong danh sách đối tác công khai",
+          "launch URL và logo tham chiếu"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://zalo.me/4120031368333625231",
+        "publisher": "TH Official trên Zalo",
+        "supports": [
+          "tên kênh",
+          "thông tin sản phẩm và hoạt động cộng đồng"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://www.thtruemart.vn/",
+        "publisher": "TH true mart",
+        "supports": [
+          "danh mục sản phẩm",
+          "chủ thể vận hành website"
+        ],
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "OA phù hợp cho thông tin thương hiệu. Tính năng mua hàng trực tiếp trong OA chưa được xác minh."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "trang-suc-pnj-oa",
+    "name": "Trang Sức PNJ",
+    "provider": "Công ty Cổ phần Vàng bạc Đá quý Phú Nhuận",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "jewelry",
+    "description": "Kênh PNJ hỗ trợ tìm hiểu trang sức, đồng hồ, chương trình ưu đãi và trao đổi tư vấn với thương hiệu.",
+    "launch_url": "https://zalo.me/4082136522598975631",
+    "official_website": "https://www.pnj.com.vn/",
+    "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/pnj.png",
+    "regions": [
+      "Toàn quốc",
+      "Trực tuyến"
+    ],
+    "target_users": [
+      "người mua trang sức",
+      "khách hàng PNJ"
+    ],
+    "capabilities": [
+      "tìm hiểu sản phẩm trang sức",
+      "xem chương trình ưu đãi",
+      "nhắn tin tư vấn"
+    ],
+    "aliases": [
+      "PNJ",
+      "Trang Sức PNJ",
+      "tiệm vàng PNJ"
+    ],
+    "intents": [
+      {
+        "intent": "shop_jewelry",
+        "example_queries": [
+          "Tìm kênh PNJ để xem nhẫn cưới.",
+          "Tôi muốn được PNJ tư vấn trang sức."
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://oa.zalo.me/home",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "PNJ được liệt kê trong danh sách đối tác công khai",
+          "launch URL và logo tham chiếu"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://zalo.me/4082136522598975631",
+        "publisher": "Trang Sức PNJ trên Zalo",
+        "supports": [
+          "tên OA",
+          "lĩnh vực trang sức và đồng hồ"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://ads.zalo.me/business/cau-chuyen-thanh-cong-cua-pnj-cung-zalo-ad/",
+        "publisher": "Zalo Ads",
+        "supports": [
+          "PNJ dùng Zalo OA làm kênh tương tác",
+          "menu sản phẩm, ưu đãi, tư vấn và chốt đơn"
+        ],
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Có case study chính thức của Zalo về cách PNJ vận hành OA; vẫn cần kiểm tra badge trực tiếp."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "vietnam-airlines-oa",
+    "name": "Vietnam Airlines",
+    "provider": "Tổng công ty Hàng không Việt Nam",
+    "channel_type": "oa",
+    "category": "transport_travel",
+    "subcategory": "airline",
+    "description": "Trang Zalo của Vietnam Airlines cung cấp thông tin hãng và kênh nhắn tin hỗ trợ cho nhu cầu đi lại bằng đường hàng không.",
+    "launch_url": "https://zalo.me/3149253679280388721",
+    "official_website": "https://www.vietnamairlines.com/",
+    "logo_url": "https://www.vietnamairlines.com/content/dam/vna/logos/vna-logo.svg",
+    "regions": [
+      "Việt Nam",
+      "Quốc tế"
+    ],
+    "target_users": [
+      "hành khách",
+      "người tìm chuyến bay"
+    ],
+    "capabilities": [
+      "xem thông tin hãng bay",
+      "theo dõi cập nhật chuyến đi",
+      "nhắn tin với OA"
+    ],
+    "aliases": [
+      "Vietnam Airlines",
+      "VNA",
+      "Hãng hàng không quốc gia"
+    ],
+    "intents": [
+      {
+        "intent": "find_airline_service",
+        "example_queries": [
+          "Tìm kênh Vietnam Airlines để hỏi chuyến bay.",
+          "Tôi cần hỗ trợ từ Vietnam Airlines."
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3149253679280388721",
+        "publisher": "Vietnam Airlines trên Zalo",
+        "supports": [
+          "tên trang",
+          "tuyên bố là trang Zalo chính thức",
+          "website và hotline hãng"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://www.vietnamairlines.com/",
+        "publisher": "Vietnam Airlines",
+        "supports": [
+          "thông tin hãng",
+          "logo tham chiếu chính chủ"
+        ],
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": null,
+      "oa_badge_status": "unknown",
+      "confidence": "medium",
+      "notes": "OA tự mô tả là trang chính thức và trỏ về website hãng; chưa tìm thấy liên kết ngược từ website hãng hoặc kiểm tra badge trong app."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "vexere-thue-xe-oa",
+    "name": "Vexere Thuê xe",
+    "provider": "Vexere",
+    "channel_type": "oa",
+    "category": "transport_travel",
+    "subcategory": "vehicle_rental",
+    "description": "Kênh Vexere dành cho nhu cầu thuê xe du lịch và xe máy, có thông tin liên hệ và điều hướng tới dịch vụ thuê xe.",
+    "launch_url": "https://zalo.me/4361926090352307976",
+    "official_website": "https://vexere.com/vn/thue-xe/",
+    "logo_url": "https://vexere.com/vn/thue-xe/wp-content/uploads/2023/05/vxr_logo.png",
+    "regions": [
+      "Nhiều tỉnh thành Việt Nam"
+    ],
+    "target_users": [
+      "khách du lịch",
+      "người cần thuê xe"
+    ],
+    "capabilities": [
+      "tìm dịch vụ thuê xe du lịch",
+      "tìm dịch vụ thuê xe máy",
+      "liên hệ tư vấn"
+    ],
+    "aliases": [
+      "Vexere",
+      "Vé Xe Rẻ",
+      "thuê xe du lịch",
+      "thuê xe máy"
+    ],
+    "intents": [
+      {
+        "intent": "rent_vehicle",
+        "example_queries": [
+          "Tôi cần thuê xe du lịch.",
+          "Tìm chỗ thuê xe máy cho chuyến đi."
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/4361926090352307976",
+        "publisher": "Vexere Thuê xe trên Zalo",
+        "supports": [
+          "tên dịch vụ",
+          "thuê xe du lịch và xe máy",
+          "website và hotline"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://vexere.com/vn/thue-xe/",
+        "publisher": "Vexere",
+        "supports": [
+          "dịch vụ thuê xe",
+          "logo tham chiếu chính chủ"
+        ],
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": null,
+      "oa_badge_status": "unknown",
+      "confidence": "medium",
+      "notes": "OA trỏ về đúng miền Vexere; cần kiểm tra badge và liên kết ngược trước khi kích hoạt."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "cgv-cinemas-vietnam-oa",
+    "name": "CGV Cinemas Vietnam",
+    "provider": "CGV Việt Nam",
+    "channel_type": "oa",
+    "category": "entertainment",
+    "subcategory": "cinema",
+    "description": "Kênh CGV Cinemas Vietnam trên Zalo cung cấp thông tin trải nghiệm điện ảnh và hỗ trợ trao đổi với rạp.",
+    "launch_url": "https://zalo.me/1884424922722396289",
+    "official_website": "https://www.cgv.vn/",
+    "logo_url": null,
+    "regions": [
+      "Nhiều tỉnh thành Việt Nam"
+    ],
+    "target_users": [
+      "người xem phim",
+      "khách hàng CGV"
+    ],
+    "capabilities": [
+      "xem thông tin rạp phim",
+      "tìm nội dung điện ảnh",
+      "nhắn tin với OA"
+    ],
+    "aliases": [
+      "CGV",
+      "CGV Cinemas",
+      "rạp CGV"
+    ],
+    "intents": [
+      {
+        "intent": "find_cinema",
+        "example_queries": [
+          "Tìm rạp CGV gần tôi.",
+          "Mở kênh CGV để hỏi lịch chiếu."
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1884424922722396289",
+        "publisher": "CGV Cinemas Vietnam trên Zalo",
+        "supports": [
+          "tên trang",
+          "lĩnh vực điện ảnh",
+          "khả năng nhắn tin"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://www.cgv.vn/",
+        "publisher": "CGV Việt Nam",
+        "supports": [
+          "miền dịch vụ chính chủ"
+        ],
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": null,
+      "oa_badge_status": "unknown",
+      "confidence": "medium",
+      "notes": "Chưa xác minh được badge, liên kết ngược hoặc logo có thể tái sử dụng. Không nên hứa đặt vé ngay trong OA khi chưa kiểm thử."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "galaxy-play-oa",
+    "name": "Galaxy Play",
+    "provider": "Galaxy Play",
+    "channel_type": "oa",
+    "category": "entertainment",
+    "subcategory": "video_streaming",
+    "description": "Kênh Galaxy Play giới thiệu dịch vụ xem phim Việt, phim châu Á, Hollywood và anime trên nền tảng trực tuyến.",
+    "launch_url": "https://zalo.me/3855721373518931649",
+    "official_website": "https://galaxyplay.vn/",
+    "logo_url": "https://assets.glxplay.io/web/images/logo-glxplay.original.png",
+    "regions": [
+      "Trực tuyến"
+    ],
+    "target_users": [
+      "người xem phim trực tuyến",
+      "khách hàng Galaxy Play"
+    ],
+    "capabilities": [
+      "xem thông tin dịch vụ phim",
+      "tìm nội dung giải trí",
+      "nhắn tin với OA"
+    ],
+    "aliases": [
+      "Galaxy Play",
+      "GalaxyPlay",
+      "xem phim Galaxy"
+    ],
+    "intents": [
+      {
+        "intent": "find_video_streaming",
+        "example_queries": [
+          "Tìm dịch vụ xem phim Việt online.",
+          "Mở Galaxy Play để xem thông tin gói phim."
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3855721373518931649",
+        "publisher": "Galaxy Play trên Zalo",
+        "supports": [
+          "tên OA",
+          "các nhóm nội dung phim",
+          "website và hotline"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://galaxyplay.vn/",
+        "publisher": "Galaxy Play",
+        "supports": [
+          "dịch vụ trực tuyến",
+          "logo tham chiếu chính chủ"
+        ],
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": null,
+      "oa_badge_status": "unknown",
+      "confidence": "medium",
+      "notes": "OA trỏ đúng website Galaxy Play; badge và liên kết ngược cần review thủ công."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "nang-cap-zing-mp3-oa",
+    "name": "Nâng cấp Zing MP3",
+    "provider": "Zalo Group",
+    "channel_type": "oa",
+    "category": "entertainment",
+    "subcategory": "music_streaming",
+    "description": "Kênh Zalo cung cấp thông tin mới nhất về các gói nâng cấp của dịch vụ nghe nhạc Zing MP3.",
+    "launch_url": "https://zalo.me/3978989352859844186",
+    "official_website": "https://zingmp3.vn/",
+    "logo_url": "https://static-zmp3.zmdcdn.me/skins/zmp3-v5.2/images/icon_zing_mp3_60.png",
+    "regions": [
+      "Trực tuyến"
+    ],
+    "target_users": [
+      "người nghe nhạc trực tuyến",
+      "người dùng Zing MP3"
+    ],
+    "capabilities": [
+      "xem thông tin gói nâng cấp",
+      "tìm dịch vụ nghe nhạc",
+      "nhận cập nhật Zing MP3"
+    ],
+    "aliases": [
+      "Zing MP3",
+      "ZingMP3",
+      "nâng cấp Zing",
+      "gói Zing MP3"
+    ],
+    "intents": [
+      {
+        "intent": "find_music_streaming",
+        "example_queries": [
+          "Tìm dịch vụ nghe nhạc Zing MP3.",
+          "Tôi muốn xem thông tin gói nâng cấp Zing MP3."
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3978989352859844186",
+        "publisher": "Nâng cấp Zing MP3 trên Zalo",
+        "supports": [
+          "tên kênh",
+          "mục đích cập nhật gói nâng cấp"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://zalo.me/vi/product/zing-mp3",
+        "publisher": "Zalo",
+        "supports": [
+          "Zing MP3 là sản phẩm trong hệ sinh thái Zalo",
+          "tính năng tìm kiếm nhạc và trải nghiệm nghe nhạc"
+        ],
+        "checked_at": "2026-07-23"
+      },
+      {
+        "url": "https://zingmp3.vn/",
+        "publisher": "Zing MP3",
+        "supports": [
+          "dịch vụ nghe nhạc",
+          "icon tham chiếu chính chủ"
+        ],
+        "checked_at": "2026-07-23"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "medium",
+      "notes": "Kênh chỉ nói về gói nâng cấp, không nên coi là toàn bộ OA hỗ trợ Zing MP3 nếu chưa kiểm thử. Badge vẫn chưa xác minh."
+    },
+    "active": false,
+    "review_status": "candidate"
+  }
+]

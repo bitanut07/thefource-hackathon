@@ -1,20 +1,28 @@
 # syntax=docker/dockerfile:1.7
 
 ARG PYTHON_VERSION=3.12
+ARG UV_VERSION=0.11.19
+
+FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv
 
 FROM python:${PYTHON_VERSION}-slim AS builder
 
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PYTHONDONTWRITEBYTECODE=1 \
+    UV_LINK_MODE=copy \
     VIRTUAL_ENV=/opt/venv
 
 RUN python -m venv "${VIRTUAL_ENV}"
 ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
 WORKDIR /build
-COPY pyproject.toml README.md ./
+COPY --from=uv /uv /usr/local/bin/uv
+COPY pyproject.toml uv.lock README.md ./
 COPY src ./src
-RUN --mount=type=cache,target=/root/.cache/pip pip install .
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv export --locked --no-dev --no-emit-project --output-file requirements.lock \
+    && uv pip sync --python "${VIRTUAL_ENV}/bin/python" requirements.lock \
+    && uv pip install --python "${VIRTUAL_ENV}/bin/python" --no-deps .
 
 
 FROM python:${PYTHON_VERSION}-slim AS runtime

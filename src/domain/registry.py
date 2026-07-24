@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import unicodedata
+from datetime import datetime
 from pathlib import Path
+from re import split
 from typing import Annotated, Literal, Protocol
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, StringConstraints
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
 from domain.models import (
     RegistryService,
@@ -50,20 +52,20 @@ class _ServiceRecord(BaseModel):
     service_priority: int = Field(default=0, strict=True)
     region: NonEmptyString | None = None
     target_user: NonEmptyString | None = None
-    last_verified_at: (
-        Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)] | None
-    ) = None
+    organization: NonEmptyString | None = None
+    last_verified_at: datetime | None = None
     aliases: tuple[NonEmptyString, ...] = ()
     intents: tuple[_IntentRecord, ...] = ()
 
-    def to_domain(self) -> RegistryService:
-        from datetime import datetime
+    @model_validator(mode="after")
+    def active_service_requires_auditable_verification(self) -> _ServiceRecord:
+        if self.active and self.last_verified_at is None:
+            raise ValueError("active service requires last_verified_at")
+        if self.last_verified_at is not None and self.last_verified_at.utcoffset() is None:
+            raise ValueError("last_verified_at must include a timezone")
+        return self
 
-        verified_at = (
-            datetime.fromisoformat(self.last_verified_at.replace("Z", "+00:00"))
-            if self.last_verified_at is not None
-            else None
-        )
+    def to_domain(self) -> RegistryService:
         return RegistryService(
             id=self.id,
             name=self.name,
@@ -77,7 +79,8 @@ class _ServiceRecord(BaseModel):
             service_priority=self.service_priority,
             region=self.region,
             target_user=self.target_user,
-            last_verified_at=verified_at,
+            organization=self.organization,
+            last_verified_at=self.last_verified_at,
             aliases=self.aliases,
             intents=tuple(
                 ServiceIntent(intent=item.intent, example_query=item.example_query)
@@ -100,18 +103,73 @@ def _normalize(value: str) -> str:
     return " ".join("".join(char if char.isalnum() else " " for char in without_marks).split())
 
 
-def _matches_text_filter(requested: str, available: str | None) -> bool:
+_LOCATION_ALIASES = {
+    "ho chi minh": "location:ho_chi_minh",
+    "sai gon": "location:ho_chi_minh",
+    "thanh pho ho chi minh": "location:ho_chi_minh",
+    "tp hcm": "location:ho_chi_minh",
+    "tphcm": "location:ho_chi_minh",
+    "ha noi": "location:ha_noi",
+    "thanh pho ha noi": "location:ha_noi",
+    "tp ha noi": "location:ha_noi",
+    "da nang": "location:da_nang",
+    "hai phong": "location:hai_phong",
+    "can tho": "location:can_tho",
+    "toan quoc": "location:viet_nam",
+    "viet nam": "location:viet_nam",
+    "online": "location:online",
+    "truc tuyen": "location:online",
+}
+_ORGANIZATION_ALIASES = {
+    "cong ty vng": "organization:vng",
+    "nhan vien vng": "organization:vng",
+    "starter vng": "organization:vng",
+    "vng": "organization:vng",
+    "vng campus": "organization:vng",
+    "vng corporation": "organization:vng",
+}
+_TARGET_USER_ALIASES = {
+    "nhan vien vng": "target:vng_employee",
+    "vng employee": "target:vng_employee",
+}
+
+
+def _filter_values(
+    value: str,
+    aliases: dict[str, str] | None = None,
+) -> frozenset[str]:
+    """Parse canonical aliases without relying on unsafe substring matching."""
+
+    raw_parts = split(r"[;,|]", value)
+    normalized_parts = {
+        aliases.get(normalized, normalized) if aliases is not None else normalized
+        for part in raw_parts
+        if (normalized := _normalize(part))
+    }
+    normalized_whole = _normalize(value)
+    if len(raw_parts) == 1 and normalized_whole:
+        normalized_whole = (
+            aliases.get(normalized_whole, normalized_whole)
+            if aliases is not None
+            else normalized_whole
+        )
+        normalized_parts.add(normalized_whole)
+    return frozenset(normalized_parts)
+
+
+def _matches_text_filter(
+    requested: str,
+    available: str | None,
+    *,
+    aliases: dict[str, str] | None = None,
+) -> bool:
     if available is None:
         return False
-    requested_normalized = _normalize(requested)
-    available_normalized = _normalize(available)
-    if not requested_normalized or not available_normalized:
+    requested_values = _filter_values(requested, aliases)
+    available_values = _filter_values(available, aliases)
+    if not requested_values or not available_values:
         return False
-    return (
-        requested_normalized == available_normalized
-        or requested_normalized in available_normalized
-        or available_normalized in requested_normalized
-    )
+    return requested_values.issubset(available_values)
 
 
 def _token_coverage(needle: str, haystack: str) -> float:
@@ -147,6 +205,12 @@ class JsonServiceRegistry:
     def active_count(self) -> int:
         return len(self._active_services)
 
+    @property
+    def active_services(self) -> tuple[RegistryService, ...]:
+        """Expose the immutable active set for startup/readiness validation."""
+
+        return self._active_services
+
     async def get_active(self, service_id: UUID) -> RegistryService | None:
         service = self._services_by_id.get(service_id)
         if service is None or not service.active:
@@ -171,18 +235,29 @@ class JsonServiceRegistry:
             service.category.value
         ):
             return False
-        if query.location is not None and not _matches_text_filter(query.location, service.region):
+        if query.location is not None and not _matches_text_filter(
+            query.location,
+            service.region,
+            aliases=_LOCATION_ALIASES,
+        ):
+            return False
+        if query.organization is not None and not _matches_text_filter(
+            query.organization,
+            service.organization,
+            aliases=_ORGANIZATION_ALIASES,
+        ):
             return False
         return query.target_user is None or _matches_text_filter(
             query.target_user,
             service.target_user,
+            aliases=_TARGET_USER_ALIASES,
         )
 
     @staticmethod
     def _sort_key(
         service: RegistryService,
         query: StructuredQuery,
-    ) -> tuple[float, float, float, int, str, str]:
+    ) -> tuple[float, float, float, float, int, str, str]:
         intent_values = " ".join(intent.intent for intent in service.intents)
         intent_exact = float(
             any(_normalize(query.intent) == _normalize(intent.intent) for intent in service.intents)
@@ -206,9 +281,18 @@ class JsonServiceRegistry:
             _token_coverage(requested_service, service_text),
             _token_coverage(query.intent, intent_values),
         )
+        organization_match = float(
+            query.organization is not None
+            and _matches_text_filter(
+                query.organization,
+                service.organization,
+                aliases=_ORGANIZATION_ALIASES,
+            )
+        )
 
         return (
             -intent_exact,
+            -organization_match,
             -phrase_match,
             -lexical_match,
             -service.service_priority,

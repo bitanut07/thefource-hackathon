@@ -29,31 +29,35 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: pip
-          cache-dependency-path: pyproject.toml
 
-      - name: Install development dependencies
-        run: python -m pip install -e '.[dev]'
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.11.19"
+          enable-cache: true
+
+      - name: Install locked development dependencies
+        run: uv sync --locked --extra dev --link-mode copy
 
       - name: Run Ruff lint
-        run: python -m ruff check .
+        run: uv run ruff check .
 
       - name: Check Ruff formatting
-        run: python -m ruff format --check .
+        run: uv run ruff format --check .
 
       - name: Run mypy
-        run: python -m mypy src tests
+        run: uv run mypy src tests
 
       - name: Compile Python sources
-        run: python -m compileall -q src tests scripts
+        run: uv run python -m compileall -q src tests scripts
 
-      - name: Validate example registry data
-        run: python scripts/seed_registry.py
+      - name: Validate runtime registry data
+        run: uv run python scripts/seed_registry.py
 
-      - name: Validate example launch URLs
+      - name: Validate runtime launch URLs
         env:
-          ALLOWED_LAUNCH_HOSTS: example.com
-        run: python scripts/verify_links.py --require-allowlist
+          ALLOWED_LAUNCH_HOSTS: zalo.me,oa.zalo.me,www.vio.edu.vn,www.matsaigon.com,cskh.evnhcmc.vn
+        run: uv run python scripts/verify_links.py --require-allowlist
 
   test:
     name: Test
@@ -67,14 +71,18 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: pip
-          cache-dependency-path: pyproject.toml
 
-      - name: Install development dependencies
-        run: python -m pip install -e '.[dev]'
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.11.19"
+          enable-cache: true
+
+      - name: Install locked development dependencies
+        run: uv sync --locked --extra dev --link-mode copy
 
       - name: Run tests
-        run: python -m pytest
+        run: uv run pytest
 
   docker-build:
     name: Docker build

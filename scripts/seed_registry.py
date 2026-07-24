@@ -9,11 +9,21 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
-DEFAULT_SEED_PATH = Path("data/seed/services.example.json")
+DEFAULT_SEED_PATH = Path("data/registry/services.real.json")
+
+
+def configure_utf8_output() -> None:
+    """Keep Vietnamese CLI output usable on legacy Windows code pages."""
+
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if callable(reconfigure):
+            reconfigure(encoding="utf-8", errors="backslashreplace")
 
 
 def parse_args() -> argparse.Namespace:
@@ -74,6 +84,7 @@ def validate_records(records: list[Mapping[str, Any]]) -> list[str]:
 
 
 def main() -> int:
+    configure_utf8_output()
     args = parse_args()
     if args.apply:
         print("lỗi: --apply chưa được triển khai; cần chốt schema và cơ chế reload registry trước.")

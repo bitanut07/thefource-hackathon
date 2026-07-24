@@ -1,0 +1,139 @@
+{
+  "schema_version": "pending-campus-food/v1",
+  "checked_at": "2026-07-23",
+  "scope": {
+    "place": "VNG Campus",
+    "location_as_published": "Quận 7, TP.HCM",
+    "purpose": "Research-only staging for food and beverage discovery",
+    "active_catalog_eligible": false
+  },
+  "official_context": {
+    "record_type": "campus_amenity_fact",
+    "source_type": "official_first_party",
+    "provider": "VNG",
+    "campus_food_amenities": [
+      {
+        "amenity": "canteen",
+        "label_vi": "Canteen"
+      },
+      {
+        "amenity": "convenience_store",
+        "label_vi": "Siêu thị tiện lợi"
+      },
+      {
+        "amenity": "snack_room",
+        "label_vi": "Phòng cung cấp thức ăn nhẹ"
+      },
+      {
+        "amenity": "free_drinks",
+        "label_vi": "Đồ uống miễn phí"
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://career.vng.com.vn/vi/gioi-thieu-ve-vng",
+        "publisher": "VNG Careers",
+        "checked_at": "2026-07-23",
+        "supports": [
+          "VNG Campus được VNG mô tả là trụ sở tại Quận 7, TP.HCM.",
+          "VNG công khai rằng Campus có canteen, siêu thị tiện lợi, phòng cung cấp thức ăn nhẹ và đồ uống miễn phí."
+        ]
+      }
+    ],
+    "limitations": [
+      "Nguồn không công bố tên nhà vận hành, thực đơn, giá, giờ mở cửa hoặc phương thức đặt món.",
+      "Thông tin tiện ích không chứng minh bất kỳ thương hiệu cụ thể nào hiện diện tại Campus.",
+      "Bản ghi này không phải CTA đặt món và không được nạp vào active catalog."
+    ]
+  },
+  "user_reported_candidates": [
+    {
+      "candidate_id": "vng-campus-food-ba-sao",
+      "name": "Ba Sao",
+      "source_type": "user_reported",
+      "channel_type": "unknown",
+      "launch_url": null,
+      "official_url": null,
+      "needs_official_url": true,
+      "verification_status": "needs_official_url",
+      "campus_presence": "unverified",
+      "ordering_capability": "unverified",
+      "evidence": [],
+      "active": false,
+      "review_status": "pending_verification",
+      "notes": "Tên do người dùng cung cấp. Không đoán OA, Mini App, website, địa chỉ hoặc mối liên hệ pháp nhân."
+    },
+    {
+      "candidate_id": "vng-campus-food-danh-hoa",
+      "name": "Danh Hoa",
+      "source_type": "user_reported",
+      "channel_type": "unknown",
+      "launch_url": null,
+      "official_url": null,
+      "needs_official_url": true,
+      "verification_status": "needs_official_url",
+      "campus_presence": "unverified",
+      "ordering_capability": "unverified",
+      "evidence": [],
+      "active": false,
+      "review_status": "pending_verification",
+      "notes": "Tên do người dùng cung cấp. Không đoán OA, Mini App, website, địa chỉ hoặc mối liên hệ pháp nhân."
+    }
+  ],
+  "public_mini_app_references": [
+    {
+      "reference_id": "highlands-rewards-zalo-mini-app",
+      "name": "Highlands Rewards",
+      "source_type": "public_zalo_mini_app_reference",
+      "channel_type": "mini_app",
+      "launch_url": "https://zalo.me/s/327411629127312067/",
+      "public_page_reachable": true,
+      "public_page_identity": "Highlands Rewards",
+      "vng_campus_presence": "unverified",
+      "ordering_capability": "unverified",
+      "active": false,
+      "review_status": "reference_only",
+      "evidence": [
+        {
+          "url": "https://zalo.me/s/327411629127312067/",
+          "publisher": "Zalo Mini App public page",
+          "checked_at": "2026-07-23",
+          "supports": [
+            "Đường dẫn Mini App công khai trả về thành công.",
+            "Metadata công khai nhận diện tên Highlands Rewards."
+          ]
+        }
+      ],
+      "notes": "Chỉ là tham chiếu Mini App công khai. Không chứng minh Highlands hiện diện tại VNG Campus và không xác nhận Mini App có thể đặt món hoặc giao tới Campus."
+    },
+    {
+      "reference_id": "phuc-long-rewards-zalo-mini-app",
+      "name": "Phúc Long Rewards",
+      "source_type": "public_zalo_mini_app_reference",
+      "channel_type": "mini_app",
+      "launch_url": "https://zalo.me/s/2001374113466962529/",
+      "public_page_reachable": true,
+      "public_page_identity": "Phúc Long Rewards",
+      "vng_campus_presence": "unverified",
+      "ordering_capability": "unverified",
+      "active": false,
+      "review_status": "reference_only",
+      "evidence": [
+        {
+          "url": "https://zalo.me/s/2001374113466962529/",
+          "publisher": "Zalo Mini App public page",
+          "checked_at": "2026-07-23",
+          "supports": [
+            "Đường dẫn Mini App công khai trả về thành công.",
+            "Metadata công khai nhận diện tên Phúc Long Rewards."
+          ]
+        }
+      ],
+      "notes": "Chỉ là tham chiếu Mini App công khai. Không chứng minh Phúc Long hiện diện tại VNG Campus và không xác nhận Mini App có thể đặt món hoặc giao tới Campus."
+    }
+  ],
+  "catalog_decision": {
+    "active_records": [],
+    "reason": "Chưa có URL chính chủ cho Ba Sao hoặc Danh Hoa; các Mini App tham chiếu không chứng minh hiện diện hay khả năng đặt món tại VNG Campus."
+  }
+}

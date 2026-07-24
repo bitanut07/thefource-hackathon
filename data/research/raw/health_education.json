@@ -1,0 +1,788 @@
+{
+  "schema_version": "research-candidate/v1",
+  "checked_at": "2026-07-23",
+  "scope": [
+    "healthcare",
+    "education"
+  ],
+  "records": [
+    {
+      "candidate_id": "health_long_chau_oa",
+      "name": "Nhà thuốc Long Châu",
+      "provider": "Công ty Cổ phần Dược phẩm FPT Long Châu",
+      "channel_type": "oa",
+      "category": "healthcare",
+      "subcategory": "pharmacy_and_vaccination",
+      "description": "Chuỗi nhà thuốc và dịch vụ sức khỏe có tra cứu thuốc, tìm nhà thuốc, tư vấn dược sĩ và tiêm chủng. OA công khai được Zalo liệt kê trong danh sách đối tác.",
+      "launch_url": "https://zalo.me/3822805105108870889",
+      "official_website": "https://nhathuoclongchau.com.vn/",
+      "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/longchau.png",
+      "regions": [
+        "Toàn quốc, Việt Nam"
+      ],
+      "target_users": [
+        "Người cần mua hoặc tra cứu thuốc",
+        "Người cần tìm nhà thuốc gần đây",
+        "Người cần tư vấn dược sĩ hoặc tiêm chủng"
+      ],
+      "capabilities": [
+        "Tìm nhà thuốc",
+        "Tra cứu thuốc",
+        "Tư vấn với dược sĩ",
+        "Mua thuốc trực tuyến",
+        "Thông tin và tư vấn tiêm chủng"
+      ],
+      "aliases": [
+        "Long Châu",
+        "Nhà thuốc FPT Long Châu",
+        "FPT Long Châu",
+        "nhà thuốc gần đây"
+      ],
+      "intents": [
+        {
+          "intent": "find_nearby_pharmacy",
+          "example_queries": [
+            "Tìm nhà thuốc Long Châu gần tôi",
+            "Có nhà thuốc nào gần khu vực này không?",
+            "Tôi cần mua thuốc ở đâu?"
+          ]
+        },
+        {
+          "intent": "pharmacy_or_vaccination_support",
+          "example_queries": [
+            "Tôi muốn hỏi dược sĩ",
+            "Tôi muốn tra cứu thuốc",
+            "Tôi muốn tiêm vắc xin"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://nhathuoclongchau.com.vn/",
+          "publisher": "Nhà thuốc Long Châu",
+          "supports": "Website chính chủ hiển thị các chức năng tìm nhà thuốc, tra cứu thuốc, tư vấn dược sĩ, mua thuốc trực tuyến và tiêm chủng; HTML công khai liên kết tới đúng OA này.",
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://oa.zalo.me/home",
+          "publisher": "Zalo Official Account",
+          "supports": "Dữ liệu PARTNERS trên trang Zalo OA chính thức liệt kê Nhà thuốc Long Châu với launch URL và logo tham chiếu tương ứng.",
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "oa_badge_status": "unknown",
+        "confidence": "high",
+        "notes": "OA xuất hiện trong danh sách đối tác của Zalo và website chính chủ liên kết cùng URL. Chưa quan sát trực tiếp dấu xác minh trên giao diện OA."
+      },
+      "active": false,
+      "review_status": "candidate"
+    },
+    {
+      "candidate_id": "health_bookingcare_web",
+      "name": "BookingCare",
+      "provider": "Công ty Cổ phần Công nghệ BookingCare",
+      "channel_type": "website",
+      "category": "healthcare",
+      "subcategory": "healthcare_discovery_and_booking",
+      "description": "Nền tảng tìm kiếm bác sĩ, bệnh viện, phòng khám và dịch vụ y tế, hỗ trợ đặt lịch khám tại viện hoặc tư vấn từ xa.",
+      "launch_url": "https://bookingcare.vn/",
+      "official_website": "https://bookingcare.vn/",
+      "logo_url": "https://bookingcare.vn/_next/images/icon-32.png",
+      "regions": [
+        "Hà Nội",
+        "TP. Hồ Chí Minh",
+        "Trực tuyến"
+      ],
+      "target_users": [
+        "Người cần tìm bác sĩ hoặc cơ sở y tế",
+        "Người cần đặt lịch khám",
+        "Người cần tư vấn sức khỏe từ xa"
+      ],
+      "capabilities": [
+        "Tìm bác sĩ, bệnh viện và phòng khám",
+        "Tìm dịch vụ y tế gần người dùng",
+        "Đặt lịch khám",
+        "Khám và tư vấn từ xa",
+        "Tìm theo chuyên khoa"
+      ],
+      "aliases": [
+        "Booking Care",
+        "đặt lịch khám online",
+        "tìm bác sĩ",
+        "tìm phòng khám gần đây"
+      ],
+      "intents": [
+        {
+          "intent": "find_nearby_healthcare",
+          "example_queries": [
+            "Tìm chỗ khám mắt cho mẹ gần đây",
+            "Tìm phòng khám gần Quận 3",
+            "Có bác sĩ chuyên khoa nào gần tôi?"
+          ]
+        },
+        {
+          "intent": "book_medical_appointment",
+          "example_queries": [
+            "Tôi muốn đặt lịch khám",
+            "Đặt lịch với bác sĩ chuyên khoa",
+            "Tôi muốn khám từ xa"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://bookingcare.vn/",
+          "publisher": "BookingCare",
+          "supports": "Trang chủ chính thức nêu rõ chức năng tìm bác sĩ, bệnh viện, phòng khám, dịch vụ y tế, đặt lịch và các dịch vụ khám từ xa.",
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://bookingcare.vn/thong-tin/dieu-khoan-su-dung-p7",
+          "publisher": "BookingCare",
+          "supports": "Điều khoản chính thức mô tả vai trò của nền tảng và nguồn thông tin về bác sĩ, cơ sở cùng dịch vụ khám chữa bệnh.",
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website; chưa xác minh OA hoặc Mini App tương ứng."
+      },
+      "active": false,
+      "review_status": "candidate"
+    },
+    {
+      "candidate_id": "health_vinmec_web",
+      "name": "Vinmec",
+      "provider": "Công ty Cổ phần Bệnh viện Đa khoa Quốc tế Vinmec",
+      "channel_type": "website",
+      "category": "healthcare",
+      "subcategory": "hospital_network",
+      "description": "Hệ thống bệnh viện đa khoa cung cấp nhiều chuyên khoa, tìm bác sĩ, gói dịch vụ và đặt lịch hẹn tại các cơ sở ở nhiều tỉnh thành.",
+      "launch_url": "https://www.vinmec.com/vie/",
+      "official_website": "https://www.vinmec.com/vie/",
+      "logo_url": "https://www.vinmec.com/static/uploads/logo_2bd10ad933.svg",
+      "regions": [
+        "Hà Nội",
+        "TP. Hồ Chí Minh",
+        "Đà Nẵng",
+        "Nha Trang",
+        "Hải Phòng",
+        "Hạ Long",
+        "Phú Quốc",
+        "Cần Thơ",
+        "Hưng Yên"
+      ],
+      "target_users": [
+        "Người cần khám đa khoa hoặc chuyên khoa",
+        "Gia đình cần tìm cơ sở bệnh viện",
+        "Người cần đặt lịch với bác sĩ"
+      ],
+      "capabilities": [
+        "Tìm chuyên khoa",
+        "Tìm bác sĩ",
+        "Tìm cơ sở y tế",
+        "Xem gói dịch vụ",
+        "Đặt lịch hẹn"
+      ],
+      "aliases": [
+        "Bệnh viện Vinmec",
+        "Vin Mec",
+        "MyVinmec",
+        "bệnh viện quốc tế"
+      ],
+      "intents": [
+        {
+          "intent": "find_hospital_or_specialty",
+          "example_queries": [
+            "Vinmec có chuyên khoa mắt không?",
+            "Tìm bệnh viện Vinmec gần tôi",
+            "Tôi cần khám chuyên khoa"
+          ]
+        },
+        {
+          "intent": "book_hospital_appointment",
+          "example_queries": [
+            "Đặt lịch khám Vinmec",
+            "Tìm bác sĩ và ngày khám",
+            "Tôi muốn đặt hẹn tại Vinmec Central Park"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://www.vinmec.com/vie/chuyen-khoa/",
+          "publisher": "Vinmec",
+          "supports": "Trang chuyên khoa chính thức cung cấp danh mục chuyên khoa, tìm bác sĩ, hệ thống cơ sở và chức năng đặt lịch hẹn.",
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://www.vinmec.com/vie/chuyen-khoa/",
+          "publisher": "Vinmec",
+          "supports": "Phần liên hệ chính thức liệt kê các cơ sở tại Hà Nội, TP.HCM, Đà Nẵng, Nha Trang, Hải Phòng, Hạ Long, Phú Quốc, Cần Thơ và Ocean Park 2.",
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website; chưa xác minh OA hoặc Mini App tương ứng."
+      },
+      "active": false,
+      "review_status": "candidate"
+    },
+    {
+      "candidate_id": "health_mat_sai_gon_web",
+      "name": "Hệ thống Bệnh viện Mắt Sài Gòn",
+      "provider": "Hệ thống Bệnh viện Mắt Sài Gòn",
+      "channel_type": "website",
+      "category": "healthcare",
+      "subcategory": "ophthalmology_network",
+      "description": "Hệ thống chuyên khoa mắt có nhiều bệnh viện và phòng khám trên cả ba miền, hỗ trợ tìm cơ sở, xem dịch vụ nhãn khoa và gửi yêu cầu đặt lịch khám.",
+      "launch_url": "https://www.matsaigon.com/he-thong-benh-vien/",
+      "official_website": "https://www.matsaigon.com/",
+      "logo_url": "https://www.matsaigon.com/wp-content/uploads/avatar-web-01.jpg",
+      "regions": [
+        "Hà Nội",
+        "Hải Phòng",
+        "Quảng Ninh",
+        "Nghệ An",
+        "Hà Tĩnh",
+        "Đà Nẵng",
+        "Quảng Ngãi",
+        "Gia Lai",
+        "Đắk Lắk",
+        "Lâm Đồng",
+        "Khánh Hòa",
+        "Bình Định",
+        "TP. Hồ Chí Minh",
+        "Đồng Nai",
+        "Tây Ninh",
+        "An Giang",
+        "Cần Thơ",
+        "Cà Mau"
+      ],
+      "target_users": [
+        "Người cần khám mắt",
+        "Trẻ em và người cao tuổi có bệnh lý mắt",
+        "Người cần điều trị tật khúc xạ hoặc đục thủy tinh thể"
+      ],
+      "capabilities": [
+        "Tìm bệnh viện hoặc phòng khám mắt theo tỉnh thành",
+        "Đăng ký tư vấn và đặt lịch khám",
+        "Khám và điều trị bệnh lý mắt",
+        "Phẫu thuật khúc xạ và đục thủy tinh thể",
+        "Kiểm soát cận thị"
+      ],
+      "aliases": [
+        "Mắt Sài Gòn",
+        "Bệnh viện Mắt Sài Gòn",
+        "phòng khám mắt",
+        "khám mắt gần đây"
+      ],
+      "intents": [
+        {
+          "intent": "find_eye_clinic_nearby",
+          "example_queries": [
+            "Tìm chỗ khám mắt cho mẹ gần đây",
+            "Bệnh viện mắt nào ở TP.HCM?",
+            "Tìm phòng khám mắt ở Cần Thơ"
+          ]
+        },
+        {
+          "intent": "book_eye_exam_or_treatment",
+          "example_queries": [
+            "Tôi muốn đặt lịch khám mắt",
+            "Tư vấn điều trị cận thị",
+            "Khám đục thủy tinh thể cho người lớn tuổi"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://www.matsaigon.com/he-thong-benh-vien/",
+          "publisher": "Hệ thống Bệnh viện Mắt Sài Gòn",
+          "supports": "Trang chính thức liệt kê tỉnh thành, danh sách cơ sở, form tư vấn và lưu ý đặt lịch khám.",
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://www.matsaigon.com/dich-vu/",
+          "publisher": "Hệ thống Bệnh viện Mắt Sài Gòn",
+          "supports": "Trang dịch vụ chính thức cung cấp các nhóm khám và điều trị nhãn khoa cùng chức năng đặt lịch.",
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Danh sách tỉnh thành được lấy từ bộ lọc công khai trên trang hệ thống. Chưa xác minh OA hoặc Mini App."
+      },
+      "active": false,
+      "review_status": "candidate"
+    },
+    {
+      "candidate_id": "health_benh_vien_mat_trung_uong_web",
+      "name": "Bệnh viện Mắt Trung ương",
+      "provider": "Bệnh viện Mắt Trung ương",
+      "channel_type": "website",
+      "category": "healthcare",
+      "subcategory": "ophthalmology_hospital",
+      "description": "Cổng thông tin chính thức của Bệnh viện Mắt Trung ương tại Hà Nội, cung cấp thông tin khoa phòng, lịch khám, dịch vụ khám chữa bệnh và liên hệ cấp cứu nhãn khoa.",
+      "launch_url": "https://vneh.vn/",
+      "official_website": "https://vneh.vn/",
+      "logo_url": "https://vneh.vn/Data/Sites/1/logos/logo.png",
+      "regions": [
+        "Hà Nội"
+      ],
+      "target_users": [
+        "Người cần khám và điều trị chuyên khoa mắt",
+        "Người cần lịch khám tại Bệnh viện Mắt Trung ương",
+        "Người cần thông tin cấp cứu nhãn khoa"
+      ],
+      "capabilities": [
+        "Xem lịch khám chữa bệnh",
+        "Xem thông tin khoa phòng và dịch vụ",
+        "Tra cứu thông tin liên hệ bệnh viện",
+        "Thông tin cấp cứu nhãn khoa"
+      ],
+      "aliases": [
+        "Viện Mắt Trung ương",
+        "Bệnh viện mắt Bà Triệu",
+        "VNEH",
+        "bệnh viện mắt Hà Nội"
+      ],
+      "intents": [
+        {
+          "intent": "find_eye_hospital",
+          "example_queries": [
+            "Bệnh viện Mắt Trung ương ở đâu?",
+            "Tìm bệnh viện mắt ở Hà Nội",
+            "Tôi cần khám mắt tại Bà Triệu"
+          ]
+        },
+        {
+          "intent": "check_eye_hospital_schedule",
+          "example_queries": [
+            "Xem lịch khám Bệnh viện Mắt Trung ương",
+            "Liên hệ cấp cứu nhãn khoa",
+            "Tôi muốn xem dịch vụ khám mắt"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://vneh.vn/lien-he",
+          "publisher": "Bệnh viện Mắt Trung ương",
+          "supports": "Trang liên hệ chính thức xác nhận tên bệnh viện, địa chỉ 85 Bà Triệu, Hà Nội và các kênh liên hệ.",
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://vneh.vn/",
+          "publisher": "Bệnh viện Mắt Trung ương",
+          "supports": "Cổng thông tin chính thức có mục khoa phòng, lịch khám chữa bệnh, dịch vụ và cấp cứu nhãn khoa.",
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website; không suy diễn có OA hoặc chức năng đặt lịch trực tuyến."
+      },
+      "active": false,
+      "review_status": "candidate"
+    },
+    {
+      "candidate_id": "education_edupia_oa",
+      "name": "Edupia",
+      "provider": "Công ty Cổ phần Giáo dục Educa Corporation",
+      "channel_type": "oa",
+      "category": "education",
+      "subcategory": "online_english_learning",
+      "description": "Nền tảng học tiếng Anh trực tuyến cho học sinh từ 6 đến 15 tuổi, gồm chương trình tự học và gia sư online. OA công khai được website Edupia liên kết và Zalo liệt kê trong danh sách đối tác.",
+      "launch_url": "https://zalo.me/3359099682314876895",
+      "official_website": "https://edupia.vn/",
+      "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/edu.png",
+      "regions": [
+        "Trực tuyến toàn quốc, Việt Nam"
+      ],
+      "target_users": [
+        "Học sinh từ 6 đến 15 tuổi",
+        "Học sinh tiểu học và trung học cơ sở",
+        "Phụ huynh cần theo dõi và hỗ trợ việc học"
+      ],
+      "capabilities": [
+        "Học tiếng Anh trực tuyến",
+        "Chương trình tự học",
+        "Gia sư tiếng Anh online",
+        "Luyện nghe, nói, đọc và viết",
+        "Theo dõi kết quả học tập"
+      ],
+      "aliases": [
+        "EDUPIA",
+        "Edupia AI",
+        "Edupia Pro",
+        "tiếng Anh online cho trẻ"
+      ],
+      "intents": [
+        {
+          "intent": "find_online_english_course",
+          "example_queries": [
+            "Tìm khóa học tiếng Anh online cho bé lớp 5",
+            "Con tôi 10 tuổi muốn học tiếng Anh",
+            "Tìm ứng dụng luyện phát âm cho học sinh"
+          ]
+        },
+        {
+          "intent": "get_education_support",
+          "example_queries": [
+            "Tư vấn khóa học Edupia",
+            "Tôi muốn nhận kết quả học của con qua Zalo",
+            "Tìm gia sư tiếng Anh online"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://edupia.vn/about-us",
+          "publisher": "Edupia",
+          "supports": "Trang giới thiệu chính thức mô tả chương trình học online, đối tượng 6-15 tuổi, sản phẩm tự học và gia sư; footer liên kết đúng OA.",
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://oa.zalo.me/home",
+          "publisher": "Zalo Official Account",
+          "supports": "Dữ liệu PARTNERS trên trang Zalo OA chính thức liệt kê Edupia với launch URL và logo tham chiếu tương ứng.",
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://oa.zalo.me/3359099682314876895",
+          "publisher": "Edupia trên Zalo",
+          "supports": "Đường dẫn OA được website Edupia chính chủ công khai liên kết và trả về nội dung công khai.",
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": true,
+        "oa_badge_status": "unknown",
+        "confidence": "high",
+        "notes": "Website chính chủ và danh sách đối tác Zalo cùng trỏ tới một OA. Chưa quan sát trực tiếp dấu xác minh trên giao diện OA."
+      },
+      "active": false,
+      "review_status": "candidate"
+    },
+    {
+      "candidate_id": "education_vioedu_web",
+      "name": "VioEdu",
+      "provider": "Công ty TNHH FPT IS",
+      "channel_type": "website",
+      "category": "education",
+      "subcategory": "adaptive_k12_learning",
+      "description": "Nền tảng tự học trực tuyến với AI, có Toán, Tiếng Việt và Toán tiếng Anh theo khối lớp; cung cấp lộ trình cá nhân hóa, bài kiểm tra, thách đấu và báo cáo học tập.",
+      "launch_url": "https://www.vio.edu.vn/",
+      "official_website": "https://www.vio.edu.vn/",
+      "logo_url": "https://s3.vio.edu.vn/assets/img/icon.png",
+      "regions": [
+        "Trực tuyến toàn quốc, Việt Nam"
+      ],
+      "target_users": [
+        "Học sinh lớp 1 đến lớp 12",
+        "Phụ huynh",
+        "Giáo viên và nhà trường"
+      ],
+      "capabilities": [
+        "Học Toán lớp 1 đến lớp 12",
+        "Học Tiếng Việt và Toán tiếng Anh ở tiểu học",
+        "Lộ trình học cá nhân hóa bằng AI",
+        "Bài kiểm tra và luyện tập",
+        "Thách đấu và đấu trường",
+        "Báo cáo tiến độ cho phụ huynh"
+      ],
+      "aliases": [
+        "Vio Edu",
+        "VioEdu Toán",
+        "toán trực tuyến",
+        "học toán lớp 5"
+      ],
+      "intents": [
+        {
+          "intent": "learn_grade_5_math",
+          "example_queries": [
+            "Tìm ứng dụng học toán lớp 5",
+            "Con tôi cần luyện Toán lớp 5",
+            "Có lộ trình Toán cá nhân hóa cho học sinh không?"
+          ]
+        },
+        {
+          "intent": "practice_and_track_learning",
+          "example_queries": [
+            "Tìm bài kiểm tra Toán online",
+            "Tôi muốn xem tiến độ học của con",
+            "Tìm đấu trường Toán cho học sinh"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://www.vio.edu.vn/",
+          "publisher": "VioEdu",
+          "supports": "Trang chính thức mô tả nền tảng AI, môn học và khối lớp, lộ trình cá nhân hóa, kiểm tra, thách đấu, báo cáo và xác nhận đơn vị vận hành là Công ty TNHH FPT IS.",
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website và ứng dụng được liên kết từ website; chưa xác minh OA hoặc Mini App."
+      },
+      "active": false,
+      "review_status": "candidate"
+    },
+    {
+      "candidate_id": "education_monkey_math_web",
+      "name": "Monkey Math",
+      "provider": "Công ty Cổ phần Early Start",
+      "channel_type": "website",
+      "category": "education",
+      "subcategory": "primary_math_in_english",
+      "description": "Ứng dụng học Toán bằng tiếng Anh theo chương trình giáo dục phổ thông cho trẻ mầm non và tiểu học, sử dụng hình ảnh và trò chơi tương tác để phát triển tư duy toán học.",
+      "launch_url": "https://monkey.edu.vn/san-pham/monkey-math",
+      "official_website": "https://monkey.edu.vn/",
+      "logo_url": "https://vnmedia2.monkeyuni.net/upload/web/storage_web/23-12-2021_16:49:30_MM.png",
+      "regions": [
+        "Trực tuyến tại Việt Nam"
+      ],
+      "target_users": [
+        "Trẻ mầm non",
+        "Học sinh tiểu học",
+        "Phụ huynh muốn con học Toán bằng tiếng Anh"
+      ],
+      "capabilities": [
+        "Học Toán bằng tiếng Anh",
+        "Nội dung theo chương trình giáo dục phổ thông",
+        "Học qua hình ảnh và trò chơi tương tác",
+        "Phát triển tư duy logic",
+        "Dùng thử và tải ứng dụng"
+      ],
+      "aliases": [
+        "MonkeyMath",
+        "Monkey Math App",
+        "toán tiếng Anh cho trẻ",
+        "ứng dụng học toán tiểu học"
+      ],
+      "intents": [
+        {
+          "intent": "learn_primary_math_in_english",
+          "example_queries": [
+            "Tìm ứng dụng học Toán bằng tiếng Anh cho bé",
+            "Con lớp 5 muốn học Toán tiếng Anh",
+            "Tìm chương trình Toán cho học sinh tiểu học"
+          ]
+        },
+        {
+          "intent": "find_game_based_math_learning",
+          "example_queries": [
+            "Có app học Toán qua trò chơi không?",
+            "Tìm cách giúp bé luyện tư duy logic",
+            "Tôi muốn cho con dùng thử Monkey Math"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://monkey.edu.vn/san-pham/monkey-math",
+          "publisher": "Monkey",
+          "supports": "Trang sản phẩm chính thức xác nhận đối tượng mầm non và tiểu học, học Toán bằng tiếng Anh, nội dung theo chương trình giáo dục phổ thông, trò chơi tương tác và đơn vị vận hành Early Start.",
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website; chưa xác minh OA hoặc Mini App. Logo URL là tài sản công khai trên hạ tầng của nhà cung cấp, chỉ dùng làm tham chiếu."
+      },
+      "active": false,
+      "review_status": "candidate"
+    },
+    {
+      "candidate_id": "education_qanda_web",
+      "name": "QANDA",
+      "provider": "Mathpresso, Inc.",
+      "channel_type": "website",
+      "category": "education",
+      "subcategory": "ai_homework_help",
+      "description": "Dịch vụ hỗ trợ học tập bằng chat và hình ảnh, có tìm kiếm lời giải, lời giải AI theo từng bước và hỏi đáp với giáo viên; cung cấp giao diện tiếng Việt.",
+      "launch_url": "https://qanda.ai/vi",
+      "official_website": "https://qanda.ai/vi",
+      "logo_url": "https://qanda.ai/og-image.png",
+      "regions": [
+        "Trực tuyến tại Việt Nam"
+      ],
+      "target_users": [
+        "Học sinh cần hỗ trợ làm bài",
+        "Người học cần lời giải từng bước",
+        "Học sinh cần hỏi giáo viên"
+      ],
+      "capabilities": [
+        "Đặt câu hỏi bằng chat",
+        "Chụp ảnh bài tập để tìm lời giải",
+        "Lời giải AI theo từng bước",
+        "Tìm lời giải tương tự",
+        "Hỏi đáp với giáo viên"
+      ],
+      "aliases": [
+        "Qanda",
+        "QANDA Study",
+        "gia sư AI",
+        "app giải bài tập"
+      ],
+      "intents": [
+        {
+          "intent": "solve_homework_with_ai",
+          "example_queries": [
+            "Tìm ứng dụng giải toán lớp 5",
+            "Tôi muốn chụp bài toán để xem lời giải",
+            "Giải thích từng bước bài tập này"
+          ]
+        },
+        {
+          "intent": "ask_teacher_for_homework_help",
+          "example_queries": [
+            "Tôi muốn hỏi giáo viên về bài toán",
+            "Có gia sư online giải thích bài này không?",
+            "Tìm hỗ trợ học Toán và Khoa học"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://qanda.ai/vi",
+          "publisher": "QANDA / Mathpresso",
+          "supports": "Website chính thức có giao diện tiếng Việt, chat học tập, tải ứng dụng và xác nhận đơn vị cung cấp Mathpresso.",
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://qandahelp.qanda.ai/hc/en-us/articles/32992015661337-How-can-I-solve-my-problems",
+          "publisher": "QANDA Help Center",
+          "supports": "Trung tâm trợ giúp chính thức mô tả giải bài bằng chat, ảnh, tìm kiếm lời giải, lời giải AI và phản hồi theo từng bước.",
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://qandahelp.qanda.ai/hc/en-us/articles/32993041388057-How-do-I-ask-a-question",
+          "publisher": "QANDA Help Center",
+          "supports": "Trung tâm trợ giúp chính thức mô tả quy trình gửi câu hỏi bằng ảnh cho giáo viên và hỏi tiếp trong chat.",
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh website và trung tâm trợ giúp chính thức; không xác minh OA hoặc Mini App."
+      },
+      "active": false,
+      "review_status": "candidate"
+    },
+    {
+      "candidate_id": "education_olm_web",
+      "name": "OLM",
+      "provider": "Công ty Cổ phần Khoa học và Công nghệ Giáo dục",
+      "channel_type": "website",
+      "category": "education",
+      "subcategory": "k12_learning_platform",
+      "description": "Nền tảng giáo dục số có học liệu tương tác bám sát sách giáo khoa từ mầm non đến lớp 12, hỗ trợ học, luyện đề, hỏi đáp, thi đấu và theo dõi tiến độ.",
+      "launch_url": "https://olm.vn/",
+      "official_website": "https://olm.vn/",
+      "logo_url": "https://olm.vn/images/logo-og-1.jpg",
+      "regions": [
+        "Trực tuyến toàn quốc, Việt Nam"
+      ],
+      "target_users": [
+        "Học sinh từ mầm non đến lớp 12",
+        "Phụ huynh",
+        "Giáo viên và nhà trường"
+      ],
+      "capabilities": [
+        "Học liệu Toán, Tiếng Việt, Ngữ văn và Tiếng Anh",
+        "Kho bài giảng và bài tập",
+        "Hỏi đáp với cộng đồng",
+        "Luyện đề và đánh giá năng lực",
+        "Theo dõi tiến độ học",
+        "Học trực tiếp với giáo viên OLM"
+      ],
+      "aliases": [
+        "OLM.vn",
+        "Ô Lờ Mờ",
+        "nền tảng OLM",
+        "học trực tuyến lớp 5"
+      ],
+      "intents": [
+        {
+          "intent": "learn_k12_subject",
+          "example_queries": [
+            "Tìm khóa học Toán lớp 5",
+            "Con tôi cần ôn tập lớp 4 lên lớp 5",
+            "Tìm học liệu bám sát sách giáo khoa"
+          ]
+        },
+        {
+          "intent": "practice_exam_or_ask_question",
+          "example_queries": [
+            "Tìm đề kiểm tra Toán lớp 5",
+            "Tôi muốn hỏi đáp bài tập",
+            "Tìm lớp học trực tiếp với giáo viên"
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "url": "https://olm.vn/",
+          "publisher": "OLM",
+          "supports": "Trang chính thức liệt kê học liệu theo khối lớp và môn học, hỏi đáp, kho đề, thi đấu, báo cáo tiến độ, sản phẩm OLM Class và đơn vị vận hành.",
+          "checked_at": "2026-07-23"
+        },
+        {
+          "url": "https://class.olm.vn/",
+          "publisher": "OLM Class",
+          "supports": "Trang chính thức mô tả dịch vụ học trực tiếp với giáo viên, lộ trình học và cập nhật tiến độ cho phụ huynh.",
+          "checked_at": "2026-07-23"
+        }
+      ],
+      "verification": {
+        "official_source": true,
+        "link_reachable": true,
+        "cross_linked": false,
+        "oa_badge_status": "not_applicable",
+        "confidence": "high",
+        "notes": "Chỉ xác minh kênh website; footer có biểu tượng Zalo nhưng chưa xác minh đích OA nên không gán channel_type là OA."
+      },
+      "active": false,
+      "review_status": "candidate"
+    }
+  ]
+}

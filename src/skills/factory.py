@@ -10,11 +10,18 @@ def parse_allowed_hosts(raw_hosts: str) -> frozenset[str]:
     return frozenset(host.strip() for host in raw_hosts.split(",") if host.strip())
 
 
-def build_navigator(settings: Settings) -> NavigatorSkill:
-    """Build the deterministic local text pipeline from application settings."""
-    registry = JsonServiceRegistry(settings.registry_data_path)
-    url_policy = LaunchUrlPolicy(parse_allowed_hosts(settings.allowed_launch_hosts))
-    search_service = SearchService(registry, url_policy)
+def build_navigator(
+    settings: Settings,
+    *,
+    registry: JsonServiceRegistry | None = None,
+    url_policy: LaunchUrlPolicy | None = None,
+) -> NavigatorSkill:
+    """Build the controlled runtime pipeline from provider and registry settings."""
+    active_registry = registry or JsonServiceRegistry(settings.registry_data_path)
+    active_url_policy = url_policy or LaunchUrlPolicy(
+        parse_allowed_hosts(settings.allowed_launch_hosts)
+    )
+    search_service = SearchService(active_registry, active_url_policy)
     intent_extractor = ConfiguredLLMClient(settings)
     response_composer = TemplateResponseComposer()
     return NavigatorSkill(intent_extractor, search_service, response_composer)

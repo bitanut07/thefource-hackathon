@@ -15,6 +15,7 @@ class ServiceCategory(StrEnum):
     UTILITIES = "utilities"
     EDUCATION = "education"
     TRANSPORT_PUBLIC = "transport_public"
+    SHOPPING_DELIVERY = "shopping_delivery"
 
 
 @dataclass(frozen=True, slots=True)
@@ -37,6 +38,7 @@ class RegistryService:
     service_priority: int = 0
     region: str | None = None
     target_user: str | None = None
+    organization: str | None = None
     last_verified_at: datetime | None = None
     aliases: tuple[str, ...] = ()
     intents: tuple[ServiceIntent, ...] = ()
