@@ -15,6 +15,9 @@ class ResponseComposer(Protocol):
         self,
         query: StructuredQuery,
         candidates: list[ServiceCandidate],
+        *,
+        text: str = "",
+        history: list[dict[str, str]] | None = None,
     ) -> AgentResponse:
         """Compose a response using only backend-provided candidates."""
         ...
@@ -27,7 +30,11 @@ class TemplateResponseComposer:
         self,
         query: StructuredQuery,
         candidates: list[ServiceCandidate],
+        *,
+        text: str = "",
+        history: list[dict[str, str]] | None = None,
     ) -> AgentResponse:
+        del text, history
         if query.out_of_scope:
             return AgentResponse(
                 message=(
@@ -89,10 +96,20 @@ class NavigatorSkill:
         self.search_service = search_service
         self.response_composer = response_composer
 
-    async def process_text(self, text: str) -> AgentResponse:
+    async def process_text(
+        self,
+        text: str,
+        *,
+        history: list[dict[str, str]] | None = None,
+    ) -> AgentResponse:
         query = await self.intent_extractor.extract_structured_query(text)
         if query.out_of_scope or query.needs_clarification:
-            return await self.response_composer.compose(query, [])
+            return await self.response_composer.compose(query, [], text=text, history=history)
 
         candidates = await self.search_service.search(query, limit=5)
-        return await self.response_composer.compose(query, candidates[:5])
+        return await self.response_composer.compose(
+            query,
+            candidates[:5],
+            text=text,
+            history=history,
+        )

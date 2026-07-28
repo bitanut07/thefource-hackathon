@@ -2,6 +2,7 @@ import asyncio
 from collections.abc import Mapping
 
 from config import get_settings
+from domain.conversation import ConversationStore
 from skills.factory import build_navigator
 from zalo.client import ConfiguredZaloClient
 
@@ -37,11 +38,16 @@ def process_zalo_text_event(user_id: str, text: str, message_id: str) -> dict[st
     del message_id  # The id is used for ingress deduplication, never retained in a result.
     settings = get_settings()
     navigator = build_navigator(settings)
-    response = asyncio.run(navigator.process_text(text))
+    from redis import Redis
+
+    conversations = ConversationStore(Redis.from_url(settings.redis_url))
+    response = asyncio.run(navigator.process_text(text, history=conversations.history(user_id)))
     response_data = response.model_dump(mode="json")
     choices = response_data.get("choices", [])
     if not isinstance(choices, list):
         choices = []
     reply = _reply_text(response.message, choices)
     asyncio.run(ConfiguredZaloClient(settings).send_text(user_id, reply))
+    conversations.append(user_id, "user", text)
+    conversations.append(user_id, "assistant", response.message)
     return {"status": "sent", "choices": len(choices)}

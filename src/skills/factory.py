@@ -2,7 +2,8 @@ from config import Settings
 from domain.registry import JsonServiceRegistry, ServiceRegistryRepository
 from domain.search import LaunchUrlPolicy, SearchService
 from llm.client import ConfiguredLLMClient
-from skills.navigator import NavigatorSkill, TemplateResponseComposer
+from llm.response import GeminiResponseComposer
+from skills.navigator import NavigatorSkill
 
 
 def parse_allowed_hosts(raw_hosts: str) -> frozenset[str]:
@@ -25,5 +26,5 @@ def build_navigator(
     )
     search_service = SearchService(active_registry, active_url_policy)
     intent_extractor = ConfiguredLLMClient(settings)
-    response_composer = TemplateResponseComposer()
+    response_composer = GeminiResponseComposer(ConfiguredLLMClient(settings))
     return NavigatorSkill(intent_extractor, search_service, response_composer)
