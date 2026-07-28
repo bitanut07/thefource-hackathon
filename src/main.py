@@ -17,7 +17,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     """Tạo FastAPI app và các dependency của service navigator."""
     app_settings = settings or get_settings()
     is_production = app_settings.app_env.strip().casefold() == "production"
-    docs_url = None if is_production else "/docs"
+    docs_url = "/docs" if (not is_production or app_settings.enable_docs) else None
     app = FastAPI(
         title="Zalo AI Service Navigator",
         version="0.1.0",

@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     )
 
     app_env: str = "local"
+    enable_docs: bool = False
     log_level: str = "INFO"
     api_host: str = "0.0.0.0"
     api_port: int = 8000
