@@ -9,7 +9,7 @@ def test_liveness() -> None:
     assert response.json() == {"status": "ok"}
 
 
-def test_zalo_webhook_is_guarded_until_contract_is_verified() -> None:
+def test_zalo_webhook_acknowledges_registration_without_processing_event() -> None:
     response = TestClient(app).post("/webhooks/zalo", json={"event": "placeholder"})
-    assert response.status_code == 501
-    assert response.json()["code"] == "ZALO_CONTRACT_NOT_CONFIGURED"
+    assert response.status_code == 200
+    assert response.json()["code"] == "ZALO_WEBHOOK_ACKNOWLEDGED"
