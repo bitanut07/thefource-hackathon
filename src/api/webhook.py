@@ -1,24 +1,102 @@
-from fastapi import APIRouter
+"""Inbound Zalo OA webhook endpoint.
+
+The endpoint only authenticates and queues supported text events, so it always
+returns within Zalo's two-second webhook deadline.
+"""
+
+import hashlib
+import json
+from typing import Any, cast
+
+from fastapi import APIRouter, Request, status
 from fastapi.responses import JSONResponse
+from rq import Queue
+
+from config import Settings
+from zalo.client import ConfiguredZaloClient, ZaloConfigurationError
 
 router = APIRouter(prefix="/webhooks", tags=["webhooks"])
+_DEDUP_TTL_SECONDS = 86_400
+
+
+def _text_event(payload: object) -> tuple[str, str, str] | None:
+    if not isinstance(payload, dict) or payload.get("event_name") != "user_send_text":
+        return None
+    sender = payload.get("sender")
+    message = payload.get("message")
+    if not isinstance(sender, dict) or not isinstance(message, dict):
+        return None
+    user_id, text, message_id = sender.get("id"), message.get("text"), message.get("msg_id")
+    if not (
+        isinstance(user_id, str)
+        and isinstance(text, str)
+        and isinstance(message_id, str)
+        and user_id.strip()
+        and text.strip()
+        and message_id.strip()
+    ):
+        return None
+    return user_id.strip(), text.strip(), message_id.strip()
+
+
+def _event_key(message_id: str) -> str:
+    """Avoid retaining a raw Zalo message id as a Redis key."""
+
+    return hashlib.sha256(message_id.encode()).hexdigest()
 
 
 @router.post("/zalo")
-async def receive_zalo_webhook() -> JSONResponse:
-    """Acknowledge the Zalo callback without retaining or processing its payload.
+async def receive_zalo_webhook(request: Request) -> JSONResponse:
+    """Authenticate Zalo text events, deduplicate them, and enqueue work."""
 
-    Zalo validates a registered callback by issuing an HTTP POST and requires a
-    200 response.  Event handling remains intentionally disabled until the
-    signed-payload contract has been verified and configured.
-    """
-    # Do not parse, log, persist, or act on the incoming payload here.  The
-    # eventual implementation must verify the provider signature, deduplicate
-    # events, and enqueue a job before any user-facing action.
-    return JSONResponse(
-        status_code=200,
-        content={
-            "code": "ZALO_WEBHOOK_ACKNOWLEDGED",
-            "detail": "Webhook đã được xác nhận; xử lý sự kiện đang tắt cho tới khi xác minh chữ ký Zalo OA.",
-        },
-    )
+    raw_body = await request.body()
+    try:
+        payload: Any = json.loads(raw_body)
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content={"code": "INVALID_JSON"},
+        )
+
+    event = _text_event(payload)
+    if event is None:
+        # Unsupported events are intentionally acknowledged; Zalo requires 200
+        # and retrying them cannot make this service handle them.
+        return JSONResponse(status_code=200, content={"code": "ZALO_EVENT_IGNORED"})
+
+    settings = cast(Settings, request.app.state.settings)
+    client = ConfiguredZaloClient(settings)
+    try:
+        verified = client.verify(raw_body, request.headers)
+    except ZaloConfigurationError:
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={"code": "ZALO_NOT_CONFIGURED"},
+        )
+    if not verified:
+        return JSONResponse(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            content={"code": "INVALID_SIGNATURE"},
+        )
+
+    user_id, text, message_id = event
+    event_hash = _event_key(message_id)
+    redis = request.app.state.redis_connection
+    if not redis.set(f"zalo:webhook:{event_hash}", "1", nx=True, ex=_DEDUP_TTL_SECONDS):
+        return JSONResponse(status_code=200, content={"code": "ZALO_EVENT_DUPLICATE"})
+
+    queue = cast(Queue, request.app.state.queue)
+    try:
+        queue.enqueue(
+            "worker.jobs.process_zalo_text_event",
+            user_id,
+            text,
+            message_id,
+            job_id=f"zalo-{event_hash}",
+            result_ttl=0,
+            failure_ttl=_DEDUP_TTL_SECONDS,
+        )
+    except Exception:
+        redis.delete(f"zalo:webhook:{event_hash}")
+        raise
+    return JSONResponse(status_code=200, content={"code": "ZALO_EVENT_QUEUED"})

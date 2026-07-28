@@ -12,4 +12,4 @@ def test_liveness() -> None:
 def test_zalo_webhook_acknowledges_registration_without_processing_event() -> None:
     response = TestClient(app).post("/webhooks/zalo", json={"event": "placeholder"})
     assert response.status_code == 200
-    assert response.json()["code"] == "ZALO_WEBHOOK_ACKNOWLEDGED"
+    assert response.json()["code"] == "ZALO_EVENT_IGNORED"
