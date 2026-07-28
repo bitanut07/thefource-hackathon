@@ -47,7 +47,7 @@ def _navigator(request: Request) -> NavigatorSkill:
     response_model=AgentResponse,
     summary="Tìm dịch vụ bằng câu hỏi tự nhiên",
     description=(
-        "Gemini trích xuất nhu cầu có cấu trúc; backend chỉ trả tối đa ba "
+        "Gemini trích xuất nhu cầu có cấu trúc; backend chỉ trả tối đa năm "
         "dịch vụ và URL đã được Registry/allowlist cho phép."
     ),
     responses={

@@ -13,7 +13,7 @@ Mỗi dòng JSONL là một test case độc lập:
   "query": "Tìm chỗ khám mắt ở Quận 5 cuối tuần.",
   "expected": {
     "intent": "find_medical_service",
-    "category": "healthcare",
+    "category": "health",
     "service_ids": ["00000000-0000-4000-8000-000000000001"],
     "needs_clarification": false,
     "out_of_scope": false
@@ -42,7 +42,7 @@ Mỗi dòng JSONL là một test case độc lập:
 
 - **Intent accuracy**: tỷ lệ query có intent đúng.
 - **Slot extraction F1**: micro/macro F1 cho category, location, time, target user và slot nghiệp vụ.
-- **Recall@3**: tỷ lệ query có ít nhất một service ID chấp nhận được trong top 3.
+- **Recall@3**: tỷ lệ query có ít nhất một service ID chấp nhận được trong top 5.
 - **Top-1 accuracy**: tỷ lệ candidate đầu tiên thuộc tập đáp án.
 - **Hallucination rate**: tỷ lệ tên/ID/URL trong phản hồi không thuộc candidate set backend cung cấp; mục tiêu bắt buộc là 0.
 - **Clarification/no-result rate**: báo cáo theo nhóm query, không tối ưu một con số tổng làm mất safety.

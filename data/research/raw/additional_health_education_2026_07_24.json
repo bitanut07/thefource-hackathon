@@ -1,0 +1,571 @@
+[
+  {
+    "candidate_id": "education-hocmai-oa",
+    "name": "Hocmaivn",
+    "provider": "Công ty Cổ phần Đầu tư và Dịch vụ Giáo dục",
+    "channel_type": "oa",
+    "category": "education",
+    "subcategory": "k12_online_learning",
+    "description": "Kênh Zalo OA của HOCMAI, nền tảng học trực tuyến dành cho học sinh từ lớp 1 đến lớp 12 với bài giảng, lớp trực tiếp, ngân hàng câu hỏi và các chương trình luyện thi.",
+    "launch_url": "https://zalo.me/4473983057669494536",
+    "official_website": "https://hocmai.vn/",
+    "logo_url": null,
+    "regions": [
+      "Toàn quốc (học trực tuyến)"
+    ],
+    "target_users": [
+      "Học sinh lớp 1 đến lớp 12",
+      "Phụ huynh",
+      "Học sinh ôn thi vào lớp 6, lớp 10, tốt nghiệp THPT và tuyển sinh đại học"
+    ],
+    "capabilities": [
+      "browse_k12_courses",
+      "learn_with_recorded_lessons",
+      "join_live_online_classes",
+      "practice_with_question_bank",
+      "find_exam_preparation_program",
+      "message_official_oa"
+    ],
+    "aliases": [
+      "HOCMAI",
+      "Hocmai.vn",
+      "Học Mãi",
+      "Hệ thống Giáo dục HOCMAI"
+    ],
+    "intents": [
+      {
+        "intent": "find_k12_online_course",
+        "example_queries": [
+          "Tìm khóa học Toán trực tuyến cho học sinh lớp 8",
+          "Con tôi học lớp 5 cần học thêm online"
+        ]
+      },
+      {
+        "intent": "prepare_school_or_university_exam",
+        "example_queries": [
+          "Tìm khóa ôn thi vào lớp 10",
+          "Tôi cần luyện thi tốt nghiệp THPT và đánh giá năng lực"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/4473983057669494536",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là Hocmaivn.",
+          "OA công khai mô tả chương trình học trực tuyến cho học sinh lớp 1 đến lớp 12 và liên kết website hocmai.vn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://hocmai.vn/gioi-thieu",
+        "publisher": "HOCMAI",
+        "supports": [
+          "Trang chính chủ xác nhận chương trình cho học sinh lớp 1 đến lớp 12, bài giảng ghi hình iLearn, lớp trực tiếp iLIVE, ngân hàng câu hỏi iTtest và các chương trình luyện thi.",
+          "Trang chủ HOCMAI công bố pháp nhân vận hành và chứa đúng liên kết OA số này."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA trả HTTP 200, không chuyển hướng, title và og:title đều là Hocmaivn. Website chính chủ chứa đúng URL OA; không suy luận trạng thái huy hiệu từ giao diện công khai."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "education-vus-oa",
+    "name": "VUS Anh văn Hội Việt Mỹ",
+    "provider": "Công ty Cổ phần Quốc tế Anh văn Hội Việt Mỹ",
+    "channel_type": "oa",
+    "category": "education",
+    "subcategory": "english_language_training",
+    "description": "Kênh Zalo OA tổng quát của VUS dành cho người tìm khóa học tiếng Anh theo độ tuổi và nhu cầu, gồm chương trình cho trẻ em, thiếu niên, người lớn và luyện thi IELTS.",
+    "launch_url": "https://zalo.me/2470779593552436062",
+    "official_website": "https://vus.edu.vn/",
+    "logo_url": null,
+    "regions": [
+      "Học trực tuyến toàn quốc",
+      "TP.HCM và nhiều tỉnh, thành có trung tâm VUS"
+    ],
+    "target_users": [
+      "Trẻ từ 4 đến 6 tuổi",
+      "Học sinh từ 6 đến 15 tuổi",
+      "Người lớn và người đi làm",
+      "Người luyện thi IELTS"
+    ],
+    "capabilities": [
+      "find_age_appropriate_english_course",
+      "find_ielts_course",
+      "request_course_consultation",
+      "take_placement_test",
+      "find_nearby_center",
+      "message_official_oa"
+    ],
+    "aliases": [
+      "VUS",
+      "Anh văn Hội Việt Mỹ",
+      "Hội Việt Mỹ",
+      "VUS English"
+    ],
+    "intents": [
+      {
+        "intent": "find_english_course",
+        "example_queries": [
+          "Tìm lớp tiếng Anh cho bé 8 tuổi",
+          "Tôi mất gốc tiếng Anh và cần học giao tiếp"
+        ]
+      },
+      {
+        "intent": "find_ielts_or_center",
+        "example_queries": [
+          "Tôi cần khóa luyện IELTS 6.5",
+          "Tìm trung tâm VUS gần tôi"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2470779593552436062",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là VUS Anh văn Hội Việt Mỹ.",
+          "Tên, website và mô tả thương hiệu trên OA khớp với VUS."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://vus.edu.vn/",
+        "publisher": "VUS",
+        "supports": [
+          "Website chính chủ liệt kê khóa học cho trẻ 4-6 tuổi, 6-11 tuổi, 11-15 tuổi, người lớn và IELTS; đồng thời có chức năng tìm trung tâm, thi thử và đăng ký tư vấn.",
+          "Website công bố pháp nhân vận hành và chứa đúng liên kết OA tổng quát này."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA trả HTTP 200, không chuyển hướng, title và og:title khớp. VUS còn có OA riêng cho một số chương trình; bản ghi này chỉ đại diện OA VUS tổng quát được website chính chủ liên kết."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "health-fv-hospital-oa",
+    "name": "Bệnh Viện FV",
+    "provider": "Công ty TNHH Y tế Viễn Đông Việt Nam",
+    "channel_type": "oa",
+    "category": "healthcare",
+    "subcategory": "multispecialty_hospital",
+    "description": "Kênh Zalo OA chính thức của Bệnh viện FV để người dùng nhận thông tin sức khỏe, tìm dịch vụ chuyên khoa, nhắn tin với bệnh viện và yêu cầu đặt lịch khám.",
+    "launch_url": "https://zalo.me/3276814113887429009",
+    "official_website": "https://www.fvhospital.com/",
+    "logo_url": null,
+    "regions": [
+      "Thành phố Hồ Chí Minh"
+    ],
+    "target_users": [
+      "Người cần khám đa chuyên khoa",
+      "Người cần đặt lịch với bác sĩ",
+      "Gia đình cần khám sức khỏe và tầm soát",
+      "Người cần thông tin cấp cứu hoặc điều trị"
+    ],
+    "capabilities": [
+      "message_hospital",
+      "request_appointment",
+      "find_specialty_and_doctor",
+      "receive_health_updates",
+      "find_screening_and_treatment_service"
+    ],
+    "aliases": [
+      "FV",
+      "FV Hospital",
+      "Bệnh viện Pháp Việt",
+      "Bệnh viện FV"
+    ],
+    "intents": [
+      {
+        "intent": "book_hospital_appointment",
+        "example_queries": [
+          "Tôi muốn đặt lịch khám ở Bệnh viện FV",
+          "Cho tôi nhắn với FV để hẹn bác sĩ"
+        ]
+      },
+      {
+        "intent": "find_specialist_care",
+        "example_queries": [
+          "Tìm bệnh viện đa khoa ở TP.HCM",
+          "Tôi cần khám tim mạch tại FV"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3276814113887429009",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là Bệnh Viện FV.",
+          "Tên, địa chỉ, điện thoại, website và mô tả bệnh viện đa chuyên khoa trên OA khớp với Bệnh viện FV."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.fvhospital.com/en/news/fv-introduces-new-communication-channel-on-zalo/",
+        "publisher": "Bệnh viện FV",
+        "supports": [
+          "Bệnh viện công bố trực tiếp OA Bệnh Viện FV và đúng URL số này.",
+          "Nguồn chính chủ xác nhận người dùng có thể nhận tin, yêu cầu đặt lịch và nhắn tin với bệnh viện qua OA."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA trả HTTP 200, không chuyển hướng, title và og:title khớp. Nguồn chính chủ công bố trực tiếp cả OA ID và chức năng; không suy luận trạng thái huy hiệu."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "health-bv-da-lieu-hcm-oa",
+    "name": "Bệnh viện Da Liễu thành phố Hồ Chí Minh",
+    "provider": "Bệnh viện Da Liễu TP.HCM, trực thuộc Sở Y tế TP.HCM",
+    "channel_type": "oa",
+    "category": "healthcare",
+    "subcategory": "dermatology_hospital",
+    "description": "Kênh Zalo OA chính thức của Bệnh viện Da Liễu TP.HCM để người dùng nhận diện đúng cơ sở, liên hệ hỗ trợ và tìm thông tin khám chữa bệnh chuyên khoa da liễu.",
+    "launch_url": "https://zalo.me/1948803500975685916",
+    "official_website": "https://bvdl.org.vn/",
+    "logo_url": null,
+    "regions": [
+      "Thành phố Hồ Chí Minh",
+      "Tuyến chuyên khoa cho các tỉnh phía Nam"
+    ],
+    "target_users": [
+      "Người cần khám bệnh da, tóc hoặc móng",
+      "Người cần khám nhiễm khuẩn lây qua đường tình dục",
+      "Người cần da liễu nhi",
+      "Người cần tư vấn da liễu thẩm mỹ"
+    ],
+    "capabilities": [
+      "message_customer_support",
+      "find_dermatology_treatment",
+      "access_official_booking_route",
+      "view_doctor_schedule",
+      "find_cost_and_opening_hours",
+      "receive_dermatology_health_information"
+    ],
+    "aliases": [
+      "BV Da Liễu TP.HCM",
+      "Bệnh viện Da Liễu Sài Gòn",
+      "Da Liễu Nguyễn Thông",
+      "BVDL HCM"
+    ],
+    "intents": [
+      {
+        "intent": "find_dermatology_care",
+        "example_queries": [
+          "Tôi bị viêm da cần tìm bệnh viện da liễu",
+          "Tìm chỗ khám da liễu cho trẻ em ở TP.HCM"
+        ]
+      },
+      {
+        "intent": "book_dermatology_appointment",
+        "example_queries": [
+          "Tôi muốn đặt trước lịch khám da",
+          "Cho tôi kênh Zalo chính thức của Bệnh viện Da Liễu TP.HCM"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1948803500975685916",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là Bệnh viện Da Liễu thành phố Hồ Chí Minh.",
+          "Tên, địa chỉ duy nhất, điện thoại và website trên OA khớp với bệnh viện."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://bvdl.org.vn/cong-dong/n-39/cau-hoi-thuong-gap",
+        "publisher": "Bệnh viện Da Liễu TP.HCM",
+        "supports": [
+          "Website bệnh viện công bố trực tiếp đúng URL OA số này trong danh sách kênh liên hệ chính thức.",
+          "Nguồn chính chủ cảnh báo bệnh viện chỉ có một cơ sở và cung cấp thông tin chống giả mạo."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA trả HTTP 200, không chuyển hướng, title và og:title khớp. Website bệnh viện liên kết trực tiếp OA và có cảnh báo chống giả mạo; không suy luận trạng thái huy hiệu."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "health-benh-vien-199-oa",
+    "name": "Bệnh viện 199",
+    "provider": "Bệnh viện 199 - Bộ Công an",
+    "channel_type": "oa",
+    "category": "healthcare",
+    "subcategory": "public_multispecialty_hospital",
+    "description": "Kênh Zalo OA của Bệnh viện 199 - Bộ Công an tại Đà Nẵng, phục vụ nhu cầu liên hệ bệnh viện, tìm chuyên khoa, khám sức khỏe, tầm soát, tiêm chủng và phục hồi chức năng.",
+    "launch_url": "https://zalo.me/1758161344196899839",
+    "official_website": "https://benhvien199.vn/",
+    "logo_url": null,
+    "regions": [
+      "Đà Nẵng",
+      "Miền Trung và Tây Nguyên"
+    ],
+    "target_users": [
+      "Cán bộ, chiến sĩ Công an nhân dân",
+      "Người dân khu vực miền Trung và Tây Nguyên",
+      "Người cần khám sức khỏe hoặc tầm soát",
+      "Người cần tiêm chủng hoặc phục hồi chức năng"
+    ],
+    "capabilities": [
+      "message_hospital",
+      "book_appointment",
+      "find_specialty",
+      "find_screening_service",
+      "find_vaccination_service",
+      "find_rehabilitation_service"
+    ],
+    "aliases": [
+      "BV 199",
+      "Bệnh viện 199 Bộ Công an",
+      "Bệnh viện 199 Đà Nẵng",
+      "Hospital 199"
+    ],
+    "intents": [
+      {
+        "intent": "find_multispecialty_hospital",
+        "example_queries": [
+          "Tìm Bệnh viện 199 ở Đà Nẵng",
+          "Tôi cần bệnh viện Bộ Công an tại miền Trung"
+        ]
+      },
+      {
+        "intent": "book_screening_or_vaccination",
+        "example_queries": [
+          "Tôi muốn đặt lịch khám sức khỏe tại Bệnh viện 199",
+          "Bệnh viện 199 có tiêm chủng không?"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1758161344196899839",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là Bệnh viện 199.",
+          "Tên, địa chỉ, hotline, website và mô tả Bệnh viện hạng I Bộ Công an trên OA khớp với website bệnh viện."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://benhvien199.vn/lien-he",
+        "publisher": "Bệnh viện 199 - Bộ Công an",
+        "supports": [
+          "Nút Trò chuyện Zalo trên website chính chủ mở đúng OA số này.",
+          "Website công bố địa chỉ, hotline và các nhóm dịch vụ của bệnh viện."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA trả HTTP 200, không chuyển hướng, title và og:title khớp. Đã đối chiếu bằng nút Trò chuyện Zalo trên website chính chủ; không suy luận trạng thái huy hiệu."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "health-bvdk-van-hanh-oa",
+    "name": "Bệnh Viện Đa Khoa Vạn Hạnh",
+    "provider": "Bệnh viện Đa khoa Vạn Hạnh",
+    "channel_type": "oa",
+    "category": "healthcare",
+    "subcategory": "private_multispecialty_hospital",
+    "description": "Kênh Zalo OA chăm sóc khách hàng của Bệnh viện Đa khoa Vạn Hạnh để người dùng liên hệ hỗ trợ, tìm dịch vụ đa chuyên khoa và nhận hướng dẫn truy cập các cổng dịch vụ chính thức.",
+    "launch_url": "https://zalo.me/3677068347110748647",
+    "official_website": "https://benhvienvanhanh.vn/",
+    "logo_url": null,
+    "regions": [
+      "Thành phố Hồ Chí Minh"
+    ],
+    "target_users": [
+      "Người cần khám đa chuyên khoa",
+      "Gia đình cần khám sức khỏe hoặc tầm soát",
+      "Người cần hỗ trợ sinh sản hoặc sản phụ khoa",
+      "Bệnh nhân cần hỗ trợ truy cập cổng kết quả khám"
+    ],
+    "capabilities": [
+      "message_customer_support",
+      "find_multispecialty_care",
+      "find_screening_service",
+      "access_official_appointment_route",
+      "get_help_accessing_medical_result_portal",
+      "view_outpatient_schedule"
+    ],
+    "aliases": [
+      "Bệnh viện Vạn Hạnh",
+      "BVĐK Vạn Hạnh",
+      "Vạn Hạnh Hospital",
+      "BV Vạn Hạnh"
+    ],
+    "intents": [
+      {
+        "intent": "contact_hospital_support",
+        "example_queries": [
+          "Cho tôi Zalo chăm sóc khách hàng Bệnh viện Vạn Hạnh",
+          "Tôi cần hỗ trợ truy cập cổng kết quả khám tại Vạn Hạnh"
+        ]
+      },
+      {
+        "intent": "find_multispecialty_care",
+        "example_queries": [
+          "Tìm bệnh viện đa khoa ở khu Lê Hồng Phong",
+          "Tôi cần khám hiếm muộn tại Bệnh viện Vạn Hạnh"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3677068347110748647",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là Bệnh Viện Đa Khoa Vạn Hạnh.",
+          "Tên, địa chỉ, điện thoại, website và mô tả chuyên khoa trên OA khớp với bệnh viện."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://benhvienvanhanh.vn/huong-dan-tra-benh-an-dien-tu/",
+        "publisher": "Bệnh viện Đa khoa Vạn Hạnh",
+        "supports": [
+          "Website bệnh viện công bố trực tiếp đúng URL OA số này.",
+          "Nguồn chính chủ chỉ dẫn liên hệ OA để được hỗ trợ khi gặp khó khăn truy cập cổng kết quả khám chữa bệnh."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA trả HTTP 200, không chuyển hướng, title và og:title khớp. Bản ghi chỉ lưu CTA hỗ trợ công khai; không thu thập ID bệnh nhân, thông tin đăng nhập, kết quả khám hoặc dữ liệu sức khỏe cá nhân."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "health-bvdk-tth-vinh-oa",
+    "name": "Bệnh viện Đa khoa TTH Vinh",
+    "provider": "Bệnh viện Đa khoa TTH Vinh, thành viên TTH Group",
+    "channel_type": "oa",
+    "category": "healthcare",
+    "subcategory": "regional_multispecialty_hospital",
+    "description": "Kênh Zalo OA công khai của Bệnh viện Đa khoa TTH Vinh dành cho người cần liên hệ bệnh viện và tìm thông tin dịch vụ đa chuyên khoa tại Nghệ An.",
+    "launch_url": "https://zalo.me/2264646732505716268",
+    "official_website": "https://benhvientthvinh.vn/",
+    "logo_url": null,
+    "regions": [
+      "Nghệ An",
+      "Khu vực Bắc Trung Bộ"
+    ],
+    "target_users": [
+      "Người dân cần khám đa chuyên khoa tại Nghệ An",
+      "Người có bảo hiểm y tế trên toàn quốc",
+      "Phụ nữ cần sản phụ khoa hoặc hỗ trợ sinh sản",
+      "Người cần cấp cứu hoặc chấn thương chỉnh hình"
+    ],
+    "capabilities": [
+      "message_official_oa",
+      "find_specialty",
+      "find_obstetric_and_fertility_service",
+      "find_orthopedic_service",
+      "find_emergency_information",
+      "get_hospital_contact_information"
+    ],
+    "aliases": [
+      "TTH Vinh",
+      "BVĐK TTH Vinh",
+      "Bệnh viện TTH Vinh",
+      "TTH Hospital Vinh"
+    ],
+    "intents": [
+      {
+        "intent": "find_hospital_in_vinh",
+        "example_queries": [
+          "Tìm bệnh viện đa khoa ở thành phố Vinh",
+          "Cho tôi kênh Zalo của Bệnh viện TTH Vinh"
+        ]
+      },
+      {
+        "intent": "find_obstetric_or_emergency_care",
+        "example_queries": [
+          "Tôi cần khám sản ở Vinh",
+          "TTH Vinh có cấp cứu 24 giờ không?"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2264646732505716268",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là Bệnh viện Đa khoa TTH Vinh.",
+          "OA tự mô tả là OA Zalo chính thức của Bệnh viện Đa khoa TTH Vinh; tên, địa chỉ, hotline và website khớp."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.benhvientthvinh.vn/tin-tuc/benh-vien-da-khoa-tth-vinh",
+        "publisher": "Bệnh viện Đa khoa TTH Vinh",
+        "supports": [
+          "Website chính chủ xác nhận bệnh viện là thành viên TTH Group và liệt kê các chuyên khoa nội-nhi, phụ sản-hỗ trợ sinh sản, phục hồi chức năng, ngoại khoa và chấn thương chỉnh hình.",
+          "Nguồn chính chủ xác nhận bệnh viện phục vụ người có bảo hiểm y tế trên toàn quốc."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": false,
+      "confidence": "medium",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA trả HTTP 200, không chuyển hướng, title và og:title khớp; OA tự nhận là kênh chính thức và toàn bộ thông tin nhận diện khớp. Chưa tìm thấy trang website chính chủ chứa trực tiếp OA ID nên cần giữ candidate cho đến khi kiểm tra badge trong ứng dụng hoặc có liên kết ngược."
+    },
+    "active": false,
+    "review_status": "candidate"
+  }
+]

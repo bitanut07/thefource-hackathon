@@ -1,0 +1,648 @@
+[
+  {
+    "candidate_id": "kfc-vietnam-oa",
+    "name": "KFC Vietnam",
+    "provider": "Công ty Liên doanh TNHH KFC Việt Nam",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "quick_service_restaurant",
+    "description": "Kênh Zalo OA của KFC Vietnam dành cho người cần xem thực đơn, tìm nhà hàng, nhận thông tin khuyến mãi, đặt món hoặc liên hệ hỗ trợ qua các kênh chính thức của KFC.",
+    "launch_url": "https://zalo.me/1089872550377351285",
+    "official_website": "https://www.kfcvietnam.com.vn/",
+    "logo_url": null,
+    "regions": [
+      "41 tỉnh, thành phố tại Việt Nam"
+    ],
+    "target_users": [
+      "Người cần mua đồ ăn nhanh",
+      "Gia đình và nhóm bạn",
+      "Khách hàng cần giao món hoặc tìm nhà hàng KFC"
+    ],
+    "capabilities": [
+      "browse_food_menu",
+      "find_restaurant",
+      "order_food_for_delivery_or_pickup",
+      "receive_promotions",
+      "contact_customer_support"
+    ],
+    "aliases": [
+      "KFC",
+      "KFC Việt Nam",
+      "KFC Vietnam",
+      "Gà rán KFC",
+      "Kentucky Fried Chicken"
+    ],
+    "intents": [
+      {
+        "intent": "find_fast_food",
+        "example_queries": [
+          "Tôi cần mua đồ ăn nhanh",
+          "Tìm KFC gần đây",
+          "Tôi muốn ăn gà rán"
+        ]
+      },
+      {
+        "intent": "order_food_delivery",
+        "example_queries": [
+          "Đặt KFC giao đến công ty",
+          "Cho tôi xem thực đơn KFC",
+          "Tôi muốn mua KFC mang đi"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1089872550377351285",
+        "publisher": "KFC Vietnam trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là KFC Vietnam.",
+          "Mô tả công khai cho biết KFC có hơn 231 nhà hàng tại 41 tỉnh, thành phố và liên kết website kfcvietnam.com.vn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/kfcvietnam",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL https://zalo.me/1089872550377351285, xác nhận OA ID số mà không suy đoán."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://ads.zalo.me/business/kfc-viet-nam-da-xay-dung-zalo-official-account-gan-500000-theo-doi-cua-minh-nhu-the-nao/",
+        "publisher": "Zalo Ads",
+        "supports": [
+          "Case study chính thức của Zalo xác nhận KFC Việt Nam vận hành Zalo Official Account."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.kfcvietnam.com.vn/news",
+        "publisher": "KFC Việt Nam",
+        "supports": [
+          "Trang chính chủ mô tả thực đơn, khuyến mãi và dịch vụ giao hàng qua tổng đài, website, ứng dụng cùng kênh Zalo."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Đã đối chiếu alias công khai của Zalo với URL số và trang KFC chính chủ. Chưa quan sát trực tiếp huy hiệu OA trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "lotte-cinema-oa",
+    "name": "Lotte Cinema",
+    "provider": "Công ty TNHH Lotte Cinema Việt Nam",
+    "channel_type": "oa",
+    "category": "entertainment",
+    "subcategory": "cinema",
+    "description": "Kênh Zalo OA của Lotte Cinema dành cho người xem phim cần thông tin hệ thống rạp, lịch chiếu, hỗ trợ và đường dẫn tới dịch vụ đặt vé trực tuyến chính thức.",
+    "launch_url": "https://zalo.me/1512011400839005851",
+    "official_website": "https://www.lottecinemavn.com/",
+    "logo_url": null,
+    "regions": [
+      "43 cụm rạp tại 30 tỉnh, thành phố"
+    ],
+    "target_users": [
+      "Người xem phim tại rạp",
+      "Gia đình, sinh viên và nhóm bạn",
+      "Khách hàng cần tra lịch chiếu hoặc đặt vé"
+    ],
+    "capabilities": [
+      "discover_cinemas",
+      "find_movie_showtimes",
+      "open_online_ticket_booking",
+      "contact_customer_support"
+    ],
+    "aliases": [
+      "Lotte Cinema Việt Nam",
+      "Lotte Cinema VN",
+      "Rạp Lotte",
+      "Lotte"
+    ],
+    "intents": [
+      {
+        "intent": "find_movie_showtime",
+        "example_queries": [
+          "Tìm lịch chiếu phim Lotte hôm nay",
+          "Có rạp Lotte nào gần tôi",
+          "Tối nay Lotte chiếu phim gì"
+        ]
+      },
+      {
+        "intent": "book_cinema_ticket",
+        "example_queries": [
+          "Tôi muốn đặt vé Lotte Cinema",
+          "Mở trang chọn ghế xem phim",
+          "Đặt hai vé xem phim cuối tuần"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1512011400839005851",
+        "publisher": "Lotte Cinema trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Lotte Cinema.",
+          "Mô tả công khai cho biết Lotte Cinema có 43 cụm rạp tại 30 tỉnh, thành phố."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/lottecinema",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL https://zalo.me/1512011400839005851, xác nhận OA ID số."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.lottecinemavn.com/LCHS/Contents/etc/terms-of-use.aspx",
+        "publisher": "Lotte Cinema Việt Nam",
+        "supports": [
+          "Trang chính chủ xác nhận Công ty TNHH Lotte Cinema Việt Nam là đơn vị vận hành.",
+          "Điều khoản mô tả đặt vé, chọn ghế, thanh toán và quản lý vé trực tuyến qua website hoặc ứng dụng."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Zalo ánh xạ alias Lotte Cinema sang đúng URL số; thông tin nhà cung cấp và chức năng đặt vé được đối chiếu trên website chính chủ. Chưa quan sát huy hiệu trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "vietravel-oa",
+    "name": "Vietravel",
+    "provider": "Công ty Cổ phần Du lịch và Tiếp thị Giao thông Vận tải Việt Nam - Vietravel",
+    "channel_type": "oa",
+    "category": "transport_travel",
+    "subcategory": "tour_operator",
+    "description": "Kênh Zalo OA của Vietravel dành cho khách cần tìm tour trong nước hoặc quốc tế, nhận tư vấn hành trình và mở dịch vụ đặt tour trực tuyến chính thức.",
+    "launch_url": "https://zalo.me/2740419779120028213",
+    "official_website": "https://travel.com.vn/",
+    "logo_url": null,
+    "regions": [
+      "Việt Nam",
+      "Tour trong nước",
+      "Tour quốc tế"
+    ],
+    "target_users": [
+      "Khách du lịch cá nhân",
+      "Gia đình và nhóm khách",
+      "Doanh nghiệp cần tour đoàn",
+      "Người cần tư vấn hành trình"
+    ],
+    "capabilities": [
+      "discover_domestic_tours",
+      "discover_international_tours",
+      "open_online_tour_booking",
+      "receive_travel_promotions",
+      "contact_travel_consultant"
+    ],
+    "aliases": [
+      "Vietravel",
+      "Du lịch Vietravel",
+      "travel.com.vn",
+      "Công ty Du lịch Vietravel"
+    ],
+    "intents": [
+      {
+        "intent": "find_travel_tour",
+        "example_queries": [
+          "Tìm tour Đà Nẵng cho gia đình",
+          "Tôi muốn đi tour Nhật Bản",
+          "Có tour du lịch Tết nào không"
+        ]
+      },
+      {
+        "intent": "book_or_consult_tour",
+        "example_queries": [
+          "Tôi muốn đặt tour Vietravel",
+          "Cần tư vấn tour cho công ty",
+          "Mở kênh Vietravel chính thức"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2740419779120028213",
+        "publisher": "Vietravel trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Vietravel.",
+          "Mô tả công khai liên kết mạng đặt tour trực tuyến travel.com.vn và ứng dụng Vietravel."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.vietravel.com/vn/cau-lac-bo-du-lich/5-hanh-trinh-di-doc-viet-nam-dip-tet-nguyen-dan-v13150.aspx",
+        "publisher": "Vietravel",
+        "supports": [
+          "Trang trên tên miền Vietravel chính chủ công khai nguyên văn URL Zalo https://zalo.me/2740419779120028213.",
+          "Trang cung cấp thông tin liên hệ và đặt tour của Vietravel."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://travel.com.vn/",
+        "publisher": "Vietravel",
+        "supports": [
+          "Website đặt tour chính thức đang hoạt động và cung cấp tour trong nước, quốc tế."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA số được công bố nguyên văn trên tên miền Vietravel chính chủ và trang OA hiện vẫn trả đúng tiêu đề thương hiệu. Chưa quan sát huy hiệu trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "vietjet-oa",
+    "name": "Vietjet",
+    "provider": "Công ty Cổ phần Hàng không Vietjet",
+    "channel_type": "oa",
+    "category": "transport_travel",
+    "subcategory": "airline",
+    "description": "Kênh Zalo OA thông tin chính thức của Vietjet dành cho hành khách cần theo dõi thông tin hãng, tìm vé và mở các kênh tra cứu hoặc hỗ trợ chuyến bay.",
+    "launch_url": "https://zalo.me/1315653076309382882",
+    "official_website": "https://www.vietjetair.com/",
+    "logo_url": null,
+    "regions": [
+      "Các đường bay nội địa Việt Nam",
+      "Các đường bay quốc tế của Vietjet"
+    ],
+    "target_users": [
+      "Hành khách Vietjet",
+      "Người tìm vé máy bay",
+      "Khách cần tra cứu hoặc hỗ trợ chuyến bay"
+    ],
+    "capabilities": [
+      "discover_flight_information",
+      "open_flight_booking",
+      "open_electronic_ticket_lookup",
+      "receive_airline_updates",
+      "contact_flight_support"
+    ],
+    "aliases": [
+      "Vietjet Air",
+      "VietJet",
+      "VJ",
+      "Hãng hàng không Vietjet"
+    ],
+    "intents": [
+      {
+        "intent": "find_flight",
+        "example_queries": [
+          "Tìm vé Vietjet đi Đà Nẵng",
+          "Tôi cần chuyến bay từ TP.HCM ra Hà Nội",
+          "Có vé máy bay giá rẻ không"
+        ]
+      },
+      {
+        "intent": "manage_or_get_flight_support",
+        "example_queries": [
+          "Tra cứu mã vé Vietjet",
+          "Tôi cần hỗ trợ hành lý Vietjet",
+          "Mở kênh Vietjet chính thức"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1315653076309382882",
+        "publisher": "Vietjet trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Vietjet.",
+          "Mô tả công khai xác định đây là trang thông tin chính thức của hãng hàng không Vietjet."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/vietjet",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL https://zalo.me/1315653076309382882, xác nhận OA ID số."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.vietjetair.com/en/pages/how-to-look-up-your-booked-electronic-flight-ticket-code-1718338475320",
+        "publisher": "Vietjet Air",
+        "supports": [
+          "Trang Vietjet chính chủ liên kết kênh https://oa.zalo.me/vietjet.",
+          "Trang mô tả tra cứu vé điện tử qua website, ứng dụng và hotline của Vietjet."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Website Vietjet liên kết alias Zalo chính thức và Zalo ánh xạ alias đó sang đúng URL số. Chưa quan sát huy hiệu trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "futa-bus-lines-oa",
+    "name": "Phương Trang - FUTA Bus Lines",
+    "provider": "Công ty Cổ phần Xe khách Phương Trang - FUTA Bus Lines",
+    "channel_type": "oa",
+    "category": "transport_travel",
+    "subcategory": "intercity_bus",
+    "description": "Kênh Zalo OA của Phương Trang - FUTA Bus Lines dành cho hành khách cần thông tin tuyến xe, đặt vé qua kênh chính thức và liên hệ chăm sóc khách hàng.",
+    "launch_url": "https://zalo.me/1090257973118325189",
+    "official_website": "https://futabus.vn/",
+    "logo_url": null,
+    "regions": [
+      "Các tuyến xe khách liên tỉnh trên toàn quốc"
+    ],
+    "target_users": [
+      "Hành khách đi xe liên tỉnh",
+      "Người cần tìm tuyến và giờ xe",
+      "Khách cần đặt vé hoặc hỗ trợ hành trình"
+    ],
+    "capabilities": [
+      "discover_intercity_bus_routes",
+      "open_bus_ticket_booking",
+      "access_qr_boarding_information",
+      "contact_customer_support"
+    ],
+    "aliases": [
+      "Phương Trang",
+      "Xe Phương Trang",
+      "FUTA",
+      "FUTA Bus",
+      "FUTA Bus Lines"
+    ],
+    "intents": [
+      {
+        "intent": "find_intercity_bus",
+        "example_queries": [
+          "Tìm xe Phương Trang đi Đà Lạt",
+          "Có chuyến xe từ TP.HCM về Cần Thơ không",
+          "Tìm xe khách liên tỉnh"
+        ]
+      },
+      {
+        "intent": "book_bus_ticket",
+        "example_queries": [
+          "Tôi muốn đặt vé xe Phương Trang",
+          "Mở app FUTA để mua vé",
+          "Tôi cần hỗ trợ vé xe"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1090257973118325189",
+        "publisher": "Phương Trang - FUTA Bus Lines trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Phương Trang - FUTA Bus Lines.",
+          "Mô tả công khai khớp Công ty Cổ phần Xe khách Phương Trang - FUTA Bus Lines."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://futabus.vn/tin-tuc/phuong-trang-futa-bus-lines-chinh-thuc-khai-truong-van-phong-dai-hoc-bach-khoa",
+        "publisher": "FUTA Bus Lines",
+        "supports": [
+          "Trang FUTA chính chủ công khai nguyên văn URL Zalo https://zalo.me/1090257973118325189.",
+          "Trang liên kết website và ứng dụng FUTA phục vụ tìm, đặt vé."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://futabus.vn/tin-tuc/trai-nghiem-tien-loi-voi-qr-code-cua-phuong-trang-futa-bus-lines",
+        "publisher": "FUTA Bus Lines",
+        "supports": [
+          "Trang chính chủ tiếp tục công bố cùng URL OA số.",
+          "Trang mô tả quy trình đặt vé và lên xe bằng mã QR cùng mạng lưới tuyến xe liên tỉnh."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Nhiều bài viết trên tên miền FUTA chính chủ cùng công bố một URL OA số; trang OA trả đúng tiêu đề thương hiệu. Chưa quan sát huy hiệu trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "bach-hoa-xanh-hcm-oa",
+    "name": "Bách Hoá Xanh",
+    "provider": "Công ty Cổ phần Bách Hóa Xanh, thuộc hệ sinh thái Thế Giới Di Động",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "grocery_supermarket",
+    "description": "Kênh Zalo OA chính thức của Bách Hóa Xanh TP.HCM dành cho khách mua thực phẩm, nhu yếu phẩm và người cần gửi thông tin đơn hàng để được hỗ trợ.",
+    "launch_url": "https://zalo.me/3518439335916132961",
+    "official_website": "https://www.bachhoaxanh.com/",
+    "logo_url": null,
+    "regions": [
+      "Thành phố Hồ Chí Minh"
+    ],
+    "target_users": [
+      "Hộ gia đình mua thực phẩm và nhu yếu phẩm",
+      "Khách mua hàng tại Bách Hóa Xanh TP.HCM",
+      "Người cần hỗ trợ đơn hàng hoặc sản phẩm"
+    ],
+    "capabilities": [
+      "discover_grocery_products",
+      "open_online_grocery_shopping",
+      "submit_order_information_for_support",
+      "resolve_product_or_pricing_issue",
+      "contact_customer_support"
+    ],
+    "aliases": [
+      "Bách Hóa XANH",
+      "Bách Hoá Xanh",
+      "BHX",
+      "Bách Hóa Xanh TP.HCM",
+      "Siêu thị Bách Hóa Xanh"
+    ],
+    "intents": [
+      {
+        "intent": "find_grocery_service",
+        "example_queries": [
+          "Tôi cần mua đồ ăn",
+          "Tìm Bách Hóa Xanh ở TP.HCM",
+          "Tôi muốn mua thực phẩm và nhu yếu phẩm"
+        ]
+      },
+      {
+        "intent": "get_grocery_order_support",
+        "example_queries": [
+          "Đơn Bách Hóa Xanh của tôi có vấn đề",
+          "Tôi cần hỏi về giá sản phẩm",
+          "Liên hệ chăm sóc khách hàng Bách Hóa Xanh"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3518439335916132961",
+        "publisher": "Bách Hoá Xanh trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Bách Hoá Xanh.",
+          "Mô tả công khai xác định đây là tài khoản Zalo chính thức của Bách Hóa Xanh TP.HCM và liên kết bachhoaxanh.com."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.bachhoaxanh.com/comment/initbhx?ismb=true&objectId=224673&objectType=2&pageSize=10&showRating=false&siteId=9",
+        "publisher": "Bách Hóa Xanh",
+        "supports": [
+          "Quản trị viên trên tên miền Bách Hóa Xanh chính chủ hướng người dùng gửi thông tin đơn hàng qua chính xác OA số https://zalo.me/3518439335916132961 để kiểm tra và xử lý."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.bachhoaxanh.com/",
+        "publisher": "Bách Hóa Xanh",
+        "supports": [
+          "Website mua thực phẩm và sản phẩm gia đình chính thức đang hoạt động."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "OA tự mô tả phạm vi TP.HCM và tên miền chính chủ liên kết đúng OA số; không mở rộng vùng phục vụ OA thành toàn quốc. Chưa quan sát huy hiệu trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "winmart-winmart-plus-oa",
+    "name": "Siêu thị WinMart - Cửa hàng WinMart Plus",
+    "provider": "Công ty Cổ phần Dịch vụ Thương mại Tổng hợp WinCommerce, thuộc Masan Group",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "grocery_supermarket",
+    "description": "Kênh Zalo OA của hệ thống WinMart và WinMart+ dành cho khách cần thông tin mua sắm, ưu đãi, cửa hàng gần nhất và đường dẫn tới dịch vụ đi chợ trực tuyến.",
+    "launch_url": "https://zalo.me/300086756699856746",
+    "official_website": "https://winmart.vn/",
+    "logo_url": null,
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Hộ gia đình mua thực phẩm và hàng tiêu dùng",
+      "Khách WinMart, WinMart+ và WiN",
+      "Người cần mua hàng trực tuyến hoặc giao trong ngày"
+    ],
+    "capabilities": [
+      "discover_grocery_products",
+      "receive_shopping_promotions",
+      "open_online_grocery_shopping",
+      "find_nearby_store",
+      "request_same_day_delivery"
+    ],
+    "aliases": [
+      "WinMart",
+      "WinMart+",
+      "WinMart Plus",
+      "WiN",
+      "Siêu thị WinMart",
+      "VinMart"
+    ],
+    "intents": [
+      {
+        "intent": "find_supermarket_or_groceries",
+        "example_queries": [
+          "Tôi cần mua đồ ăn ở WinMart",
+          "Tìm WinMart gần đây",
+          "Mua thực phẩm và đồ gia dụng"
+        ]
+      },
+      {
+        "intent": "buy_groceries_online",
+        "example_queries": [
+          "Đi chợ online tại WinMart",
+          "Tôi cần giao thực phẩm trong ngày",
+          "Mở kênh WinMart chính thức"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/300086756699856746",
+        "publisher": "WinMart trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Siêu thị WinMart - Cửa hàng WinMart Plus.",
+          "Mô tả công khai xác định đây là hệ thống bán lẻ thuộc Masan Group và liên kết winmart.vn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://vincom.com.vn/promotion/winmart-deal-hoi",
+        "publisher": "Vincom",
+        "supports": [
+          "Trang khuyến mãi công khai ghi nguyên văn OA số https://zalo.me/300086756699856746.",
+          "Trang liệt kê website mua sắm và số tư vấn WinMart."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.winmart.vn/info/about",
+        "publisher": "WinMart",
+        "supports": [
+          "Trang giới thiệu chính chủ xác nhận hệ thống thuộc Masan Group, có hơn 130 siêu thị và 4.500 cửa hàng WinMart+, WiN trên toàn quốc.",
+          "Trang mô tả mua sắm trực tuyến và giao hàng trong ngày."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://winmart.vn/info/delivery-policy",
+        "publisher": "WinMart",
+        "supports": [
+          "Chính sách chính chủ liệt kê các khu vực giao hàng và việc giao đơn tới khách hàng."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Trang OA khớp thương hiệu, tập đoàn và website; URL số cũng xuất hiện trên trang khuyến mãi công khai. Chưa quan sát huy hiệu trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  }
+]

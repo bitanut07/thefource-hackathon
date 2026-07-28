@@ -8,7 +8,8 @@ from starlette.concurrency import run_in_threadpool
 
 from api.security import configured_navigator_api_key
 from config import Settings
-from domain.registry import JsonServiceRegistry
+from domain.postgres_registry import CatalogUnavailableError
+from domain.registry import ServiceRegistryRepository
 from domain.search import LaunchUrlPolicy
 
 router = APIRouter(prefix="/health", tags=["health"])
@@ -46,14 +47,24 @@ async def readiness(request: Request) -> HealthStatus:
             detail="Khóa truy cập Navigator API chưa được cấu hình.",
         )
 
-    registry = cast(JsonServiceRegistry, request.app.state.registry)
+    registry = cast(ServiceRegistryRepository, request.app.state.registry)
     url_policy = cast(LaunchUrlPolicy, request.app.state.launch_url_policy)
-    if registry.active_count == 0:
+    try:
+        active_services = await registry.list_active()
+    except CatalogUnavailableError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Service Catalog PostgreSQL chưa sẵn sàng.",
+        ) from exc
+    if not active_services:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Service Registry không có dịch vụ đang hoạt động.",
         )
-    if any(not url_policy.is_allowed(service.launch_url) for service in registry.active_services):
+    if any(
+        not url_policy.is_allowed_for_service(service.service_type, service.launch_url)
+        for service in active_services
+    ):
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Allowlist URL chưa bao phủ Service Registry đang hoạt động.",

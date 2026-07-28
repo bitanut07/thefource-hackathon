@@ -9,7 +9,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from types import TracebackType
 
+from domain.models import ServiceType
 from domain.search import LaunchUrlPolicy
+from domain.urls import is_canonical_zalo_oa_url
 
 _TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
 _LAUNCHABLE_REVIEW_STATUSES = frozenset({"active", "approved", "published"})
@@ -66,6 +68,10 @@ class RagDocument:
             raise ValueError(f"{self.review_status!r} review status is not launchable")
         if self.verification_status.strip().casefold() not in _LAUNCHABLE_VERIFICATION_STATUSES:
             raise ValueError(f"{self.verification_status!r} verification status is not launchable")
+        if self.channel_type == ServiceType.OA.value and not is_canonical_zalo_oa_url(
+            self.launch_url
+        ):
+            raise ValueError("a launchable OA document must use https://zalo.me/<numeric-oa-id>")
 
 
 @dataclass(frozen=True, slots=True)
@@ -341,6 +347,11 @@ class SqliteRagStore:
             document.validate()
         except ValueError:
             return False
+        if document.channel_type == ServiceType.OA.value:
+            return self._launch_url_policy.is_allowed_for_service(
+                ServiceType.OA,
+                document.launch_url,
+            )
         return self._launch_url_policy.is_allowed(document.launch_url)
 
     def _candidate_rows(

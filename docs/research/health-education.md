@@ -51,7 +51,7 @@ Ví dụ luồng y tế:
 1. Người dùng: “Tìm chỗ khám mắt cho mẹ gần đây”.
 2. Agent nhận diện `find_eye_clinic_nearby`, đối tượng là người lớn tuổi, nhưng còn thiếu khu vực.
 3. Agent hỏi một câu về quận/tỉnh.
-4. Sau khi có vị trí, agent lọc `regions`, trả tối đa ba card phù hợp và mở website chính chủ.
+4. Sau khi có vị trí, agent lọc `regions`, trả tối đa năm card phù hợp và mở website chính chủ.
 
 Ví dụ luồng giáo dục:
 

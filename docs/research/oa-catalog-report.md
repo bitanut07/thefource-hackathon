@@ -1,27 +1,30 @@
 # Báo cáo dữ liệu cho AI Service Navigator
 
-Ngày tổng hợp: 2026-07-23
+Ngày tổng hợp: 2026-07-24
 
 ## Kết quả hiện tại
 
-Dataset staging có **33 ứng viên**, phủ đủ 8 nhóm dịch vụ trong mockup:
+Dataset staging có **83 ứng viên**, phủ đủ 8 nhóm dịch vụ trong mockup:
 
 | Nhóm | Tổng | OA | Website | Tin cậy cao | Cần review thêm |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Điện, nước & tiện ích | 4 | 2 | 2 | 4 | 0 |
-| Y tế & sức khỏe | 5 | 1 | 4 | 5 | 0 |
-| Giáo dục & đào tạo | 5 | 1 | 4 | 5 | 0 |
-| Giao thông & du lịch | 2 | 2 | 0 | 0 | 2 |
-| Dịch vụ công | 4 | 0 | 4 | 3 | 1 |
-| Tài chính & ngân hàng | 4 | 1 | 3 | 4 | 0 |
-| Mua sắm & giao hàng | 6 | 6 | 0 | 6 | 0 |
-| Giải trí | 3 | 3 | 0 | 0 | 3 |
-| **Tổng** | **33** | **16** | **17** | **27** | **6** |
+| Điện, nước & tiện ích | 6 | 4 | 2 | 5 | 1 |
+| Y tế & sức khỏe | 10 | 6 | 4 | 9 | 1 |
+| Giáo dục & đào tạo | 10 | 6 | 4 | 10 | 0 |
+| Giao thông & du lịch | 5 | 5 | 0 | 3 | 2 |
+| Dịch vụ công | 10 | 6 | 4 | 8 | 2 |
+| Tài chính & ngân hàng | 8 | 5 | 3 | 6 | 2 |
+| Mua sắm & giao hàng | 30 | 30 | 0 | 26 | 4 |
+| Giải trí | 4 | 4 | 0 | 1 | 3 |
+| **Tổng** | **83** | **66** | **17** | **68** | **15** |
 
-Trong 16 OA, 12 OA có liên kết chéo từ danh sách đối tác Zalo hoặc nguồn chính
-chủ. Bốn OA còn lại (Vietnam Airlines, Vexere Thuê xe, CGV Cinemas Vietnam và
-Galaxy Play) có trang công khai và trỏ về đúng website, nhưng chưa có liên kết
-ngược đủ mạnh nên giữ mức `medium`.
+Cả 66 OA đều dùng deeplink số `https://zalo.me/<OA_ID>`. Các record mức `high`
+có nguồn chính chủ hoặc chuỗi ánh xạ Zalo đủ mạnh; 15 record mức `medium` tiếp
+tục nằm ở tầng review vì thiếu backlink trực tiếp, có phạm vi chưa rõ hoặc cần
+kiểm tra lại danh tính trong ứng dụng. Chi tiết batch 29 OA nằm trong
+[`additional-oa-2026-07-24.md`](additional-oa-2026-07-24.md); batch 21 OA ăn
+uống nằm trong
+[`additional-food-oa-2026-07-24.md`](additional-food-oa-2026-07-24.md).
 
 ## Đủ gì để dựng hội thoại như mockup
 
@@ -40,12 +43,12 @@ Luồng đề xuất:
    tượng.
 2. Nếu truy vấn có “gần đây” nhưng thiếu địa điểm, chỉ hỏi lại một câu về khu vực.
 3. Lọc từ registry đã duyệt và xếp hạng theo intent, alias, capability, region.
-4. Trả tối đa ba card; tên, logo và URL chỉ lấy từ registry, không để LLM tự tạo.
+4. Trả tối đa năm card; tên, logo và URL chỉ lấy từ registry, không để LLM tự tạo.
 5. Voice dùng chung pipeline với text và không lưu audio sau xử lý.
 
 ## Chưa được phép coi là production-ready
 
-- Cả 16 OA đều có `oa_badge_status=unknown`. Public HTML không cung cấp bằng
+- Cả 66 OA đều có `oa_badge_status=unknown`. Public HTML không cung cấp bằng
   chứng đủ để gắn nhãn “đã xác minh”; reviewer cần mở từng OA trong ứng dụng Zalo.
 - Logo chỉ là URL tham chiếu. Một record CGV chưa có logo phù hợp, và mọi asset
   cần kiểm tra quyền sử dụng trước khi cache hoặc phân phối.
@@ -56,8 +59,9 @@ Luồng đề xuất:
   RAG nghiên cứu và không có quyền tạo launch URL.
 - Các hostname mới chưa được đưa vào `ALLOWED_LAUNCH_HOSTS`; chỉ bổ sung
   allowlist cho record đã qua review, không mở wildcard.
-- Giao thông/du lịch mới có 2 record; giải trí có 3. Hai nhóm này nên được bổ sung
-  trước demo diện rộng.
+- Dữ liệu đã đủ rộng để thử retrieval, nhưng độ phủ không đồng nghĩa đã được
+  phép launch. Ưu tiên review lại 15 record `medium` và kiểm thử các OA có tác
+  động cao trước demo diện rộng.
 - Với y tế, tài chính và dịch vụ công, Navigator chỉ tìm và điều hướng. Không nhận
   OTP, mật khẩu, dữ liệu sức khỏe, mã định danh hay hồ sơ người dùng.
 
@@ -74,10 +78,11 @@ không có launch URL và không được đưa vào active catalog. Highlands R
 Phúc Long Rewards chỉ là tham chiếu Mini App công khai; chưa có bằng chứng chúng
 hiện diện hoặc nhận đặt món tại VNG Campus.
 
-Chạy `python scripts/build_rag_db.py` để đưa catalog research và pending facts
+Chạy `uv run python scripts/build_rag_db.py` để đưa catalog research và pending facts
 vào `data/rag/service-catalog.sqlite3`. Kho SQLite này chỉ phục vụ tra cứu
-knowledge staging; nó chưa nối vào API điều hướng và mọi record chưa qua gate
-vẫn `launchable=false`.
+knowledge staging qua `POST /api/v1/research/search`; nó chưa thay thế Service
+Registry của API điều hướng và mọi record chưa qua gate vẫn `launchable=false`.
+Index hiện có 88 tài liệu, gồm 83 record catalog và 5 tài liệu context/pending.
 
 ## Gate kích hoạt
 

@@ -38,46 +38,11 @@
       ]
     },
     {
-      "id": "20000000-0000-4000-8000-000000000002",
-      "name": "VioEdu",
-      "provider": "Công ty TNHH FPT IS",
-      "service_type": "website",
-      "category": "education",
-      "description": "Nền tảng tự học trực tuyến với AI, có Toán, Tiếng Việt và Toán tiếng Anh theo khối lớp; cung cấp lộ trình cá nhân hóa, bài kiểm tra, thách đấu và báo cáo học tập.",
-      "launch_url": "https://www.vio.edu.vn/",
-      "region": "online; trực tuyến; toàn quốc; Việt Nam",
-      "target_user": "child_student; grade_1_student; grade_2_student; grade_3_student; grade_4_student; grade_5_student; grade_6_student; grade_7_student; grade_8_student; grade_9_student; grade_10_student; grade_11_student; grade_12_student",
-      "active": true,
-      "owner": "service-catalog-review",
-      "last_verified_at": "2026-07-23T00:00:00+07:00",
-      "service_priority": 85,
-      "aliases": [
-        "Vio Edu",
-        "VioEdu Toán",
-        "toán trực tuyến",
-        "học toán lớp 5"
-      ],
-      "intents": [
-        {
-          "intent": "learn_grade_5_math",
-          "example_query": "Tìm ứng dụng học toán lớp 5."
-        },
-        {
-          "intent": "practice_and_track_learning",
-          "example_query": "Tìm bài kiểm tra Toán online."
-        },
-        {
-          "intent": "find_education_service",
-          "example_query": "Tìm dịch vụ học Toán trực tuyến."
-        }
-      ]
-    },
-    {
       "id": "20000000-0000-4000-8000-000000000003",
       "name": "Nhà thuốc Long Châu",
       "provider": "Công ty Cổ phần Dược phẩm FPT Long Châu",
       "service_type": "oa",
-      "category": "healthcare",
+      "category": "health",
       "description": "Chuỗi nhà thuốc và dịch vụ sức khỏe có tra cứu thuốc, tìm nhà thuốc, tư vấn dược sĩ và tiêm chủng. URL OA được website chính chủ và danh sách đối tác công khai của Zalo liên kết.",
       "launch_url": "https://zalo.me/3822805105108870889",
       "region": "toàn quốc; Việt Nam; TP.HCM; Hà Nội; Đà Nẵng; Hải Phòng; Cần Thơ",
@@ -108,53 +73,18 @@
       ]
     },
     {
-      "id": "20000000-0000-4000-8000-000000000004",
-      "name": "Hệ thống Bệnh viện Mắt Sài Gòn",
-      "provider": "Hệ thống Bệnh viện Mắt Sài Gòn",
-      "service_type": "website",
-      "category": "healthcare",
-      "description": "Hệ thống chuyên khoa mắt có nhiều bệnh viện và phòng khám trên cả ba miền, hỗ trợ tìm cơ sở, xem dịch vụ nhãn khoa và gửi yêu cầu đặt lịch khám.",
-      "launch_url": "https://www.matsaigon.com/he-thong-benh-vien/",
-      "region": "TP.HCM; Hà Nội; Hải Phòng; Quảng Ninh; Nghệ An; Hà Tĩnh; Đà Nẵng; Quảng Ngãi; Gia Lai; Đắk Lắk; Lâm Đồng; Khánh Hòa; Bình Định; Đồng Nai; Tây Ninh; An Giang; Cần Thơ; Cà Mau",
-      "target_user": "general; child_student; senior",
-      "active": true,
-      "owner": "service-catalog-review",
-      "last_verified_at": "2026-07-23T00:00:00+07:00",
-      "service_priority": 85,
-      "aliases": [
-        "Mắt Sài Gòn",
-        "Bệnh viện Mắt Sài Gòn",
-        "phòng khám mắt",
-        "khám mắt gần đây"
-      ],
-      "intents": [
-        {
-          "intent": "find_eye_clinic_nearby",
-          "example_query": "Tìm chỗ khám mắt cho mẹ gần đây."
-        },
-        {
-          "intent": "book_eye_exam_or_treatment",
-          "example_query": "Tôi muốn đặt lịch khám mắt."
-        },
-        {
-          "intent": "find_medical_service",
-          "example_query": "Tìm bệnh viện hoặc phòng khám mắt."
-        }
-      ]
-    },
-    {
       "id": "20000000-0000-4000-8000-000000000005",
       "name": "Co.opmart - Bạn của mọi nhà",
       "provider": "Saigon Co.op",
       "service_type": "oa",
-      "category": "shopping_delivery",
+      "category": "shopping",
       "description": "Kênh Co.opmart trên Zalo hỗ trợ chọn siêu thị gần nhất, mua nhu yếu phẩm và theo dõi đơn trong luồng mua sắm trực tuyến.",
-      "launch_url": "https://zalo.me/coopmart",
+      "launch_url": "https://zalo.me/1628468992301153938",
       "region": "toàn quốc; Việt Nam; TP.HCM; Hà Nội; Đà Nẵng; Hải Phòng; Cần Thơ",
       "target_user": "general",
       "active": true,
       "owner": "service-catalog-review",
-      "last_verified_at": "2026-07-23T00:00:00+07:00",
+      "last_verified_at": "2026-07-24T00:00:00+07:00",
       "service_priority": 85,
       "aliases": [
         "Co.opmart",
@@ -179,7 +109,7 @@
       "name": "Đại Siêu Thị GO!",
       "provider": "Central Retail Việt Nam",
       "service_type": "oa",
-      "category": "shopping_delivery",
+      "category": "shopping",
       "description": "Kênh Zalo của Đại Siêu Thị GO! cung cấp thông tin về hàng hóa, giá, chất lượng dịch vụ và các chương trình của hệ thống.",
       "launch_url": "https://zalo.me/2823598328947213047",
       "region": "toàn quốc; Việt Nam; TP.HCM; Hà Nội; Đà Nẵng; Hải Phòng; Cần Thơ",
@@ -213,12 +143,12 @@
       "service_type": "oa",
       "category": "utilities",
       "description": "Kênh VinaPhone được Zalo OA liệt kê trong danh sách đối tác công khai. Trong hệ sinh thái chính chủ, My VNPT hỗ trợ tra cứu hóa đơn, quản lý chi tiết và nhận thông báo cước.",
-      "launch_url": "https://oa.zalo.me/vinaphone",
+      "launch_url": "https://zalo.me/3725994261701149374",
       "region": "toàn quốc; Việt Nam; TP.HCM; Hà Nội; Đà Nẵng; Hải Phòng; Cần Thơ",
       "target_user": "general",
       "active": true,
       "owner": "service-catalog-review",
-      "last_verified_at": "2026-07-23T00:00:00+07:00",
+      "last_verified_at": "2026-07-24T00:00:00+07:00",
       "service_priority": 85,
       "aliases": [
         "Vinaphone",
@@ -239,41 +169,6 @@
         {
           "intent": "find_telecom_plan",
           "example_query": "Tìm gói cước VinaPhone phù hợp."
-        }
-      ]
-    },
-    {
-      "id": "20000000-0000-4000-8000-000000000008",
-      "name": "EVNHCMC CSKH",
-      "provider": "Tổng công ty Điện lực Thành phố Hồ Chí Minh",
-      "service_type": "website",
-      "category": "utilities",
-      "description": "Cổng chăm sóc khách hàng điện lực TP.HCM hỗ trợ thanh toán hóa đơn và gửi yêu cầu dịch vụ điện, gồm báo sửa điện, báo chỉ số, thay đổi hình thức thanh toán và ký hợp đồng điện tử.",
-      "launch_url": "https://cskh.evnhcmc.vn/",
-      "region": "TP.HCM; Thành phố Hồ Chí Minh; Sài Gòn",
-      "target_user": "general",
-      "active": true,
-      "owner": "service-catalog-review",
-      "last_verified_at": "2026-07-23T00:00:00+07:00",
-      "service_priority": 95,
-      "aliases": [
-        "EVNHCMC",
-        "Điện lực TP.HCM",
-        "CSKH EVNHCMC",
-        "điện lực Sài Gòn"
-      ],
-      "intents": [
-        {
-          "intent": "pay_electricity_bill",
-          "example_query": "Tôi muốn đóng tiền điện ở TP.HCM."
-        },
-        {
-          "intent": "report_power_issue",
-          "example_query": "Nhà tôi bị mất điện cần báo ở đâu?"
-        },
-        {
-          "intent": "request_electricity_service",
-          "example_query": "Gửi yêu cầu dịch vụ điện trực tuyến."
         }
       ]
     }

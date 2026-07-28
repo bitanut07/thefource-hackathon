@@ -50,7 +50,7 @@ Nguồn bắt đầu: [Zalo Developer portal](https://developers.zalo.me/) và [
 - [ ] Xác minh loại CTA/link nào được hỗ trợ cho OA, Mini App và website.
 - [ ] Mapping lỗi thành retryable/non-retryable; không retry vô hạn.
 - [ ] Kiểm tra idempotency phía ứng dụng để không gửi hai tin cho một event.
-- [ ] Kiểm tra giới hạn độ dài/nút/kết quả; response policy vẫn tối đa ba dịch vụ.
+- [ ] Kiểm tra giới hạn độ dài/nút/kết quả; response policy vẫn tối đa năm dịch vụ.
 - [ ] Test với UID test được phép và không lưu UID thô trong analytics.
 
 ## 6. Chính sách, riêng tư và fallback

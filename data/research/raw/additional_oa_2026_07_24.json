@@ -1,0 +1,628 @@
+[
+  {
+    "candidate_id": "finance-aia-vietnam-oa",
+    "name": "AIA Vietnam",
+    "provider": "Công ty TNHH Bảo hiểm Nhân thọ AIA (Việt Nam)",
+    "channel_type": "oa",
+    "category": "finance_banking",
+    "subcategory": "life_insurance",
+    "description": "Kênh Zalo OA của AIA Vietnam dành cho người quan tâm bảo hiểm nhân thọ, quyền lợi bảo hiểm và các kênh hỗ trợ khách hàng của AIA.",
+    "launch_url": "https://zalo.me/3639195906257718345",
+    "official_website": "https://www.aia.com.vn/",
+    "logo_url": null,
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Khách hàng AIA",
+      "Người tìm hiểu bảo hiểm nhân thọ",
+      "Người cần hỗ trợ hợp đồng bảo hiểm"
+    ],
+    "capabilities": [
+      "discover_life_insurance",
+      "receive_insurance_updates",
+      "contact_customer_support"
+    ],
+    "aliases": [
+      "AIA",
+      "AIA Việt Nam",
+      "bảo hiểm AIA",
+      "AIA Vietnam OA"
+    ],
+    "intents": [
+      {
+        "intent": "discover_life_insurance",
+        "example_queries": [
+          "Tôi muốn tìm hiểu bảo hiểm nhân thọ AIA",
+          "Cho tôi OA chính thức của AIA Việt Nam",
+          "Tôi cần tư vấn bảo hiểm AIA"
+        ]
+      },
+      {
+        "intent": "contact_customer_support",
+        "example_queries": [
+          "Tôi cần liên hệ chăm sóc khách hàng AIA",
+          "Hỗ trợ hợp đồng bảo hiểm AIA ở đâu",
+          "Mở kênh Zalo của AIA Vietnam"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3639195906257718345",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là AIA Vietnam.",
+          "Đường dẫn sử dụng OA ID số, không phải slug suy đoán."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/home",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Trang giới thiệu Zalo OA công khai liên kết trực tiếp tới OA AIA Vietnam trong danh sách đối tác."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Đã đối chiếu liên kết trên trang Zalo OA và tiêu đề trang OA; không suy luận trạng thái huy hiệu từ giao diện công khai."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "education-hcmuaf-admissions-oa",
+    "name": "Trường Đại Học Nông Lâm TPHCM",
+    "provider": "Trường Đại học Nông Lâm Thành phố Hồ Chí Minh",
+    "channel_type": "oa",
+    "category": "education",
+    "subcategory": "university_admissions",
+    "description": "Kênh Zalo OA tuyển sinh chính thức của Trường Đại học Nông Lâm TP.HCM, phục vụ tư vấn hướng nghiệp, tuyển sinh và công bố thông tin cho học sinh, phụ huynh.",
+    "launch_url": "https://zalo.me/2959765460709215567",
+    "official_website": "https://ts.hcmuaf.edu.vn/",
+    "logo_url": null,
+    "regions": [
+      "Thành phố Hồ Chí Minh",
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Học sinh tìm hiểu tuyển sinh đại học",
+      "Phụ huynh",
+      "Thí sinh đăng ký vào Trường Đại học Nông Lâm TP.HCM"
+    ],
+    "capabilities": [
+      "receive_admissions_information",
+      "ask_admissions_questions",
+      "discover_university_programs"
+    ],
+    "aliases": [
+      "Đại học Nông Lâm TP.HCM",
+      "HCMUAF",
+      "Nông Lâm tuyển sinh",
+      "ĐHNL TPHCM"
+    ],
+    "intents": [
+      {
+        "intent": "ask_admissions_questions",
+        "example_queries": [
+          "Tư vấn tuyển sinh Đại học Nông Lâm TP.HCM",
+          "Tôi muốn hỏi ngành học của HCMUAF",
+          "Cho tôi kênh Zalo tuyển sinh Nông Lâm"
+        ]
+      },
+      {
+        "intent": "receive_admissions_information",
+        "example_queries": [
+          "Xem thông báo tuyển sinh Đại học Nông Lâm",
+          "Điểm chuẩn HCMUAF xem ở đâu",
+          "Tôi là phụ huynh cần thông tin tuyển sinh Nông Lâm"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2959765460709215567",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là Trường Đại Học Nông Lâm TPHCM."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://ts.hcmuaf.edu.vn/contents.php?ids=43548&lng=vn&ur=ts",
+        "publisher": "Trường Đại học Nông Lâm Thành phố Hồ Chí Minh",
+        "supports": [
+          "Thông báo chính thức công bố OA dùng cho tư vấn hướng nghiệp và tuyển sinh.",
+          "Thông báo cung cấp trực tiếp đường dẫn OA ID số 2959765460709215567."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Nguồn trường công bố trực tiếp URL OA; tiêu đề trang Zalo đã được đối chiếu."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "education-hcmus-environment-oa",
+    "name": "Khoa Môi trường - HCMUS",
+    "provider": "Khoa Môi trường, Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM",
+    "channel_type": "oa",
+    "category": "education",
+    "subcategory": "university_information",
+    "description": "Kênh Zalo OA chính thức của Khoa Môi trường HCMUS, cung cấp thông tin tuyển sinh, đào tạo, nghiên cứu, sự kiện, thực tập và cơ hội việc làm.",
+    "launch_url": "https://zalo.me/3084343126151593405",
+    "official_website": "https://environment.hcmus.edu.vn/",
+    "logo_url": null,
+    "regions": [
+      "Thành phố Hồ Chí Minh",
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Học sinh quan tâm ngành môi trường",
+      "Sinh viên và học viên HCMUS",
+      "Phụ huynh và cựu sinh viên"
+    ],
+    "capabilities": [
+      "receive_admissions_information",
+      "receive_academic_updates",
+      "discover_internship_opportunities"
+    ],
+    "aliases": [
+      "Khoa Môi trường HCMUS",
+      "Môi trường KHTN",
+      "HCMUS Environment",
+      "Khoa Môi trường ĐHQG HCM"
+    ],
+    "intents": [
+      {
+        "intent": "receive_academic_updates",
+        "example_queries": [
+          "Cho tôi OA Khoa Môi trường HCMUS",
+          "Xem thông báo của Khoa Môi trường KHTN",
+          "Tôi cần thông tin đào tạo ngành môi trường"
+        ]
+      },
+      {
+        "intent": "discover_internship_opportunities",
+        "example_queries": [
+          "Tìm cơ hội thực tập cho sinh viên môi trường HCMUS",
+          "Khoa Môi trường có thông tin việc làm không",
+          "Xem sự kiện và hội thảo Khoa Môi trường"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3084343126151593405",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là Khoa Môi trường - HCMUS."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://environment.hcmus.edu.vn/khoa-moi-truong-chinh-thuc-ra-mat-kenh-zalo-official-account-oa-16117/",
+        "publisher": "Khoa Môi trường, Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM",
+        "supports": [
+          "Bài công bố chính thức nêu các nhóm thông tin của OA và liên kết trực tiếp tới OA ID số 3084343126151593405."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Nguồn của Khoa liên kết trực tiếp sang trang OA, được kiểm tra ngày 2026-07-24."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "education-haui-library-oa",
+    "name": "Thư viện ĐH Công nghiệp Hà Nội",
+    "provider": "Trung tâm Thông tin - Thư viện, Đại học Công nghiệp Hà Nội",
+    "channel_type": "oa",
+    "category": "education",
+    "subcategory": "university_library",
+    "description": "Kênh Zalo OA chính thức của Thư viện Đại học Công nghiệp Hà Nội, hỗ trợ cập nhật tin tức, tra cứu, sử dụng thư viện số và tương tác với thư viện.",
+    "launch_url": "https://zalo.me/2518674501385414868",
+    "official_website": "https://lic.haui.edu.vn/",
+    "logo_url": null,
+    "regions": [
+      "Hà Nội"
+    ],
+    "target_users": [
+      "Sinh viên Đại học Công nghiệp Hà Nội",
+      "Giảng viên và cán bộ HaUI",
+      "Bạn đọc của thư viện"
+    ],
+    "capabilities": [
+      "search_library_resources",
+      "access_digital_library",
+      "receive_library_updates",
+      "contact_library_support"
+    ],
+    "aliases": [
+      "Thư viện HaUI",
+      "Thư viện Đại học Công nghiệp Hà Nội",
+      "LIC HaUI",
+      "HaUI Library"
+    ],
+    "intents": [
+      {
+        "intent": "search_library_resources",
+        "example_queries": [
+          "Tìm tài liệu ở thư viện Đại học Công nghiệp Hà Nội",
+          "Cho tôi OA Thư viện HaUI",
+          "Tôi cần tra cứu thư viện số HaUI"
+        ]
+      },
+      {
+        "intent": "contact_library_support",
+        "example_queries": [
+          "Liên hệ Thư viện HaUI qua Zalo",
+          "Hỏi thư viện Đại học Công nghiệp Hà Nội",
+          "Xem thông báo mới của thư viện HaUI"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2518674501385414868",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là Thư viện ĐH Công nghiệp Hà Nội."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://lic.haui.edu.vn/vn/tin-tuc/trung-tam-thong-tin-thu-vien-dh-cong-nghiep-ha-noi-ra-mat-kenh-thong-tin-zalo-official-account/64127",
+        "publisher": "Trung tâm Thông tin - Thư viện, Đại học Công nghiệp Hà Nội",
+        "supports": [
+          "Bài công bố chính thức xác nhận đây là kênh của thư viện, nêu các chức năng và liên kết trực tiếp tới OA ID số."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Nguồn thư viện và trang Zalo có tên nhất quán; chưa suy luận trạng thái huy hiệu."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "public-gialai-employment-service-oa",
+    "name": "Trung tâm Dịch vụ việc làm Gia Lai",
+    "provider": "Trung tâm Dịch vụ việc làm Gia Lai",
+    "channel_type": "oa",
+    "category": "public_admin",
+    "subcategory": "employment_services",
+    "description": "Kênh Zalo OA công vụ của Trung tâm Dịch vụ việc làm Gia Lai, cung cấp thông tin tuyển dụng, học nghề, bảo hiểm thất nghiệp và kết nối cung cầu lao động.",
+    "launch_url": "https://zalo.me/2564848822989947162",
+    "official_website": "https://vieclamgialai.vn/",
+    "logo_url": null,
+    "regions": [
+      "Gia Lai"
+    ],
+    "target_users": [
+      "Người tìm việc tại Gia Lai",
+      "Người lao động cần thông tin bảo hiểm thất nghiệp",
+      "Doanh nghiệp tuyển dụng"
+    ],
+    "capabilities": [
+      "discover_jobs",
+      "receive_vocational_training_information",
+      "receive_unemployment_insurance_information",
+      "connect_employers_and_workers"
+    ],
+    "aliases": [
+      "Dịch vụ việc làm Gia Lai",
+      "TTDVVL Gia Lai",
+      "Việc làm Gia Lai",
+      "Trung tâm việc làm Gia Lai"
+    ],
+    "intents": [
+      {
+        "intent": "discover_jobs",
+        "example_queries": [
+          "Tìm việc làm ở Gia Lai",
+          "Cho tôi OA Trung tâm Dịch vụ việc làm Gia Lai",
+          "Tìm nhà tuyển dụng tại Gia Lai"
+        ]
+      },
+      {
+        "intent": "receive_unemployment_insurance_information",
+        "example_queries": [
+          "Tôi cần hỏi bảo hiểm thất nghiệp ở Gia Lai",
+          "Thủ tục trợ cấp thất nghiệp Gia Lai",
+          "Tìm thông tin học nghề và việc làm Gia Lai"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2564848822989947162",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là Trung tâm Dịch vụ việc làm Gia Lai."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://thongnhat.gialai.gov.vn/tin-tuc/tin-tuc-kinh-te-tong-hop/cung-cap-thong-tin-trang-thong-tin-dien-tu-trang-zalo-oa-va-email-cong-vu-cua-trung-tam-dich-vu-viec-lam-gia-lai.html",
+        "publisher": "Cổng thông tin điện tử tỉnh Gia Lai",
+        "supports": [
+          "Thông báo công vụ nêu tên OA, đường dẫn OA ID số và phạm vi thông tin về việc làm, học nghề, bảo hiểm thất nghiệp."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Đường dẫn được công bố trên tên miền cơ quan nhà nước và tên OA khớp trang Zalo."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "public-ubnd-da-teh-oa",
+    "name": "UBND Xã Đạ Tẻh",
+    "provider": "Ủy ban nhân dân xã Đạ Tẻh, tỉnh Lâm Đồng",
+    "channel_type": "oa",
+    "category": "public_admin",
+    "subcategory": "local_government",
+    "description": "Kênh Zalo OA của UBND xã Đạ Tẻh giúp người dân nhận thông tin địa phương, theo dõi hướng dẫn hành chính và truy cập các tiện ích công được xã công bố.",
+    "launch_url": "https://zalo.me/2149648335229347674",
+    "official_website": "https://dateh.lamdong.gov.vn/",
+    "logo_url": null,
+    "regions": [
+      "Xã Đạ Tẻh",
+      "Lâm Đồng"
+    ],
+    "target_users": [
+      "Người dân xã Đạ Tẻh",
+      "Doanh nghiệp hoạt động tại xã Đạ Tẻh",
+      "Người cần thông tin hành chính địa phương"
+    ],
+    "capabilities": [
+      "receive_local_government_updates",
+      "discover_public_services",
+      "access_local_information"
+    ],
+    "aliases": [
+      "UBND Đạ Tẻh",
+      "Ủy ban xã Đạ Tẻh",
+      "Chính quyền xã Đạ Tẻh",
+      "Đạ Tẻh OA"
+    ],
+    "intents": [
+      {
+        "intent": "discover_public_services",
+        "example_queries": [
+          "Tìm kênh Zalo UBND xã Đạ Tẻh",
+          "Tôi cần thông tin thủ tục hành chính ở Đạ Tẻh",
+          "Xem thông báo của xã Đạ Tẻh"
+        ]
+      },
+      {
+        "intent": "receive_local_government_updates",
+        "example_queries": [
+          "Nhận tin mới từ UBND xã Đạ Tẻh",
+          "Thông tin địa phương Đạ Tẻh trên Zalo",
+          "Mở OA chính quyền xã Đạ Tẻh"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2149648335229347674",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là UBND Xã Đạ Tẻh."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://dateh.lamdong.gov.vn/chi-tiet-tin-tuc/?param=uy-ban-nhan-dan-xa-da-teh-chinh-thuc-co-mat-tren-zalo---buoc-tien-moi-trong-chuyen-doi-so-chinh-quyen-9898216a-5c0d-40ad-b7c9-eaf22c4daede",
+        "publisher": "Ủy ban nhân dân xã Đạ Tẻh",
+        "supports": [
+          "Bài công bố chính thức giới thiệu OA, mục đích phục vụ người dân và đường dẫn OA ID số."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Đối chiếu giữa cổng thông tin xã và tiêu đề trang OA."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "public-ubnd-ba-na-oa",
+    "name": "UBND xã Bà Nà",
+    "provider": "Ủy ban nhân dân xã Bà Nà, thành phố Đà Nẵng",
+    "channel_type": "oa",
+    "category": "public_admin",
+    "subcategory": "local_government",
+    "description": "Kênh Zalo OA chính thức của UBND xã Bà Nà có tích hợp trợ lý AI để hỗ trợ tra cứu thông tin, thủ tục hành chính và tiếp cận dịch vụ công.",
+    "launch_url": "https://zalo.me/4177658803144203342",
+    "official_website": "https://bana.danang.gov.vn/",
+    "logo_url": null,
+    "regions": [
+      "Xã Bà Nà",
+      "Đà Nẵng"
+    ],
+    "target_users": [
+      "Người dân xã Bà Nà",
+      "Doanh nghiệp tại xã Bà Nà",
+      "Người cần tra cứu thủ tục hành chính địa phương"
+    ],
+    "capabilities": [
+      "ask_public_procedure_questions",
+      "receive_local_government_updates",
+      "discover_public_services"
+    ],
+    "aliases": [
+      "UBND Bà Nà",
+      "Ủy ban xã Bà Nà",
+      "Chính quyền xã Bà Nà",
+      "Bà Nà Đà Nẵng OA"
+    ],
+    "intents": [
+      {
+        "intent": "ask_public_procedure_questions",
+        "example_queries": [
+          "Hỏi thủ tục hành chính xã Bà Nà",
+          "Tìm trợ lý AI của UBND xã Bà Nà",
+          "Tôi cần tra cứu dịch vụ công ở Bà Nà"
+        ]
+      },
+      {
+        "intent": "receive_local_government_updates",
+        "example_queries": [
+          "Cho tôi OA UBND xã Bà Nà",
+          "Xem thông báo của xã Bà Nà",
+          "Mở kênh Zalo chính quyền Bà Nà"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/4177658803144203342",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là UBND xã Bà Nà."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://bana.danang.gov.vn/vi/w/huong-dan-su-dung-tinh-nang-chatbot-ai-tra-loi-thu-tuc-hanh-chinh-tren-zalo-oa-cua-ubnd-xa-ba-na",
+        "publisher": "Ủy ban nhân dân xã Bà Nà",
+        "supports": [
+          "Trang hướng dẫn chính thức xác nhận OA của xã, liên kết OA ID số và mô tả chức năng chatbot AI hỗ trợ thủ tục hành chính."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Nguồn cổng thông tin Đà Nẵng liên kết trực tiếp tới OA; không suy luận huy hiệu."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "public-ubnd-trung-gia-oa",
+    "name": "UBND xã Trung Giã - Tp Hà Nội",
+    "provider": "Ủy ban nhân dân xã Trung Giã, thành phố Hà Nội",
+    "channel_type": "oa",
+    "category": "public_admin",
+    "subcategory": "local_government",
+    "description": "Kênh Zalo OA của UBND xã Trung Giã dùng để gửi thông báo, cảnh báo, hỗ trợ thủ tục hành chính, dịch vụ công và tiếp nhận phản ánh của người dân.",
+    "launch_url": "https://zalo.me/4247059152234025875",
+    "official_website": "https://trunggia.hanoi.gov.vn/",
+    "logo_url": null,
+    "regions": [
+      "Xã Trung Giã",
+      "Hà Nội"
+    ],
+    "target_users": [
+      "Người dân xã Trung Giã",
+      "Doanh nghiệp tại xã Trung Giã",
+      "Người cần gửi phản ánh tới chính quyền địa phương"
+    ],
+    "capabilities": [
+      "receive_local_government_updates",
+      "receive_emergency_notices",
+      "submit_citizen_feedback",
+      "discover_public_services"
+    ],
+    "aliases": [
+      "UBND Trung Giã",
+      "Ủy ban xã Trung Giã",
+      "Chính quyền Trung Giã",
+      "Trung Giã Hà Nội OA"
+    ],
+    "intents": [
+      {
+        "intent": "submit_citizen_feedback",
+        "example_queries": [
+          "Gửi phản ánh cho UBND xã Trung Giã",
+          "Tôi cần hỏi thủ tục hành chính ở Trung Giã",
+          "Tìm kênh Zalo chính quyền Trung Giã"
+        ]
+      },
+      {
+        "intent": "receive_local_government_updates",
+        "example_queries": [
+          "Xem thông báo xã Trung Giã",
+          "Nhận cảnh báo từ UBND Trung Giã",
+          "Cho tôi OA UBND xã Trung Giã Hà Nội"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/4247059152234025875",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai truy cập được và tiêu đề hiển thị là UBND xã Trung Giã - Tp Hà Nội."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://trunggia.hanoi.gov.vn/thong-tin-tuyen-truyen/moi-quan-tam-zalo-oa-2778250815093426393.htm",
+        "publisher": "Ủy ban nhân dân xã Trung Giã",
+        "supports": [
+          "Bài công bố chính thức nêu đường dẫn OA ID số và các chức năng thông báo, phản ánh, thủ tục hành chính, dịch vụ công."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Đường dẫn được công bố trên cổng thông tin chính thức của xã và tên trang OA khớp."
+    },
+    "active": false,
+    "review_status": "candidate"
+  }
+]

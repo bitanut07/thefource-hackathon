@@ -1,0 +1,469 @@
+[
+  {
+    "candidate_id": "texas-chicken-vietnam-oa",
+    "name": "Texas Chicken Vietnam",
+    "provider": "Texas Chicken Vietnam",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "quick_service_restaurant",
+    "description": "Kênh Zalo OA của Texas Chicken Vietnam dành cho người muốn tìm món gà rán, burger, đồ ăn nhanh, theo dõi thông tin thương hiệu và liên hệ kênh chính thức.",
+    "launch_url": "https://zalo.me/884340211286408960",
+    "official_website": "https://texaschickenvn.com/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Việt Nam"
+    ],
+    "target_users": [
+      "Người cần mua đồ ăn nhanh",
+      "Khách hàng muốn tìm món gà rán hoặc burger",
+      "Gia đình, nhân viên văn phòng và nhóm bạn"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "discover_fried_chicken",
+      "discover_fast_food",
+      "find_restaurant",
+      "receive_food_promotions",
+      "contact_restaurant"
+    ],
+    "aliases": [
+      "Texas Chicken",
+      "Texas Chicken Việt Nam",
+      "Texas Chicken Vietnam",
+      "Gà rán Texas"
+    ],
+    "intents": [
+      {
+        "intent": "find_fast_food",
+        "example_queries": [
+          "Tôi cần mua đồ ăn nhanh",
+          "Tìm Texas Chicken gần đây",
+          "Tôi muốn ăn gà rán"
+        ]
+      },
+      {
+        "intent": "discover_fried_chicken",
+        "example_queries": [
+          "Cho tôi xem kênh Texas Chicken",
+          "Tìm quán gà rán cho nhóm bạn",
+          "Tôi muốn mua burger và gà rán"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/884340211286408960",
+        "publisher": "Texas Chicken Vietnam trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Texas Chicken Vietnam.",
+          "Mô tả công khai giới thiệu gà giòn tươi và dịch vụ refill nước ngọt."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/texaschickenvietnam",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL https://zalo.me/884340211286408960, xác nhận OA ID số mà không suy đoán."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://texaschickenvn.com/",
+        "publisher": "Texas Chicken Vietnam",
+        "supports": [
+          "Tên miền thương hiệu hiển thị Texas Chicken Vietnam; tại thời điểm kiểm tra cửa hàng trực tuyến đang ở chế độ tạm đóng và yêu cầu mật khẩu."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": false,
+      "confidence": "medium",
+      "oa_badge_status": "unknown",
+      "notes": "Alias do Zalo vận hành ánh xạ sang đúng URL số và trang số hiển thị đúng thương hiệu. Chưa tìm thấy backlink từ website Texas Chicken Vietnam tới OA nên giữ mức medium; chưa quan sát huy hiệu trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "bonchon-vietnam-oa",
+    "name": "Bonchon Vietnam",
+    "provider": "Bonchon Vietnam",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "fried_chicken_restaurant",
+    "description": "Kênh Zalo OA của Bonchon Vietnam dành cho người muốn tìm gà rán và món Hàn Quốc, xem thông tin nhà hàng, đặt món hoặc tham gia chương trình thành viên.",
+    "launch_url": "https://zalo.me/4565429732152793097",
+    "official_website": "https://bonchon.com.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Việt Nam"
+    ],
+    "target_users": [
+      "Người muốn ăn gà rán Hàn Quốc",
+      "Khách hàng cần đặt món hoặc tìm nhà hàng Bonchon",
+      "Khách hàng quan tâm chương trình thành viên"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "browse_food_menu",
+      "find_restaurant",
+      "order_food_for_delivery_or_pickup",
+      "join_loyalty_program",
+      "receive_food_promotions"
+    ],
+    "aliases": [
+      "Bonchon",
+      "Bonchon Việt Nam",
+      "Bonchon Vietnam",
+      "Gà rán Bonchon"
+    ],
+    "intents": [
+      {
+        "intent": "find_fried_chicken",
+        "example_queries": [
+          "Tìm Bonchon gần đây",
+          "Tôi muốn ăn gà rán Hàn Quốc",
+          "Có quán Bonchon nào không"
+        ]
+      },
+      {
+        "intent": "order_or_join_restaurant_membership",
+        "example_queries": [
+          "Tôi muốn đặt đồ ăn Bonchon",
+          "Đăng ký thành viên Bonchon trên Zalo",
+          "Cho tôi xem ưu đãi Bonchon"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/4565429732152793097",
+        "publisher": "Bonchon Vietnam trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Bonchon Vietnam.",
+          "Mô tả công khai xác định Bonchon là thương hiệu gà rán và món Hàn Quốc."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://bonchon.com.vn/tin-tuc/dang-ky-thanh-vien-bonchon-nhan-ngay-uu-dai-khung",
+        "publisher": "Bonchon Vietnam",
+        "supports": [
+          "Website Bonchon chính chủ hướng dẫn khách truy cập Zalo Bonchon Vietnam để đăng ký thành viên.",
+          "Footer của trang liên kết trực tiếp tới alias https://oa.zalo.me/bonchonvietnam."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/bonchonvietnam",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias mà website Bonchon công bố nhúng trực tiếp URL https://zalo.me/4565429732152793097, xác nhận OA ID số."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://bonchon.com.vn/ve-bonchon-vietnam",
+        "publisher": "Bonchon Vietnam",
+        "supports": [
+          "Trang giới thiệu chính chủ mô tả món gà rán, món Hàn Quốc, danh sách nhà hàng và các đường dẫn đặt hàng."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Website Bonchon chính chủ liên kết alias Zalo, alias do Zalo vận hành ánh xạ sang đúng URL số và trang số hiển thị đúng tên thương hiệu. Chưa quan sát huy hiệu trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "banh-mi-huynh-hoa-oa",
+    "name": "Bánh Mì Huynh Hoa",
+    "provider": "Bánh Mì Huynh Hoa",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "banh_mi_shop",
+    "description": "Kênh Zalo OA của Bánh Mì Huynh Hoa dành cho người cần xem thông tin bánh mì, đồ nguội, bánh bao, món ăn vặt, đặt món hoặc liên hệ cửa hàng tại TP.HCM.",
+    "launch_url": "https://zalo.me/2130785890579320795",
+    "official_website": "https://banhmihuynhhoa.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "TP.HCM"
+    ],
+    "target_users": [
+      "Người cần mua bánh mì tại TP.HCM",
+      "Khách hàng muốn đặt món hoặc mua mang đi",
+      "Người cần thông tin giao nhận bánh mì"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "browse_banh_mi_menu",
+      "order_food_for_delivery_or_pickup",
+      "view_delivery_information",
+      "find_food_shop",
+      "contact_food_shop"
+    ],
+    "aliases": [
+      "Bánh mì Huỳnh Hoa",
+      "Bánh Mì Huynh Hoa",
+      "Huynh Hoa",
+      "Bánh mì Lê Thị Riêng"
+    ],
+    "intents": [
+      {
+        "intent": "find_banh_mi",
+        "example_queries": [
+          "Tôi cần mua bánh mì",
+          "Tìm Bánh Mì Huynh Hoa",
+          "Tôi muốn mua đồ ăn nhanh ở TP.HCM"
+        ]
+      },
+      {
+        "intent": "order_banh_mi",
+        "example_queries": [
+          "Đặt bánh mì Huynh Hoa",
+          "Cho tôi xem thực đơn Huynh Hoa",
+          "Liên hệ Bánh Mì Huynh Hoa"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2130785890579320795",
+        "publisher": "Bánh Mì Huynh Hoa trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Bánh Mì Huynh Hoa.",
+          "Mô tả công khai nêu thương hiệu đã hoạt động hơn 35 năm và cung cấp hotline liên hệ."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://banhmihuynhhoa.vn/",
+        "publisher": "Bánh Mì Huynh Hoa",
+        "supports": [
+          "Website chính chủ công khai menu bánh mì, đồ nguội, bánh bao, món ăn vặt, thông tin vận chuyển và địa chỉ tại TP.HCM.",
+          "Website liên kết kênh Zalo theo alias https://zalo.me/banhmihuynhhoa."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/banhmihuynhhoa",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias tương ứng trên hệ thống Zalo OA nhúng trực tiếp URL https://zalo.me/2130785890579320795, xác nhận OA ID số."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Website Bánh Mì Huynh Hoa chính chủ liên kết alias Zalo; alias Zalo OA ánh xạ sang đúng URL số và trang số hiển thị đúng thương hiệu. Chưa quan sát huy hiệu trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "banh-mi-pewpew-oa",
+    "name": "Bánh mì PewPew",
+    "provider": "Hộ Kinh Doanh Bánh Mì PewPew",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "banh_mi_shop",
+    "description": "Kênh Zalo OA mang tên Bánh mì PewPew dành cho người muốn tìm thông tin thương hiệu, theo dõi cập nhật và liên hệ cửa hàng bánh mì.",
+    "launch_url": "https://zalo.me/1847796981349404351",
+    "official_website": "https://www.banhmipewpew.com/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Việt Nam"
+    ],
+    "target_users": [
+      "Người cần mua bánh mì",
+      "Khách hàng tìm Bánh mì PewPew",
+      "Người muốn theo dõi thông tin thương hiệu"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "discover_banh_mi_shop",
+      "view_brand_updates",
+      "contact_food_shop"
+    ],
+    "aliases": [
+      "Bánh mì PewPew",
+      "Bánh Mì Pew Pew",
+      "Banh Mi PewPew",
+      "PewPew bánh mì"
+    ],
+    "intents": [
+      {
+        "intent": "find_banh_mi",
+        "example_queries": [
+          "Tìm Bánh mì PewPew",
+          "Tôi muốn mua bánh mì",
+          "Cho tôi xem kênh Bánh mì PewPew"
+        ]
+      },
+      {
+        "intent": "contact_banh_mi_shop",
+        "example_queries": [
+          "Liên hệ Bánh mì PewPew",
+          "Mở OA Bánh mì PewPew",
+          "Tìm thông tin quán bánh mì PewPew"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1847796981349404351",
+        "publisher": "Bánh mì PewPew trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Bánh mì PewPew.",
+          "Mô tả công khai hiển thị Bánh mì Cafe Workshop."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/banhmipewpew",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL https://zalo.me/1847796981349404351, xác nhận OA ID số mà không suy đoán."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.banhmipewpew.com/",
+        "publisher": "Hộ Kinh Doanh Bánh Mì PewPew",
+        "supports": [
+          "Website thương hiệu công khai tên đơn vị là Hộ Kinh Doanh Bánh Mì PewPew."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": false,
+      "confidence": "medium",
+      "oa_badge_status": "unknown",
+      "notes": "Tên trên trang OA, alias Zalo-owned và website thương hiệu khớp mạnh, nhưng website chưa công bố backlink tới OA và phạm vi cửa hàng đang hoạt động chưa được xác minh; giữ research-only ở mức medium."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "chops-vietnam-oa",
+    "name": "Chops",
+    "provider": "Chops Vietnam",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "burger_restaurant",
+    "description": "Kênh Zalo OA của Chops Vietnam dành cho người muốn tìm burger, pizza, cửa hàng tại Hà Nội, Đà Nẵng hoặc Hội An, tham gia E-Club và theo dõi ưu đãi.",
+    "launch_url": "https://zalo.me/1799406254854247759",
+    "official_website": "https://chops.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Hà Nội",
+      "Đà Nẵng",
+      "Hội An"
+    ],
+    "target_users": [
+      "Người muốn ăn burger hoặc pizza",
+      "Khách hàng cần tìm cửa hàng Chops",
+      "Khách hàng quan tâm Chops E-Club và ưu đãi"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "browse_burger_menu",
+      "browse_pizza_menu",
+      "find_restaurant",
+      "join_loyalty_program",
+      "receive_food_promotions",
+      "contact_restaurant"
+    ],
+    "aliases": [
+      "Chops",
+      "Chops Vietnam",
+      "Chops Burger",
+      "CHOPS"
+    ],
+    "intents": [
+      {
+        "intent": "find_burger_restaurant",
+        "example_queries": [
+          "Tìm quán burger Chops",
+          "Tôi muốn ăn burger",
+          "Có Chops nào gần đây không"
+        ]
+      },
+      {
+        "intent": "join_restaurant_loyalty_program",
+        "example_queries": [
+          "Tham gia Chops E-Club",
+          "Mở Zalo Chops",
+          "Cho tôi xem ưu đãi Chops"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1799406254854247759",
+        "publisher": "Chops trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Chops.",
+          "Mô tả công khai xác định đây là chuỗi burger tại Việt Nam từ năm 2015."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://chops.vn/vi/trang-chu-tieng-viet/",
+        "publisher": "Chops Vietnam",
+        "supports": [
+          "Website Chops chính chủ công khai nguyên văn URL https://zalo.me/1799406254854247759 tại khu vực Zalo E-Club.",
+          "Trang liệt kê menu burger, pizza và hệ thống cửa hàng tại Hà Nội, Đà Nẵng, Hội An."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/chopsvietnam",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng cùng URL số https://zalo.me/1799406254854247759."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Website Chops chính chủ công bố trực tiếp URL OA số; trang OA trả đúng tên và mô tả thương hiệu. Chưa quan sát huy hiệu trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  }
+]

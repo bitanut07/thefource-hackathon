@@ -86,7 +86,7 @@ def test_category_filter_is_applied_before_candidate_limit(
             f"catalog:health-{index:03d}",
             f"VNG health {index:03d}",
             "VNG employee service",
-            category="healthcare",
+            category="health",
         )
         for index in range(220)
     ]
@@ -94,7 +94,7 @@ def test_category_filter_is_applied_before_candidate_limit(
         "catalog:food",
         "VNG food",
         "VNG employee service",
-        category="shopping_delivery",
+        category="shopping",
     )
 
     with SqliteRagStore(":memory:", prefer_fts=prefer_fts) as store:
@@ -102,7 +102,7 @@ def test_category_filter_is_applied_before_candidate_limit(
         results = store.search(
             "VNG employee service",
             limit=1,
-            category="shopping_delivery",
+            category="shopping",
         )
 
     assert [item.document.document_id for item in results] == ["catalog:food"]
@@ -123,6 +123,27 @@ def test_unverified_or_user_reported_documents_cannot_be_launchable() -> None:
     with SqliteRagStore(":memory:") as store:
         with pytest.raises(ValueError, match="knowledge-only|verification status"):
             store.replace_documents([unsafe])
+
+
+def test_launchable_oa_document_requires_a_numeric_deeplink() -> None:
+    invalid_oa = _document(
+        "catalog:invalid-oa",
+        "Invalid OA",
+        "OA dùng slug thay vì OA ID.",
+        channel_type="oa",
+        active=True,
+        launchable=True,
+        launch_url="https://zalo.me/invalid-slug",
+        review_status="approved",
+        verification_status="verified_high",
+    )
+
+    with SqliteRagStore(
+        ":memory:",
+        allowed_launch_hosts=frozenset({"zalo.me"}),
+    ) as store:
+        with pytest.raises(ValueError, match="numeric-oa-id"):
+            store.replace_documents([invalid_oa])
 
 
 def test_launchable_documents_require_positive_status_and_allowed_https_host() -> None:
@@ -192,11 +213,17 @@ def test_build_script_indexes_catalog_and_pending_knowledge(tmp_path: Path) -> N
     )
 
     with SqliteRagStore(database_path) as store:
-        assert store.count() >= 38
+        assert store.count() >= 70
+        assert store.search("VioEdu", limit=5) == []
 
         ba_sao = store.search("nhân viên VNG mua đồ ăn Ba Sao", limit=3)
         campus = store.search("VNG Campus canteen đồ uống", limit=5)
         highlands = store.search("Highlands quán nước VNG", limit=3)
+        kfc = store.search("KFC Vietnam gà rán mua đồ ăn nhanh", limit=3)
+        hocmai = store.search("Hocmaivn học online ôn thi lớp 10", limit=3)
+        poseidon = store.search("Buffet Poseidon nhà hàng hải sản", limit=3)
+        bonchon = store.search("Bonchon Vietnam gà rán Hàn Quốc", limit=3)
+        trung_nguyen = store.search("Trung Nguyên Legend cà phê", limit=3)
 
         ba_sao_document = next(
             item.document
@@ -215,4 +242,14 @@ def test_build_script_indexes_catalog_and_pending_knowledge(tmp_path: Path) -> N
         assert highlands_document.launchable is False
         assert highlands_document.verification_status == "unverified"
         assert campus[0].document.document_id == "pending:vng-campus-food-amenities"
+        assert any(item.document.document_id == "catalog:kfc-vietnam-oa" for item in kfc)
+        assert any(item.document.document_id == "catalog:education-hocmai-oa" for item in hocmai)
+        assert any(
+            item.document.document_id == "catalog:restaurant-buffet-poseidon-oa"
+            for item in poseidon
+        )
+        assert any(item.document.document_id == "catalog:bonchon-vietnam-oa" for item in bonchon)
+        assert any(
+            item.document.document_id == "catalog:trung-nguyen-legend-oa" for item in trung_nguyen
+        )
         assert store.search("Ba Sao", launchable_only=True) == []

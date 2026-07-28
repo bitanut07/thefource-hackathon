@@ -27,7 +27,7 @@ class ResearchSearchRequest(BaseModel):
                 },
                 {
                     "text": "quán nước VNG Campus",
-                    "category": "shopping_delivery",
+                    "category": "shopping",
                     "limit": 5,
                 },
             ]

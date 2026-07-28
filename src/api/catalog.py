@@ -8,7 +8,7 @@ from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 
 from api.security import require_api_key
 from domain.models import RegistryService, ServiceCategory, ServiceType
-from domain.registry import JsonServiceRegistry
+from domain.registry import ServiceRegistryRepository
 from domain.search import LaunchUrlPolicy
 
 router = APIRouter(
@@ -128,12 +128,13 @@ async def list_services(
     offset: Annotated[int, Query(ge=0)] = 0,
     limit: Annotated[int, Query(ge=1, le=100)] = 50,
 ) -> RegistryServiceListResponse:
-    registry = cast(JsonServiceRegistry, request.app.state.registry)
+    registry = cast(ServiceRegistryRepository, request.app.state.registry)
+    active_services = await registry.list_active()
     url_policy = cast(LaunchUrlPolicy, request.app.state.launch_url_policy)
     services = [
         service
-        for service in registry.active_services
-        if url_policy.is_allowed(service.launch_url)
+        for service in active_services
+        if url_policy.is_allowed_for_service(service.service_type, service.launch_url)
         and (category is None or service.category == category)
         and (service_type is None or service.service_type == service_type)
         and (q is None or _matches_query(service, q))
@@ -154,10 +155,13 @@ async def list_services(
     responses={404: {"description": "Service không active hoặc URL bị policy chặn."}},
 )
 async def get_service(service_id: UUID, request: Request) -> RegistryServiceView:
-    registry = cast(JsonServiceRegistry, request.app.state.registry)
+    registry = cast(ServiceRegistryRepository, request.app.state.registry)
     url_policy = cast(LaunchUrlPolicy, request.app.state.launch_url_policy)
     service = await registry.get_active(service_id)
-    if service is None or not url_policy.is_allowed(service.launch_url):
+    if service is None or not url_policy.is_allowed_for_service(
+        service.service_type,
+        service.launch_url,
+    ):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Không tìm thấy dịch vụ đang hoạt động.",

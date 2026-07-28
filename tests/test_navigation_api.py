@@ -14,7 +14,7 @@ from llm.client import LLMProviderError, LLMUnavailableError
 from llm.schemas import AgentResponse
 
 API_HEADERS = {"X-API-Key": "test-navigator-key"}
-REAL_ALLOWED_HOSTS = "zalo.me,oa.zalo.me,www.vio.edu.vn,www.matsaigon.com,cskh.evnhcmc.vn"
+REAL_ALLOWED_HOSTS = "zalo.me"
 
 
 class StubNavigator:
@@ -335,7 +335,7 @@ def test_readiness_fails_for_missing_or_weak_api_key_and_incomplete_allowlist(
         Settings(
             gemini_api_key=SecretStr("test-only"),
             navigator_api_key=SecretStr("test-navigator-key"),
-            allowed_launch_hosts="zalo.me",
+                allowed_launch_hosts="example.com",
         )
     )
     incomplete_allowlist.state.redis_connection = cast(Redis, HealthyRedis())

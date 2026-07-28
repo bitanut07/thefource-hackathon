@@ -172,7 +172,7 @@
     "category": "utilities",
     "subcategory": "telecom",
     "description": "Kênh VinaPhone được Zalo OA liệt kê trong danh sách đối tác công khai. Trong hệ sinh thái chính chủ, My VNPT hỗ trợ tra cứu hóa đơn, quản lý chi tiết và nhận thông báo cước.",
-    "launch_url": "https://oa.zalo.me/vinaphone",
+    "launch_url": "https://zalo.me/3725994261701149374",
     "official_website": "https://my.vnpt.com.vn/",
     "logo_url": "https://stc-oa.zdn.vn/resources/zoa-landing/images/home/partner_v4/vina.png",
     "regions": [
@@ -227,7 +227,7 @@
       {
         "url": "https://oa.zalo.me/home",
         "publisher": "Zalo Official Account",
-        "supports": "Trang chủ Zalo OA công khai liệt kê VinaPhone trong nhóm đối tác và liên kết trực tiếp đến https://oa.zalo.me/vinaphone.",
+        "supports": "Trang chủ Zalo OA công khai liệt kê VinaPhone; landing https://oa.zalo.me/vinaphone nhúng trực tiếp OA số https://zalo.me/3725994261701149374.",
         "checked_at": "2026-07-23"
       },
       {

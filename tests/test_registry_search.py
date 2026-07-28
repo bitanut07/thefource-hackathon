@@ -6,9 +6,11 @@ from uuid import UUID
 import pytest
 from pydantic import ValidationError
 
+from domain.models import ServiceType
 from domain.registry import JsonServiceRegistry
 from domain.search import LaunchUrlPolicy, ScoreComponents, SearchService, final_score
-from llm.schemas import StructuredQuery
+from domain.urls import is_canonical_zalo_oa_url
+from llm.schemas import ServiceChoice, StructuredQuery
 
 
 def _service(
@@ -16,19 +18,20 @@ def _service(
     *,
     name: str,
     active: bool = True,
-    category: str = "healthcare",
+    category: str = "health",
     region: str = "Quận 5, TP.HCM",
     launch_url: str = "https://example.com/service",
     priority: int = 0,
     target_user: str = "general",
     organization: str | None = None,
     intent: str = "find_medical_service",
+    service_type: str = "website",
 ) -> dict[str, object]:
     return {
         "id": service_id,
         "name": name,
         "provider": "Test provider",
-        "service_type": "website",
+        "service_type": service_type,
         "category": category,
         "description": f"Dịch vụ {name}",
         "launch_url": launch_url,
@@ -77,7 +80,7 @@ def test_registry_loads_once_and_only_returns_active_services(tmp_path: Path) ->
     assert [
         service.id
         for service in asyncio.run(
-            registry.search(StructuredQuery(intent="find_medical_service", category="healthcare"))
+            registry.search(StructuredQuery(intent="find_medical_service", category="health"))
         )
     ] == [UUID(active_id)]
 
@@ -101,7 +104,7 @@ def test_registry_hard_filters_and_orders_deterministically(tmp_path: Path) -> N
     )
     query = StructuredQuery(
         intent="find_medical_service",
-        category="healthcare",
+        category="health",
         service="khám mắt",
         location="quan 5",
         target_user="general",
@@ -122,7 +125,7 @@ def test_registry_prioritizes_matching_organization_context(tmp_path: Path) -> N
                 _service(
                     "00000000-0000-4000-8000-000000000014",
                     name="Quầy đồ ăn chung",
-                    category="shopping_delivery",
+                    category="shopping",
                     target_user="vng_employee",
                     intent="find_food_service",
                     priority=100,
@@ -130,7 +133,7 @@ def test_registry_prioritizes_matching_organization_context(tmp_path: Path) -> N
                 _service(
                     vng_id,
                     name="Ba Sao",
-                    category="shopping_delivery",
+                    category="shopping",
                     region="VNG Campus, TP.HCM",
                     target_user="vng_employee",
                     organization="VNG",
@@ -140,7 +143,7 @@ def test_registry_prioritizes_matching_organization_context(tmp_path: Path) -> N
                 _service(
                     "00000000-0000-4000-8000-000000000015",
                     name="Canteen công ty khác",
-                    category="shopping_delivery",
+                    category="shopping",
                     target_user="vng_employee",
                     organization="Công ty khác",
                     intent="find_food_service",
@@ -150,7 +153,7 @@ def test_registry_prioritizes_matching_organization_context(tmp_path: Path) -> N
     )
     query = StructuredQuery(
         intent="find_food_service",
-        category="shopping_delivery",
+        category="shopping",
         service="đồ ăn",
         target_user="vng_employee",
         organization="VNG",
@@ -194,7 +197,7 @@ def test_registry_hard_filters_do_not_match_substrings_or_missing_company(
         registry.search(
             StructuredQuery(
                 intent="find_medical_service",
-                category="healthcare",
+                category="health",
                 location="Quận 1",
                 organization="VNG",
             )
@@ -207,7 +210,7 @@ def test_registry_hard_filters_do_not_match_substrings_or_missing_company(
         registry.search(
             StructuredQuery(
                 intent="find_medical_service",
-                category="healthcare",
+                category="health",
                 location="Hồ Chí Minh",
                 organization="Công ty VNG",
             )
@@ -249,6 +252,15 @@ def test_registry_rejects_duplicate_ids_and_invalid_records(tmp_path: Path) -> N
     with pytest.raises(ValidationError, match="include a timezone"):
         JsonServiceRegistry(_write_registry(tmp_path, [naive_verification]))
 
+    invalid_oa = _service(
+        "00000000-0000-4000-8000-000000000005",
+        name="OA dùng slug",
+        service_type="oa",
+        launch_url="https://zalo.me/not-a-numeric-id",
+    )
+    with pytest.raises(ValidationError, match="numeric-oa-id"):
+        JsonServiceRegistry(_write_registry(tmp_path, [invalid_oa]))
+
 
 def test_final_score_clamps_each_component_before_weighting() -> None:
     assert final_score(ScoreComponents(1.0, 1.0, 1.0, 1.0, 1.0)) == 1.0
@@ -267,6 +279,56 @@ def test_launch_url_policy_requires_https_and_an_exact_normalized_host() -> None
     assert not policy.is_allowed("https://sub.example.com/path")
     assert not policy.is_allowed("https://example.com.evil.test/path")
     assert not policy.is_allowed("https://user@example.com/path")
+
+
+@pytest.mark.parametrize(
+    "invalid_url",
+    [
+        "https://zalo.me/longchau",
+        "https://oa.zalo.me/3822805105108870889",
+        "https://zalo.me/s/3822805105108870889/",
+        "https://zalo.me/3822805105108870889/",
+        "https://zalo.me/3822805105108870889/chat",
+        "https://zalo.me/3822805105108870889?ref=test",
+        "https://zalo.me/3822805105108870889#chat",
+        "https://zalo.me:443/3822805105108870889",
+        "https://zalo.me/3822805105108870889.",
+    ],
+)
+def test_oa_policy_only_accepts_direct_numeric_deeplinks(invalid_url: str) -> None:
+    canonical = "https://zalo.me/3822805105108870889"
+    policy = LaunchUrlPolicy(frozenset({"zalo.me", "oa.zalo.me"}))
+
+    assert is_canonical_zalo_oa_url(canonical)
+    assert policy.is_allowed_for_service(ServiceType.OA, canonical)
+    assert not is_canonical_zalo_oa_url(invalid_url)
+    assert not policy.is_allowed_for_service(ServiceType.OA, invalid_url)
+
+
+def test_non_oa_zalo_links_keep_their_separate_contract() -> None:
+    policy = LaunchUrlPolicy(frozenset({"zalo.me"}))
+
+    assert policy.is_allowed_for_service(
+        ServiceType.MINI_APP,
+        "https://zalo.me/s/327411629127312067/",
+    )
+    assert policy.is_allowed_for_service(
+        ServiceType.WEBSITE,
+        "https://zalo.me/some-public-page",
+    )
+
+
+def test_service_choice_rejects_a_noncanonical_oa_url() -> None:
+    with pytest.raises(ValidationError, match="numeric-oa-id"):
+        ServiceChoice.model_validate(
+            {
+                "service_id": "00000000-0000-4000-8000-000000000099",
+                "name": "Invalid OA",
+                "service_type": "oa",
+                "launch_url": "https://zalo.me/not-a-numeric-id",
+                "reason": "test",
+            }
+        )
 
 
 def test_search_service_filters_urls_ranks_and_respects_limit(tmp_path: Path) -> None:
@@ -296,7 +358,7 @@ def test_search_service_filters_urls_ranks_and_respects_limit(tmp_path: Path) ->
     )
     query = StructuredQuery(
         intent="find_medical_service",
-        category="healthcare",
+        category="health",
         service="khám mắt",
         location="Quận 5",
         target_user="general",

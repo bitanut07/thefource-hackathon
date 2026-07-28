@@ -10,6 +10,7 @@ from pydantic import HttpUrl, SecretStr
 from config import Settings
 from domain.search import SearchService
 from llm.client import (
+    SYSTEM_INSTRUCTION,
     ConfiguredLLMClient,
     GoogleGenAIGateway,
     LLMProviderError,
@@ -33,7 +34,7 @@ class StubSearchService(SearchService):
     async def search(
         self,
         query: StructuredQuery,
-        limit: int = 3,
+        limit: int = 5,
     ) -> list[ServiceCandidate]:
         self.queries.append(query)
         self.limits.append(limit)
@@ -113,7 +114,7 @@ def _configured_client(
 def test_gemini_adapter_requests_structured_output_and_validates_response() -> None:
     expected = StructuredQuery(
         intent="find_food_service",
-        category="shopping_delivery",
+        category="shopping",
         service="đồ ăn",
         target_user="vng_employee",
         organization="VNG",
@@ -130,6 +131,10 @@ def test_gemini_adapter_requests_structured_output_and_validates_response() -> N
     assert isinstance(schema, dict)
     assert schema["additionalProperties"] is False
     assert "organization" in schema["properties"]
+    assert schema["properties"]["service"]["description"]
+    assert "<untrusted_input>" in SYSTEM_INSTRUCTION
+    assert "Không hỏi lại location" in SYSTEM_INSTRUCTION
+    assert 'organization là "VNG"' in SYSTEM_INSTRUCTION
 
 
 def test_gemini_adapter_rejects_invalid_provider_json() -> None:
@@ -233,7 +238,7 @@ def test_navigator_asks_the_specific_organization_clarification() -> None:
     extractor = FakeLLMClient(
         StructuredQuery(
             intent="find_food_service",
-            category="shopping_delivery",
+            category="shopping",
             needs_clarification=True,
             clarification_field="organization",
         )
@@ -260,7 +265,7 @@ def test_navigator_skips_search_and_candidates_for_out_of_scope_request() -> Non
 
 
 def test_navigator_returns_only_backend_candidates_and_limits_search() -> None:
-    candidates = [_candidate(index) for index in range(1, 5)]
+    candidates = [_candidate(index) for index in range(1, 7)]
     search = StubSearchService(candidates)
     extractor = FakeLLMClient(
         StructuredQuery(
@@ -274,11 +279,11 @@ def test_navigator_returns_only_backend_candidates_and_limits_search() -> None:
 
     response = asyncio.run(navigator.process_text("Tôi muốn đóng tiền điện ở TP.HCM."))
 
-    assert search.limits == [3]
+    assert search.limits == [5]
     assert search.queries[0].intent == "pay_utility_bill"
-    assert len(response.choices) == 3
+    assert len(response.choices) == 5
     assert [choice.service_id for choice in response.choices] == [
-        candidate.service_id for candidate in candidates[:3]
+        candidate.service_id for candidate in candidates[:5]
     ]
     assert str(response.choices[0].launch_url) == "https://example.com/services/1"
     assert "score" not in response.model_dump_json()
@@ -289,7 +294,7 @@ def test_navigator_no_result_does_not_invent_service_or_url() -> None:
     extractor = FakeLLMClient(
         StructuredQuery(
             intent="find_medical_service",
-            category="healthcare",
+            category="health",
             service="khám mắt",
             location="Quận 5",
             time="cuối tuần",

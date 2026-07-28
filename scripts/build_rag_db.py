@@ -65,6 +65,11 @@ def catalog_documents(path: Path) -> list[RagDocument]:
     services = _mapping_list(payload.get("services"))
     documents: list[RagDocument] = []
     for service in services:
+        channel_type = str(service.get("channel_type", "")).strip()
+        # The Navigator catalog is Zalo-native. Keep raw website research in
+        # the JSON evidence archive, but never index it for API/RAG search.
+        if channel_type not in {"oa", "mini_app"}:
+            continue
         candidate_id = str(service.get("candidate_id", "")).strip()
         if not candidate_id:
             raise ValueError(f"{path}: catalog service is missing candidate_id")
@@ -107,9 +112,7 @@ def catalog_documents(path: Path) -> list[RagDocument]:
                     str(service["category"]) if isinstance(service.get("category"), str) else None
                 ),
                 channel_type=(
-                    str(service["channel_type"])
-                    if isinstance(service.get("channel_type"), str)
-                    else None
+                    channel_type
                 ),
                 launch_url=launch_url_text,
                 official_url=(

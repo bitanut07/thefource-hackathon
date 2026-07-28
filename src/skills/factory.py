@@ -1,5 +1,5 @@
 from config import Settings
-from domain.registry import JsonServiceRegistry
+from domain.registry import JsonServiceRegistry, ServiceRegistryRepository
 from domain.search import LaunchUrlPolicy, SearchService
 from llm.client import ConfiguredLLMClient
 from skills.navigator import NavigatorSkill, TemplateResponseComposer
@@ -13,11 +13,13 @@ def parse_allowed_hosts(raw_hosts: str) -> frozenset[str]:
 def build_navigator(
     settings: Settings,
     *,
-    registry: JsonServiceRegistry | None = None,
+    registry: ServiceRegistryRepository | None = None,
     url_policy: LaunchUrlPolicy | None = None,
 ) -> NavigatorSkill:
     """Build the controlled runtime pipeline from provider and registry settings."""
-    active_registry = registry or JsonServiceRegistry(settings.registry_data_path)
+    active_registry: ServiceRegistryRepository = registry or JsonServiceRegistry(
+        settings.registry_data_path
+    )
     active_url_policy = url_policy or LaunchUrlPolicy(
         parse_allowed_hosts(settings.allowed_launch_hosts)
     )

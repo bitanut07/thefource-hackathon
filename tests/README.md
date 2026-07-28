@@ -2,7 +2,7 @@
 
 Test hiện bao phủ:
 
-- `POST /api/v1/navigate`: request validation, tối đa ba candidate, URL
+- `POST /api/v1/navigate`: request validation, tối đa năm candidate, URL
   integrity và ánh xạ lỗi Gemini `502`/`503`;
 - readiness: thiếu key, Registry/allowlist sai hoặc Redis lỗi trả `503`;
 - API auth/concurrency: key sai trả `401`, hết slot xử lý trả `429`;

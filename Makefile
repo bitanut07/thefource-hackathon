@@ -3,7 +3,7 @@
 PYTHON ?= .venv/bin/python
 COMPOSE ?= docker compose
 
-.PHONY: help setup dev test lint typecheck check seed tree
+.PHONY: help setup dev test lint typecheck check seed tree catalog-migrate catalog-seed catalog-embed
 
 help: ## Hiển thị các lệnh dành cho lập trình viên.
 	@awk 'BEGIN {FS = ":.*## "; printf "Cách dùng: make <target>\n\nCác target:\n"} /^[a-zA-Z_-]+:.*## / {printf "  %-12s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -29,6 +29,15 @@ check: ## Chạy lint, kiểm tra kiểu và test.
 
 seed: ## Kiểm tra registry thật mặc định; không thay đổi dữ liệu.
 	$(PYTHON) scripts/seed_registry.py
+
+catalog-migrate: ## Áp dụng schema PostgreSQL Service Catalog.
+	$(PYTHON) scripts/migrate_postgres.py
+
+catalog-seed: ## Import Registry active và OA candidate vào PostgreSQL, không gọi Gemini.
+	$(PYTHON) scripts/seed_postgres.py --include-candidates
+
+catalog-embed: ## Seed PostgreSQL và tạo embedding Gemini cho hybrid semantic search.
+	$(PYTHON) scripts/seed_postgres.py --include-candidates --embed
 
 tree: ## In cây repository và bỏ qua file sinh tự động.
 	@if command -v tree >/dev/null 2>&1; then \

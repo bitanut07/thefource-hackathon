@@ -5,7 +5,7 @@
 `POST /api/v1/navigate` là API text thật của ứng dụng. Endpoint dùng Gemini để
 trích xuất structured query, sau đó backend tìm trong
 `data/registry/services.real.json`, áp dụng hard filter/ranking/URL allowlist và
-trả tối đa ba candidate.
+trả tối đa năm candidate.
 
 Registry hiện có 8 dịch vụ với danh tính và liên kết công khai đã review. Đây là
 lát cắt để kiểm chứng flow, chưa đạt mục tiêu 20-40 dịch vụ của Sprint 2 và không
@@ -75,7 +75,7 @@ tải trả `429`, thiếu cấu hình trả `503`; provider lỗi/JSON sai sche
 
 1. Gửi: “Tôi muốn đóng tiền điện ở TP.HCM.”
 2. Gemini trích xuất nhu cầu có cấu trúc, không đề xuất URL.
-3. Backend trả tối đa ba dịch vụ từ Registry và làm nổi bật lý do khớp.
+3. Backend trả tối đa năm dịch vụ từ Registry và làm nổi bật lý do khớp.
 4. Đối chiếu `service_id` và `launch_url` trong response với Registry để chứng
    minh không bịa link.
 
@@ -88,7 +88,7 @@ tải trả `429`, thiếu cấu hình trả `503`; provider lỗi/JSON sai sche
 ## Kịch bản 3 - Mua sắm
 
 1. Gửi: “Tôi cần tìm siêu thị mua thực phẩm.”
-2. Kiểm tra kết quả thuộc category `shopping_delivery`.
+2. Kiểm tra kết quả thuộc category `shopping`.
 3. Không suy diễn các quán/căng-tin nội bộ chưa có record và URL đã review.
 
 ## Kịch bản 4 - No-result và guardrail

@@ -4,7 +4,7 @@
 
 `compose.yaml` chạy API, RQ worker và Redis cho môi trường phát triển. API text
 `POST /api/v1/navigate` gọi Gemini đồng bộ, sau đó tìm trong Service Registry
-JSON ở bộ nhớ và trả tối đa ba candidate qua URL allowlist. Runtime mặc định đọc
+JSON ở bộ nhớ và trả tối đa năm candidate qua URL allowlist. Runtime mặc định đọc
 `data/registry/services.real.json`, hiện có 8 dịch vụ với danh tính và URL công
 khai đã review.
 
@@ -102,15 +102,18 @@ docker compose down
 không ghi dữ liệu. Kiểm tra tĩnh URL theo allowlist:
 
 ```bash
-ALLOWED_LAUNCH_HOSTS=zalo.me,oa.zalo.me,www.vio.edu.vn,www.matsaigon.com,cskh.evnhcmc.vn \
+ALLOWED_LAUNCH_HOSTS=zalo.me \
   .venv/bin/python scripts/verify_links.py \
   --file data/registry/services.real.json \
   --require-allowlist
 ```
 
-Script URL chỉ kiểm tra cấu trúc/host, không gọi mạng. Việc 8 liên kết pass không
-đồng nghĩa mọi OA badge, tính năng trong channel hoặc tích hợp OA production đã
-được xác minh; mục tiêu Sprint 2 vẫn là 20-40 dịch vụ đã review.
+Script URL kiểm tra cấu trúc/host và bắt buộc record OA dùng đúng deeplink số
+`https://zalo.me/<OA_ID>` nhưng không gọi mạng. Slug, `oa.zalo.me/...`, Mini App
+`/s/...`, query, fragment và dấu `/` cuối không được dùng làm CTA OA. Việc 8
+liên kết pass không đồng nghĩa mọi OA badge, tính năng trong channel hoặc tích
+hợp OA production đã được xác minh; mục tiêu Sprint 2 vẫn là 20-40 dịch vụ đã
+review.
 
 Kho research có thể được index để reviewer tra cứu:
 

@@ -9,10 +9,11 @@ from pydantic import SecretStr
 import main
 from config import Settings
 from domain.rag_store import RagDocument, SqliteRagStore
+from domain.urls import is_canonical_zalo_oa_url
 from llm.schemas import StructuredQuery
 
 API_HEADERS = {"X-API-Key": "test-navigator-key"}
-REAL_ALLOWED_HOSTS = "zalo.me,oa.zalo.me,www.vio.edu.vn,www.matsaigon.com,cskh.evnhcmc.vn"
+REAL_ALLOWED_HOSTS = "zalo.me"
 
 
 class StubIntentExtractor:
@@ -37,7 +38,7 @@ def _build_rag_database(path: Path) -> None:
         content="Nhân viên VNG tìm đồ ăn tại VNG Campus.",
         source_path="pending.json",
         source_type="user_reported",
-        category="shopping_delivery",
+        category="shopping",
         channel_type="unknown",
         active=False,
         launchable=False,
@@ -58,7 +59,7 @@ def _create_app(
     extractor = StubIntentExtractor(
         StructuredQuery(
             intent="find_food_service",
-            category="shopping_delivery",
+            category="shopping",
             service="đồ ăn",
             target_user="vng_employee",
             organization="VNG",
@@ -95,7 +96,7 @@ def test_intent_extraction_api_returns_validated_json(
     assert response.status_code == 200
     assert response.json() == {
         "intent": "find_food_service",
-        "category": "shopping_delivery",
+        "category": "shopping",
         "service": "đồ ăn",
         "location": None,
         "time": None,
@@ -123,9 +124,14 @@ def test_registry_list_and_detail_only_return_runtime_public_fields(
     )
 
     assert all_services.status_code == 200
-    assert all_services.json()["total"] == 8
+    assert all_services.json()["total"] == 5
     assert education.status_code == 200
-    assert education.json()["total"] == 2
+    assert education.json()["total"] == 1
+    oa_items = [item for item in all_services.json()["items"] if item["service_type"] == "oa"]
+    assert oa_items
+    assert all(is_canonical_zalo_oa_url(item["launch_url"]) for item in oa_items)
+    long_chau = next(item for item in oa_items if item["name"] == "Nhà thuốc Long Châu")
+    assert long_chau["launch_url"] == "https://zalo.me/3822805105108870889"
     first = all_services.json()["items"][0]
     assert "owner" not in first
     assert "service_priority" not in first
@@ -155,7 +161,7 @@ def test_research_search_is_explicitly_non_launchable_and_does_not_leak_raw_data
         "/api/v1/research/search",
         json={
             "text": 'Ba Sao" OR * nhân viên VNG',
-            "category": "shopping_delivery",
+            "category": "shopping",
             "limit": 5,
         },
         headers=API_HEADERS,
@@ -168,7 +174,7 @@ def test_research_search_is_explicitly_non_launchable_and_does_not_leak_raw_data
         "rank": 1,
         "document_id": "pending:vng-campus-food-ba-sao",
         "name": "Ba Sao",
-        "category": "shopping_delivery",
+        "category": "shopping",
         "channel_type": "unknown",
         "source_type": "user_reported",
         "review_status": "pending_verification",

@@ -44,7 +44,7 @@ class TemplateResponseComposer:
                 clarification_question=question,
             )
 
-        safe_candidates = candidates[:3]
+        safe_candidates = candidates[:5]
         if not safe_candidates:
             return AgentResponse(
                 message=(
@@ -94,5 +94,5 @@ class NavigatorSkill:
         if query.out_of_scope or query.needs_clarification:
             return await self.response_composer.compose(query, [])
 
-        candidates = await self.search_service.search(query, limit=3)
-        return await self.response_composer.compose(query, candidates[:3])
+        candidates = await self.search_service.search(query, limit=5)
+        return await self.response_composer.compose(query, candidates[:5])

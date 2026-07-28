@@ -4,7 +4,7 @@
 
 Luồng text chạy đồng bộ qua `POST /api/v1/navigate`: Gemini trích xuất
 structured query, Registry áp dụng hard filter và ranking, URL policy kiểm tra
-allowlist, rồi response builder trả tối đa ba candidate. Runtime đọc
+allowlist, rồi response builder trả tối đa năm candidate. Runtime đọc
 `data/registry/services.real.json`, hiện có 8 dịch vụ với danh tính và liên kết
 công khai đã review; mục tiêu MVP vẫn là 20-40 dịch vụ.
 
@@ -20,13 +20,14 @@ idempotency, Zalo send-message, OA token lifecycle và voice/STT thật vẫn ph
 
 ## Bối cảnh và phạm vi
 
-Zalo AI Service Navigator là một trợ lý triển khai dưới dạng Zalo Official Account (OA). MVP nhận text hoặc voice message, chuyển voice thành text khi cần, trích xuất nhu cầu có cấu trúc, tìm trong Service Registry do nhóm kiểm soát và trả tối đa ba lựa chọn hợp lệ.
+Zalo AI Service Navigator là một trợ lý triển khai dưới dạng Zalo Official Account (OA). MVP nhận text hoặc voice message, chuyển voice thành text khi cần, trích xuất nhu cầu có cấu trúc, tìm trong Service Registry do nhóm kiểm soát và trả tối đa năm lựa chọn hợp lệ.
 
 MVP **không** tìm toàn bộ OA/Mini App trên Zalo, không tự đặt lịch/thanh toán và
-không để mô hình ngôn ngữ tự tạo tên dịch vụ hoặc URL. Các nhóm theo kế hoạch
-ban đầu là y tế, điện/nước/tiện ích, giáo dục và giao thông/dịch vụ công;
-`shopping_delivery` là mở rộng có kiểm soát theo ADR-0004, không biến hệ thống
-thành RAG/crawler tổng quát.
+không để mô hình ngôn ngữ tự tạo tên dịch vụ hoặc URL. Taxonomy public bám theo
+danh mục Zalo đã cung cấp: Ăn uống, Giáo dục, Mua sắm, Tài chính, Tiện ích,
+Sức khỏe và Cơ quan nhà nước. `Tất cả` là bộ lọc UI, không phải category runtime.
+Transport/giải trí chưa có nhãn tương ứng trong taxonomy này dùng extension `other`
+(hiển thị “Khác”) và giữ `internal_category` để review mapping sau này.
 
 Stack được chọn cho scaffold:
 
@@ -132,7 +133,9 @@ Pipeline bám theo plan:
 2. Lọc cứng theo `active`, category và vùng khi có.
 3. Keyword search trên tên, alias, mô tả và intent trong registry bộ nhớ.
 4. Tính điểm rule-based; có thể rerank một tập ứng viên nhỏ.
-5. Kiểm tra URL theo allowlist trước khi tạo phản hồi.
+5. Kiểm tra URL theo allowlist trước khi tạo phản hồi. Riêng OA chỉ chấp nhận
+   deeplink số chính chủ `https://zalo.me/<OA_ID>`; slug, landing alias,
+   Mini App `/s/...`, query và fragment bị chặn.
 
 Kho tri thức SQLite/FTS phục vụ staging và nghiên cứu không được nối trực tiếp
 vào quyết định candidate của endpoint hiện tại. BM25/vector chỉ có thể là tín

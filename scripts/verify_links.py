@@ -17,6 +17,8 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
 
+from domain.urls import is_canonical_zalo_oa_url
+
 DEFAULT_SEED_PATH = Path("data/registry/services.real.json")
 
 
@@ -55,7 +57,12 @@ def configured_hosts() -> set[str]:
     return {host.strip().lower().rstrip(".") for host in raw_hosts.split(",") if host.strip()}
 
 
-def validate_url(url: Any, allowed_hosts: set[str]) -> str | None:
+def validate_url(
+    url: Any,
+    allowed_hosts: set[str],
+    *,
+    service_type: object = None,
+) -> str | None:
     if not isinstance(url, str) or not url.strip():
         return "launch_url phải là chuỗi không rỗng"
 
@@ -70,6 +77,8 @@ def validate_url(url: Any, allowed_hosts: set[str]) -> str | None:
     hostname = parsed.hostname.lower().rstrip(".")
     if allowed_hosts and hostname not in allowed_hosts:
         return f"hostname {hostname!r} không nằm trong ALLOWED_LAUNCH_HOSTS"
+    if service_type == "oa" and not is_canonical_zalo_oa_url(url):
+        return "OA launch_url phải có dạng https://zalo.me/<numeric-oa-id>"
     return None
 
 
@@ -95,7 +104,11 @@ def main() -> int:
 
     failures = 0
     for index, record in enumerate(records, start=1):
-        error = validate_url(record.get("launch_url"), allowed_hosts)
+        error = validate_url(
+            record.get("launch_url"),
+            allowed_hosts,
+            service_type=record.get("service_type"),
+        )
         if error:
             failures += 1
             identifier = record.get("id") or record.get("service_id") or index

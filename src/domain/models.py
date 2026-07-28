@@ -11,11 +11,14 @@ class ServiceType(StrEnum):
 
 
 class ServiceCategory(StrEnum):
-    HEALTHCARE = "healthcare"
-    UTILITIES = "utilities"
+    FOOD = "food"
     EDUCATION = "education"
-    TRANSPORT_PUBLIC = "transport_public"
-    SHOPPING_DELIVERY = "shopping_delivery"
+    SHOPPING = "shopping"
+    FINANCE = "finance"
+    UTILITIES = "utilities"
+    HEALTH = "health"
+    GOVERNMENT = "government"
+    OTHER = "other"
 
 
 @dataclass(frozen=True, slots=True)

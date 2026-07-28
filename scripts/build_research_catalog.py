@@ -4,24 +4,59 @@ import json
 import re
 from collections import Counter
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 from urllib.parse import urlparse
+
+from domain.urls import is_canonical_zalo_oa_url
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_DIR = ROOT / "data" / "research" / "raw"
 OUTPUT = ROOT / "data" / "research" / "oa-candidates.json"
-GENERATED_AT = "2026-07-23T00:00:00+07:00"
+GENERATED_AT = "2026-07-24T00:00:00+07:00"
 
 CATEGORIES = {
-    "utilities",
-    "healthcare",
+    "food",
     "education",
-    "transport_travel",
-    "public_admin",
-    "finance_banking",
-    "shopping_delivery",
-    "entertainment",
+    "shopping",
+    "finance",
+    "utilities",
+    "health",
+    "government",
+    "other",
 }
+_CATEGORY_MAP = {
+    "education": "education",
+    "finance_banking": "finance",
+    "healthcare": "health",
+    "public_admin": "government",
+    "utilities": "utilities",
+    # Zalo's supplied taxonomy has no travel or entertainment bucket. Keep a
+    # visible extension rather than incorrectly classifying them as All.
+    "transport_travel": "other",
+    "entertainment": "other",
+}
+_FOOD_SUBCATEGORY_TERMS = frozenset(
+    {
+        "bakery",
+        "banh_mi",
+        "bbq",
+        "beverage",
+        "bubble_tea",
+        "buffet",
+        "cafe",
+        "cake",
+        "chocolate",
+        "coffee",
+        "drink",
+        "fast_food",
+        "fried_chicken",
+        "hotpot",
+        "pizza",
+        "restaurant",
+        "rice",
+        "vegetarian",
+    }
+)
 CHANNEL_TYPES = {"oa", "mini_app", "website", "unknown"}
 CONFIDENCE_LEVELS = {"high", "medium", "low"}
 BADGE_STATUSES = {"verified", "not_verified", "unknown", "not_applicable"}
@@ -34,11 +69,11 @@ CANDIDATE_ID_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 def load_records(path: Path) -> list[dict[str, Any]]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if isinstance(payload, list):
-        return payload
+        return cast(list[dict[str, Any]], payload)
     if isinstance(payload, dict) and isinstance(payload.get("services"), list):
-        return payload["services"]
+        return cast(list[dict[str, Any]], payload["services"])
     if isinstance(payload, dict) and isinstance(payload.get("records"), list):
-        return payload["records"]
+        return cast(list[dict[str, Any]], payload["records"])
     raise ValueError(f"{path}: expected a JSON list or an object with services[]/records[]")
 
 
@@ -54,6 +89,19 @@ def normalize(record: dict[str, Any]) -> dict[str, Any]:
     candidate_id = item.get("candidate_id")
     if isinstance(candidate_id, str):
         item["candidate_id"] = candidate_id.replace("_", "-")
+
+    source_category = item.get("category")
+    if isinstance(source_category, str):
+        item["internal_category"] = source_category
+        if source_category == "shopping_delivery":
+            subcategory = str(item.get("subcategory", "")).casefold()
+            item["category"] = (
+                "food"
+                if any(term in subcategory for term in _FOOD_SUBCATEGORY_TERMS)
+                else "shopping"
+            )
+        else:
+            item["category"] = _CATEGORY_MAP.get(source_category, "other")
 
     channel_type = item.get("channel_type", "unknown")
     item.setdefault("logo_url", None)
@@ -108,6 +156,8 @@ def validate(item: dict[str, Any], origin: Path) -> list[str]:
         errors.append(f"{prefix}: description exceeds 360 characters")
     if not is_http_url(item.get("launch_url")):
         errors.append(f"{prefix}: launch_url must be an HTTP(S) URL")
+    elif item.get("channel_type") == "oa" and not is_canonical_zalo_oa_url(item["launch_url"]):
+        errors.append(f"{prefix}: OA launch_url must use https://zalo.me/<numeric-oa-id>")
 
     for optional_url in ("official_website", "logo_url"):
         value = item.get(optional_url)

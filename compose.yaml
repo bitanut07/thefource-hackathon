@@ -10,6 +10,11 @@ x-app-environment: &app-environment
   PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-}
   REGISTRY_DATA_PATH: ${REGISTRY_DATA_PATH:-data/registry/services.real.json}
   RAG_DATA_PATH: ${RAG_DATA_PATH:-data/rag/service-catalog.sqlite3}
+  SEARCH_BACKEND: ${SEARCH_BACKEND:-postgres}
+  DATABASE_URL: ${COMPOSE_DATABASE_URL:-postgresql://navigator:${POSTGRES_PASSWORD:-navigator-local-only}@postgres:5432/${POSTGRES_DB:-navigator}}
+  EMBEDDING_MODEL: ${EMBEDDING_MODEL:-gemini-embedding-001}
+  EMBEDDING_DIMENSIONS: ${EMBEDDING_DIMENSIONS:-768}
+  SEMANTIC_SEARCH_ENABLED: ${SEMANTIC_SEARCH_ENABLED:-false}
   REDIS_URL: redis://redis:6379/0
   RQ_QUEUE_NAME: ${RQ_QUEUE_NAME:-zalo-navigator}
   ZALO_API_BASE_URL: ${ZALO_API_BASE_URL:-}
@@ -29,7 +34,7 @@ x-app-environment: &app-environment
   NAVIGATOR_QUEUE_TIMEOUT_SECONDS: ${NAVIGATOR_QUEUE_TIMEOUT_SECONDS:-0.1}
   STT_PROVIDER: ${STT_PROVIDER:-disabled}
   STT_API_KEY: ${STT_API_KEY:-}
-  ALLOWED_LAUNCH_HOSTS: ${ALLOWED_LAUNCH_HOSTS:-zalo.me,oa.zalo.me,www.vio.edu.vn,www.matsaigon.com,cskh.evnhcmc.vn}
+  ALLOWED_LAUNCH_HOSTS: ${ALLOWED_LAUNCH_HOSTS:-zalo.me}
   AUDIO_RETENTION_SECONDS: ${AUDIO_RETENTION_SECONDS:-900}
   UID_HASH_SALT: ${UID_HASH_SALT:-}
   SENTRY_DSN: ${SENTRY_DSN:-}
@@ -44,6 +49,8 @@ x-app-service: &app-service
   environment: *app-environment
   depends_on:
     redis:
+      condition: service_healthy
+    postgres:
       condition: service_healthy
 
 services:
@@ -92,8 +99,6 @@ services:
     image: redis:7-alpine
     restart: unless-stopped
     command: ["redis-server", "--appendonly", "yes"]
-    ports:
-      - "127.0.0.1:6379:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -102,5 +107,25 @@ services:
       timeout: 3s
       retries: 10
 
+  postgres:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-navigator}
+      POSTGRES_USER: ${POSTGRES_USER:-navigator}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-navigator-local-only}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/migrations/001_service_catalog.sql:/docker-entrypoint-initdb.d/001_service_catalog.sql:ro
+      - ./db/migrations/002_zalo_channels_only.sql:/docker-entrypoint-initdb.d/002_zalo_channels_only.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
 volumes:
   redis_data:
+  postgres_data:

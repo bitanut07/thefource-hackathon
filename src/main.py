@@ -6,8 +6,10 @@ from rq import Queue
 
 from api import catalog, health, intent, navigation, research, webhook
 from config import Settings, get_settings
-from domain.registry import JsonServiceRegistry
+from domain.postgres_registry import PostgresServiceRegistry
+from domain.registry import JsonServiceRegistry, ServiceRegistryRepository
 from domain.search import LaunchUrlPolicy
+from llm.embeddings import GeminiEmbeddingClient
 from skills.factory import build_navigator, parse_allowed_hosts
 
 
@@ -28,7 +30,26 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         socket_timeout=2,
         health_check_interval=30,
     )
-    registry = JsonServiceRegistry(app_settings.registry_data_path)
+    registry: ServiceRegistryRepository
+    search_backend = app_settings.search_backend.strip().casefold()
+    if search_backend == "postgres":
+        database_url = (
+            app_settings.database_url.get_secret_value().strip()
+            if app_settings.database_url is not None
+            else ""
+        )
+        registry = PostgresServiceRegistry(
+            database_url,
+            embedding_client=(
+                GeminiEmbeddingClient(app_settings)
+                if app_settings.semantic_search_enabled
+                else None
+            ),
+        )
+    elif search_backend == "json":
+        registry = JsonServiceRegistry(app_settings.registry_data_path)
+    else:
+        raise ValueError("SEARCH_BACKEND chỉ hỗ trợ json hoặc postgres")
     launch_url_policy = LaunchUrlPolicy(parse_allowed_hosts(app_settings.allowed_launch_hosts))
     app.state.settings = app_settings
     app.state.redis_connection = redis_connection

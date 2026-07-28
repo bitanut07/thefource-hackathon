@@ -15,12 +15,17 @@ from domain.models import (
     ServiceIntent,
     ServiceType,
 )
+from domain.urls import is_canonical_zalo_oa_url
 from llm.schemas import StructuredQuery
 
 NonEmptyString = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 
 class ServiceRegistryRepository(Protocol):
+    async def list_active(self) -> tuple[RegistryService, ...]:
+        """Return every publishable service for inspection and readiness checks."""
+        ...
+
     async def get_active(self, service_id: UUID) -> RegistryService | None:
         """Return an active service, or ``None`` when it is absent/inactive."""
         ...
@@ -63,6 +68,8 @@ class _ServiceRecord(BaseModel):
             raise ValueError("active service requires last_verified_at")
         if self.last_verified_at is not None and self.last_verified_at.utcoffset() is None:
             raise ValueError("last_verified_at must include a timezone")
+        if self.service_type is ServiceType.OA and not is_canonical_zalo_oa_url(self.launch_url):
+            raise ValueError("OA launch_url must use canonical https://zalo.me/<numeric-oa-id>")
         return self
 
     def to_domain(self) -> RegistryService:
@@ -216,6 +223,9 @@ class JsonServiceRegistry:
         if service is None or not service.active:
             return None
         return service
+
+    async def list_active(self) -> tuple[RegistryService, ...]:
+        return self._active_services
 
     async def search(self, query: StructuredQuery, limit: int = 10) -> list[RegistryService]:
         if limit <= 0 or query.out_of_scope or query.needs_clarification:

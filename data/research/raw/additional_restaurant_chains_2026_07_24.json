@@ -1,0 +1,665 @@
+[
+  {
+    "candidate_id": "restaurant-pizza-4ps-oa",
+    "name": "Pizza 4P's",
+    "provider": "Công ty Cổ phần Pizza 4PS",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "pizza_restaurant_chain",
+    "description": "Kênh Zalo OA của Pizza 4P's dành cho người muốn tìm nhà hàng, xem thông tin thực đơn, đặt bàn hoặc liên hệ chuỗi nhà hàng pizza phong cách Nhật–Ý tại Việt Nam.",
+    "launch_url": "https://zalo.me/1139866614914597381",
+    "official_website": "https://pizza4ps.com/vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Nhiều tỉnh, thành tại Việt Nam"
+    ],
+    "target_users": [
+      "Người tìm nhà hàng pizza",
+      "Gia đình và nhóm bạn",
+      "Khách hàng cần đặt bàn hoặc liên hệ Pizza 4P's"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "browse_restaurant_information",
+      "find_restaurant",
+      "reserve_table",
+      "contact_restaurant"
+    ],
+    "aliases": [
+      "Pizza 4P's",
+      "Pizza 4Ps",
+      "4P's",
+      "Pizza for Peace"
+    ],
+    "intents": [
+      {
+        "intent": "find_pizza_restaurant",
+        "example_queries": [
+          "Tìm Pizza 4P's gần đây",
+          "Tôi muốn ăn pizza cùng gia đình"
+        ]
+      },
+      {
+        "intent": "reserve_restaurant_table",
+        "example_queries": [
+          "Đặt bàn Pizza 4P's tối nay",
+          "Cho tôi kênh liên hệ Pizza 4P's"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1139866614914597381",
+        "publisher": "Pizza 4P's trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Pizza 4Ps.",
+          "Trang OA liên kết website pizza4ps.com/vn và hiển thị cùng tổng đài 19006043 của thương hiệu."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://pizza4ps.com/vn/policy/?lang=vietnamese",
+        "publisher": "Pizza 4P's",
+        "supports": [
+          "Chính sách chính chủ xác nhận đơn vị vận hành là Công ty Cổ phần Pizza 4PS và công bố tổng đài 19006043.",
+          "Website chính chủ mô tả các dịch vụ, ưu đãi và kênh hỗ trợ dành cho khách hàng Pizza 4P's."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA không chuyển hướng, title khớp thương hiệu và OA liên kết website chính chủ với cùng tổng đài. Chưa quan sát trực tiếp huy hiệu OA trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "restaurant-com-tam-phuc-loc-tho-oa",
+    "name": "Cơm tấm PHÚC LỘC THỌ",
+    "provider": "Cơm Tấm Phúc Lộc Thọ",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "vietnamese_rice_restaurant_chain",
+    "description": "Kênh Zalo OA của chuỗi Cơm Tấm Phúc Lộc Thọ dành cho người cần tìm quán cơm tấm, xem thông tin món ăn, đặt món hoặc liên hệ hệ thống nhà hàng tại TP.HCM.",
+    "launch_url": "https://zalo.me/2969085200217280478",
+    "official_website": "https://comtamphucloctho.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "TP.HCM"
+    ],
+    "target_users": [
+      "Người muốn mua cơm tấm",
+      "Nhân viên văn phòng cần tìm bữa ăn",
+      "Khách hàng cần đặt món hoặc tìm cửa hàng gần mình"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "browse_food_menu",
+      "find_restaurant",
+      "order_food",
+      "contact_restaurant"
+    ],
+    "aliases": [
+      "Cơm Tấm Phúc Lộc Thọ",
+      "Phúc Lộc Thọ",
+      "Cơm tấm PLT",
+      "Com Tam Phuc Loc Tho"
+    ],
+    "intents": [
+      {
+        "intent": "find_vietnamese_rice_meal",
+        "example_queries": [
+          "Tôi cần mua cơm tấm",
+          "Tìm Cơm Tấm Phúc Lộc Thọ gần đây"
+        ]
+      },
+      {
+        "intent": "order_office_lunch",
+        "example_queries": [
+          "Đặt cơm trưa giao đến công ty",
+          "Cho tôi xem quán cơm tấm Phúc Lộc Thọ"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2969085200217280478",
+        "publisher": "Cơm Tấm Phúc Lộc Thọ trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Cơm tấm PHÚC LỘC THỌ.",
+          "Mô tả OA xác nhận đây là chuỗi cơm tấm truyền thống thành lập từ năm 2005, công bố tổng đài 19006552 và liên kết website comtamphucloctho.vn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://comtamphucloctho.vn/",
+        "publisher": "Cơm Tấm Phúc Lộc Thọ",
+        "supports": [
+          "Website chính chủ cung cấp thực đơn, hệ thống cửa hàng và kênh đặt món của Cơm Tấm Phúc Lộc Thọ."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA không chuyển hướng, title và mô tả khớp thương hiệu; OA tự liên kết website chính chủ và tổng đài. Chưa quan sát trực tiếp huy hiệu OA trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "restaurant-lotteria-vietnam-oa",
+    "name": "Lotteria Việt Nam",
+    "provider": "Công ty TNHH Lotteria Việt Nam",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "quick_service_restaurant",
+    "description": "Kênh Zalo OA của Lotteria Việt Nam dành cho người muốn xem món gà rán và đồ ăn nhanh, tìm cửa hàng, nhận ưu đãi, đặt món hoặc liên hệ hỗ trợ.",
+    "launch_url": "https://zalo.me/532153540884181118",
+    "official_website": "https://www.lotteria.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Người cần mua đồ ăn nhanh",
+      "Gia đình và nhóm bạn",
+      "Khách hàng cần tìm cửa hàng hoặc đặt món Lotteria"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "browse_food_menu",
+      "find_restaurant",
+      "order_food_for_delivery_or_pickup",
+      "receive_promotions",
+      "contact_customer_support"
+    ],
+    "aliases": [
+      "Lotteria",
+      "Lotteria Việt Nam",
+      "Gà rán Lotteria",
+      "Lotteria Vietnam"
+    ],
+    "intents": [
+      {
+        "intent": "find_fast_food",
+        "example_queries": [
+          "Tôi muốn ăn gà rán Lotteria",
+          "Tìm Lotteria gần đây"
+        ]
+      },
+      {
+        "intent": "order_food_delivery",
+        "example_queries": [
+          "Đặt Lotteria giao đến công ty",
+          "Cho tôi xem thực đơn Lotteria"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/532153540884181118",
+        "publisher": "Lotteria Việt Nam trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Lotteria Việt Nam.",
+          "Mô tả công khai tự nhận là fanpage chính thức của Lotteria Việt Nam trên Zalo, đồng thời hiển thị tổng đài 19006778 và website lotteria.vn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.lotteria.vn/",
+        "publisher": "Lotteria Việt Nam",
+        "supports": [
+          "Website chính chủ cung cấp thực đơn, đặt hàng, khuyến mãi và hệ thống cửa hàng Lotteria tại Việt Nam."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA không chuyển hướng; title, tuyên bố chính thức, tổng đài và website trên trang đều khớp Lotteria Việt Nam. Chưa quan sát trực tiếp huy hiệu OA trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "restaurant-goldsun-food-oa",
+    "name": "GoldSun Food",
+    "provider": "Công ty Cổ phần Goldsun Food",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "multi_brand_restaurant_group",
+    "description": "Kênh Zalo OA của GoldSun Food, nhóm vận hành nhiều thương hiệu ẩm thực như King BBQ, ThaiExpress, Seoul Garden, Khao Lao và Meiwei, phù hợp để tìm ưu đãi và nhà hàng trong hệ thống.",
+    "launch_url": "https://zalo.me/1109935404164297158",
+    "official_website": "https://goldsunfood.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Nhiều tỉnh, thành tại Việt Nam"
+    ],
+    "target_users": [
+      "Người tìm nhà hàng theo nhiều phong cách ẩm thực",
+      "Gia đình và nhóm bạn",
+      "Khách hàng quan tâm King BBQ, ThaiExpress, Khao Lao hoặc Meiwei"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "discover_restaurant_brands",
+      "find_restaurant",
+      "receive_promotions",
+      "contact_restaurant_group"
+    ],
+    "aliases": [
+      "GoldSun Food",
+      "Goldsun",
+      "RedSun",
+      "King BBQ",
+      "ThaiExpress",
+      "Khao Lao",
+      "Meiwei",
+      "Seoul Garden"
+    ],
+    "intents": [
+      {
+        "intent": "discover_restaurant_chain",
+        "example_queries": [
+          "Tìm nhà hàng King BBQ hoặc ThaiExpress",
+          "GoldSun Food có những quán ăn nào"
+        ]
+      },
+      {
+        "intent": "find_restaurant_promotion",
+        "example_queries": [
+          "Tìm ưu đãi ăn uống của GoldSun",
+          "Tôi cần quán lẩu nướng cho nhóm bạn"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1109935404164297158",
+        "publisher": "GoldSun Food trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là GoldSun Food.",
+          "Mô tả OA nêu hệ thống có 12 thương hiệu, gồm King BBQ, ThaiExpress, Seoul Garden, Khao Lao và Meiwei, đồng thời liên kết goldsunfood.vn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://khaolao.vn/mien-bac-giai-ma-suc-hut-cua-bst-summer-drink/",
+        "publisher": "Khao Lao",
+        "supports": [
+          "Website thương hiệu thuộc GoldSun công bố trực tiếp đúng URL số và hướng dẫn khách hàng quan tâm Zalo OA của GOLDSUN để nhận ưu đãi."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Đã đối chiếu trang OA với backlink số từ hai website thương hiệu trong hệ thống GoldSun. Chưa quan sát trực tiếp huy hiệu OA trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "restaurant-gogi-house-le-trong-tan-oa",
+    "name": "GoGi House Lê Trọng Tấn TPHCM",
+    "provider": "Công ty Cổ phần Thương mại Dịch vụ Cổng Vàng",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "korean_bbq_restaurant",
+    "description": "Kênh Zalo OA theo địa điểm của GoGi House tại đường Lê Trọng Tấn, TP.HCM, dành cho người tìm quán thịt nướng Hàn Quốc, thông tin cửa hàng, đặt bàn hoặc liên hệ nhà hàng.",
+    "launch_url": "https://zalo.me/4065039816957305114",
+    "official_website": "https://gogi.com.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Bình Tân, TP.HCM"
+    ],
+    "target_users": [
+      "Người tìm món nướng Hàn Quốc",
+      "Khách hàng ở khu vực Bình Tân và lân cận",
+      "Gia đình hoặc nhóm bạn cần đặt bàn"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "browse_restaurant_information",
+      "find_restaurant",
+      "reserve_table",
+      "contact_restaurant"
+    ],
+    "aliases": [
+      "GoGi House",
+      "GoGi Lê Trọng Tấn",
+      "Gogi House Bình Tân",
+      "Quán thịt nướng Hàn Quốc GoGi"
+    ],
+    "intents": [
+      {
+        "intent": "find_korean_bbq",
+        "example_queries": [
+          "Tìm quán thịt nướng Hàn Quốc ở Bình Tân",
+          "GoGi House Lê Trọng Tấn ở đâu"
+        ]
+      },
+      {
+        "intent": "reserve_restaurant_table",
+        "example_queries": [
+          "Đặt bàn GoGi Lê Trọng Tấn",
+          "Cho tôi số liên hệ GoGi House Bình Tân"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/4065039816957305114",
+        "publisher": "GoGi House Lê Trọng Tấn trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là GoGi House Lê Trọng Tấn TPHCM.",
+          "Trang hiển thị địa chỉ 675–679 Lê Trọng Tấn, số điện thoại 02873005758 và liên kết website gogi.com.vn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://gogi.com.vn/dat-ban",
+        "publisher": "GoGi House",
+        "supports": [
+          "Website chính chủ cung cấp chức năng tìm cơ sở và đặt bàn trong hệ thống GoGi House."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": false,
+      "confidence": "medium",
+      "oa_badge_status": "unknown",
+      "notes": "Trang OA công khai có title, địa chỉ, số điện thoại và website thương hiệu khớp nhưng chưa tìm được backlink chứa chính xác OA ID số từ website GoGi/Golden Gate."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "restaurant-manwah-lotte-mart-can-tho-oa",
+    "name": "Manwah Lotte Mart Mậu Thân Cần Thơ",
+    "provider": "Công ty Cổ phần Thương mại Dịch vụ Cổng Vàng",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "taiwanese_hotpot_restaurant",
+    "description": "Kênh Zalo OA theo địa điểm của Manwah tại Lotte Mart Mậu Thân, Cần Thơ, dành cho người tìm lẩu Đài Loan, xem thông tin cửa hàng, đặt bàn hoặc liên hệ nhà hàng.",
+    "launch_url": "https://zalo.me/2660021698955201092",
+    "official_website": "https://manwah.com.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Cần Thơ"
+    ],
+    "target_users": [
+      "Người tìm nhà hàng lẩu Đài Loan",
+      "Khách hàng tại Cần Thơ",
+      "Gia đình hoặc nhóm bạn cần đặt bàn"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "browse_restaurant_information",
+      "find_restaurant",
+      "reserve_table",
+      "contact_restaurant"
+    ],
+    "aliases": [
+      "Manwah",
+      "Manwah Cần Thơ",
+      "Manwah Lotte Mart Mậu Thân",
+      "Manwah Taiwanese Hotpot"
+    ],
+    "intents": [
+      {
+        "intent": "find_taiwanese_hotpot",
+        "example_queries": [
+          "Tìm quán lẩu Đài Loan ở Cần Thơ",
+          "Manwah Lotte Mart Cần Thơ ở đâu"
+        ]
+      },
+      {
+        "intent": "reserve_restaurant_table",
+        "example_queries": [
+          "Đặt bàn Manwah Mậu Thân",
+          "Cho tôi số liên hệ Manwah Cần Thơ"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2660021698955201092",
+        "publisher": "Manwah Lotte Mart Mậu Thân trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Manwah Lotte Mart Mậu Thân Cần Thơ.",
+          "Trang hiển thị địa chỉ tại Lotte Mart số 84 Mậu Thân và số điện thoại 02927300028."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://lottemart.com.vn/chi-nhanh-lotte-mart/manwah-mung-8-3-manwah-tang-nang-ty-ty-yeu-thuong/",
+        "publisher": "Lotte Mart Việt Nam",
+        "supports": [
+          "Trang trung tâm thương mại xác nhận Manwah Lotte Mart Cần Thơ ở 84 Mậu Thân, số điện thoại 02927300028 và liên kết website manwah.com.vn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://manwah.com.vn/",
+        "publisher": "Manwah",
+        "supports": [
+          "Website chính chủ cung cấp thực đơn, ưu đãi và thông tin hệ thống nhà hàng Manwah."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": false,
+      "confidence": "medium",
+      "oa_badge_status": "unknown",
+      "notes": "Trang OA công khai có title, địa chỉ và điện thoại khớp nguồn Lotte Mart; chưa tìm được backlink chứa chính xác OA ID số từ website Manwah/Golden Gate."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "restaurant-buffet-poseidon-oa",
+    "name": "Buffet Poseidon",
+    "provider": "Công ty Cổ phần Thần Biển",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "seafood_buffet_restaurant_chain",
+    "description": "Kênh Zalo OA chính thức của hệ thống Buffet Poseidon dành cho người muốn xem thông tin buffet hải sản, tìm chi nhánh, đặt bàn và đối chiếu kênh liên hệ an toàn.",
+    "launch_url": "https://zalo.me/860658002480563692",
+    "official_website": "https://buffetposeidon.com/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Hà Nội",
+      "TP.HCM",
+      "Đồng Nai",
+      "Khánh Hòa",
+      "Hải Phòng",
+      "Đà Nẵng",
+      "Bắc Ninh"
+    ],
+    "target_users": [
+      "Người tìm buffet hải sản",
+      "Gia đình và nhóm đông người",
+      "Khách hàng cần đặt bàn qua kênh chính thức"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "browse_buffet_information",
+      "find_restaurant",
+      "reserve_table",
+      "verify_official_contact_channel"
+    ],
+    "aliases": [
+      "Buffet Poseidon",
+      "Poseidon",
+      "Hệ thống Buffet Hải sản Poseidon",
+      "Nhà hàng Poseidon"
+    ],
+    "intents": [
+      {
+        "intent": "find_seafood_buffet",
+        "example_queries": [
+          "Tìm buffet hải sản cho gia đình",
+          "Poseidon gần đây có chi nhánh nào"
+        ]
+      },
+      {
+        "intent": "reserve_restaurant_table_safely",
+        "example_queries": [
+          "Đặt bàn Buffet Poseidon",
+          "Cho tôi Zalo chính thức của Poseidon"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/860658002480563692",
+        "publisher": "Buffet Poseidon trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Buffet Poseidon.",
+          "Mô tả OA xác nhận đây là hệ thống buffet hải sản với nhiều chi nhánh và thực đơn gần 200 món."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://buffetposeidon.com/tin-tuc/bao-ve-khach-hang-truoc-thu-doan-mao-danh-lua-dao-poseidon-huy-fanpage-poseidon-tphcm",
+        "publisher": "Buffet Poseidon",
+        "supports": [
+          "Thông báo chống mạo danh trên website chính chủ công bố đúng URL số này là Zalo OA chính thức và an toàn của Poseidon.",
+          "Trang công bố website đặt bàn, hotline, email và cảnh báo không chuyển khoản đặt cọc qua kênh giả mạo."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Đã đối chiếu URL OA số với thông báo chống giả mạo trên website chính chủ. Chưa quan sát trực tiếp huy hiệu OA trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "restaurant-chay-sala-oa",
+    "name": "Chay Sala",
+    "provider": "Quán Chay Sala",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "vegetarian_restaurant",
+    "description": "Kênh Zalo OA của Chay Sala tại trung tâm TP.HCM dành cho người tìm món chay, xem thực đơn, đặt món, đặt tiệc chay hoặc liên hệ nhà hàng.",
+    "launch_url": "https://zalo.me/3768100295324169194",
+    "official_website": "https://chaysala.com/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Quận 1, TP.HCM"
+    ],
+    "target_users": [
+      "Người ăn chay",
+      "Người tìm bữa ăn thanh đạm tại TP.HCM",
+      "Khách hàng cần đặt món hoặc đặt tiệc chay"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "browse_vegetarian_menu",
+      "find_restaurant",
+      "order_food",
+      "order_vegetarian_catering",
+      "contact_restaurant"
+    ],
+    "aliases": [
+      "Chay Sala",
+      "Quán Chay Sala",
+      "Sala Chay",
+      "Quán chay Sala Sài Gòn"
+    ],
+    "intents": [
+      {
+        "intent": "find_vegetarian_food",
+        "example_queries": [
+          "Tìm quán chay ở Quận 1",
+          "Tôi muốn mua đồ ăn chay"
+        ]
+      },
+      {
+        "intent": "order_vegetarian_food",
+        "example_queries": [
+          "Đặt cơm chay giao đến công ty",
+          "Tôi cần đặt mâm cúng chay"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3768100295324169194",
+        "publisher": "Chay Sala trên Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200 tại đúng URL số và tiêu đề hiển thị là Chay Sala.",
+          "Mô tả OA xác nhận đây là quán chay phục vụ nhiều món chay và hướng đến nhu cầu ăn sạch, sống khỏe."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://chaysala.com/blogs/news/mam-cung-tet-chay-sala-2026-tron-dao-hieu-ngat-tu-bi",
+        "publisher": "Chay Sala",
+        "supports": [
+          "Bài viết trên website chính chủ công bố trực tiếp đúng URL OA số, số điện thoại 0919777703 và địa chỉ 71C Nguyễn Thị Minh Khai, Quận 1, TP.HCM.",
+          "Trang mô tả thực đơn mâm cúng chay, dịch vụ đặt theo yêu cầu và giờ hoạt động của Chay Sala."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Website Chay Sala chứa trực tiếp đúng OA ID số; URL OA không chuyển hướng và title khớp. Chưa quan sát trực tiếp huy hiệu OA trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  }
+]

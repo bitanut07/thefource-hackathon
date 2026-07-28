@@ -13,6 +13,7 @@ dependencies = [
   "google-genai>=2.14,<3",
   "httpx>=0.28,<1",
   "pydantic-settings>=2.7,<3",
+  "psycopg[binary]>=3.2,<4",
   "redis>=5.2,<7",
   "rq>=2.8,<3",
   "uvicorn[standard]>=0.32,<1",

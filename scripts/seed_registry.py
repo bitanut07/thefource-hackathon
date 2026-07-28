@@ -14,6 +14,8 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
+from domain.urls import is_canonical_zalo_oa_url
+
 DEFAULT_SEED_PATH = Path("data/registry/services.real.json")
 
 
@@ -79,6 +81,10 @@ def validate_records(records: list[Mapping[str, Any]]) -> list[str]:
             errors.append(f"record {index}: thiếu chuỗi name/display_name")
         if not isinstance(launch_url, str) or not launch_url.strip():
             errors.append(f"record {index}: thiếu chuỗi launch_url")
+        elif record.get("service_type") == "oa" and not is_canonical_zalo_oa_url(launch_url):
+            errors.append(
+                f"record {index}: OA launch_url phải có dạng https://zalo.me/<numeric-oa-id>"
+            )
 
     return errors
 

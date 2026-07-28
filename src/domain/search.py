@@ -8,8 +8,9 @@ from urllib.parse import urlsplit
 
 from pydantic import HttpUrl
 
-from domain.models import RegistryService
+from domain.models import RegistryService, ServiceType
 from domain.registry import ServiceRegistryRepository
+from domain.urls import is_canonical_zalo_oa_url
 from llm.schemas import ServiceCandidate, StructuredQuery
 
 SEMANTIC_WEIGHT = 0.40
@@ -18,6 +19,20 @@ LOCATION_WEIGHT = 0.15
 KEYWORD_WEIGHT = 0.10
 PRIORITY_WEIGHT = 0.05
 REGISTRY_CANDIDATE_LIMIT = 100
+MAX_PUBLIC_CHOICES = 5
+_GENERIC_SERVICE_TOKENS = frozenset(
+    {
+        "benh",
+        "hospital",
+        "medicine",
+        "nha",
+        "pharmacy",
+        "phong",
+        "service",
+        "thuoc",
+        "tim",
+    }
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -95,6 +110,15 @@ class LaunchUrlPolicy:
         except ValueError:
             return False
         return canonical_hostname in self.allowed_hosts
+
+    def is_allowed_for_service(self, service_type: ServiceType, url: str) -> bool:
+        """Apply both the host allowlist and channel-specific URL contract."""
+
+        if not self.is_allowed(url):
+            return False
+        if service_type is ServiceType.OA:
+            return is_canonical_zalo_oa_url(url)
+        return True
 
 
 def _normalize(value: str) -> str:
@@ -174,6 +198,23 @@ def _keyword_match(query: StructuredQuery, service: RegistryService) -> float:
     return _coverage(requested, names_and_aliases)
 
 
+def _is_specific_service_match(query: StructuredQuery, service: RegistryService) -> bool:
+    """Detect an explicit provider/name request without treating generic needs as one."""
+
+    if query.service is None:
+        return False
+    entity_tokens = {
+        token for token in _normalize(query.service).split() if token not in _GENERIC_SERVICE_TOKENS
+    }
+    if not entity_tokens:
+        return False
+    labels = " ".join((service.name, *service.aliases))
+    label_tokens = set(_normalize(labels).split())
+    if not entity_tokens.issubset(label_tokens):
+        return False
+    return len(entity_tokens) >= 2 or any(len(token) >= 3 for token in entity_tokens)
+
+
 def _reason(query: StructuredQuery, service: RegistryService, components: ScoreComponents) -> str:
     reasons: list[str] = []
     if components.intent_match == 1.0:
@@ -203,7 +244,11 @@ class SearchService:
         self.registry = registry
         self.url_policy = url_policy
 
-    async def search(self, query: StructuredQuery, limit: int = 3) -> list[ServiceCandidate]:
+    async def search(
+        self,
+        query: StructuredQuery,
+        limit: int = MAX_PUBLIC_CHOICES,
+    ) -> list[ServiceCandidate]:
         if limit <= 0 or query.out_of_scope or query.needs_clarification:
             return []
 
@@ -214,7 +259,11 @@ class SearchService:
         eligible_services = [
             service
             for service in services
-            if service.active and self.url_policy.is_allowed(service.launch_url)
+            if service.active
+            and self.url_policy.is_allowed_for_service(
+                service.service_type,
+                service.launch_url,
+            )
         ]
         maximum_priority = max(
             (max(service.service_priority, 0) for service in eligible_services),
@@ -255,4 +304,26 @@ class SearchService:
                 str(item[2].id),
             )
         )
-        return [candidate for candidate, _, _ in ranked[:limit]]
+        explicit_matches = [
+            candidate
+            for candidate, _, service in ranked
+            if _is_specific_service_match(query, service)
+        ]
+        if explicit_matches:
+            return explicit_matches[:limit]
+
+        # Do not fill a response merely to reach its maximum size. Candidates
+        # must remain reasonably close to the strongest result.
+        best_score = ranked[0][0].score if ranked else 0.0
+        relevance_threshold = max(0.10, best_score * 0.70)
+        relevant = [
+            candidate
+            for candidate, components, _ in ranked
+            if candidate.score >= relevance_threshold
+            and (
+                components.intent_match > 0.0
+                or components.keyword_match >= 0.25
+                or components.semantic_similarity >= 0.25
+            )
+        ]
+        return relevant[:limit]

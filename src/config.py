@@ -22,6 +22,12 @@ class Settings(BaseSettings):
     public_base_url: str = ""
     registry_data_path: Path = Path("data/registry/services.real.json")
     rag_data_path: Path = Path("data/rag/service-catalog.sqlite3")
+    database_url: SecretStr | None = None
+    search_backend: str = "json"
+    embedding_model: str = "gemini-embedding-001"
+    # The initial pgvector index in db/migrations/001_service_catalog.sql uses vector(768).
+    embedding_dimensions: int = Field(default=768, ge=768, le=768)
+    semantic_search_enabled: bool = False
     redis_url: str = "redis://localhost:6379/0"
     rq_queue_name: str = "zalo-navigator"
 

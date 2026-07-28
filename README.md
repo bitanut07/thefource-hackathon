@@ -1,9 +1,9 @@
 # Zalo AI Service Navigator
 
-Scaffold cho MVP trợ lý AI chạy dưới dạng Zalo Official Account (OA): người dùng nhập text hoặc gửi voice message, hệ thống hiểu nhu cầu, tìm/xếp hạng trong **Service Registry do nhóm kiểm soát** và trả tối đa ba dịch vụ hợp lệ.
+Scaffold cho MVP trợ lý AI chạy dưới dạng Zalo Official Account (OA): người dùng nhập text hoặc gửi voice message, hệ thống hiểu nhu cầu, tìm/xếp hạng trong **Service Registry do nhóm kiểm soát** và trả tối đa năm dịch vụ hợp lệ.
 
 > **Trạng thái:** API text `POST /api/v1/navigate` đã dùng Gemini để trích xuất
-> structured query, tìm trong Service Registry JSON và trả tối đa ba kết quả đã
+> structured query, tìm trong Service Registry JSON và trả tối đa năm kết quả đã
 > qua URL allowlist. Registry hiện có 8 dịch vụ với danh tính và liên kết công khai
 > đã review; mục tiêu Sprint 2 vẫn là 20-40 dịch vụ. Đây chưa phải tích hợp Zalo
 > production.
@@ -24,7 +24,7 @@ PDF kế hoạch gốc được giữ cục bộ tại `docs/Zalo_AI_Service_Nav
 | Text và voice message trong Zalo OA | Gọi thoại thời gian thực/TTS |
 | Intent + structured query + hỏi lại một câu | Tự do thao tác mọi màn hình Zalo |
 | Tìm trong registry 20-40 dịch vụ đã kiểm chứng | Quét toàn bộ OA/Mini App công khai |
-| Trả tối đa ba kết quả và CTA hợp lệ | Tự đặt lịch/thanh toán thay người dùng |
+| Trả tối đa năm kết quả và CTA hợp lệ | Tự đặt lịch/thanh toán thay người dùng |
 | URL lấy từ registry và allowlist | LLM tự tạo tên dịch vụ hoặc URL |
 | Fallback/no-result và handoff rõ ràng | Broadcast/nhắn chủ động hàng loạt |
 
@@ -134,7 +134,7 @@ Mở Swagger tại `http://localhost:8000/docs`, bấm **Authorize**, nhập
 | `GET /api/v1/services` | Danh sách Registry active, URL đã qua allowlist |
 | `GET /api/v1/services/{service_id}` | Chi tiết một dịch vụ runtime |
 | `POST /api/v1/research/search` | Dữ liệu crawl/RAG ở chế độ `research_only`, không URL/CTA |
-| `POST /api/v1/navigate` | Toàn bộ flow và tối đa ba service card |
+| `POST /api/v1/navigate` | Toàn bộ flow và tối đa năm service card |
 | `GET /health/live`, `GET /health/ready` | Trạng thái process và dependency |
 
 Ví dụ cho API điều hướng:
@@ -161,7 +161,7 @@ Invoke-RestMethod `
 
 Endpoint gọi Gemini đồng bộ để hiểu câu hỏi, sau đó backend lọc và xếp hạng
 `data/registry/services.real.json`. Gemini không được tạo service ID hoặc URL;
-response builder chỉ trả tối đa ba candidate từ Registry. Thiếu cấu hình key
+response builder chỉ trả tối đa năm candidate từ Registry. Thiếu cấu hình key
 làm endpoint trả `503`, key truy cập sai trả `401`, hết slot xử lý trả `429`,
 và lỗi provider hoặc structured output không hợp lệ trả `502`.
 
@@ -170,15 +170,23 @@ và lỗi provider hoặc structured output không hợp lệ trả `502`.
 Dữ liệu crawl/research có thể được dựng thành SQLite để tra cứu nội bộ:
 
 ```powershell
-.\.venv\Scripts\python.exe scripts\build_rag_db.py
+uv run python scripts\build_rag_db.py
 ```
 
 Lệnh tạo `data/rag/service-catalog.sqlite3` (file sinh, không commit). Hiện kho
-này có 38 tài liệu knowledge staging, gồm cả dữ liệu VNG Campus chưa xác minh.
+này có 88 tài liệu knowledge staging: 83 dịch vụ nghiên cứu và 5 tài liệu
+context/pending, gồm cả dữ liệu VNG Campus chưa xác minh. Báo cáo batch 29 OA
+mới nằm tại `docs/research/additional-oa-2026-07-24.md`; batch 21 OA nhà hàng,
+đồ ăn và đồ uống nằm tại
+`docs/research/additional-food-oa-2026-07-24.md`.
 Swagger cho phép tra cứu qua `POST /api/v1/research/search`, nhưng endpoint luôn
 gắn `usage=research_only` và không trả URL/metadata thô. Kho này **không tham gia
 luồng `/api/v1/navigate`** và không có quyền sinh CTA; Registry thật + URL
 allowlist vẫn là nguồn duy nhất cho candidate có thể mở.
+
+Với dịch vụ `service_type=oa`, CTA phải là deeplink số chính chủ theo đúng dạng
+`https://zalo.me/<OA_ID>`. Slug, `oa.zalo.me/...`, Mini App `/s/...`, query,
+fragment và dấu `/` cuối đều không được phép xuất hiện trong response runtime.
 
 Dừng local stack:
 
@@ -202,7 +210,7 @@ không thay cho mục tiêu review đủ 20-40 dịch vụ trước demo OA.
 | `make check PYTHON=.venv/bin/python` | Ruff format/lint + mypy + pytest |
 | `make seed PYTHON=.venv/bin/python` | Validate registry thật mặc định, không ghi dữ liệu |
 | `.venv/bin/python scripts/seed_registry.py --file data/registry/services.real.json` | Validate tối thiểu 8 record runtime, không ghi dữ liệu |
-| `ALLOWED_LAUNCH_HOSTS=zalo.me,oa.zalo.me,www.vio.edu.vn,www.matsaigon.com,cskh.evnhcmc.vn .venv/bin/python scripts/verify_links.py --file data/registry/services.real.json --require-allowlist` | Kiểm tra tĩnh URL registry thật theo allowlist; không gọi mạng |
+| `ALLOWED_LAUNCH_HOSTS=zalo.me .venv/bin/python scripts/verify_links.py --file data/registry/services.real.json --require-allowlist` | Kiểm tra tĩnh URL registry thật theo allowlist và bắt buộc OA dùng deeplink số; không gọi mạng |
 | `.venv/bin/python scripts/build_rag_db.py` | Dựng SQLite knowledge staging; chưa nối runtime và không cấp quyền tạo CTA |
 | `docker build -t zalo-service-navigator:local .` | Build image giống CI |
 | `make tree` | In cây repo, bỏ generated files |
@@ -226,7 +234,7 @@ không thay cho mục tiêu review đủ 20-40 dịch vụ trước demo OA.
 
 1. **OA Foundation** - chốt OA/App/quyền, xác minh webhook/send-message contract, text echo end-to-end, signature, idempotency, token adapter và health/logging.
 2. **Registry** - chốt schema JSON, nhập 20-40 dịch vụ có owner, loader bộ nhớ, link verifier và example queries.
-3. **Text Agent** - schema validation, hard filter + keyword/rule ranking/optional rerank, top 3, clarification, no-result/out-of-scope và URL allowlist.
+3. **Text Agent** - schema validation, hard filter + keyword/rule ranking/optional rerank, top 5, clarification, no-result/out-of-scope và URL allowlist.
 4. **Voice Input** - audio event/download giới hạn, codec handling, STT tiếng Việt, confidence/confirmation và xóa audio tạm.
 5. **UX & Operations** - greeting/menu/CTA, retry/failed jobs, fallback người thật, dashboard và runbook diễn tập.
 6. **Evaluation** - bộ 100 query text/voice, benchmark metrics, hallucination guard, demo script và report gắn với commit/config.

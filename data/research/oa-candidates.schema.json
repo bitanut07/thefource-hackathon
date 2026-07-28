@@ -236,15 +236,19 @@
         },
         "category": {
           "enum": [
-            "utilities",
-            "healthcare",
+            "food",
             "education",
-            "transport_travel",
-            "public_admin",
-            "finance_banking",
-            "shopping_delivery",
-            "entertainment"
+            "shopping",
+            "finance",
+            "utilities",
+            "health",
+            "government",
+            "other"
           ]
+        },
+        "internal_category": {
+          "type": "string",
+          "minLength": 1
         },
         "subcategory": {
           "type": "string",
@@ -343,6 +347,27 @@
           "const": "candidate"
         }
       },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "channel_type": {
+                "const": "oa"
+              }
+            },
+            "required": [
+              "channel_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "launch_url": {
+                "pattern": "^https://zalo\\.me/[0-9]{10,25}$"
+              }
+            }
+          }
+        }
+      ],
       "additionalProperties": false
     }
   }

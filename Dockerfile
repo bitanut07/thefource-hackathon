@@ -39,6 +39,8 @@ WORKDIR /app
 COPY --from=builder /opt/venv /opt/venv
 COPY --chown=app:app src ./src
 COPY --chown=app:app data ./data
+COPY --chown=app:app scripts ./scripts
+COPY --chown=app:app db ./db
 
 USER app
 EXPOSE 8000

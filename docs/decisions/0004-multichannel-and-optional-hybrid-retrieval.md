@@ -50,7 +50,7 @@ BM25 và vector similarity có thể được thêm như tín hiệu retrieval/r
 - không được bỏ qua URL allowlist hay bước đối chiếu cuối của response builder;
 - phải có đánh giá offline chứng minh cải thiện trước khi trở thành mặc định.
 
-Top-K nội bộ có thể lớn hơn số card hiển thị để hỗ trợ rerank hoặc soạn lời giải thích, nhưng phản hồi người dùng vẫn tuân theo giới hạn tối đa ba dịch vụ của kế hoạch MVP.
+Top-K nội bộ có thể lớn hơn số card hiển thị để hỗ trợ rerank hoặc soạn lời giải thích, nhưng phản hồi người dùng vẫn tuân theo giới hạn tối đa năm dịch vụ của kế hoạch MVP.
 
 ### Tích hợp Gemini qua adapter
 
@@ -71,7 +71,7 @@ JSON/in-memory Registry và baseline search đủ cho 20-40 service của MVP. P
 5. Response composer deterministic là baseline an toàn. Gemini có thể được bật
    để soạn lời giải thích từ candidate đã khóa sau khi có schema đối chiếu
    ID/URL và evaluation chứng minh lợi ích.
-6. Response builder đối chiếu ID/URL và trả tối đa ba service card; điểm ranking
+6. Response builder đối chiếu ID/URL và trả tối đa năm service card; điểm ranking
    nội bộ không đi ra API.
 
 ## Các phương án đã cân nhắc
@@ -94,5 +94,5 @@ Làm test/CI phụ thuộc provider, quota và secret, gây flakiness và khó k
 - Dữ liệu nghiên cứu phải có trạng thái provenance/xác minh rõ và cần bước review trước khi publish.
 - Evaluation cần đo cả chất lượng intent extraction, retrieval/rerank, hard-filter violations và tính toàn vẹn ID/URL.
 - Runtime thật cần xử lý timeout, quota, retry có giới hạn và fallback khi Gemini không khả dụng.
-- Việc mở rộng sang dịch vụ ngoài OA không đổi thứ tự sprint hay tiêu chí tối đa ba đề xuất của kế hoạch ban đầu.
+- Việc mở rộng sang dịch vụ ngoài OA không đổi thứ tự sprint hay tiêu chí tối đa năm đề xuất của kế hoạch ban đầu.
 - Quyết định này bổ sung ADR-0003; nếu có mâu thuẫn, ràng buộc Registry là nguồn sự thật và URL allowlist của ADR-0003 được ưu tiên.

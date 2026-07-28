@@ -1,0 +1,667 @@
+[
+  {
+    "candidate_id": "finance-tpbank-oa",
+    "name": "TPBank",
+    "provider": "Ngân hàng Thương mại Cổ phần Tiên Phong",
+    "channel_type": "oa",
+    "category": "finance_banking",
+    "subcategory": "banking_support",
+    "description": "Kênh Zalo OA chính thức của TPBank để khách hàng nhắn tin hỗ trợ, nhận thông tin từ ngân hàng và tìm hiểu các sản phẩm, dịch vụ ngân hàng số qua kênh chính chủ.",
+    "launch_url": "https://zalo.me/3751452701953168788",
+    "official_website": "https://tpb.vn/",
+    "logo_url": null,
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Khách hàng cá nhân TPBank",
+      "Khách hàng cần kênh hỗ trợ TPBank chính thức",
+      "Người cần tìm hiểu tài khoản, thanh toán, chuyển tiền hoặc ngân hàng số TPBank"
+    ],
+    "capabilities": [
+      "message_bank_support",
+      "receive_bank_updates",
+      "find_digital_banking_information",
+      "find_payment_and_transfer_information",
+      "find_official_customer_service_channels"
+    ],
+    "aliases": [
+      "TP Bank",
+      "Ngân hàng TPBank",
+      "Ngân hàng Tiên Phong",
+      "TPBank Digital",
+      "CSKH TPBank"
+    ],
+    "intents": [
+      {
+        "intent": "banking_customer_support",
+        "example_queries": [
+          "Cho tôi kênh Zalo chính thức của TPBank",
+          "Tôi cần nhắn tin với chăm sóc khách hàng TPBank",
+          "Mở OA TPBank để được hỗ trợ"
+        ]
+      },
+      {
+        "intent": "find_digital_banking_service",
+        "example_queries": [
+          "Tìm thông tin ngân hàng số TPBank",
+          "Tôi muốn mở tài khoản TPBank",
+          "TPBank có những dịch vụ số nào?"
+        ]
+      },
+      {
+        "intent": "find_bank_payment_information",
+        "example_queries": [
+          "Tìm hướng dẫn thanh toán hóa đơn bằng TPBank",
+          "Tôi muốn chuyển tiền trên TPBank",
+          "Mở kênh thông tin thanh toán của TPBank"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3751452701953168788",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai trả HTTP 200, không chuyển hướng và title hiển thị là TPBank.",
+          "Mô tả công khai xác nhận đây là kênh Zalo chính thức của Ngân hàng TMCP Tiên Phong và liên kết website tpb.vn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://tpb.vn/",
+        "publisher": "TPBank",
+        "supports": [
+          "Trang chủ trên tên miền ngân hàng chính chủ chứa liên kết trực tiếp tới đúng OA https://zalo.me/3751452701953168788.",
+          "Tên thương hiệu và thông tin dịch vụ khách hàng khớp với metadata công khai của OA."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://tpb.vn/khach-hang-ca-nhan/ebanking",
+        "publisher": "TPBank",
+        "supports": [
+          "Trang ngân hàng số chính chủ mô tả App TPBank, dịch vụ số, mở tài khoản và các tiện ích dành cho khách hàng cá nhân."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "OA ID được liên kết trực tiếp từ website TPBank chính chủ và metadata nhận diện đúng ngân hàng. Chưa quan sát trực tiếp badge trong ứng dụng ở lần kiểm tra này. Navigator chỉ điều hướng và cung cấp thông tin; không thu số tài khoản, mật khẩu, PIN, OTP hoặc thực hiện giao dịch trong chat."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "finance-vikki-bank-oa",
+    "name": "Ngân hàng Số Vikki",
+    "provider": "Ngân hàng Trách nhiệm hữu hạn một thành viên Số Vikki",
+    "channel_type": "oa",
+    "category": "finance_banking",
+    "subcategory": "digital_bank",
+    "description": "Kênh Zalo OA công khai của Ngân hàng Số Vikki để người dùng nhắn tin, tìm thông tin ngân hàng số, tài khoản thanh toán, tiết kiệm, khoản vay và các tiện ích tài chính chính chủ.",
+    "launch_url": "https://zalo.me/3372923048360500253",
+    "official_website": "https://vikkibank.vn/",
+    "logo_url": null,
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Khách hàng cá nhân của Vikki Bank",
+      "Người cần mở tài khoản ngân hàng số",
+      "Người cần thông tin về thanh toán hóa đơn, tiết kiệm hoặc khoản vay"
+    ],
+    "capabilities": [
+      "message_official_oa",
+      "find_digital_account_information",
+      "find_bill_payment_guidance",
+      "find_savings_and_loan_information",
+      "find_official_customer_support_channels"
+    ],
+    "aliases": [
+      "Vikki",
+      "Vikki Bank",
+      "Vikki Digital Bank",
+      "Ngân hàng Vikki",
+      "VikkiME"
+    ],
+    "intents": [
+      {
+        "intent": "find_digital_bank",
+        "example_queries": [
+          "Tìm Ngân hàng Số Vikki",
+          "Cho tôi OA chính thức của Vikki Bank",
+          "Tôi muốn mở tài khoản ngân hàng số Vikki"
+        ]
+      },
+      {
+        "intent": "find_bank_bill_payment",
+        "example_queries": [
+          "Vikki có thanh toán tiền điện nước không?",
+          "Tìm hướng dẫn thanh toán hóa đơn bằng Vikki",
+          "Tôi muốn nạp điện thoại bằng VikkiME"
+        ]
+      },
+      {
+        "intent": "find_savings_or_loan_information",
+        "example_queries": [
+          "Tìm thông tin tiết kiệm Vikki",
+          "Vikki có khoản vay tiêu dùng nào?",
+          "Tôi cần kênh tư vấn sản phẩm Vikki Bank"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3372923048360500253",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai trả HTTP 200, không chuyển hướng và title hiển thị là Ngân hàng Số Vikki.",
+          "OA công khai liên kết website vikkibank.vn, công bố hotline 19006608 và mô tả dịch vụ ngân hàng, tài chính, đầu tư và mua sắm."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://vikkibank.vn/",
+        "publisher": "Ngân hàng Số Vikki",
+        "supports": [
+          "Website chính chủ xác nhận thương hiệu, hotline, địa chỉ và các nhóm dịch vụ tài khoản, tiết kiệm, thẻ và khoản vay.",
+          "Thông tin nhận diện trên website khớp với metadata công khai của OA."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://vikkibank.vn/faq-tai-khoan-vikkime/",
+        "publisher": "Ngân hàng Số Vikki",
+        "supports": [
+          "Trang FAQ chính chủ xác nhận VikkiME có thể mở trực tuyến, nhận và chuyển tiền, thanh toán hóa đơn, nạp điện thoại, thanh toán QR và mở tiết kiệm."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": false,
+      "confidence": "medium",
+      "oa_badge_status": "unknown",
+      "notes": "URL OA số mở được, title, website và hotline đều khớp nguồn chính chủ. Chưa tìm thấy trang trên vikkibank.vn liên kết ngược trực tiếp tới OA ID và chưa quan sát badge trong ứng dụng, nên giữ ở trạng thái candidate. Không thu thông tin tài chính, mật khẩu, PIN hoặc OTP qua Navigator."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "finance-manulife-vietnam-oa",
+    "name": "Manulife Việt Nam",
+    "provider": "Công ty Trách nhiệm hữu hạn Manulife (Việt Nam)",
+    "channel_type": "oa",
+    "category": "finance_banking",
+    "subcategory": "life_insurance",
+    "description": "Kênh Zalo OA công khai của Manulife Việt Nam để người dùng nhắn tin, tìm hiểu bảo hiểm nhân thọ, bảo hiểm sức khỏe và các kênh chăm sóc khách hàng chính thức.",
+    "launch_url": "https://zalo.me/3305978929914720825",
+    "official_website": "https://www.manulife.com.vn/",
+    "logo_url": null,
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Khách hàng Manulife Việt Nam",
+      "Cá nhân và gia đình cần tìm hiểu bảo hiểm nhân thọ",
+      "Người cần thông tin bảo hiểm sức khỏe hoặc hỗ trợ hợp đồng qua kênh chính thức"
+    ],
+    "capabilities": [
+      "message_insurance_support",
+      "find_life_insurance_information",
+      "find_health_insurance_information",
+      "request_product_consultation",
+      "find_official_customer_service_channels"
+    ],
+    "aliases": [
+      "Manulife",
+      "Manulife Vietnam",
+      "Bảo hiểm Manulife",
+      "Manu",
+      "CSKH Manulife"
+    ],
+    "intents": [
+      {
+        "intent": "find_life_insurance",
+        "example_queries": [
+          "Tìm bảo hiểm nhân thọ Manulife",
+          "Cho tôi OA chính thức của Manulife Việt Nam",
+          "Tôi cần tư vấn bảo hiểm cho gia đình"
+        ]
+      },
+      {
+        "intent": "find_health_insurance_information",
+        "example_queries": [
+          "Manulife có bảo hiểm sức khỏe nào?",
+          "Tìm thông tin quyền lợi bảo hiểm Manulife",
+          "Tôi muốn hỏi về sản phẩm bảo hiểm bệnh lý nghiêm trọng"
+        ]
+      },
+      {
+        "intent": "insurance_customer_support",
+        "example_queries": [
+          "Tôi cần kênh chăm sóc khách hàng Manulife",
+          "Mở Zalo Manulife để được hỗ trợ",
+          "Tìm trung tâm dịch vụ khách hàng Manulife"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3305978929914720825",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai trả HTTP 200, không chuyển hướng và title hiển thị là Manulife Việt Nam.",
+          "Mô tả công khai ghi rõ đây là tài khoản Zalo chính thức của Manulife Việt Nam và liên kết website manulife.com.vn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.manulife.com.vn/vi/san-pham-bao-hiem.html",
+        "publisher": "Manulife Việt Nam",
+        "supports": [
+          "Website chính chủ mô tả các nhóm bảo hiểm nhân thọ, bảo hiểm sức khỏe, bảo hiểm hưu trí, quyền lợi sản phẩm và kênh tư vấn chăm sóc khách hàng."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": false,
+      "confidence": "medium",
+      "oa_badge_status": "unknown",
+      "notes": "OA tự xác nhận là tài khoản Zalo chính thức; title và website khớp nguồn Manulife. Chưa tìm thấy liên kết ngược chứa đúng OA ID trên website và chưa quan sát badge trong ứng dụng. Navigator không thu số hợp đồng, thông tin sức khỏe, tài khoản thanh toán hoặc OTP."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "utilities-mobifone-oa",
+    "name": "MobiFone",
+    "provider": "Tổng công ty Viễn thông MobiFone",
+    "channel_type": "oa",
+    "category": "utilities",
+    "subcategory": "telecom",
+    "description": "Kênh Zalo OA chăm sóc khách hàng toàn quốc của MobiFone, cung cấp tư vấn và hỗ trợ thông tin cho thuê bao, gồm dịch vụ di động, gói cước và chuyển vùng quốc tế.",
+    "launch_url": "https://zalo.me/4055244641440308778",
+    "official_website": "https://www.mobifone.vn/",
+    "logo_url": null,
+    "regions": [
+      "Toàn quốc"
+    ],
+    "target_users": [
+      "Thuê bao di động MobiFone",
+      "Khách hàng cần tư vấn gói cước và dịch vụ MobiFone",
+      "Thuê bao cần hỗ trợ chuyển vùng quốc tế"
+    ],
+    "capabilities": [
+      "telecom_customer_support",
+      "find_mobile_plan_information",
+      "get_roaming_support",
+      "troubleshoot_mobile_service",
+      "find_official_customer_service_channels"
+    ],
+    "aliases": [
+      "MobiFone",
+      "Mobifone",
+      "Mobi",
+      "My MobiFone",
+      "CSKH MobiFone",
+      "Tổng đài MobiFone"
+    ],
+    "intents": [
+      {
+        "intent": "telecom_customer_support",
+        "example_queries": [
+          "Tôi cần hỗ trợ thuê bao MobiFone",
+          "Cho tôi Zalo chính thức của MobiFone",
+          "Mở kênh chăm sóc khách hàng Mobi"
+        ]
+      },
+      {
+        "intent": "find_mobile_plan",
+        "example_queries": [
+          "Tìm gói cước MobiFone phù hợp",
+          "Tôi muốn hỏi về data MobiFone",
+          "MobiFone có gói gọi và mạng nào?"
+        ]
+      },
+      {
+        "intent": "get_roaming_support",
+        "example_queries": [
+          "Tôi cần bật roaming MobiFone",
+          "Đi nước ngoài thì liên hệ MobiFone ở đâu?",
+          "Tìm hỗ trợ chuyển vùng quốc tế MobiFone"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/4055244641440308778",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai trả HTTP 200, không chuyển hướng và title hiển thị là MobiFone.",
+          "OA liên kết website mobifone.vn, công bố hotline 18001090 hoạt động 24/24 và mô tả hệ thống tự động tư vấn, hỗ trợ thuê bao."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.mobifone.vn/dich-vu-di-dong/quoc-te/thue-bao-mobifone-ra-nuoc-ngoai",
+        "publisher": "MobiFone",
+        "supports": [
+          "Trang dịch vụ trên tên miền MobiFone chính chủ liệt kê đúng https://zalo.me/4055244641440308778 trong các kênh tổng đài hỗ trợ.",
+          "Nguồn chính chủ xác nhận kênh Zalo dùng để hỗ trợ thuê bao, trong đó có dịch vụ chuyển vùng quốc tế."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "OA ID được liên kết trực tiếp từ website MobiFone chính chủ; metadata, hotline và website khớp. Chưa quan sát trực tiếp badge trong ứng dụng. Navigator không thu OTP, thông tin SIM định danh hoặc dữ liệu tài khoản thuê bao."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "utilities-cap-nuoc-can-tho-2-oa",
+    "name": "Cấp nước Cần Thơ 2",
+    "provider": "Công ty Cổ phần Cấp nước Cần Thơ 2",
+    "channel_type": "oa",
+    "category": "utilities",
+    "subcategory": "water",
+    "description": "Kênh Zalo OA của Công ty Cổ phần Cấp nước Cần Thơ 2 để khách hàng tra cứu hóa đơn tiền nước, đăng ký nhận thông báo, tìm hướng dẫn thanh toán và liên hệ hỗ trợ dịch vụ cấp nước.",
+    "launch_url": "https://zalo.me/3319540517210557846",
+    "official_website": "https://capnuoccantho2.com.vn/",
+    "logo_url": null,
+    "regions": [
+      "Phường Cái Khế, Bình Thủy và Long Tuyền, thành phố Cần Thơ",
+      "Một phần các phường, xã Hưng Phú, Ninh Kiều, Thới An Đông, Phong Điền và An Bình"
+    ],
+    "target_users": [
+      "Hộ gia đình sử dụng nước trong vùng phục vụ",
+      "Tổ chức và doanh nghiệp sử dụng nước trong vùng phục vụ",
+      "Khách hàng cần tra cứu hoặc thanh toán hóa đơn tiền nước"
+    ],
+    "capabilities": [
+      "lookup_unpaid_water_bill",
+      "receive_water_bill_notifications",
+      "find_water_payment_guidance",
+      "find_water_service_information",
+      "contact_water_customer_support"
+    ],
+    "aliases": [
+      "Cấp nước CT2",
+      "Cấp nước Cần Thơ II",
+      "Can Tho 2 Water Supply",
+      "CANTHO2WASUCO",
+      "CT2 CSKH"
+    ],
+    "intents": [
+      {
+        "intent": "lookup_water_bill",
+        "example_queries": [
+          "Tra cứu hóa đơn nước Cần Thơ 2",
+          "Tôi muốn xem tiền nước chưa thanh toán",
+          "Mở Zalo Cấp nước Cần Thơ 2"
+        ]
+      },
+      {
+        "intent": "pay_water_bill",
+        "example_queries": [
+          "Thanh toán tiền nước Cần Thơ 2 bằng cách nào?",
+          "Tìm hướng dẫn trả hóa đơn nước",
+          "Cấp nước Cần Thơ 2 hỗ trợ ví điện tử nào?"
+        ]
+      },
+      {
+        "intent": "water_customer_support",
+        "example_queries": [
+          "Tôi cần hỗ trợ dịch vụ cấp nước ở Bình Thủy",
+          "Đăng ký nhận tin nhắn tiền nước qua Zalo",
+          "Liên hệ chăm sóc khách hàng Cấp nước Cần Thơ 2"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3319540517210557846",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai trả HTTP 200, không chuyển hướng và title hiển thị là Cấp nước Cần Thơ 2.",
+          "Tên, địa chỉ, hotline và website capnuoccantho2.com.vn trên OA khớp với nguồn công ty."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://capnuoccantho2.com.vn/View.aspx?wp=253",
+        "publisher": "Công ty Cổ phần Cấp nước Cần Thơ 2",
+        "supports": [
+          "Website chính chủ xác nhận khách hàng có thể tra cứu hóa đơn tiền nước chưa thanh toán trên Zalo OA Cấp nước Cần Thơ 2.",
+          "Nguồn chính chủ mô tả thêm các kênh thanh toán và ứng dụng chăm sóc khách hàng."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://capnuoccantho2.com.vn/View.aspx?wc=73&wp=1386",
+        "publisher": "Công ty Cổ phần Cấp nước Cần Thơ 2",
+        "supports": [
+          "Website chính chủ công bố vùng phục vụ hiện tại gồm các phường Cái Khế, Bình Thủy, Long Tuyền và một phần Hưng Phú, Ninh Kiều, Thới An Đông, Phong Điền, An Bình."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": false,
+      "confidence": "medium",
+      "oa_badge_status": "unknown",
+      "notes": "OA số mở được, toàn bộ thông tin nhận diện khớp và website chính chủ xác nhận tên OA cùng chức năng tra cứu hóa đơn, nhưng trang bằng chứng chưa chứa trực tiếp OA ID số. Chưa quan sát badge trong ứng dụng. Navigator không lưu mã khách hàng, mật khẩu hóa đơn hoặc dữ liệu tiêu thụ nước."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "public-bhxh-tphcm-oa",
+    "name": "Bảo Hiểm Xã Hội Thành phố Hồ Chí Minh",
+    "provider": "Bảo hiểm xã hội Thành phố Hồ Chí Minh",
+    "channel_type": "oa",
+    "category": "public_admin",
+    "subcategory": "social_insurance",
+    "description": "Kênh Zalo OA chính thức của Bảo hiểm xã hội TP.HCM để người dân và doanh nghiệp nhận thông tin, tìm hướng dẫn về BHXH, BHYT, BHTN và liên hệ các đầu mối hỗ trợ chính thống.",
+    "launch_url": "https://zalo.me/1728260525386650291",
+    "official_website": "https://tphcm.baohiemxahoi.gov.vn/",
+    "logo_url": null,
+    "regions": [
+      "Thành phố Hồ Chí Minh"
+    ],
+    "target_users": [
+      "Người lao động và người sử dụng lao động tại TP.HCM",
+      "Người tham gia hoặc thụ hưởng bảo hiểm xã hội",
+      "Người tham gia bảo hiểm y tế hoặc bảo hiểm thất nghiệp",
+      "Người dân cần nhận diện kênh BHXH TP.HCM chính thống"
+    ],
+    "capabilities": [
+      "receive_social_insurance_policy_updates",
+      "find_social_insurance_guidance",
+      "find_health_insurance_guidance",
+      "find_unemployment_insurance_guidance",
+      "contact_official_social_insurance_support"
+    ],
+    "aliases": [
+      "BHXH TP.HCM",
+      "BHXH TPHCM",
+      "Bảo hiểm xã hội HCM",
+      "Bảo hiểm y tế TP.HCM",
+      "bhxhtphochiminh"
+    ],
+    "intents": [
+      {
+        "intent": "find_social_insurance_guidance",
+        "example_queries": [
+          "Tìm hướng dẫn bảo hiểm xã hội ở TP.HCM",
+          "Tôi cần hỏi về BHXH tự nguyện",
+          "Cho tôi OA chính thức của BHXH TP.HCM"
+        ]
+      },
+      {
+        "intent": "find_health_or_unemployment_insurance_guidance",
+        "example_queries": [
+          "Tôi cần thông tin bảo hiểm y tế TP.HCM",
+          "Hỏi về bảo hiểm thất nghiệp ở TP.HCM",
+          "Tìm chính sách BHYT mới nhất"
+        ]
+      },
+      {
+        "intent": "contact_social_insurance_support",
+        "example_queries": [
+          "Liên hệ BHXH TP.HCM chính thống ở đâu?",
+          "Tôi nhận được tin nhắn nghi giả mạo BHXH",
+          "Mở kênh hỗ trợ Bảo hiểm xã hội Thành phố Hồ Chí Minh"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1728260525386650291",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai trả HTTP 200, không chuyển hướng và title hiển thị là Bảo Hiểm Xã Hội Thành phố Hồ Chí Minh.",
+          "OA liên kết tên miền tphcm.baohiemxahoi.gov.vn và mô tả đúng chức năng tổ chức thực hiện chính sách BHXH, BHYT và BHTN tại TP.HCM."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://baohiemxahoi.gov.vn/tintuc/Pages/hoat-dong-he-thong-bao-hiem-xa-hoi.aspx?CateID=52&ItemID=25391",
+        "publisher": "Bảo hiểm xã hội Việt Nam",
+        "supports": [
+          "Nguồn cơ quan chủ quản công bố Zalo OA chính thức của BHXH TP.HCM với đường dẫn https://zalo.me/bhxhtphochiminh.",
+          "Đường dẫn tên và URL số trả cùng title, mô tả và mã QR công khai tại thời điểm kiểm tra, xác nhận chúng cùng trỏ tới một OA.",
+          "Nguồn chính chủ cảnh báo không cung cấp CCCD, số sổ BHXH hoặc tài khoản ngân hàng qua tin nhắn và liệt kê các kênh hỗ trợ chính thống."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "confidence": "high",
+      "oa_badge_status": "unknown",
+      "notes": "Nguồn BHXH Việt Nam công bố alias OA; alias và URL số có metadata cùng QR nên xác định cùng một OA. Chưa quan sát badge trong ứng dụng. Navigator chỉ cung cấp thông tin công khai và điều hướng, không thu CCCD, số sổ BHXH, tài khoản ngân hàng, mật khẩu hoặc OTP."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "public-ubnd-nhi-chieu-oa",
+    "name": "UBND phường Nhị Chiểu",
+    "provider": "Ủy ban nhân dân phường Nhị Chiểu, thành phố Hải Phòng",
+    "channel_type": "oa",
+    "category": "public_admin",
+    "subcategory": "local_government",
+    "description": "Kênh Zalo OA của UBND phường Nhị Chiểu để người dân nhận thông tin địa phương, tìm thông tin dịch vụ công và gửi phản ánh, kiến nghị tới chính quyền phường.",
+    "launch_url": "https://zalo.me/2994258231393632920",
+    "official_website": "https://nhichieu.haiphong.gov.vn/",
+    "logo_url": null,
+    "regions": [
+      "Phường Nhị Chiểu, thành phố Hải Phòng"
+    ],
+    "target_users": [
+      "Người dân phường Nhị Chiểu",
+      "Tổ chức, doanh nghiệp và hộ kinh doanh trên địa bàn",
+      "Người cần thông tin dịch vụ công hoặc đầu mối phản ánh tại phường"
+    ],
+    "capabilities": [
+      "receive_local_government_updates",
+      "find_local_public_service_information",
+      "submit_feedback_or_petition",
+      "find_public_contact_information",
+      "message_local_government"
+    ],
+    "aliases": [
+      "Phường Nhị Chiểu",
+      "UBND Nhị Chiểu",
+      "Chính quyền phường Nhị Chiểu",
+      "Nhị Chiểu Hải Phòng",
+      "Zalo OA phường Nhị Chiểu"
+    ],
+    "intents": [
+      {
+        "intent": "find_local_public_service_information",
+        "example_queries": [
+          "Tìm dịch vụ công của phường Nhị Chiểu",
+          "Cho tôi OA chính thức của UBND phường Nhị Chiểu",
+          "Tôi cần thông tin thủ tục hành chính ở Nhị Chiểu"
+        ]
+      },
+      {
+        "intent": "submit_local_feedback",
+        "example_queries": [
+          "Tôi muốn phản ánh với UBND phường Nhị Chiểu",
+          "Gửi kiến nghị cho chính quyền phường ở đâu?",
+          "Tìm kênh tiếp nhận góp ý của phường Nhị Chiểu"
+        ]
+      },
+      {
+        "intent": "receive_local_government_updates",
+        "example_queries": [
+          "Theo dõi thông báo của phường Nhị Chiểu",
+          "Tìm tin chính quyền địa phương Nhị Chiểu",
+          "Mở Zalo phường Nhị Chiểu"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2994258231393632920",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang OA công khai trả HTTP 200, không chuyển hướng và title hiển thị là UBND phường Nhị Chiểu.",
+          "OA công khai liên kết website nhichieu.haiphong.gov.vn, hiển thị đúng địa chỉ cơ quan và mô tả cung cấp thông tin, dịch vụ công cho người dân."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://nhichieu.haiphong.gov.vn/tiep-can-thong-tin/trung-tam-dich-vu-su-nghiep-cong-phuong-nhi-chieu-doi-moi-sang-tao-nang-cao-chat-luong-truyen-th-919782",
+        "publisher": "Cổng thông tin điện tử phường Nhị Chiểu",
+        "supports": [
+          "Website chính quyền phường xác nhận địa phương duy trì Zalo OA phường Nhị Chiểu như một kênh truyền thông chính thức tới người dân.",
+          "Nguồn chính chủ mô tả OA truyền tải hoạt động lãnh đạo, điều hành và thông tin địa phương."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://cdn.haiphong.gov.vn/gov-hpg/6843/tintuc/2026/4/74.-tb-cong-khai-sdt-cua-lanh-dao-va-can-bo-cong-chuc-phuong-nhi-chieu.signed639111550614440582.pdf",
+        "publisher": "Ủy ban nhân dân phường Nhị Chiểu",
+        "supports": [
+          "Thông báo số 74/TB-UBND ngày 19/03/2026 phân công công chức trực Zalo Page để tiếp nhận phản ánh, kiến nghị và góp ý của người dân, tổ chức và doanh nghiệp."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": false,
+      "confidence": "medium",
+      "oa_badge_status": "unknown",
+      "notes": "OA số mở được; tên, địa chỉ và website khớp hoàn toàn. Website và văn bản chính quyền xác nhận Zalo OA/Zalo Page của phường nhưng chưa công bố trực tiếp OA ID số, nên giữ candidate và chưa coi là cross-link đầy đủ. Navigator không thu giấy tờ định danh hoặc hồ sơ hành chính nhạy cảm trong chat."
+    },
+    "active": false,
+    "review_status": "candidate"
+  }
+]

@@ -1,0 +1,732 @@
+[
+  {
+    "candidate_id": "trung-nguyen-legend-oa",
+    "name": "Trung Nguyên Legend - Thế giới cà phê",
+    "provider": "Tập đoàn Trung Nguyên Legend",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "coffee_chain_and_products",
+    "description": "Kênh Zalo OA của Trung Nguyên Legend dành cho người cần tìm cà phê, quà tặng, sản phẩm pha chế và thông tin về hệ thống không gian cà phê của thương hiệu.",
+    "launch_url": "https://zalo.me/1498942390064218601",
+    "official_website": "https://trungnguyenlegend.com/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Việt Nam"
+    ],
+    "target_users": [
+      "Người uống cà phê",
+      "Nhân viên văn phòng cần mua cà phê hoặc quà tặng",
+      "Người cần tìm cửa hàng và sản phẩm Trung Nguyên Legend"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "discover_coffee_products",
+      "browse_coffee_gifts",
+      "find_coffee_store_information",
+      "open_official_commerce_channel",
+      "message_official_oa"
+    ],
+    "aliases": [
+      "Trung Nguyên Legend",
+      "Trung Nguyên",
+      "Cà phê Trung Nguyên",
+      "G7",
+      "Trung Nguyen Legend Coffee"
+    ],
+    "intents": [
+      {
+        "intent": "find_coffee_or_gift",
+        "example_queries": [
+          "Tôi là nhân viên VNG và cần mua cà phê cho văn phòng",
+          "Tìm cà phê Trung Nguyên làm quà",
+          "Tôi muốn mua cà phê G7"
+        ]
+      },
+      {
+        "intent": "find_trung_nguyen_channel",
+        "example_queries": [
+          "Mở OA Trung Nguyên Legend",
+          "Tìm cửa hàng Trung Nguyên",
+          "Cho tôi xem sản phẩm cà phê Trung Nguyên"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1498942390064218601",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200; title và og:title đều hiển thị Trung Nguyên Legend - Thế giới cà phê.",
+          "Mô tả công khai xác định đây là trang thương mại điện tử chính thức của Tập đoàn Trung Nguyên Legend."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/trungnguyenlegend",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL số https://zalo.me/1498942390064218601, xác nhận OA ID mà không suy đoán."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://trungnguyenlegend.com/",
+        "publisher": "Trung Nguyên Legend",
+        "supports": [
+          "Website thương hiệu chính thức giới thiệu hệ sinh thái cà phê, sản phẩm và các không gian Trung Nguyên Legend."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Đã đối chiếu title trang số với alias Zalo-owned và website thương hiệu. Chưa suy luận trạng thái huy hiệu từ giao diện công khai."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "paris-baguette-vietnam-oa",
+    "name": "Paris Baguette Việt Nam",
+    "provider": "Paris Baguette Việt Nam",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "bakery_and_cafe",
+    "description": "Kênh Zalo OA của Paris Baguette Việt Nam dành cho người cần tìm bánh mì, bánh ngọt, bánh kem, cà phê và thông tin cửa hàng của chuỗi bakery-café.",
+    "launch_url": "https://zalo.me/2170657541451452996",
+    "official_website": "https://parisbaguette.com.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Việt Nam"
+    ],
+    "target_users": [
+      "Người cần mua bánh mì hoặc bánh ngọt",
+      "Người đặt bánh kem cho sinh nhật và sự kiện",
+      "Nhân viên văn phòng cần mua bánh và cà phê"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "discover_bakery_products",
+      "find_cakes_and_desserts",
+      "find_cafe_products",
+      "find_store_information",
+      "message_official_oa"
+    ],
+    "aliases": [
+      "Paris Baguette",
+      "Paris Baguette Vietnam",
+      "PB Việt Nam",
+      "Tiệm bánh Paris Baguette"
+    ],
+    "intents": [
+      {
+        "intent": "find_bakery_or_cake",
+        "example_queries": [
+          "Tôi cần mua bánh ngọt cho đồng nghiệp",
+          "Tìm bánh kem sinh nhật Paris Baguette",
+          "Có tiệm bánh và cà phê nào không"
+        ]
+      },
+      {
+        "intent": "find_paris_baguette",
+        "example_queries": [
+          "Mở OA Paris Baguette",
+          "Tìm Paris Baguette gần đây",
+          "Cho tôi xem các loại bánh Paris Baguette"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2170657541451452996",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200; title và og:title đều hiển thị Paris Baguette Việt Nam.",
+          "Mô tả công khai nêu chuỗi cung cấp bánh mì, bánh ngọt, bánh kem và cà phê."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/parisbaguettevietnam",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL số https://zalo.me/2170657541451452996, xác nhận OA ID."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://parisbaguette.com.vn/about-us/",
+        "publisher": "Paris Baguette Việt Nam",
+        "supports": [
+          "Website chính chủ giới thiệu Paris Baguette là chuỗi bakery fast-casual chuyên sản phẩm lấy cảm hứng từ Pháp và hoạt động tại Việt Nam."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Đã đối chiếu title trang số với alias Zalo-owned và website Paris Baguette Việt Nam. Chưa quan sát huy hiệu OA trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "tocotoco-bubble-tea-oa",
+    "name": "ToCoToCo Bubble Tea",
+    "provider": "ToCoToCo Việt Nam",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "bubble_tea_chain",
+    "description": "Kênh Zalo OA của ToCoToCo dành cho người cần tìm trà sữa, topping, chương trình ưu đãi và cửa hàng của chuỗi đồ uống sử dụng nông sản Việt.",
+    "launch_url": "https://zalo.me/2268915497539367639",
+    "official_website": "https://tocotoco.com.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Việt Nam"
+    ],
+    "target_users": [
+      "Người uống trà sữa",
+      "Học sinh, sinh viên và nhân viên văn phòng",
+      "Người cần tìm cửa hàng ToCoToCo"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "discover_bubble_tea_menu",
+      "discover_toppings",
+      "find_store_information",
+      "receive_brand_promotions",
+      "message_official_oa"
+    ],
+    "aliases": [
+      "ToCoToCo",
+      "Toco Toco",
+      "ToCoToCo Tea",
+      "Trà sữa ToCoToCo"
+    ],
+    "intents": [
+      {
+        "intent": "find_bubble_tea",
+        "example_queries": [
+          "Tôi là nhân viên VNG và cần mua trà sữa",
+          "Tìm trà sữa ToCoToCo gần đây",
+          "Cho tôi xem đồ uống và topping"
+        ]
+      },
+      {
+        "intent": "find_tocotoco_channel",
+        "example_queries": [
+          "Mở OA ToCoToCo",
+          "ToCoToCo đang có ưu đãi gì",
+          "Tôi muốn tìm cửa hàng ToCoToCo"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/2268915497539367639",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200; title và og:title đều hiển thị ToCoToCo Bubble Tea.",
+          "Mô tả công khai nêu thương hiệu trà sữa dùng nông sản Việt, menu topping và hệ thống cửa hàng có độ phủ lớn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/tocotocotea",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL số https://zalo.me/2268915497539367639, xác nhận OA ID."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://tocotoco.com.vn/",
+        "publisher": "ToCoToCo",
+        "supports": [
+          "Website chính chủ giới thiệu sản phẩm trà sữa, đồ uống, hoạt động thương hiệu và hệ thống ToCoToCo."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Chọn alias tocotocotea vì nó ánh xạ tới trang số có title công khai đúng thương hiệu; alias tocotoco khác không được dùng. Chưa suy luận trạng thái huy hiệu."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "coca-cola-vietnam-oa",
+    "name": "Coca-Cola",
+    "provider": "Công ty TNHH Nước giải khát Coca-Cola Việt Nam",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "soft_drink_brand",
+    "description": "Kênh Zalo OA của Coca-Cola dành cho người quan tâm sản phẩm nước giải khát, thông tin thương hiệu và các chương trình truyền thông hoặc khuyến mãi tại Việt Nam.",
+    "launch_url": "https://zalo.me/878180153557257351",
+    "official_website": "https://www.coca-cola.com/vn/vi",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Việt Nam"
+    ],
+    "target_users": [
+      "Người mua nước giải khát",
+      "Nhân viên văn phòng cần đồ uống cho nhóm",
+      "Người quan tâm chương trình của Coca-Cola"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "discover_soft_drink_products",
+      "read_brand_information",
+      "receive_brand_campaigns",
+      "message_official_oa"
+    ],
+    "aliases": [
+      "Coca-Cola",
+      "Coca Cola",
+      "Coke",
+      "Coca-Cola Việt Nam"
+    ],
+    "intents": [
+      {
+        "intent": "find_soft_drinks",
+        "example_queries": [
+          "Tôi cần mua nước ngọt cho văn phòng",
+          "Tìm đồ uống Coca-Cola",
+          "Có loại Coca-Cola nào"
+        ]
+      },
+      {
+        "intent": "find_coca_cola_channel",
+        "example_queries": [
+          "Mở OA Coca-Cola",
+          "Tìm Coca-Cola Việt Nam",
+          "Coca-Cola đang có chương trình gì"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/878180153557257351",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200; title và og:title đều hiển thị Coca-Cola.",
+          "Mô tả công khai hiển thị thông điệp thương hiệu Coca-Cola Real Magic."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/cocacola",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL số https://zalo.me/878180153557257351, xác nhận OA ID."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://www.coca-cola.com/vn/vi",
+        "publisher": "Coca-Cola Việt Nam",
+        "supports": [
+          "Website Coca-Cola dành cho thị trường Việt Nam giới thiệu thương hiệu, danh mục sản phẩm và hoạt động tại Việt Nam."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Đã đối chiếu title trang số, alias Zalo-owned và website Coca-Cola Việt Nam. OA phục vụ khám phá thương hiệu, không gán chức năng đặt mua trực tiếp khi chưa có bằng chứng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "givral-bakery-oa",
+    "name": "Công ty cổ phần Bánh Givral",
+    "provider": "Công ty Cổ phần Bánh Givral",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "bakery_and_cakes",
+    "description": "Kênh Zalo OA của Givral dành cho người cần tìm bánh kem, bánh ngọt, bánh mì, gelato, quà tặng và thông tin mua hàng từ thương hiệu bánh lâu năm.",
+    "launch_url": "https://zalo.me/1081789048959776589",
+    "official_website": "https://givralbakery.com.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Thành phố Hồ Chí Minh"
+    ],
+    "target_users": [
+      "Người cần mua bánh kem và bánh ngọt",
+      "Cá nhân hoặc doanh nghiệp cần quà tặng",
+      "Nhân viên văn phòng cần đặt bánh cho sự kiện"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "discover_cakes_and_bakery_products",
+      "discover_gelato",
+      "browse_gift_products",
+      "open_official_online_store",
+      "message_official_oa"
+    ],
+    "aliases": [
+      "Givral",
+      "Givral Bakery",
+      "Bánh Givral",
+      "Tiệm bánh Givral"
+    ],
+    "intents": [
+      {
+        "intent": "find_cake_or_bakery",
+        "example_queries": [
+          "Tôi cần mua bánh kem sinh nhật cho đồng nghiệp",
+          "Tìm bánh ngọt Givral",
+          "Tôi muốn đặt bánh cho sự kiện công ty"
+        ]
+      },
+      {
+        "intent": "find_givral_channel",
+        "example_queries": [
+          "Mở OA Givral",
+          "Cho tôi xem sản phẩm Givral",
+          "Tìm cửa hàng bánh Givral"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/1081789048959776589",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200; title và og:title đều hiển thị Công ty cổ phần Bánh Givral.",
+          "Mô tả công khai xác định thương hiệu Givral và lịch sử hoạt động 75 năm."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/givralbakery",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL số https://zalo.me/1081789048959776589, xác nhận OA ID."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://givralbakery.com.vn/",
+        "publisher": "Givral Bakery",
+        "supports": [
+          "Website chính chủ giới thiệu và bán các dòng bánh, bánh kem, gelato cùng chương trình tại cửa hàng Givral."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Đã đối chiếu title trang số với alias Zalo-owned và website Givral. Phạm vi vùng ghi theo hệ thống cửa hàng quan sát được, không suy rộng toàn quốc."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "maison-marou-oa",
+    "name": "Maison Marou",
+    "provider": "Marou Faiseurs de Chocolat",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "chocolate_cafe_and_patisserie",
+    "description": "Kênh Zalo OA của Maison Marou dành cho người cần tìm sô-cô-la thủ công, cà phê, bánh ngọt, quà tặng và thông tin cửa hàng café-pâtisserie-chocolaterie.",
+    "launch_url": "https://zalo.me/3606090787743852073",
+    "official_website": "https://maisonmarou.com/vi",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Thành phố Hồ Chí Minh",
+      "Hà Nội"
+    ],
+    "target_users": [
+      "Người yêu sô-cô-la và đồ ngọt",
+      "Người cần mua quà tặng",
+      "Người tìm quán cà phê và bánh ngọt"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "discover_artisan_chocolate",
+      "discover_cafe_and_patisserie_products",
+      "browse_gift_products",
+      "find_store_information",
+      "open_official_online_store",
+      "message_official_oa"
+    ],
+    "aliases": [
+      "Maison Marou",
+      "Marou",
+      "Marou Chocolate",
+      "Marou Faiseurs de Chocolat"
+    ],
+    "intents": [
+      {
+        "intent": "find_chocolate_or_dessert",
+        "example_queries": [
+          "Tìm sô-cô-la Việt Nam làm quà",
+          "Tôi cần mua bánh ngọt và cà phê",
+          "Tìm quán Maison Marou"
+        ]
+      },
+      {
+        "intent": "find_maison_marou_channel",
+        "example_queries": [
+          "Mở OA Maison Marou",
+          "Cho tôi xem quà tặng Marou",
+          "Maison Marou có cửa hàng nào"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/3606090787743852073",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200; title và og:title đều hiển thị Maison Marou.",
+          "Mô tả công khai xác định Maison Marou là cửa hàng cà phê, bánh ngọt và bếp sô-cô-la cao cấp tại Việt Nam."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/maisonmarou",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL số https://zalo.me/3606090787743852073, xác nhận OA ID."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://maisonmarou.com/vi",
+        "publisher": "Maison Marou",
+        "supports": [
+          "Website chính chủ giới thiệu sô-cô-la thủ công, bánh, đồ uống, quà tặng và các cửa hàng Maison Marou."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Đã đối chiếu title và mô tả trang số với alias Zalo-owned cùng website Maison Marou. Chưa suy luận trạng thái huy hiệu."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "hy-lam-mon-bakery-oa",
+    "name": "Hỷ Lâm Môn Bakery OA",
+    "provider": "Công ty TNHH MTV Sản xuất Thương mại Dịch vụ Bánh kẹo Hỷ Lâm Môn",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "bakery_and_cakes",
+    "description": "Kênh Zalo OA của Hỷ Lâm Môn Bakery dành cho người cần tìm bánh sinh nhật, bánh cưới, bánh mì, bánh mặn và thông tin mua hàng tại TP.HCM.",
+    "launch_url": "https://zalo.me/512238328228106090",
+    "official_website": "https://hylammon.com.vn/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Thành phố Hồ Chí Minh"
+    ],
+    "target_users": [
+      "Người cần mua bánh sinh nhật hoặc bánh cưới",
+      "Người mua bánh mì và bánh mặn",
+      "Nhân viên văn phòng cần bánh cho sự kiện"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "discover_birthday_cakes",
+      "discover_wedding_cakes",
+      "discover_bread_and_savory_pastries",
+      "find_store_information",
+      "message_official_oa"
+    ],
+    "aliases": [
+      "Hỷ Lâm Môn",
+      "Hỷ Lâm Môn Bakery",
+      "Hy Lam Mon",
+      "Bánh Hỷ Lâm Môn"
+    ],
+    "intents": [
+      {
+        "intent": "find_cake_for_event",
+        "example_queries": [
+          "Tôi cần bánh sinh nhật cho đồng nghiệp",
+          "Tìm bánh cưới Hỷ Lâm Môn",
+          "Cần mua bánh mặn cho buổi họp"
+        ]
+      },
+      {
+        "intent": "find_hy_lam_mon_channel",
+        "example_queries": [
+          "Mở OA Hỷ Lâm Môn",
+          "Tìm tiệm bánh Hỷ Lâm Môn",
+          "Cho tôi xem các loại bánh Hỷ Lâm Môn"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/512238328228106090",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200; title và og:title đều hiển thị Hỷ Lâm Môn Bakery OA.",
+          "Mô tả công khai nêu thương hiệu thành lập từ năm 1984 và cung cấp bánh sinh nhật, bánh cưới, bánh mì, bánh mặn."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/hylammon",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL số https://zalo.me/512238328228106090, xác nhận OA ID."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://hylammon.com.vn/",
+        "publisher": "Hỷ Lâm Môn",
+        "supports": [
+          "Website chính chủ giới thiệu lịch sử hơn 40 năm, sản phẩm bánh và pháp nhân vận hành Hỷ Lâm Môn."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Đã đối chiếu title trang số với alias Zalo-owned và website Hỷ Lâm Môn. Chưa quan sát huy hiệu OA trong ứng dụng."
+    },
+    "active": false,
+    "review_status": "candidate"
+  },
+  {
+    "candidate_id": "morico-japanese-restaurant-cafe-oa",
+    "name": "Morico nhà hàng cafe Nhật Bản",
+    "provider": "Công ty TNHH Kamo",
+    "channel_type": "oa",
+    "category": "shopping_delivery",
+    "subcategory": "japanese_restaurant_cafe",
+    "description": "Kênh Zalo OA của Morico dành cho người cần tìm món Nhật, đồ uống, bánh và món tráng miệng, xem thông tin nhà hàng hoặc liên hệ thương hiệu tại TP.HCM.",
+    "launch_url": "https://zalo.me/933370737442378632",
+    "official_website": "https://morico.life/",
+    "logo_url": null,
+    "logo_usage": "reference_only_needs_review",
+    "cta_label": "Mở OA",
+    "regions": [
+      "Thành phố Hồ Chí Minh"
+    ],
+    "target_users": [
+      "Người tìm nhà hàng và cà phê phong cách Nhật",
+      "Người cần đồ ngọt, bánh hoặc trà chiều",
+      "Nhóm bạn và nhân viên văn phòng cần địa điểm ăn uống"
+    ],
+    "organization_contexts": [],
+    "capabilities": [
+      "discover_japanese_food",
+      "discover_cafe_and_dessert_menu",
+      "find_restaurant_information",
+      "request_restaurant_contact",
+      "message_official_oa"
+    ],
+    "aliases": [
+      "Morico",
+      "Morico Cafe",
+      "Morico Japanese Restaurant Cafe",
+      "Nhà hàng Cafe Nhật Bản Morico"
+    ],
+    "intents": [
+      {
+        "intent": "find_japanese_cafe_or_dessert",
+        "example_queries": [
+          "Tôi cần tìm quán ăn Nhật và cà phê",
+          "Tìm chỗ ăn bánh và đồ tráng miệng gần đây",
+          "Nhân viên VNG muốn đi ăn món Nhật"
+        ]
+      },
+      {
+        "intent": "find_morico_channel",
+        "example_queries": [
+          "Mở OA Morico",
+          "Tìm nhà hàng Morico",
+          "Cho tôi xem thông tin Morico"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "url": "https://zalo.me/933370737442378632",
+        "publisher": "Zalo",
+        "supports": [
+          "Trang công khai trả HTTP 200; title và og:title đều hiển thị Morico nhà hàng cafe Nhật Bản.",
+          "Mô tả công khai xác định Morico là không gian ẩm thực Nhật với món ăn và trải nghiệm chăm sóc khách hàng."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://oa.zalo.me/morico",
+        "publisher": "Zalo Official Account",
+        "supports": [
+          "Alias công khai do Zalo vận hành nhúng trực tiếp URL số https://zalo.me/933370737442378632, xác nhận OA ID."
+        ],
+        "checked_at": "2026-07-24"
+      },
+      {
+        "url": "https://morico.life/about-us/",
+        "publisher": "Morico",
+        "supports": [
+          "Website chính chủ giới thiệu Morico là nhà hàng-cà phê đương đại lấy cảm hứng từ ẩm thực và văn hóa Nhật Bản."
+        ],
+        "checked_at": "2026-07-24"
+      }
+    ],
+    "verification": {
+      "official_source": true,
+      "link_reachable": true,
+      "cross_linked": true,
+      "oa_badge_status": "unknown",
+      "confidence": "high",
+      "notes": "Đã đối chiếu title trang số với alias Zalo-owned và website Morico. Chỉ ghi phạm vi TP.HCM, không suy rộng vùng phục vụ."
+    },
+    "active": false,
+    "review_status": "candidate"
+  }
+]

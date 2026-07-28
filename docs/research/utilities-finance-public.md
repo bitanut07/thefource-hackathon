@@ -1,6 +1,6 @@
 # Nghiên cứu ứng viên: tiện ích, tài chính và hành chính công
 
-Ngày kiểm tra: **2026-07-23**
+Ngày kiểm tra: **2026-07-24**
 
 ## Kết quả
 
@@ -14,7 +14,7 @@ Ngày kiểm tra: **2026-07-23**
 
 | Ứng viên | OA | Bằng chứng liên kết |
 | --- | --- | --- |
-| VinaPhone | <https://oa.zalo.me/vinaphone> | Danh sách đối tác công khai trên <https://oa.zalo.me/home> |
+| VinaPhone | <https://zalo.me/3725994261701149374> | Landing chính thức `<https://oa.zalo.me/vinaphone>` nhúng trực tiếp OA số này |
 | Viettel chăm sóc khách hàng | <https://zalo.me/1570758701534064697> | Trang chính chủ Viettel tại <https://business-sinvoice.vietteltelecom.vn/> |
 | Ngân hàng BIDV | <https://zalo.me/3644272514222140240> | Trang chính chủ BIDV tại <https://bidv.com.vn/vn/ca-nhan/san-pham-dich-vu/thanh-toan/don-vi-thanh-toan> |
 
