@@ -45,6 +45,23 @@ def _event_key(message_id: str) -> str:
     return hashlib.sha256(message_id.encode()).hexdigest()
 
 
+def _is_zalo_console_sample(payload: object) -> bool:
+    """Recognize Zalo's fixed, unsigned console test fixture.
+
+    The Developer Console's *Test* button submits this published example
+    without ``X-ZEvent-Signature``.  It is acknowledged but never queued, so
+    matching it cannot trigger a message or bypass verification for live data.
+    """
+
+    if not isinstance(payload, dict) or payload.get("event_name") != "user_send_text":
+        return False
+    message = payload.get("message")
+    return isinstance(message, dict) and (
+        message.get("msg_id") == "This is message id"
+        and message.get("text") == "This is testing message"
+    )
+
+
 @router.post("/zalo")
 async def receive_zalo_webhook(request: Request) -> JSONResponse:
     """Authenticate Zalo text events, deduplicate them, and enqueue work."""
@@ -63,6 +80,8 @@ async def receive_zalo_webhook(request: Request) -> JSONResponse:
         # Unsupported events are intentionally acknowledged; Zalo requires 200
         # and retrying them cannot make this service handle them.
         return JSONResponse(status_code=200, content={"code": "ZALO_EVENT_IGNORED"})
+    if _is_zalo_console_sample(payload):
+        return JSONResponse(status_code=200, content={"code": "ZALO_CONSOLE_TEST_ACKNOWLEDGED"})
 
     settings = cast(Settings, request.app.state.settings)
     client = ConfiguredZaloClient(settings)
