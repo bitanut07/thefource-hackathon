@@ -6,6 +6,7 @@ returns within Zalo's two-second webhook deadline.
 
 import hashlib
 import json
+import logging
 from typing import Any, cast
 
 from fastapi import APIRouter, Request, status
@@ -17,6 +18,7 @@ from zalo.client import ConfiguredZaloClient, ZaloConfigurationError
 
 router = APIRouter(prefix="/webhooks", tags=["webhooks"])
 _DEDUP_TTL_SECONDS = 86_400
+logger = logging.getLogger(__name__)
 
 
 def _text_event(payload: object) -> tuple[str, str, str] | None:
@@ -93,6 +95,13 @@ async def receive_zalo_webhook(request: Request) -> JSONResponse:
             content={"code": "ZALO_NOT_CONFIGURED"},
         )
     if not verified:
+        signature_headers = sorted(
+            key for key in request.headers.keys() if "signature" in key.casefold()
+        )
+        logger.warning(
+            "Rejected Zalo webhook signature; signature_headers=%s",
+            signature_headers,
+        )
         return JSONResponse(
             status_code=status.HTTP_401_UNAUTHORIZED,
             content={"code": "INVALID_SIGNATURE"},

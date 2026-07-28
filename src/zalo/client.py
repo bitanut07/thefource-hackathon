@@ -38,6 +38,8 @@ class ConfiguredZaloClient:
             raise ZaloConfigurationError("ZALO_WEBHOOK_SECRET is not configured")
 
         signature = headers.get("x-zevent-signature", "").strip()
+        if signature.casefold().startswith("mac="):
+            signature = signature[4:].strip()
         if not signature:
             return False
         try:
