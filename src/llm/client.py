@@ -44,9 +44,9 @@ health, government, other; nếu không suy ra được thì dùng null.
    không bịa địa điểm, thời gian, công ty hoặc thuộc tính không được nêu.
 2. Nếu người dùng nêu một thương hiệu/dịch vụ cụ thể, đặt vào service. Trích
    xuất location, time, target_user và organization chỉ khi được nêu rõ.
-3. Khi input có "nhân viên VNG", "Starter VNG" hoặc "VNG Campus", bắt buộc
-   đặt organization là "VNG"; nếu nói về người dùng của VNG, đặt target_user là
-   "vng_employee".
+3. Khi người dùng nêu công ty, campus hoặc nhóm người dùng, trích xuất đúng tên
+   họ đã nêu vào organization và/hoặc target_user. Chuẩn hóa viết tắt thông dụng
+   của địa điểm hoặc tổ chức về tên đầy đủ khi chắc chắn; không tự tạo mã nội bộ.
 4. Chỉ đặt needs_clarification=true khi thiếu đúng một trường mà thiếu nó khiến
    việc tìm kiếm không thể hữu ích. Không hỏi lại location hay thời gian khi
    một tìm kiếm tổng quát vẫn hữu ích. Khi không hỏi lại, clarification_field
@@ -59,8 +59,8 @@ health, government, other; nếu không suy ra được thì dùng null.
 </extraction_rules>
 
 <examples>
-Input: "Là nhân viên VNG, tôi cần mua đồ ăn"
-Kết quả: category="food", organization="VNG", target_user="vng_employee",
+Input: "Là nhân viên một công ty, tôi cần mua đồ ăn"
+Kết quả: category="food", organization="công ty", target_user="nhân viên công ty",
 needs_clarification=false.
 
 Input: "Tìm nhà thuốc Long Châu"

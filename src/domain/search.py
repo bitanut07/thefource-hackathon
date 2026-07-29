@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import math
-import unicodedata
 from dataclasses import dataclass
 from ipaddress import ip_address
 from urllib.parse import urlsplit
 
 from pydantic import HttpUrl
 
+from domain.entity_normalization import normalize_entity_text, normalize_text
 from domain.models import RegistryService, ServiceType
 from domain.registry import ServiceRegistryRepository
 from domain.urls import is_canonical_zalo_oa_url
@@ -127,9 +127,7 @@ class LaunchUrlPolicy:
 
 
 def _normalize(value: str) -> str:
-    decomposed = unicodedata.normalize("NFKD", value.casefold().replace("đ", "d"))
-    without_marks = "".join(char for char in decomposed if not unicodedata.combining(char))
-    return " ".join("".join(char if char.isalnum() else " " for char in without_marks).split())
+    return normalize_text(value)
 
 
 def _coverage(needle: str, haystack: str) -> float:
@@ -186,22 +184,11 @@ def _intent_match(query: StructuredQuery, service: RegistryService) -> float:
 def _location_match(query: StructuredQuery, service: RegistryService) -> float:
     if query.location is None or service.region is None:
         return 0.0
-    requested = _normalize_location(query.location)
-    available = _normalize_location(service.region)
+    requested = normalize_entity_text(query.location, "location")
+    available = normalize_entity_text(service.region, "location")
     if requested == available or requested in available or available in requested:
         return 1.0
     return _coverage(query.location, service.region)
-
-
-def _normalize_location(value: str) -> str:
-    normalized = _normalize(value)
-    aliases = {
-        "hcm": "thanh pho ho chi minh",
-        "tphcm": "thanh pho ho chi minh",
-        "tp hcm": "thanh pho ho chi minh",
-        "ho chi minh": "thanh pho ho chi minh",
-    }
-    return aliases.get(normalized, normalized)
 
 
 def _keyword_match(query: StructuredQuery, service: RegistryService) -> float:

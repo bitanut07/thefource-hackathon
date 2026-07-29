@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import unicodedata
 from datetime import datetime
 from pathlib import Path
 from re import split
@@ -9,6 +8,7 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
+from domain.entity_normalization import normalize_entity, normalize_text
 from domain.models import (
     RegistryService,
     ServiceCategory,
@@ -105,61 +105,25 @@ class _RegistryDocument(BaseModel):
 
 
 def _normalize(value: str) -> str:
-    decomposed = unicodedata.normalize("NFKD", value.casefold().replace("đ", "d"))
-    without_marks = "".join(char for char in decomposed if not unicodedata.combining(char))
-    return " ".join("".join(char if char.isalnum() else " " for char in without_marks).split())
-
-
-_LOCATION_ALIASES = {
-    "ho chi minh": "location:ho_chi_minh",
-    "sai gon": "location:ho_chi_minh",
-    "thanh pho ho chi minh": "location:ho_chi_minh",
-    "tp hcm": "location:ho_chi_minh",
-    "tphcm": "location:ho_chi_minh",
-    "ha noi": "location:ha_noi",
-    "thanh pho ha noi": "location:ha_noi",
-    "tp ha noi": "location:ha_noi",
-    "da nang": "location:da_nang",
-    "hai phong": "location:hai_phong",
-    "can tho": "location:can_tho",
-    "toan quoc": "location:viet_nam",
-    "viet nam": "location:viet_nam",
-    "online": "location:online",
-    "truc tuyen": "location:online",
-}
-_ORGANIZATION_ALIASES = {
-    "cong ty vng": "organization:vng",
-    "nhan vien vng": "organization:vng",
-    "starter vng": "organization:vng",
-    "vng": "organization:vng",
-    "vng campus": "organization:vng",
-    "vng corporation": "organization:vng",
-}
-_TARGET_USER_ALIASES = {
-    "nhan vien vng": "target:vng_employee",
-    "vng employee": "target:vng_employee",
-}
+    return normalize_text(value)
 
 
 def _filter_values(
     value: str,
-    aliases: dict[str, str] | None = None,
+    namespace: str | None = None,
 ) -> frozenset[str]:
     """Parse canonical aliases without relying on unsafe substring matching."""
 
     raw_parts = split(r"[;,|]", value)
     normalized_parts = {
-        aliases.get(normalized, normalized) if aliases is not None else normalized
+        normalize_entity(part, namespace) if namespace is not None else normalized
         for part in raw_parts
         if (normalized := _normalize(part))
     }
     normalized_whole = _normalize(value)
     if len(raw_parts) == 1 and normalized_whole:
-        normalized_whole = (
-            aliases.get(normalized_whole, normalized_whole)
-            if aliases is not None
-            else normalized_whole
-        )
+        if namespace is not None:
+            normalized_whole = normalize_entity(value, namespace)
         normalized_parts.add(normalized_whole)
     return frozenset(normalized_parts)
 
@@ -168,12 +132,12 @@ def _matches_text_filter(
     requested: str,
     available: str | None,
     *,
-    aliases: dict[str, str] | None = None,
+    namespace: str | None = None,
 ) -> bool:
     if available is None:
         return False
-    requested_values = _filter_values(requested, aliases)
-    available_values = _filter_values(available, aliases)
+    requested_values = _filter_values(requested, namespace)
+    available_values = _filter_values(available, namespace)
     if not requested_values or not available_values:
         return False
     return requested_values.issubset(available_values)
@@ -248,19 +212,19 @@ class JsonServiceRegistry:
         if query.location is not None and not _matches_text_filter(
             query.location,
             service.region,
-            aliases=_LOCATION_ALIASES,
+            namespace="location",
         ):
             return False
         if query.organization is not None and not _matches_text_filter(
             query.organization,
             service.organization,
-            aliases=_ORGANIZATION_ALIASES,
+            namespace="organization",
         ):
             return False
         return query.target_user is None or _matches_text_filter(
             query.target_user,
             service.target_user,
-            aliases=_TARGET_USER_ALIASES,
+            namespace="target_user",
         )
 
     @staticmethod
@@ -296,7 +260,7 @@ class JsonServiceRegistry:
             and _matches_text_filter(
                 query.organization,
                 service.organization,
-                aliases=_ORGANIZATION_ALIASES,
+                namespace="organization",
             )
         )
 

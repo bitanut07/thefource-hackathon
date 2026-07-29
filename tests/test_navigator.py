@@ -134,7 +134,7 @@ def test_gemini_adapter_requests_structured_output_and_validates_response() -> N
     assert schema["properties"]["service"]["description"]
     assert "<untrusted_input>" in SYSTEM_INSTRUCTION
     assert "Không hỏi lại location" in SYSTEM_INSTRUCTION
-    assert 'organization là "VNG"' in SYSTEM_INSTRUCTION
+    assert "không tự tạo mã nội bộ" in SYSTEM_INSTRUCTION
 
 
 def test_gemini_adapter_rejects_invalid_provider_json() -> None:

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "namespaces": {
+    "location": {
+      "ho chi minh": ["hcm", "tphcm", "tp hcm", "ho chi minh", "thanh pho ho chi minh", "sai gon"],
+      "ha noi": ["ha noi", "thanh pho ha noi", "tp ha noi", "tphn"],
+      "da nang": ["da nang", "tp da nang"],
+      "hai phong": ["hai phong", "tp hai phong"],
+      "can tho": ["can tho", "tp can tho"],
+      "viet nam": ["viet nam", "toan quoc"],
+      "online": ["online", "truc tuyen"]
+    },
+    "organization": {
+      "vng": ["vng", "cong ty vng", "vng corporation", "vng campus", "starter vng", "nhan vien vng"]
+    },
+    "target_user": {
+      "vng employee": ["vng employee", "nhan vien vng"]
+    }
+  }
+}
