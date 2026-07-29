@@ -107,7 +107,8 @@ payload = render_dynamic_response(
 - chỉ lấy URL đã nằm trong `ServiceChoice`, không để LLM tự tạo URL;
 - giới hạn năm list elements hoặc tổng cộng năm messages;
 - từ chối `image_url` không phải HTTPS;
-- bỏ ảnh nếu service chưa có tài sản hình ảnh đã được duyệt.
+- dùng thumbnail trung tính do hệ thống sở hữu nếu service chưa có logo được
+  duyệt; logo đã duyệt luôn được ưu tiên khi có.
 
 ## Các bước nối production
 
@@ -172,10 +173,11 @@ không tự chạy file init mới; chạy migration một lần bằng kết n�
 container PostgreSQL, rồi seed/restart stack theo hướng dẫn deploy của dự án.
 
 Chỉ row có `approval_status='approved'`, `is_active=true`, `placement='chatbot_list'`
-và URL HTTPS mới được renderer đưa vào `image_url`. Vì chưa có logo nào được
-hội đồng/chủ sở hữu duyệt trong registry hiện tại, release này sẽ hiển thị list
-có tiêu đề, mô tả và vùng bấm mở dịch vụ trước; logo sẽ tự xuất hiện sau khi có
-asset đã phê duyệt được insert vào bảng này.
+và URL HTTPS mới được dùng làm logo riêng của service. Nếu chưa có logo được
+hội đồng/chủ sở hữu duyệt, renderer dùng
+`/integrations/zalo/chatbot/assets/service-directory.png`, một thumbnail trung
+tính thuộc hệ thống, để Zalo vẫn render list trực quan. Logo riêng sẽ tự thay
+thumbnail này sau khi asset đã phê duyệt được insert vào bảng.
 
 ## Dữ liệu hình ảnh còn thiếu
 
