@@ -221,10 +221,7 @@ def _is_specific_service_match(query: StructuredQuery, service: RegistryService)
 def _has_service_constraint(query: StructuredQuery) -> bool:
     if query.service is None:
         return False
-    return any(
-        token not in _GENERIC_SERVICE_TOKENS
-        for token in _normalize(query.service).split()
-    )
+    return any(token not in _GENERIC_SERVICE_TOKENS for token in _normalize(query.service).split())
 
 
 def _has_specific_service_request(query: StructuredQuery) -> bool:

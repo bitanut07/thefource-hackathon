@@ -111,9 +111,7 @@ def catalog_documents(path: Path) -> list[RagDocument]:
                 category=(
                     str(service["category"]) if isinstance(service.get("category"), str) else None
                 ),
-                channel_type=(
-                    channel_type
-                ),
+                channel_type=(channel_type),
                 launch_url=launch_url_text,
                 official_url=(
                     str(service["official_website"])
