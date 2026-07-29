@@ -12,8 +12,12 @@ dependencies = [
   "fastapi>=0.115,<1",
   "google-genai>=2.14,<3",
   "httpx>=0.28,<1",
+  # Reads the .xlsx uploads accepted by the catalog import endpoint.
+  "openpyxl>=3.1,<4",
   "pydantic-settings>=2.7,<3",
   "psycopg[binary]>=3.2,<4",
+  # Required by FastAPI to parse the multipart body of that upload.
+  "python-multipart>=0.0.18,<1",
   "redis>=5.2,<7",
   "rq>=2.8,<3",
   "uvicorn[standard]>=0.32,<1",
@@ -27,6 +31,7 @@ dev = [
   "pytest>=8.3,<10",
   "pytest-cov>=6,<8",
   "ruff>=0.8,<1",
+  "types-openpyxl>=3.1,<4",
 ]
 
 [project.scripts]

@@ -242,11 +242,15 @@ def test_openapi_lists_the_complete_test_surface(
     }
     admin_paths = {
         "/api/v1/admin/services",
+        "/api/v1/admin/services/bulk-approve",
+        "/api/v1/admin/services/import",
+        "/api/v1/admin/services/import/template",
         "/api/v1/admin/services/{service_id}",
         "/api/v1/admin/services/{service_id}/approve",
         "/api/v1/admin/services/{service_id}/deactivate",
         "/api/v1/admin/services/{service_id}/events",
         "/api/v1/admin/services/{service_id}/reject",
+        "/api/v1/admin/services/{service_id}/restore",
         "/api/v1/admin/stats",
         "/api/v1/admin/queue-health",
     }

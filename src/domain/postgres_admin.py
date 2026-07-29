@@ -41,7 +41,7 @@ _ADMIN_DETAILS = """
     s.id, s.name, s.provider, s.service_type, s.category, s.description,
     s.launch_url, s.owner, s.active, s.review_status, s.service_priority,
     s.region, s.target_user, s.organization, s.last_verified_at,
-    s.source_type, s.updated_at,
+    s.source_type, s.updated_at, s.deleted_at,
     (s.embedding IS NOT NULL) AS has_embedding,
     COALESCE((
         SELECT array_agg(a.alias ORDER BY a.alias)
@@ -107,6 +107,8 @@ class PostgresAdminCatalog:
         service_type: ServiceType | None = None,
         active: bool | None = None,
         query: str | None = None,
+        include_deleted: bool = False,
+        deleted_only: bool = False,
         offset: int = 0,
         limit: int = 50,
     ) -> tuple[tuple[AdminServiceRecord, ...], int]:
@@ -116,6 +118,8 @@ class PostgresAdminCatalog:
             service_type,
             active,
             query,
+            include_deleted,
+            deleted_only,
             offset,
             limit,
         )
@@ -137,8 +141,9 @@ class PostgresAdminCatalog:
         *,
         actor: str,
         note: str | None = None,
+        action: ReviewAction = ReviewAction.CREATE,
     ) -> AdminServiceRecord:
-        return await asyncio.to_thread(self._create_service_sync, draft, actor, note)
+        return await asyncio.to_thread(self._create_service_sync, draft, actor, note, action)
 
     async def update_service(
         self,
@@ -196,6 +201,37 @@ class PostgresAdminCatalog:
             note,
         )
 
+    async def delete_service(
+        self,
+        service_id: UUID,
+        *,
+        actor: str,
+        note: str | None = None,
+    ) -> AdminServiceRecord | None:
+        """Mark a row removed, withdrawing it from serving in the same statement."""
+
+        return await asyncio.to_thread(self._delete_service_sync, service_id, actor, note)
+
+    async def restore_service(
+        self,
+        service_id: UUID,
+        *,
+        actor: str,
+        note: str | None = None,
+    ) -> AdminServiceRecord | None:
+        """Clear the removal mark, leaving the row unpublished for re-review."""
+
+        return await asyncio.to_thread(self._restore_service_sync, service_id, actor, note)
+
+    async def find_by_launch_url(self, launch_url: str) -> AdminServiceRecord | None:
+        """Look up an existing row by launch URL, including removed ones.
+
+        Import uses this to refuse duplicates: two rows sharing a deeplink would make
+        the assistant offer the same destination twice.
+        """
+
+        return await asyncio.to_thread(self._find_by_launch_url_sync, launch_url)
+
     # ------------------------------------------------------------- internals
 
     def _connect(self) -> psycopg.Connection[dict[str, Any]]:
@@ -214,6 +250,8 @@ class PostgresAdminCatalog:
         service_type: ServiceType | None,
         active: bool | None,
         query: str | None,
+        include_deleted: bool,
+        deleted_only: bool,
         offset: int,
         limit: int,
     ) -> tuple[tuple[AdminServiceRecord, ...], int]:
@@ -225,6 +263,13 @@ class PostgresAdminCatalog:
             WHERE (%(review_status)s::text IS NULL OR s.review_status = %(review_status)s::text)
               AND (%(service_type)s::text IS NULL OR s.service_type = %(service_type)s::text)
               AND (%(active)s::boolean IS NULL OR s.active = %(active)s::boolean)
+              -- Removed rows stay hidden unless asked for, so a reviewer never acts
+              -- on a record that is no longer part of the catalog by accident.
+              AND CASE
+                    WHEN %(deleted_only)s::boolean THEN s.deleted_at IS NOT NULL
+                    WHEN %(include_deleted)s::boolean THEN TRUE
+                    ELSE s.deleted_at IS NULL
+                  END
               AND (
                     %(pattern)s::text IS NULL
                     OR s.name ILIKE %(pattern)s::text
@@ -238,6 +283,8 @@ class PostgresAdminCatalog:
             "service_type": service_type.value if service_type is not None else None,
             "active": active,
             "pattern": _like_pattern(query) if query and query.strip() else None,
+            "include_deleted": include_deleted,
+            "deleted_only": deleted_only,
             "offset": offset,
             "limit": limit,
         }
@@ -265,11 +312,16 @@ class PostgresAdminCatalog:
             with self._connect() as connection, connection.cursor() as cursor:
                 cursor.execute(
                     """
-                    SELECT count(*) AS total,
+                    SELECT count(*) FILTER (WHERE deleted_at IS NULL) AS total,
                            count(*) FILTER (
-                               WHERE active AND review_status = ANY(%(publishable)s)
+                               WHERE deleted_at IS NULL
+                                 AND active
+                                 AND review_status = ANY(%(publishable)s)
                            ) AS publishable,
-                           count(*) FILTER (WHERE embedding IS NULL) AS missing_embedding
+                           count(*) FILTER (
+                               WHERE deleted_at IS NULL AND embedding IS NULL
+                           ) AS missing_embedding,
+                           count(*) FILTER (WHERE deleted_at IS NOT NULL) AS deleted
                     FROM services
                     """,
                     {"publishable": sorted(item.value for item in PUBLISHABLE_REVIEW_STATUSES)},
@@ -281,7 +333,8 @@ class PostgresAdminCatalog:
                 for column in ("review_status", "category", "source_type"):
                     cursor.execute(
                         f"SELECT {column} AS label, count(*) AS count "
-                        f"FROM services GROUP BY {column} ORDER BY {column}"
+                        f"FROM services WHERE deleted_at IS NULL "
+                        f"GROUP BY {column} ORDER BY {column}"
                     )
                     grouped[column] = tuple(
                         (str(row["label"]), int(row["count"])) for row in cursor.fetchall()
@@ -292,6 +345,7 @@ class PostgresAdminCatalog:
             total=int(totals["total"]),
             publishable=int(totals["publishable"]),
             missing_embedding=int(totals["missing_embedding"]),
+            deleted=int(totals["deleted"]),
             by_review_status=grouped["review_status"],
             by_category=grouped["category"],
             by_source_type=grouped["source_type"],
@@ -332,6 +386,7 @@ class PostgresAdminCatalog:
         draft: ServiceDraft,
         actor: str,
         note: str | None,
+        action: ReviewAction = ReviewAction.CREATE,
     ) -> AdminServiceRecord:
         service_id = uuid4()
         intents = tuple(
@@ -391,7 +446,7 @@ class PostgresAdminCatalog:
                     self._record_event(
                         cursor,
                         service_id=service_id,
-                        action=ReviewAction.CREATE,
+                        action=action,
                         actor=actor,
                         note=note,
                         changed_fields=(),
@@ -627,6 +682,92 @@ class PostgresAdminCatalog:
             raise CatalogUnavailableError("Không thể rút dịch vụ khỏi Service Catalog.") from exc
         return self._get_service_sync(service_id)
 
+    def _delete_service_sync(
+        self,
+        service_id: UUID,
+        actor: str,
+        note: str | None,
+    ) -> AdminServiceRecord | None:
+        try:
+            with self._connect() as connection:
+                with connection.cursor() as cursor:
+                    current = self._locked_row(cursor, service_id)
+                    if current is None:
+                        return None
+                    if current.deleted_at is not None:
+                        return current
+                    # active is cleared in the same statement: the schema forbids a
+                    # removed row from staying served, so this cannot be two steps.
+                    cursor.execute(
+                        """
+                        UPDATE services
+                        SET active = FALSE, deleted_at = now(), updated_at = now()
+                        WHERE id = %s
+                        """,
+                        (service_id,),
+                    )
+                    self._record_event(
+                        cursor,
+                        service_id=service_id,
+                        action=ReviewAction.DELETE,
+                        actor=actor,
+                        note=note,
+                        changed_fields=(
+                            ("active", "deleted_at") if current.active else ("deleted_at",)
+                        ),
+                        previous_review_status=current.review_status,
+                        new_review_status=current.review_status,
+                    )
+                connection.commit()
+        except psycopg.Error as exc:
+            raise CatalogUnavailableError("Không thể xóa dịch vụ khỏi Service Catalog.") from exc
+        return self._get_service_sync(service_id)
+
+    def _restore_service_sync(
+        self,
+        service_id: UUID,
+        actor: str,
+        note: str | None,
+    ) -> AdminServiceRecord | None:
+        try:
+            with self._connect() as connection:
+                with connection.cursor() as cursor:
+                    current = self._locked_row(cursor, service_id)
+                    if current is None:
+                        return None
+                    if current.deleted_at is None:
+                        return current
+                    # Restored rows stay unpublished; serving again is a separate,
+                    # separately audited approval.
+                    cursor.execute(
+                        "UPDATE services SET deleted_at = NULL, updated_at = now() WHERE id = %s",
+                        (service_id,),
+                    )
+                    self._record_event(
+                        cursor,
+                        service_id=service_id,
+                        action=ReviewAction.RESTORE,
+                        actor=actor,
+                        note=note,
+                        changed_fields=("deleted_at",),
+                        previous_review_status=current.review_status,
+                        new_review_status=current.review_status,
+                    )
+                connection.commit()
+        except psycopg.Error as exc:
+            raise CatalogUnavailableError("Không thể phục hồi dịch vụ.") from exc
+        return self._get_service_sync(service_id)
+
+    def _find_by_launch_url_sync(self, launch_url: str) -> AdminServiceRecord | None:
+        statement = f"SELECT {_ADMIN_DETAILS} FROM services AS s WHERE s.launch_url = %s LIMIT 1"
+        try:
+            with self._connect() as connection, connection.cursor() as cursor:
+                cursor.execute(statement, (launch_url,))
+                row = cursor.fetchone()
+        except psycopg.Error as exc:
+            raise CatalogUnavailableError("Không thể kiểm tra trùng launch URL.") from exc
+        return self._row_to_record(row) if row is not None else None
+
     def _locked_row(
         self,
         cursor: psycopg.Cursor[dict[str, Any]],
@@ -740,6 +881,7 @@ class PostgresAdminCatalog:
             organization=_optional_text(row["organization"]),
             last_verified_at=row["last_verified_at"],
             updated_at=row["updated_at"],
+            deleted_at=row["deleted_at"],
             aliases=tuple(str(alias) for alias in row.get("aliases") or ()),
             intents=intents,
             evidence=evidence,

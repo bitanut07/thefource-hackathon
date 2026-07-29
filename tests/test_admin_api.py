@@ -92,13 +92,23 @@ class FakeAdminCatalog:
         service_type: ServiceType | None = None,
         active: bool | None = None,
         query: str | None = None,
+        include_deleted: bool = False,
+        deleted_only: bool = False,
         offset: int = 0,
         limit: int = 50,
     ) -> tuple[tuple[AdminServiceRecord, ...], int]:
+        def visible(record: AdminServiceRecord) -> bool:
+            if deleted_only:
+                return record.deleted_at is not None
+            if include_deleted:
+                return True
+            return record.deleted_at is None
+
         matches = [
             record
             for record in self.records.values()
-            if (review_status is None or record.review_status == review_status)
+            if visible(record)
+            and (review_status is None or record.review_status == review_status)
             and (service_type is None or record.service_type == service_type)
             and (active is None or record.active == active)
             and (query is None or query.casefold() in record.name.casefold())
@@ -109,12 +119,19 @@ class FakeAdminCatalog:
     async def get_service(self, service_id: UUID) -> AdminServiceRecord | None:
         return self.records.get(service_id)
 
+    async def find_by_launch_url(self, launch_url: str) -> AdminServiceRecord | None:
+        return next(
+            (record for record in self.records.values() if record.launch_url == launch_url),
+            None,
+        )
+
     async def create_service(
         self,
         draft: ServiceDraft,
         *,
         actor: str,
         note: str | None = None,
+        action: ReviewAction = ReviewAction.CREATE,
     ) -> AdminServiceRecord:
         created = _record(
             name=draft.name,
@@ -125,8 +142,40 @@ class FakeAdminCatalog:
             review_status=ReviewStatus.CANDIDATE.value,
         )
         self.records[created.id] = created
-        self.events.append((created.id, ReviewAction.CREATE, actor, note))
+        self.events.append((created.id, action, actor, note))
         return created
+
+    async def delete_service(
+        self,
+        service_id: UUID,
+        *,
+        actor: str,
+        note: str | None = None,
+    ) -> AdminServiceRecord | None:
+        current = self.records.get(service_id)
+        if current is None:
+            return None
+        if current.deleted_at is not None:
+            return current
+        removed = replace(current, active=False, deleted_at=datetime(2026, 7, 29, tzinfo=UTC))
+        self.records[service_id] = removed
+        self.events.append((service_id, ReviewAction.DELETE, actor, note))
+        return removed
+
+    async def restore_service(
+        self,
+        service_id: UUID,
+        *,
+        actor: str,
+        note: str | None = None,
+    ) -> AdminServiceRecord | None:
+        current = self.records.get(service_id)
+        if current is None:
+            return None
+        restored = replace(current, deleted_at=None)
+        self.records[service_id] = restored
+        self.events.append((service_id, ReviewAction.RESTORE, actor, note))
+        return restored
 
     async def update_service(
         self,
@@ -224,6 +273,7 @@ class FakeAdminCatalog:
             total=len(records),
             publishable=sum(1 for record in records if record.active),
             missing_embedding=sum(1 for record in records if not record.has_embedding),
+            deleted=sum(1 for record in records if record.deleted_at is not None),
             by_review_status=(("candidate", len(records)),),
             by_category=(("education", len(records)),),
             by_source_type=(("research", len(records)),),
@@ -615,6 +665,210 @@ def test_stats_counts_served_rows_that_now_violate_the_guardrail(
     assert response.status_code == 200
     assert response.json()["publishable"] == 2
     assert response.json()["publishable_with_blockers"] == 1
+
+
+def test_delete_hides_the_row_but_keeps_it_restorable(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    served = _record(active=True, review_status=ReviewStatus.APPROVED.value)
+    app, catalog = _create_app(monkeypatch, tmp_path, records=[served])
+    client = TestClient(app)
+    headers = _login(client)
+
+    deleted = client.request(
+        "DELETE",
+        f"/api/v1/admin/services/{served.id}",
+        headers=headers,
+        json={"note": "dịch vụ đã đóng"},
+    )
+
+    assert deleted.status_code == 200
+    # Removal withdraws it from serving in the same act; a served-but-removed row
+    # is not representable.
+    assert deleted.json()["active"] is False
+    assert deleted.json()["deleted_at"] is not None
+    assert deleted.json()["review_status"] == "approved"
+    # Default listings hide it, so nobody reviews a record that is gone.
+    assert client.get("/api/v1/admin/services", headers=headers).json()["total"] == 0
+    assert (
+        client.get(
+            "/api/v1/admin/services",
+            params={"deleted": "true"},
+            headers=headers,
+        ).json()["total"]
+        == 1
+    )
+    assert catalog.events[-1][1] is ReviewAction.DELETE
+
+    restored = client.post(f"/api/v1/admin/services/{served.id}/restore", headers=headers)
+    assert restored.status_code == 200
+    assert restored.json()["deleted_at"] is None
+    assert restored.json()["active"] is False
+
+
+def test_a_deleted_row_cannot_be_approved(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    record = _record()
+    app, _catalog = _create_app(monkeypatch, tmp_path, records=[record])
+    client = TestClient(app)
+    headers = _login(client)
+    client.request("DELETE", f"/api/v1/admin/services/{record.id}", headers=headers)
+
+    response = client.post(f"/api/v1/admin/services/{record.id}/approve", headers=headers)
+
+    assert response.status_code == 409
+    assert any("xóa" in blocker for blocker in response.json()["detail"]["blockers"])
+
+
+def test_bulk_approve_reports_each_row_and_one_failure_does_not_stop_the_batch(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    good = _record(name="Hợp lệ")
+    bad = _record(name="URL sai", launch_url="https://example.com/promo")
+    app, catalog = _create_app(monkeypatch, tmp_path, records=[good, bad])
+    client = TestClient(app)
+    headers = _login(client)
+    missing = uuid4()
+
+    response = client.post(
+        "/api/v1/admin/services/bulk-approve",
+        headers=headers,
+        json={"service_ids": [str(good.id), str(bad.id), str(missing)]},
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["approved"] == 1
+    assert payload["failed"] == 2
+    by_id = {item["service_id"]: item for item in payload["results"]}
+    assert by_id[str(good.id)]["approved"] is True
+    assert by_id[str(bad.id)]["approved"] is False
+    assert by_id[str(bad.id)]["blockers"]
+    assert by_id[str(missing)]["error"]
+    # The valid row really was approved despite its neighbours failing.
+    assert catalog.records[good.id].active is True
+    assert catalog.records[bad.id].active is False
+
+
+def test_import_creates_unpublished_rows_and_reports_bad_lines(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    app, catalog = _create_app(monkeypatch, tmp_path, records=[])
+    client = TestClient(app)
+    headers = _login(client)
+    csv_content = (
+        "name,provider,service_type,category,description,launch_url\n"
+        f"Dịch vụ 1,Đơn vị 1,oa,utilities,Mô tả 1.,{CANONICAL_OA_URL}\n"
+        ",Đơn vị 2,oa,utilities,Mô tả 2.,https://zalo.me/2222222222222222222\n"
+    ).encode()
+
+    response = client.post(
+        "/api/v1/admin/services/import",
+        headers=headers,
+        files={"file": ("services.csv", csv_content, "text/csv")},
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["created"] == 1
+    assert payload["failed"] == 1
+    assert payload["results"][1]["row_number"] == 3
+    assert payload["results"][1]["error"]
+    # A spreadsheet must never be able to serve a link on its own.
+    created = next(iter(catalog.records.values()))
+    assert created.active is False
+    assert created.review_status == "candidate"
+    assert catalog.events[-1][1] is ReviewAction.IMPORT
+
+
+def test_import_skips_a_launch_url_already_in_the_catalog(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    existing = _record(name="Đã có")
+    app, catalog = _create_app(monkeypatch, tmp_path, records=[existing])
+    client = TestClient(app)
+    headers = _login(client)
+    csv_content = (
+        "name,provider,service_type,category,description,launch_url\n"
+        f"Trùng URL,Đơn vị,oa,utilities,Mô tả.,{CANONICAL_OA_URL}\n"
+    ).encode()
+
+    response = client.post(
+        "/api/v1/admin/services/import",
+        headers=headers,
+        files={"file": ("services.csv", csv_content, "text/csv")},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["created"] == 0
+    assert "đã tồn tại" in response.json()["results"][0]["error"]
+    assert len(catalog.records) == 1
+
+
+def test_import_rejects_a_file_with_missing_columns(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    app, _catalog = _create_app(monkeypatch, tmp_path, records=[])
+    client = TestClient(app)
+    headers = _login(client)
+
+    response = client.post(
+        "/api/v1/admin/services/import",
+        headers=headers,
+        files={"file": ("services.csv", b"name,provider\nA,B\n", "text/csv")},
+    )
+
+    assert response.status_code == 400
+    assert "Thiếu cột bắt buộc" in response.json()["detail"]
+
+
+def test_import_template_is_downloadable_csv(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    app, _catalog = _create_app(monkeypatch, tmp_path, records=[])
+    client = TestClient(app)
+    headers = _login(client)
+
+    response = client.get("/api/v1/admin/services/import/template", headers=headers)
+
+    assert response.status_code == 200
+    assert "attachment" in response.headers["content-disposition"]
+    body = response.content.decode("utf-8")
+    # The BOM keeps Excel from mangling Vietnamese text.
+    assert body.startswith("﻿")
+    assert "launch_url" in body
+
+
+def test_creating_a_duplicate_launch_url_by_hand_is_refused(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    app, _catalog = _create_app(monkeypatch, tmp_path, records=[_record(name="Đã có")])
+    client = TestClient(app)
+    headers = _login(client)
+
+    response = client.post(
+        "/api/v1/admin/services",
+        headers=headers,
+        json={
+            "name": "Trùng",
+            "provider": "Đơn vị",
+            "service_type": "oa",
+            "category": "utilities",
+            "description": "Mô tả.",
+            "launch_url": CANONICAL_OA_URL,
+        },
+    )
+
+    assert response.status_code == 409
 
 
 def test_console_reports_unavailable_without_a_postgres_catalog(

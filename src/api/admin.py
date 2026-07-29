@@ -8,11 +8,14 @@ the reasons a row may not be published.
 
 from __future__ import annotations
 
+import csv
+import io
 from datetime import UTC, datetime
 from typing import Annotated, cast
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException, Query, Request, Security, status
+from fastapi import APIRouter, File, HTTPException, Query, Request, Security, UploadFile, status
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, ConfigDict, Field
 from redis.exceptions import RedisError
 from rq import Queue, Worker
@@ -22,16 +25,26 @@ from domain.catalog_admin import (
     AdminServiceRecord,
     CatalogStats,
     PublishGuardError,
+    ReviewAction,
     ReviewEvent,
     ReviewStatus,
     ServiceDraft,
     ServicePatch,
     publish_blockers,
 )
+from domain.catalog_import import (
+    MAX_IMPORT_ROWS,
+    ImportFormatError,
+    parse_service_spreadsheet,
+    template_rows,
+)
 from domain.models import ServiceType
 from domain.postgres_admin import PostgresAdminCatalog
 from domain.postgres_registry import CatalogUnavailableError
 from domain.search import LaunchUrlPolicy
+
+# Bounds the upload before it is read into memory.
+MAX_IMPORT_BYTES = 5 * 1024 * 1024
 
 router = APIRouter(
     prefix="/api/v1/admin",
@@ -88,6 +101,7 @@ class AdminServiceView(BaseModel):
     organization: str | None
     last_verified_at: datetime | None
     updated_at: datetime | None
+    deleted_at: datetime | None
     aliases: list[str]
     intents: list[IntentView]
     evidence: list[EvidenceView]
@@ -118,6 +132,7 @@ class CatalogStatsResponse(BaseModel):
     total: int
     publishable: int
     missing_embedding: int
+    deleted: int
     publishable_with_blockers: int
     by_review_status: list[LabelCount]
     by_category: list[LabelCount]
@@ -183,6 +198,7 @@ def _to_view(record: AdminServiceRecord, url_policy: LaunchUrlPolicy) -> AdminSe
         organization=record.organization,
         last_verified_at=record.last_verified_at,
         updated_at=record.updated_at,
+        deleted_at=record.deleted_at,
         aliases=list(record.aliases),
         intents=[
             IntentView(intent=item.intent, example_query=item.example_query)
@@ -244,6 +260,12 @@ async def list_services(
     service_type: ServiceType | None = None,
     active: bool | None = None,
     q: Annotated[str | None, Query(min_length=1, max_length=160)] = None,
+    deleted: Annotated[
+        bool | None,
+        Query(
+            description=("Bỏ trống: chỉ record chưa xóa. true: chỉ record đã xóa. false: cả hai.")
+        ),
+    ] = None,
     offset: Annotated[int, Query(ge=0)] = 0,
     limit: Annotated[int, Query(ge=1, le=200)] = 50,
 ) -> AdminServiceListResponse:
@@ -253,6 +275,8 @@ async def list_services(
             service_type=service_type,
             active=active,
             query=q,
+            include_deleted=deleted is False,
+            deleted_only=deleted is True,
             offset=offset,
             limit=limit,
         )
@@ -294,8 +318,17 @@ async def create_service(
     draft: ServiceDraft,
     actor: Annotated[str, Security(require_admin_session)],
 ) -> AdminServiceView:
+    catalog = _catalog(request)
     try:
-        record = await _catalog(request).create_service(draft, actor=actor)
+        # Two rows sharing a deeplink would make the assistant offer the same
+        # destination twice, so a duplicate is refused rather than merged.
+        existing = await catalog.find_by_launch_url(draft.launch_url)
+        if existing is not None:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail=f"launch_url đã tồn tại trong catalog: {existing.name}.",
+            )
+        record = await catalog.create_service(draft, actor=actor)
     except CatalogUnavailableError as exc:
         raise _unavailable(exc) from exc
     return _to_view(record, _url_policy(request))
@@ -414,6 +447,286 @@ async def deactivate_service(
     return _to_view(record, _url_policy(request))
 
 
+@router.delete(
+    "/services/{service_id}",
+    response_model=AdminServiceView,
+    summary="Xóa dịch vụ (soft delete)",
+    description=(
+        "Đánh dấu đã xóa và rút khỏi phục vụ trong cùng một câu lệnh. Evidence và "
+        "lịch sử review được giữ lại — đó là bằng chứng vì sao dịch vụ từng được "
+        "phục vụ. Dùng `POST .../restore` để phục hồi."
+    ),
+)
+async def delete_service(
+    service_id: UUID,
+    request: Request,
+    actor: Annotated[str, Security(require_admin_session)],
+    payload: NoteRequest | None = None,
+) -> AdminServiceView:
+    try:
+        record = await _catalog(request).delete_service(
+            service_id,
+            actor=actor,
+            note=payload.note if payload is not None else None,
+        )
+    except CatalogUnavailableError as exc:
+        raise _unavailable(exc) from exc
+    if record is None:
+        raise _not_found()
+    return _to_view(record, _url_policy(request))
+
+
+@router.post(
+    "/services/{service_id}/restore",
+    response_model=AdminServiceView,
+    summary="Phục hồi dịch vụ đã xóa",
+    description="Bỏ dấu đã xóa. Record trở lại trạng thái chưa phục vụ; duyệt là bước riêng.",
+)
+async def restore_service(
+    service_id: UUID,
+    request: Request,
+    actor: Annotated[str, Security(require_admin_session)],
+    payload: NoteRequest | None = None,
+) -> AdminServiceView:
+    try:
+        record = await _catalog(request).restore_service(
+            service_id,
+            actor=actor,
+            note=payload.note if payload is not None else None,
+        )
+    except CatalogUnavailableError as exc:
+        raise _unavailable(exc) from exc
+    if record is None:
+        raise _not_found()
+    return _to_view(record, _url_policy(request))
+
+
+class BulkApproveRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    service_ids: list[UUID] = Field(min_length=1, max_length=200)
+    note: str | None = Field(default=None, max_length=500)
+
+
+class BulkApproveResult(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    service_id: UUID
+    name: str | None
+    approved: bool
+    blockers: list[str]
+    error: str | None
+
+
+class BulkApproveResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    approved: int
+    failed: int
+    results: list[BulkApproveResult]
+
+
+@router.post(
+    "/services/bulk-approve",
+    response_model=BulkApproveResponse,
+    summary="Duyệt nhiều dịch vụ một lượt",
+    description=(
+        "Chạy đúng guardrail publish cho từng record và báo kết quả từng dòng. "
+        "Một record không đủ điều kiện chỉ làm chính nó thất bại, không hủy cả lô."
+    ),
+)
+async def bulk_approve(
+    request: Request,
+    payload: BulkApproveRequest,
+    actor: Annotated[str, Security(require_admin_session)],
+) -> BulkApproveResponse:
+    catalog = _catalog(request)
+    verified_at = datetime.now(UTC)
+    results: list[BulkApproveResult] = []
+
+    for service_id in dict.fromkeys(payload.service_ids):
+        try:
+            record = await catalog.approve_service(
+                service_id,
+                actor=actor,
+                verified_at=verified_at,
+                note=payload.note,
+            )
+        except PublishGuardError as exc:
+            existing = await catalog.get_service(service_id)
+            results.append(
+                BulkApproveResult(
+                    service_id=service_id,
+                    name=existing.name if existing is not None else None,
+                    approved=False,
+                    blockers=list(exc.blockers),
+                    error=None,
+                )
+            )
+            continue
+        except CatalogUnavailableError as exc:
+            # The catalog being down is not a per-row problem; stop rather than
+            # reporting every remaining row as individually broken.
+            raise _unavailable(exc) from exc
+        if record is None:
+            results.append(
+                BulkApproveResult(
+                    service_id=service_id,
+                    name=None,
+                    approved=False,
+                    blockers=[],
+                    error="Không tìm thấy dịch vụ.",
+                )
+            )
+            continue
+        results.append(
+            BulkApproveResult(
+                service_id=service_id,
+                name=record.name,
+                approved=True,
+                blockers=[],
+                error=None,
+            )
+        )
+
+    approved = sum(1 for item in results if item.approved)
+    return BulkApproveResponse(
+        approved=approved,
+        failed=len(results) - approved,
+        results=results,
+    )
+
+
+class ImportRowResult(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    row_number: int
+    name: str
+    created: bool
+    service_id: UUID | None
+    error: str | None
+
+
+class ImportResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    created: int
+    failed: int
+    results: list[ImportRowResult]
+
+
+@router.post(
+    "/services/import",
+    response_model=ImportResponse,
+    summary="Nhập dịch vụ từ file Excel hoặc CSV",
+    description=(
+        "Nhận `.xlsx` hoặc `.csv`. Mọi dòng đều được tạo ở trạng thái **chờ duyệt** "
+        "và không thể phục vụ người dùng cho tới khi có người bấm duyệt — một file "
+        "sai không thể tự đẩy liên kết sai ra ngoài.\n\n"
+        "Từng dòng được báo cáo riêng, nên dòng lỗi không làm hủy cả file. Dòng có "
+        "`launch_url` đã tồn tại trong catalog bị bỏ qua để tránh trùng."
+    ),
+    responses={
+        400: {"description": "File sai định dạng, thiếu cột bắt buộc hoặc quá lớn."},
+    },
+)
+async def import_services(
+    request: Request,
+    actor: Annotated[str, Security(require_admin_session)],
+    file: Annotated[UploadFile, File(description="File .xlsx hoặc .csv")],
+) -> ImportResponse:
+    content = await file.read()
+    if len(content) > MAX_IMPORT_BYTES:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"File vượt {MAX_IMPORT_BYTES // (1024 * 1024)} MB.",
+        )
+
+    try:
+        rows = parse_service_spreadsheet(content, file.filename or "upload")
+    except ImportFormatError as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+
+    catalog = _catalog(request)
+    results: list[ImportRowResult] = []
+    for row in rows:
+        if row.draft is None:
+            results.append(
+                ImportRowResult(
+                    row_number=row.row_number,
+                    name=row.name,
+                    created=False,
+                    service_id=None,
+                    error=row.error or "Dòng không hợp lệ.",
+                )
+            )
+            continue
+        try:
+            existing = await catalog.find_by_launch_url(row.draft.launch_url)
+            if existing is not None:
+                results.append(
+                    ImportRowResult(
+                        row_number=row.row_number,
+                        name=row.name,
+                        created=False,
+                        service_id=existing.id,
+                        error=f"launch_url đã tồn tại trong catalog ({existing.name}).",
+                    )
+                )
+                continue
+            created = await catalog.create_service(
+                row.draft,
+                actor=actor,
+                note=f"Nhập từ {file.filename or 'file'} dòng {row.row_number}",
+                action=ReviewAction.IMPORT,
+            )
+        except CatalogUnavailableError as exc:
+            raise _unavailable(exc) from exc
+        results.append(
+            ImportRowResult(
+                row_number=row.row_number,
+                name=created.name,
+                created=True,
+                service_id=created.id,
+                error=None,
+            )
+        )
+
+    created_count = sum(1 for item in results if item.created)
+    return ImportResponse(
+        created=created_count,
+        failed=len(results) - created_count,
+        results=results,
+    )
+
+
+@router.get(
+    "/services/import/template",
+    summary="Tải file mẫu để nhập dịch vụ",
+    description=(
+        "CSV UTF-8 gồm dòng tiêu đề và một dòng ví dụ. Mở được bằng Excel; lưu lại "
+        "dạng .xlsx cũng nhập được."
+    ),
+    response_class=StreamingResponse,
+)
+async def import_template() -> StreamingResponse:
+    headers, example = template_rows()
+    buffer = io.StringIO()
+    writer = csv.writer(buffer)
+    writer.writerow(headers)
+    writer.writerow(example)
+    # The BOM makes Excel read UTF-8 correctly instead of mangling Vietnamese.
+    payload = "﻿" + buffer.getvalue()
+    return StreamingResponse(
+        io.BytesIO(payload.encode("utf-8")),
+        media_type="text/csv; charset=utf-8",
+        headers={
+            "Content-Disposition": 'attachment; filename="fone-services-template.csv"',
+            "X-Max-Rows": str(MAX_IMPORT_ROWS),
+        },
+    )
+
+
 @router.get(
     "/services/{service_id}/events",
     response_model=list[ReviewEventView],
@@ -467,6 +780,7 @@ async def catalog_stats(request: Request) -> CatalogStatsResponse:
         total=stats.total,
         publishable=stats.publishable,
         missing_embedding=stats.missing_embedding,
+        deleted=stats.deleted,
         publishable_with_blockers=sum(
             1 for record in served if publish_blockers(record, url_policy)
         ),

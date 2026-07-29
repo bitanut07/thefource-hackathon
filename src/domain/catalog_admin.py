@@ -39,10 +39,13 @@ PUBLISHABLE_REVIEW_STATUSES = frozenset({ReviewStatus.APPROVED, ReviewStatus.PUB
 
 class ReviewAction(StrEnum):
     CREATE = "create"
+    IMPORT = "import"
     UPDATE = "update"
     APPROVE = "approve"
     REJECT = "reject"
     DEACTIVATE = "deactivate"
+    DELETE = "delete"
+    RESTORE = "restore"
 
 
 class PublishGuardError(RuntimeError):
@@ -108,6 +111,9 @@ class AdminServiceRecord:
     organization: str | None = None
     last_verified_at: datetime | None = None
     updated_at: datetime | None = None
+    # Set when the row was removed. The schema guarantees a removed row is never
+    # served, so runtime queries need no extra filter.
+    deleted_at: datetime | None = None
     aliases: tuple[str, ...] = ()
     intents: tuple[ServiceIntent, ...] = ()
     evidence: tuple[ServiceEvidence, ...] = ()
@@ -117,9 +123,12 @@ class AdminServiceRecord:
 class CatalogStats:
     """Aggregate counts backing the review dashboard header."""
 
+    # Counts describe live rows; removed rows are reported separately so a growing
+    # deleted pile never inflates the catalog size.
     total: int
     publishable: int
     missing_embedding: int
+    deleted: int
     by_review_status: tuple[tuple[str, int], ...]
     by_category: tuple[tuple[str, int], ...]
     by_source_type: tuple[tuple[str, int], ...]
@@ -143,6 +152,8 @@ def publish_blockers(
     """
 
     blockers: list[str] = []
+    if record.deleted_at is not None:
+        blockers.append("Dịch vụ đã bị xóa; phục hồi trước khi duyệt lại.")
     if record.service_type not in PUBLISHABLE_SERVICE_TYPES:
         blockers.append(
             f"service_type {record.service_type.value} không được publish; "
@@ -280,6 +291,8 @@ class AdminCatalogRepository(Protocol):
         service_type: ServiceType | None = None,
         active: bool | None = None,
         query: str | None = None,
+        include_deleted: bool = False,
+        deleted_only: bool = False,
         offset: int = 0,
         limit: int = 50,
     ) -> tuple[tuple[AdminServiceRecord, ...], int]:
@@ -290,12 +303,17 @@ class AdminCatalogRepository(Protocol):
         """Return one record with its evidence, or ``None`` when absent."""
         ...
 
+    async def find_by_launch_url(self, launch_url: str) -> AdminServiceRecord | None:
+        """Return any existing row with this launch URL, removed rows included."""
+        ...
+
     async def create_service(
         self,
         draft: ServiceDraft,
         *,
         actor: str,
         note: str | None = None,
+        action: ReviewAction = ReviewAction.CREATE,
     ) -> AdminServiceRecord:
         """Insert an unpublished row and audit the creation."""
         ...
@@ -340,6 +358,26 @@ class AdminCatalogRepository(Protocol):
         note: str | None = None,
     ) -> AdminServiceRecord | None:
         """Withdraw a row from serving while keeping its review history."""
+        ...
+
+    async def delete_service(
+        self,
+        service_id: UUID,
+        *,
+        actor: str,
+        note: str | None = None,
+    ) -> AdminServiceRecord | None:
+        """Mark a row removed, keeping its evidence and audit trail readable."""
+        ...
+
+    async def restore_service(
+        self,
+        service_id: UUID,
+        *,
+        actor: str,
+        note: str | None = None,
+    ) -> AdminServiceRecord | None:
+        """Clear a removal mark, leaving the row unpublished."""
         ...
 
     async def stats(self) -> CatalogStats:
