@@ -1,19 +1,16 @@
-# Zalo AI Service Navigator
+# FOne — AI Service Navigator
 
-Scaffold cho MVP trợ lý AI chạy dưới dạng Zalo Official Account (OA): người dùng nhập text hoặc gửi voice message, hệ thống hiểu nhu cầu, tìm/xếp hạng trong **Service Registry do nhóm kiểm soát** và trả tối đa năm dịch vụ hợp lệ.
+**FOne** là dự án hackathon do đội gồm **4 thành viên** phát triển. Đây là trợ lý
+AI chạy trên Zalo Official Account (OA), giúp người dùng diễn đạt nhu cầu tự nhiên
+và tìm đúng **Zalo OA hoặc Mini App đã được xác minh** trong Service Catalog.
 
-> **Trạng thái:** API text `POST /api/v1/navigate` đã dùng Gemini để trích xuất
-> structured query, tìm trong Service Registry JSON và trả tối đa năm kết quả đã
-> qua URL allowlist. Registry hiện có 8 dịch vụ với danh tính và liên kết công khai
-> đã review; mục tiêu Sprint 2 vẫn là 20-40 dịch vụ. Đây chưa phải tích hợp Zalo
-> production.
+FOne không phải công cụ tìm kiếm Internet và không tự tạo link, tên dịch vụ hay
+thông tin nhà cung cấp. Gemini chỉ hiểu/trích xuất nhu cầu và diễn đạt câu trả
+lời; backend mới là nơi lọc, xếp hạng và quyết định candidate được phép gửi ra.
 
-Runtime thật chỉ hỗ trợ `LLM_PROVIDER=gemini` và đọc key từ `GEMINI_API_KEY`.
-API text yêu cầu khóa truy cập riêng qua header `X-API-Key`, đồng thời giới hạn
-số request Gemini chạy đồng thời. Fake LLM adapter chỉ còn dùng trong test/CI,
-không phải chế độ runtime. Endpoint `POST /webhooks/zalo` vẫn chủ động trả
-`501 ZALO_CONTRACT_NOT_CONFIGURED`; gửi tin qua OA, signature/idempotency và
-voice/STT thật chưa được bật.
+> **Trạng thái:** production nhận sự kiện text từ Zalo OA qua webhook, xử lý bất
+> đồng bộ bằng worker, tìm trên PostgreSQL Service Catalog và trả lời qua OA API.
+> Swagger vẫn có API để kiểm tra intent, catalog và toàn bộ luồng navigation.
 
 PDF kế hoạch gốc được giữ cục bộ tại `docs/Zalo_AI_Service_Navigator_Plan.pdf` và không commit lên GitHub. Tài liệu kỹ thuật đã tổng hợp nằm tại [docs/README.md](./docs/README.md).
 
