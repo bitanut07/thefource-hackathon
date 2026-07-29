@@ -28,9 +28,12 @@ def build_navigator(
             if settings.database_url is not None
             else ""
         )
+        embedding_client = (
+            GeminiEmbeddingClient(settings) if settings.semantic_search_enabled else None
+        )
         active_registry = PostgresServiceRegistry(
             database_url,
-            embedding_client=(GeminiEmbeddingClient(settings) if settings.semantic_search_enabled else None),
+            embedding_client=embedding_client,
         )
     else:
         active_registry = JsonServiceRegistry(settings.registry_data_path)
