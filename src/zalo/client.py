@@ -6,7 +6,6 @@ import json
 from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any, Protocol
-from urllib.parse import urlsplit
 
 import httpx
 from redis import Redis
@@ -29,16 +28,6 @@ class ZaloTokens:
 
     access_token: str
     refresh_token: str
-
-
-@dataclass(frozen=True)
-class ZaloListElement:
-    """One legacy OA list-template card."""
-
-    title: str
-    subtitle: str
-    url: str
-    image_url: str = ""
 
 
 class ZaloTokenStore(Protocol):
@@ -96,7 +85,7 @@ class RedisZaloTokenStore:
 
 
 class ConfiguredZaloClient:
-    """Verify signed OA events and send replies through the OA API."""
+    """Verify signed OA events and send text replies through the OA API."""
 
     def __init__(
         self,
@@ -162,48 +151,6 @@ class ConfiguredZaloClient:
         if response.is_error or not isinstance(payload, dict) or payload.get("error") != 0:
             raise ZaloAPIError(self._api_error_message(response, payload))
 
-    async def send_list(
-        self,
-        user_id: str,
-        text: str,
-        elements: list[ZaloListElement],
-    ) -> None:
-        """Send the legacy V2 list template documented by Zalo.
-
-        This contract is intentionally separate from ``send_text`` because Zalo
-        only documents list templates on ``/v2.0/oa/message``. Callers must keep
-        a V3 text fallback until the target OA has passed a controlled live test.
-        """
-
-        normalized_text = self._bounded_text(text, maximum=2_000)
-        if not user_id or not normalized_text:
-            raise ValueError("user_id and text are required")
-        normalized_elements = [self._list_element_payload(element) for element in elements[:5]]
-        if not normalized_elements:
-            raise ValueError("at least one list element is required")
-
-        message: dict[str, object] = {
-            "text": normalized_text,
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "list",
-                    "elements": normalized_elements,
-                },
-            },
-        }
-        tokens, seed_digest, cache_key = self._current_tokens()
-        response, payload = await self._send_legacy_message(user_id, message, tokens.access_token)
-        if self._is_expired_access_token(payload):
-            tokens = await self._refresh_tokens(tokens, seed_digest, cache_key)
-            response, payload = await self._send_legacy_message(
-                user_id, message, tokens.access_token
-            )
-        if response.is_error or not isinstance(payload, dict) or payload.get("error") != 0:
-            raise ZaloAPIError(
-                self._api_error_message(response, payload, operation="send OA list template")
-            )
-
     def _current_tokens(self) -> tuple[ZaloTokens, str, str]:
         access_token = self._secret_value(self._settings.zalo_access_token)
         refresh_token = self._secret_value(self._settings.zalo_refresh_token)
@@ -229,22 +176,6 @@ class ConfiguredZaloClient:
                 "/v3.0/oa/message/cs",
                 headers={"access_token": access_token},
                 json={"recipient": {"user_id": user_id}, "message": {"text": text}},
-            )
-        return response, self._json_payload(response)
-
-    async def _send_legacy_message(
-        self,
-        user_id: str,
-        message: dict[str, object],
-        access_token: str,
-    ) -> tuple[httpx.Response, Any]:
-        async with httpx.AsyncClient(
-            base_url=self._api_base_url, timeout=10.0, transport=self._transport
-        ) as client:
-            response = await client.post(
-                "/v2.0/oa/message",
-                headers={"access_token": access_token},
-                json={"recipient": {"user_id": user_id}, "message": message},
             )
         return response, self._json_payload(response)
 
@@ -311,44 +242,6 @@ class ConfiguredZaloClient:
     ) -> str:
         error_code = payload.get("error") if isinstance(payload, dict) else None
         return f"Zalo rejected {operation} (HTTP {response.status_code}, error {error_code!r})"
-
-    @classmethod
-    def _list_element_payload(cls, element: ZaloListElement) -> dict[str, object]:
-        title = cls._bounded_text(element.title, maximum=100)
-        subtitle = cls._bounded_text(element.subtitle, maximum=500)
-        if not title or not subtitle:
-            raise ValueError("list element title and subtitle are required")
-        cls._require_https_url(element.url, field="list element url")
-        payload: dict[str, object] = {
-            "title": title,
-            "subtitle": subtitle,
-            "default_action": {
-                "type": "oa.open.url",
-                "url": element.url,
-            },
-        }
-        if element.image_url.strip():
-            cls._require_https_url(element.image_url, field="list element image_url")
-            payload["image_url"] = element.image_url.strip()
-        return payload
-
-    @staticmethod
-    def _bounded_text(value: str, *, maximum: int) -> str:
-        normalized = value.strip()
-        if len(normalized) <= maximum:
-            return normalized
-        return normalized[: maximum - 3].rstrip() + "..."
-
-    @staticmethod
-    def _require_https_url(value: str, *, field: str) -> None:
-        parsed = urlsplit(value.strip())
-        if (
-            parsed.scheme.casefold() != "https"
-            or not parsed.netloc
-            or parsed.username is not None
-            or parsed.password is not None
-        ):
-            raise ValueError(f"{field} must be an absolute HTTPS URL")
 
     @staticmethod
     def _secret_value(value: Any) -> str:

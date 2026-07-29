@@ -6,7 +6,7 @@ import httpx
 from pydantic import SecretStr
 
 from config import Settings
-from zalo.client import ConfiguredZaloClient, ZaloListElement, ZaloTokens
+from zalo.client import ConfiguredZaloClient, ZaloTokens
 
 
 class MemoryTokenStore:
@@ -75,50 +75,3 @@ def test_zalo_client_refreshes_expired_token_then_retries_message() -> None:
         "/v4/oa/access_token",
         "/v3.0/oa/message/cs",
     ]
-
-
-def test_zalo_client_sends_legacy_list_template_with_at_most_five_elements() -> None:
-    requests: list[httpx.Request] = []
-
-    def handler(request: httpx.Request) -> httpx.Response:
-        requests.append(request)
-        return httpx.Response(200, json={"error": 0, "data": {"message_id": "message-1"}})
-
-    settings = Settings(
-        zalo_access_token=SecretStr("access-token"),
-        zalo_refresh_token=SecretStr("refresh-token"),
-    )
-    client = ConfiguredZaloClient(
-        settings,
-        transport=httpx.MockTransport(handler),
-        token_store=MemoryTokenStore(),
-    )
-    elements = [
-        ZaloListElement(
-            title=f"Dịch vụ {index}",
-            subtitle="Phù hợp với nhu cầu",
-            url=f"https://zalo.me/{index:010d}",
-            image_url="https://example.com/service.png",
-        )
-        for index in range(1, 7)
-    ]
-
-    asyncio.run(client.send_list("user-1", "Mình tìm thấy các lựa chọn.", elements))
-
-    assert len(requests) == 1
-    assert requests[0].url.path == "/v2.0/oa/message"
-    body = json.loads(requests[0].content)
-    assert body["recipient"] == {"user_id": "user-1"}
-    assert body["message"]["text"] == "Mình tìm thấy các lựa chọn."
-    payload = body["message"]["attachment"]["payload"]
-    assert payload["template_type"] == "list"
-    assert len(payload["elements"]) == 5
-    assert payload["elements"][0] == {
-        "title": "Dịch vụ 1",
-        "subtitle": "Phù hợp với nhu cầu",
-        "image_url": "https://example.com/service.png",
-        "default_action": {
-            "type": "oa.open.url",
-            "url": "https://zalo.me/0000000001",
-        },
-    }

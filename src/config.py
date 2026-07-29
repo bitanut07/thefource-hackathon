@@ -40,10 +40,6 @@ class Settings(BaseSettings):
     zalo_webhook_secret: SecretStr | None = None
     zalo_access_token: SecretStr | None = None
     zalo_refresh_token: SecretStr | None = None
-    # Experimental legacy V2 list template. Keep disabled until a controlled
-    # message to a test UID proves that the production OA still accepts it.
-    zalo_list_template_enabled: bool = False
-    zalo_list_image_url: str = ""
 
     llm_provider: str = "gemini"
     llm_model: str = "gemini-3.5-flash-lite"
