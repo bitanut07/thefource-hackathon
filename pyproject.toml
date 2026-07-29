@@ -18,7 +18,7 @@ dependencies = [
   "psycopg[binary]>=3.2,<4",
   # Required by FastAPI to parse the multipart body of that upload.
   "python-multipart>=0.0.18,<1",
-  "redis>=5.2,<7",
+  "redis>=5.2,<9",
   "rq>=2.8,<3",
   "uvicorn[standard]>=0.32,<1",
 ]
