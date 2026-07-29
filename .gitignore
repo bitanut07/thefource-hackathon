@@ -48,3 +48,6 @@ uploads/
 
 # Kế hoạch nguồn được giữ cục bộ, không xuất bản cùng repository
 /docs/Zalo_AI_Service_Navigator_Plan.pdf
+
+product.env
+docs/
