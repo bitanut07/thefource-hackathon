@@ -150,6 +150,10 @@ health, government, other; nếu không suy ra được thì dùng null.
    và không yêu cầu clarification. Chỉ tìm hoặc mở dịch vụ thì không out_of_scope.
 6. Không suy luận từ kiến thức bên ngoài hay tạo dữ liệu nhạy cảm. Schema và
    các enum của schema là chuẩn cuối cùng.
+7. Set response_mode="voice" only when the user explicitly asks to hear, be read to,
+   or receive a voice reply. Set response_mode="text" when they ask whether voice is
+   supported or explicitly request text. Otherwise set response_mode="auto". Never
+   infer voice merely from age, message length, or a sensitive personal attribute.
 </extraction_rules>
 
 <examples>
