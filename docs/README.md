@@ -14,6 +14,7 @@ Thư mục này chuyển kế hoạch sản phẩm thành các quyết định v
 | [ADR-0003](./decisions/0003-registry-source-of-truth.md) | Chọn Service Registry làm nguồn sự thật |
 | [ADR-0004](./decisions/0004-multichannel-and-optional-hybrid-retrieval.md) | Mở rộng service đa kênh và hybrid retrieval có kiểm soát |
 | [Checklist Zalo](./integrations/zalo-checklist.md) | Các contract/quyền phải xác minh trước khi bật tích hợp thật |
+| [Chạy local](./operations/local-development.md) | Backend + review console + landing page trên máy cá nhân |
 | [Runbook](./operations/runbook.md) | Khởi động, quan sát và xử lý sự cố |
 | [Evaluation](./evaluation/README.md) | Schema bộ test và cách đo chất lượng |
 | [Demo](./demo/README.md) | Kịch bản và checklist demo |
