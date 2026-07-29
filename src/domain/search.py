@@ -356,6 +356,9 @@ class SearchService:
                 launch_url=HttpUrl(service.launch_url),
                 region=service.region,
                 organization=service.organization,
+                image_url=(
+                    HttpUrl(service.chatbot_image_url) if service.chatbot_image_url else None
+                ),
                 reason=_reason(query, service, components),
                 score=final_score(components),
             )

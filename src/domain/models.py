@@ -42,6 +42,7 @@ class RegistryService:
     region: str | None = None
     target_user: str | None = None
     organization: str | None = None
+    chatbot_image_url: str | None = None
     last_verified_at: datetime | None = None
     aliases: tuple[str, ...] = ()
     intents: tuple[ServiceIntent, ...] = ()

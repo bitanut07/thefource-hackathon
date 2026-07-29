@@ -107,6 +107,11 @@ async def receive_zalo_webhook(request: Request) -> JSONResponse:
             content={"code": "INVALID_SIGNATURE"},
         )
 
+    if settings.zalo_reply_mode == "chatbot_dynamic":
+        # The Chatbot flow owns the reply in this mode.  Do not queue the
+        # legacy consultation worker or users could receive two answers.
+        return JSONResponse(status_code=200, content={"code": "ZALO_EVENT_HANDLED_BY_CHATBOT"})
+
     user_id, text, message_id = event
     event_hash = _event_key(message_id)
     redis = request.app.state.redis_connection
