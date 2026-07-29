@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from redis import Redis
 from rq import Queue
 
-from api import catalog, chatbot, health, intent, navigation, research, webhook
+from api import catalog, health, intent, navigation, research, webhook
 from config import Settings, get_settings
 from domain.postgres_registry import PostgresServiceRegistry
 from domain.registry import JsonServiceRegistry, ServiceRegistryRepository
@@ -57,7 +57,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.registry = registry
     app.state.launch_url_policy = launch_url_policy
     app.state.navigator_semaphore = asyncio.Semaphore(app_settings.navigator_max_concurrency)
-    app.state.chatbot_semaphore = asyncio.Semaphore(app_settings.zalo_chatbot_max_concurrency)
     app.state.navigator = build_navigator(
         app_settings,
         registry=registry,
@@ -66,7 +65,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     app.include_router(health.router)
     app.include_router(webhook.router)
-    app.include_router(chatbot.router)
     app.include_router(navigation.router)
     app.include_router(intent.router)
     app.include_router(catalog.router)

@@ -35,17 +35,7 @@ _SERVICE_DETAILS = """
         ) ORDER BY i.intent, i.example_query)
         FROM service_intents AS i
         WHERE i.service_id = s.id
-    ), '[]'::jsonb) AS intents,
-    (
-        SELECT v.image_url
-        FROM service_visual_assets AS v
-        WHERE v.service_id = s.id
-          AND v.placement = 'chatbot_list'
-          AND v.approval_status = 'approved'
-          AND v.is_active = TRUE
-        ORDER BY v.approved_at DESC NULLS LAST, v.id DESC
-        LIMIT 1
-    ) AS chatbot_image_url
+    ), '[]'::jsonb) AS intents
 """
 
 
@@ -244,11 +234,6 @@ class PostgresServiceRegistry(ServiceRegistryRepository):
             region=str(row["region"]) if row["region"] is not None else None,
             target_user=str(row["target_user"]) if row["target_user"] is not None else None,
             organization=str(row["organization"]) if row["organization"] is not None else None,
-            chatbot_image_url=(
-                str(row["chatbot_image_url"])
-                if row.get("chatbot_image_url") is not None
-                else None
-            ),
             last_verified_at=verified_at,
             aliases=aliases,
             intents=intents,

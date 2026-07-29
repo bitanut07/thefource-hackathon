@@ -238,7 +238,6 @@ def test_openapi_lists_the_complete_test_surface(
         "/api/v1/services/{service_id}",
         "/health/live",
         "/health/ready",
-        "/integrations/zalo/chatbot/dynamic",
         "/webhooks/zalo",
     }
     assert set(schema["paths"]) == expected_paths

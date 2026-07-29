@@ -78,7 +78,6 @@ class ServiceChoice(BaseModel):
     launch_url: HttpUrl
     region: str | None = None
     organization: str | None = None
-    image_url: HttpUrl | None = None
     reason: str
 
     @model_validator(mode="after")

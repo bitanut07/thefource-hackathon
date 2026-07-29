@@ -6,7 +6,7 @@ from re import split
 from typing import Annotated, Literal, Protocol
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl, StringConstraints, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
 from domain.entity_normalization import normalize_entity, normalize_text
 from domain.models import (
@@ -58,7 +58,6 @@ class _ServiceRecord(BaseModel):
     region: NonEmptyString | None = None
     target_user: NonEmptyString | None = None
     organization: NonEmptyString | None = None
-    chatbot_image_url: HttpUrl | None = None
     last_verified_at: datetime | None = None
     aliases: tuple[NonEmptyString, ...] = ()
     intents: tuple[_IntentRecord, ...] = ()
@@ -71,8 +70,6 @@ class _ServiceRecord(BaseModel):
             raise ValueError("last_verified_at must include a timezone")
         if self.service_type is ServiceType.OA and not is_canonical_zalo_oa_url(self.launch_url):
             raise ValueError("OA launch_url must use canonical https://zalo.me/<numeric-oa-id>")
-        if self.chatbot_image_url is not None and self.chatbot_image_url.scheme != "https":
-            raise ValueError("chatbot_image_url must use HTTPS")
         return self
 
     def to_domain(self) -> RegistryService:
@@ -90,7 +87,6 @@ class _ServiceRecord(BaseModel):
             region=self.region,
             target_user=self.target_user,
             organization=self.organization,
-            chatbot_image_url=(str(self.chatbot_image_url) if self.chatbot_image_url else None),
             last_verified_at=self.last_verified_at,
             aliases=self.aliases,
             intents=tuple(

@@ -1,6 +1,5 @@
 from functools import lru_cache
 from pathlib import Path
-from typing import Literal
 
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -40,13 +39,6 @@ class Settings(BaseSettings):
     zalo_webhook_secret: SecretStr | None = None
     zalo_access_token: SecretStr | None = None
     zalo_refresh_token: SecretStr | None = None
-    # ``chatbot_dynamic`` hands user-initiated replies to Zalo Chatbot Dynamic
-    # API; the legacy OA webhook remains available during rollout.
-    zalo_reply_mode: Literal["consultation", "chatbot_dynamic"] = "consultation"
-    zalo_chatbot_token: SecretStr | None = None
-    zalo_chatbot_timeout_seconds: float = Field(default=1.25, gt=0, le=1.8)
-    zalo_chatbot_max_concurrency: int = Field(default=8, gt=0, le=64)
-    zalo_chatbot_layout: Literal["list", "buttons"] = "list"
 
     llm_provider: str = "gemini"
     llm_model: str = "gemini-3.5-flash-lite"
