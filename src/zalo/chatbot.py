@@ -81,7 +81,9 @@ def _render_button_messages(response: AgentResponse) -> list[dict[str, object]]:
                     {
                         "name": _OPEN_SERVICE_LABEL,
                         "type": "url",
-                        "url": str(choice.launch_url),
+                        # Zalo Chatbot's Dynamic API documents URL-button data
+                        # under ``payload`` (not the OA OpenAPI ``url`` field).
+                        "payload": str(choice.launch_url),
                     }
                 ],
             }

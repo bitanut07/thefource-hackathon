@@ -81,7 +81,7 @@ def test_explicit_button_layout_uses_at_most_five_messages() -> None:
         {
             "name": "Mở dịch vụ",
             "type": "url",
-            "url": "https://example.com/service-1",
+            "payload": "https://example.com/service-1",
         }
     ]
 
