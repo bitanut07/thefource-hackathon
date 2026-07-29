@@ -4,13 +4,14 @@ from fastapi import FastAPI
 from redis import Redis
 from rq import Queue
 
-from api import catalog, health, intent, navigation, research, webhook
+from api import catalog, health, intent, navigation, research, stt, tts, webhook
 from config import Settings, get_settings
 from domain.postgres_registry import PostgresServiceRegistry
 from domain.registry import JsonServiceRegistry, ServiceRegistryRepository
 from domain.search import LaunchUrlPolicy
 from llm.embeddings import GeminiEmbeddingClient
 from skills.factory import build_navigator, parse_allowed_hosts
+from voice.factory import build_stt_service, build_tts_service
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -57,11 +58,15 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.registry = registry
     app.state.launch_url_policy = launch_url_policy
     app.state.navigator_semaphore = asyncio.Semaphore(app_settings.navigator_max_concurrency)
+    app.state.tts_semaphore = asyncio.Semaphore(app_settings.tts_max_concurrency)
+    app.state.stt_semaphore = asyncio.Semaphore(app_settings.stt_max_concurrency)
     app.state.navigator = build_navigator(
         app_settings,
         registry=registry,
         url_policy=launch_url_policy,
     )
+    app.state.tts_service = build_tts_service(app_settings)
+    app.state.stt_service = build_stt_service(app_settings)
 
     app.include_router(health.router)
     app.include_router(webhook.router)
@@ -69,6 +74,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(intent.router)
     app.include_router(catalog.router)
     app.include_router(research.router)
+    app.include_router(tts.router)
+    app.include_router(stt.router)
     return app
 
 

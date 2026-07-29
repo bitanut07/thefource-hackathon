@@ -18,18 +18,16 @@ PDF kế hoạch gốc được giữ cục bộ tại `docs/Zalo_AI_Service_Nav
 
 | Có trong MVP | Không thuộc MVP |
 | --- | --- |
-| Text và voice message trong Zalo OA | Gọi thoại thời gian thực/TTS |
+| Text webhook Zalo OA; API STT/TTS theo yêu cầu | Nhận/gửi voice message qua Zalo OA hoặc gọi thoại thời gian thực |
 | Intent + structured query + hỏi lại một câu | Tự do thao tác mọi màn hình Zalo |
 | Tìm trong registry 20-40 dịch vụ đã kiểm chứng | Quét toàn bộ OA/Mini App công khai |
 | Trả tối đa năm kết quả và CTA hợp lệ | Tự đặt lịch/thanh toán thay người dùng |
 | URL lấy từ registry và allowlist | LLM tự tạo tên dịch vụ hoặc URL |
 | Fallback/no-result và handoff rõ ràng | Broadcast/nhắn chủ động hàng loạt |
 
-Stack hiện tại: **Python 3.12 + FastAPI + Gemini + RQ/Redis + Service Registry
-JSON nạp vào bộ nhớ**. Zalo OA, LLM và STT nằm sau adapter; test/CI dùng
+Stack hiện tại: **Python 3.12 + FastAPI + Gemini + RQ/Redis +
+PostgreSQL/pgvector**. Zalo OA, LLM, STT và TTS nằm sau adapter; test/CI dùng
 implementation deterministic được inject và không cần credential thật.
-PostgreSQL/pgvector chỉ là phương án nâng cấp khi có bằng chứng về quy mô, không
-phải dependency của MVP hackathon.
 
 ## Cấu trúc repository
 
@@ -54,7 +52,7 @@ phải dependency của MVP hackathon.
 │   ├── domain/                     # Model, registry, search, audit và privacy
 │   ├── llm/                        # Schema, client và prompt LLM
 │   ├── skills/                     # Điều phối luồng Service Navigator
-│   ├── voice/                      # Speech-to-Text và xử lý audio
+│   ├── voice/                      # Speech-to-Text, Text-to-Speech và audio
 │   ├── worker/                     # RQ jobs và worker entrypoint
 │   ├── zalo/                       # Contract/client Zalo OA
 │   ├── config.py                   # Cấu hình ứng dụng
@@ -132,6 +130,8 @@ Mở Swagger tại `http://localhost:8000/docs`, bấm **Authorize**, nhập
 | `GET /api/v1/services/{service_id}` | Chi tiết một dịch vụ runtime |
 | `POST /api/v1/research/search` | Dữ liệu crawl/RAG ở chế độ `research_only`, không URL/CTA |
 | `POST /api/v1/navigate` | Toàn bộ flow và tối đa năm service card |
+| `POST /api/v1/stt` | Audio nhị phân thành transcript tiếng Việt |
+| `POST /api/v1/tts` | Lời đáp và tên dịch vụ thành WAV tiếng Việt |
 | `GET /health/live`, `GET /health/ready` | Trạng thái process và dependency |
 
 Ví dụ cho API điều hướng:
@@ -161,6 +161,43 @@ Endpoint gọi Gemini đồng bộ để hiểu câu hỏi, sau đó backend l�
 response builder chỉ trả tối đa năm candidate từ Registry. Thiếu cấu hình key
 làm endpoint trả `503`, key truy cập sai trả `401`, hết slot xử lý trả `429`,
 và lỗi provider hoặc structured output không hợp lệ trả `502`.
+
+### Gọi API Speech-to-Text và Text-to-Speech
+
+Hai endpoint voice mặc định bị tắt và dùng chung `X-API-Key` với API điều hướng.
+Để bật Gemini trong `.env`:
+
+```dotenv
+STT_PROVIDER=gemini
+TTS_PROVIDER=gemini
+```
+
+STT nhận trực tiếp audio nhị phân WAV, MP3, AIFF, AAC, OGG hoặc FLAC, tối đa
+10 MiB. Ví dụ:
+
+```bash
+curl --fail \
+  -H "X-API-Key: $NAVIGATOR_API_KEY" \
+  -H "Content-Type: audio/wav" \
+  --data-binary @sample.wav \
+  http://localhost:8000/api/v1/stt
+```
+
+TTS chỉ đọc `message` và tối đa năm `choice_names`, không nhận URL. Response là
+WAV mono 24 kHz, 16-bit và bị giới hạn 5 MiB:
+
+```bash
+curl --fail \
+  -H "X-API-Key: $NAVIGATOR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Mình tìm thấy ba lựa chọn phù hợp.","choice_names":["EVNHCMC","ZaloPay","MoMo"]}' \
+  --output /tmp/fone-response.wav \
+  http://localhost:8000/api/v1/tts
+```
+
+Audio và transcript chỉ được xử lý trong bộ nhớ, không lưu vào disk, Redis hoặc
+database. Phiên bản này chưa nhận/gửi voice message qua Zalo và không tự sinh
+audio cho mọi response điều hướng.
 
 ### Kho RAG nghiên cứu
 
@@ -219,7 +256,7 @@ không thay cho mục tiêu review đủ 20-40 dịch vụ trước demo OA.
 | Webhook Gateway | `src/api/`, `src/zalo/` | Parse/validate, signature, idempotency, enqueue, acknowledge sớm |
 | Message Queue | `src/worker/`, Redis trong `compose.yaml` | RQ job, timeout, retry có giới hạn, failed-job handling |
 | AI Agent Worker | `src/skills/`, `src/llm/` | Structured query, clarification, gọi search, response policy |
-| Speech-to-Text | `src/voice/` | Tải tạm an toàn, STT, confidence flow, cleanup |
+| Speech I/O | `src/voice/` | STT/TTS theo yêu cầu, giới hạn audio, provider adapter và không lưu dữ liệu |
 | Service Registry | `src/domain/registry.py`, `data/registry/services.real.json` | Nạp JSON vào bộ nhớ; nguồn sự thật cho dịch vụ và URL |
 | Search MVP | `src/domain/search.py` | Hard filter, chuẩn hóa, keyword/rule scoring và optional rerank |
 | Query/Audit | `src/domain/audit.py`, `src/domain/privacy.py` | Dữ liệu debug tối thiểu, redaction và UID hash |
@@ -232,7 +269,7 @@ không thay cho mục tiêu review đủ 20-40 dịch vụ trước demo OA.
 1. **OA Foundation** - chốt OA/App/quyền, xác minh webhook/send-message contract, text echo end-to-end, signature, idempotency, token adapter và health/logging.
 2. **Registry** - chốt schema JSON, nhập 20-40 dịch vụ có owner, loader bộ nhớ, link verifier và example queries.
 3. **Text Agent** - schema validation, hard filter + keyword/rule ranking/optional rerank, top 5, clarification, no-result/out-of-scope và URL allowlist.
-4. **Voice Input** - audio event/download giới hạn, codec handling, STT tiếng Việt, confidence/confirmation và xóa audio tạm.
+4. **Voice Input** - API STT/TTS độc lập đã có; audio event/download từ Zalo, confidence/confirmation và gửi voice vẫn cần contract riêng.
 5. **UX & Operations** - greeting/menu/CTA, retry/failed jobs, fallback người thật, dashboard và runbook diễn tập.
 6. **Evaluation** - bộ 100 query text/voice, benchmark metrics, hallucination guard, demo script và report gắn với commit/config.
 
@@ -244,7 +281,7 @@ Scaffold chỉ là nền móng của các sprint; file/thư mục tồn tại kh
 - [ ] Với từng text/voice event: URL tài liệu chính thức, event name, payload/attachment, acknowledgement, retry và signature contract hiện hành là gì?
 - [ ] Endpoint/body/loại tin gửi phản hồi, access/refresh-token lifecycle, hạn mức và cửa sổ tương tác đã được contract-test chưa?
 - [ ] Gemini/model đã chọn cho runtime; cần chốt data processing/retention, quota/cost, ngưỡng timeout/retry và fallback vận hành.
-- [ ] Chọn provider STT tiếng Việt; chốt codec, giới hạn audio, confidence semantics, data region/retention và UX khi không có confidence.
+- [ ] Xác nhận Gemini STT/TTS quota, data processing/region và UX khi transcript không có confidence trước khi nối voice event Zalo.
 - [ ] Chốt thời gian lưu audio/raw event/transcript/audit log, cơ chế xóa và UID hashing.
 - [ ] Review/cấp owner cho 20-40 service thật; quyền công bố, allowlist và `last_verified_at` thế nào?
 - [ ] Chốt ngưỡng Recall@3, Top-1, latency P95, STT success/confirm-again trước Sprint 6.

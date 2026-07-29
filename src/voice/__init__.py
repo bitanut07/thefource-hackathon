@@ -1,1 +1,1 @@
-"""Contract chuyển giọng nói thành văn bản."""
+"""Speech-to-text and text-to-speech adapters for FOne."""

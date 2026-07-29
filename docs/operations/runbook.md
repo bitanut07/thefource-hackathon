@@ -10,7 +10,8 @@ khai đã review.
 
 Fake LLM adapter chỉ dùng trong test/CI. Webhook Zalo vẫn chặn bằng
 `501 ZALO_CONTRACT_NOT_CONFIGURED`; signature/idempotency, send-message, OA
-token lifecycle, STT thật và audio chưa phải năng lực runtime hiện có.
+token lifecycle và voice message Zalo chưa phải năng lực runtime hiện có. API
+STT/TTS độc lập là opt-in, xử lý audio trong bộ nhớ và mặc định bị tắt.
 
 ## Khởi động local
 
@@ -70,7 +71,35 @@ Swagger cũng cung cấp API kiểm chứng từng lớp:
 - `/api/v1/intents/extract`: structured query từ Gemini;
 - `/api/v1/services` và `/api/v1/services/{service_id}`: Registry runtime;
 - `/api/v1/research/search`: RAG research-only, không URL/CTA;
-- `/api/v1/navigate`: flow end-to-end.
+- `/api/v1/navigate`: flow end-to-end;
+- `/api/v1/stt`: audio nhị phân thành transcript tiếng Việt;
+- `/api/v1/tts`: lời đáp thành WAV tiếng Việt.
+
+### Bật và kiểm tra voice API
+
+Đặt `STT_PROVIDER=gemini` và/hoặc `TTS_PROVIDER=gemini` trong `.env`, rồi restart
+API. STT dùng `STT_API_KEY` nếu có, nếu không dùng `GEMINI_API_KEY`; TTS luôn dùng
+`GEMINI_API_KEY`. Không cho client chọn model, voice hoặc style qua request.
+
+```bash
+read -rsp "NAVIGATOR_API_KEY: " NAVIGATOR_API_KEY && echo
+curl --fail \
+  -H "X-API-Key: $NAVIGATOR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"FOne đã sẵn sàng hỗ trợ bạn.","choice_names":["ZaloPay"]}' \
+  --output /tmp/fone-response.wav \
+  http://localhost:8000/api/v1/tts
+curl --fail \
+  -H "X-API-Key: $NAVIGATOR_API_KEY" \
+  -H "Content-Type: audio/wav" \
+  --data-binary @/tmp/fone-response.wav \
+  http://localhost:8000/api/v1/stt
+```
+
+TTS trả WAV mono 24 kHz, 16-bit tối đa 5 MiB. STT nhận WAV, MP3, AIFF, AAC,
+OGG hoặc FLAC tối đa 10 MiB. Audio/transcript không được ghi disk, Redis,
+database hoặc application log. Hai endpoint có semaphore riêng và không chiếm
+capacity của `/navigate`.
 
 Nếu chỉ chạy Redis bằng container, chạy API trực tiếp ở terminal A:
 
@@ -140,9 +169,9 @@ status không nằm trong positive allowlist làm build thất bại.
 
 ## Chẩn đoán
 
-Mục Gemini/API text áp dụng cho runtime hiện tại. Các mục webhook, queue,
-send-message và STT là runbook đích cho các sprint sau; không dùng chúng để
-tuyên bố tích hợp OA production đã hoạt động.
+Mục Gemini/API text và voice API áp dụng cho runtime hiện tại. Các mục webhook,
+queue, send-message và voice event Zalo là runbook đích cho các sprint sau;
+không dùng chúng để tuyên bố tích hợp voice OA production đã hoạt động.
 
 ### API live nhưng readiness lỗi
 
@@ -192,12 +221,18 @@ tuyên bố tích hợp OA production đã hoạt động.
 4. Scale worker chỉ khi Redis/provider quota và memory footprint của registry chịu được tải tăng.
 5. Khi backlog vượt khả năng phục hồi, tạm ngừng intake hoặc trả fallback được duyệt.
 
-### STT lỗi hoặc timeout sau khi bật voice
+### STT/TTS lỗi hoặc timeout
 
-1. Kiểm tra provider status/quota mà không lộ request data.
-2. Xác nhận timeout và circuit breaker; không retry đồng loạt.
-3. STT lỗi/confidence thấp: xin người dùng nhập chữ hoặc xác nhận transcript.
-4. Kiểm tra job cleanup để audio tạm vẫn bị xóa khi exception.
+1. `401`: kiểm tra `X-API-Key`; `415`/`413`/`422`: kiểm tra MIME, kích thước và
+   nội dung request.
+2. `429`: chờ theo `Retry-After`; kiểm tra semaphore riêng của endpoint.
+3. `503`: kiểm tra provider flag, credential, quota và model access mà không in
+   key hoặc request data.
+4. `502`: kiểm tra schema/codec response từ provider; `504`: kiểm tra timeout và
+   mạng. Không retry đồng loạt.
+5. TTS lỗi thì vẫn trả text/card; STT lỗi thì yêu cầu người dùng nhập chữ.
+6. Nếu cần rollback, đặt provider lỗi thành `disabled` và restart; `/navigate`
+   không phụ thuộc STT/TTS.
 
 ### OA API không gửi được phản hồi
 

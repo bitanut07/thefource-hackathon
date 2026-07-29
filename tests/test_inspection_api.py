@@ -236,6 +236,8 @@ def test_openapi_lists_the_complete_test_surface(
         "/api/v1/research/search",
         "/api/v1/services",
         "/api/v1/services/{service_id}",
+        "/api/v1/stt",
+        "/api/v1/tts",
         "/health/live",
         "/health/ready",
         "/webhooks/zalo",

@@ -1,5 +1,6 @@
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -48,8 +49,20 @@ class Settings(BaseSettings):
     navigator_api_key: SecretStr | None = None
     navigator_max_concurrency: int = Field(default=4, gt=0, le=64)
     navigator_queue_timeout_seconds: float = Field(default=0.1, gt=0, le=5)
-    stt_provider: str = "disabled"
+    stt_provider: Literal["disabled", "gemini"] = "disabled"
     stt_api_key: SecretStr | None = None
+    stt_model: str = "gemini-3.6-flash"
+    stt_timeout_seconds: int = Field(default=20, gt=0, le=120)
+    stt_max_retries: int = Field(default=1, ge=0, le=5)
+    stt_max_concurrency: int = Field(default=2, gt=0, le=32)
+    stt_queue_timeout_seconds: float = Field(default=0.1, gt=0, le=5)
+    tts_provider: Literal["disabled", "gemini"] = "disabled"
+    tts_model: str = "gemini-3.1-flash-tts-preview"
+    tts_voice: str = "Kore"
+    tts_timeout_seconds: int = Field(default=15, gt=0, le=120)
+    tts_max_retries: int = Field(default=1, ge=0, le=5)
+    tts_max_concurrency: int = Field(default=2, gt=0, le=32)
+    tts_queue_timeout_seconds: float = Field(default=0.1, gt=0, le=5)
 
     allowed_launch_hosts: str = ""
     audio_retention_seconds: int = Field(default=900, gt=0)

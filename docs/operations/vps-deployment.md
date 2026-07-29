@@ -47,6 +47,8 @@ PUBLIC_BASE_URL=https://zah-19.123c.vn
 ALLOWED_LAUNCH_HOSTS=zalo.me
 GEMINI_API_KEY=<Gemini key>
 NAVIGATOR_API_KEY=<API key mạnh, riêng tư>
+STT_PROVIDER=disabled
+TTS_PROVIDER=disabled
 ```
 
 Khóa quyền file:
@@ -135,6 +137,39 @@ sudo docker compose ps
 Swagger cần `X-API-Key`: dùng giá trị `NAVIGATOR_API_KEY` trong `.env`.
 Các endpoint không phải health/docs đều yêu cầu key này.
 
+## Bật STT/TTS theo từng bước
+
+Deploy code lần đầu với `STT_PROVIDER=disabled` và `TTS_PROVIDER=disabled`, rồi
+kiểm tra health và Swagger. Khi credential/model Gemini đã được xác nhận, đổi
+hai biến tương ứng sang `gemini` trong `.env` và restart:
+
+```bash
+cd /opt/zalo-service-navigator
+sudo docker compose up --build --detach
+```
+
+Smoke test TTS trước, sau đó dùng chính WAV vừa sinh để kiểm tra STT. Nhập API
+key ở prompt để không ghi key vào shell history:
+
+```bash
+read -rsp "NAVIGATOR_API_KEY: " NAVIGATOR_API_KEY && echo
+curl --fail \
+  -H "X-API-Key: $NAVIGATOR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"FOne đã sẵn sàng hỗ trợ bạn.","choice_names":["ZaloPay"]}' \
+  --output /tmp/fone-response.wav \
+  https://zah-19.123c.vn/api/v1/tts
+curl --fail \
+  -H "X-API-Key: $NAVIGATOR_API_KEY" \
+  -H "Content-Type: audio/wav" \
+  --data-binary @/tmp/fone-response.wav \
+  https://zah-19.123c.vn/api/v1/stt
+```
+
+Không lưu file smoke test trong repo. Nếu model Preview chưa được cấp hoặc voice
+API lỗi, đặt lại provider tương ứng thành `disabled` rồi chạy lại `docker
+compose up --detach`; `/navigate` và health vẫn hoạt động độc lập.
+
 ## Rollback
 
 Xem lịch sử và quay về một commit đã biết tốt:
@@ -149,6 +184,9 @@ sudo docker compose up --build --detach
 Không xóa Docker volume PostgreSQL khi rollback code. Nếu cần rollback catalog,
 sửa `data/registry/approved-candidate-ids.json` ở một commit mới rồi chạy
 `scripts/seed_postgres.py --include-candidates`.
+
+Riêng STT/TTS có thể rollback tức thời mà không đổi code hoặc database: đặt
+`STT_PROVIDER=disabled`, `TTS_PROVIDER=disabled` trong `.env` rồi restart stack.
 
 ## Zalo OA webhook
 
