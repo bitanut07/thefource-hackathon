@@ -31,6 +31,11 @@ _GENERIC_SERVICE_TOKENS = frozenset(
         "service",
         "thuoc",
         "tim",
+        "an",
+        "uong",
+        "quan",
+        "do",
+        "mon",
     }
 )
 
@@ -215,6 +220,23 @@ def _is_specific_service_match(query: StructuredQuery, service: RegistryService)
     return len(entity_tokens) >= 2 or any(len(token) >= 3 for token in entity_tokens)
 
 
+def _has_service_constraint(query: StructuredQuery) -> bool:
+    if query.service is None:
+        return False
+    return any(
+        token not in _GENERIC_SERVICE_TOKENS
+        for token in _normalize(query.service).split()
+    )
+
+
+def _matches_service_constraint(query: StructuredQuery, service: RegistryService) -> bool:
+    """Do not treat a category match as a match for a named dish/service."""
+
+    if not _has_service_constraint(query) or query.service is None:
+        return True
+    return _coverage(query.service, _service_text(service)) >= 0.5
+
+
 def _reason(query: StructuredQuery, service: RegistryService, components: ScoreComponents) -> str:
     reasons: list[str] = []
     if components.intent_match == 1.0:
@@ -320,6 +342,7 @@ class SearchService:
             candidate
             for candidate, components, _ in ranked
             if candidate.score >= relevance_threshold
+            and _matches_service_constraint(query, _)
             and (
                 components.intent_match > 0.0
                 or components.keyword_match >= 0.25
