@@ -186,11 +186,22 @@ def _intent_match(query: StructuredQuery, service: RegistryService) -> float:
 def _location_match(query: StructuredQuery, service: RegistryService) -> float:
     if query.location is None or service.region is None:
         return 0.0
-    requested = _normalize(query.location)
-    available = _normalize(service.region)
+    requested = _normalize_location(query.location)
+    available = _normalize_location(service.region)
     if requested == available or requested in available or available in requested:
         return 1.0
     return _coverage(query.location, service.region)
+
+
+def _normalize_location(value: str) -> str:
+    normalized = _normalize(value)
+    aliases = {
+        "hcm": "thanh pho ho chi minh",
+        "tphcm": "thanh pho ho chi minh",
+        "tp hcm": "thanh pho ho chi minh",
+        "ho chi minh": "thanh pho ho chi minh",
+    }
+    return aliases.get(normalized, normalized)
 
 
 def _keyword_match(query: StructuredQuery, service: RegistryService) -> float:
@@ -234,7 +245,18 @@ def _matches_service_constraint(query: StructuredQuery, service: RegistryService
 
     if not _has_service_constraint(query) or query.service is None:
         return True
-    return _coverage(query.service, _service_text(service)) >= 0.5
+    requested = _sensitive_tokens(query.service)
+    available = _sensitive_tokens(_service_text(service))
+    return bool(requested) and requested.issubset(available)
+
+
+def _sensitive_tokens(value: str) -> set[str]:
+    """Keep Vietnamese tone marks for dish terms (``lẩu`` must not match ``lâu``)."""
+
+    return {
+        token
+        for token in "".join(char if char.isalnum() else " " for char in value.casefold()).split()
+    }
 
 
 def _reason(query: StructuredQuery, service: RegistryService, components: ScoreComponents) -> str:
@@ -287,6 +309,26 @@ class SearchService:
                 service.launch_url,
             )
         ]
+        if query.location is not None:
+            # A ranked PostgreSQL result set can omit a local record before this
+            # layer gets to apply its contract. Inspect the publishable catalog
+            # too, then keep the local subset whenever one exists.
+            catalog_services = await self.registry.list_active()
+            local_services = [
+                service
+                for service in catalog_services
+                if service.active
+                and (query.category is None or service.category.value == query.category)
+                and self.url_policy.is_allowed_for_service(
+                    service.service_type,
+                    service.launch_url,
+                )
+                and _location_match(query, service) >= 0.5
+            ]
+            # An explicit location is a hard constraint when the registry has
+            # local records; never silently mix other cities into the result.
+            if local_services:
+                eligible_services = local_services
         maximum_priority = max(
             (max(service.service_priority, 0) for service in eligible_services),
             default=0,

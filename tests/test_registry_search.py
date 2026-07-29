@@ -26,6 +26,7 @@ def _service(
     organization: str | None = None,
     intent: str = "find_medical_service",
     service_type: str = "website",
+    description: str | None = None,
 ) -> dict[str, object]:
     return {
         "id": service_id,
@@ -33,7 +34,7 @@ def _service(
         "provider": "Test provider",
         "service_type": service_type,
         "category": category,
-        "description": f"Dịch vụ {name}",
+        "description": description or f"Dịch vụ {name}",
         "launch_url": launch_url,
         "region": region,
         "target_user": target_user,
@@ -372,3 +373,44 @@ def test_search_service_filters_urls_ranks_and_respects_limit(tmp_path: Path) ->
     assert str(candidates[0].launch_url).startswith("https://example.com/")
     assert asyncio.run(search.search(query, limit=0)) == []
     assert asyncio.run(search.search(query.model_copy(update={"out_of_scope": True}))) == []
+
+
+def test_search_service_does_not_mix_cities_or_confuse_lau_with_lau_hotpot(
+    tmp_path: Path,
+) -> None:
+    registry = JsonServiceRegistry(
+        _write_registry(
+            tmp_path,
+            [
+                _service(
+                    "00000000-0000-4000-8000-000000000031",
+                    name="Manwah Cần Thơ",
+                    category="food",
+                    region="Cần Thơ",
+                    intent="find_food_service",
+                    description="Quán lẩu tại Cần Thơ",
+                ),
+                _service(
+                    "00000000-0000-4000-8000-000000000032",
+                    name="Bánh Givral",
+                    category="food",
+                    region="TP.HCM",
+                    intent="find_food_service",
+                    description="Thương hiệu bánh lâu năm tại TP.HCM",
+                ),
+            ],
+        )
+    )
+    search = SearchService(registry, LaunchUrlPolicy(frozenset({"example.com"})))
+    candidates = asyncio.run(
+        search.search(
+            StructuredQuery(
+                intent="find_food_service",
+                category="food",
+                service="lẩu",
+                location="HCM",
+            )
+        )
+    )
+
+    assert candidates == []
