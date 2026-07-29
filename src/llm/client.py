@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 from typing import Any, Protocol, cast
 
 import httpx
@@ -10,6 +11,91 @@ from pydantic import ValidationError
 
 from config import Settings
 from llm.schemas import StructuredQuery
+
+logger = logging.getLogger(__name__)
+
+# The SDK raises two unrelated exception trees depending on which call path is used.
+# ``generate_content`` raises ``google.genai.errors.APIError``, while
+# ``interactions.create`` raises from ``google.genai._gaos.lib.compat_errors`` — and
+# despite one of those also being named ``APIError``, the two share no base class.
+# Catching only the first silently disabled retry and the 502/503 mapping for every
+# error the interactions path produces, turning provider rate limits into unhandled
+# 500s. Classification is built at import time and degrades to the documented tree if
+# a future SDK drops the private module.
+_STATUS_ERRORS: tuple[type[BaseException], ...] = (errors.APIError,)
+_TRANSPORT_ERRORS: tuple[type[BaseException], ...] = (httpx.TransportError,)
+_MALFORMED_ERRORS: tuple[type[BaseException], ...] = (errors.UnknownApiResponseError,)
+
+try:
+    from google.genai._gaos.lib import compat_errors as _compat
+except ImportError:  # pragma: no cover - depends on the installed SDK layout
+    logger.warning(
+        "google.genai._gaos.lib.compat_errors not found; provider errors raised by "
+        "the interactions API may not be classified."
+    )
+else:
+
+    def _compat_errors(*names: str) -> tuple[type[BaseException], ...]:
+        """Resolve exception classes by name from the SDK's private compat module.
+
+        Looked up dynamically rather than imported: the module carries no public
+        contract, so a rename in a future SDK should narrow classification and log,
+        not stop the service from importing.
+        """
+
+        resolved: list[type[BaseException]] = []
+        for name in names:
+            candidate = getattr(_compat, name, None)
+            if isinstance(candidate, type) and issubclass(candidate, BaseException):
+                resolved.append(candidate)
+            else:
+                logger.warning(
+                    "compat_errors.%s missing; provider errors of that kind "
+                    "will fall back to broader classification.",
+                    name,
+                )
+        return tuple(resolved)
+
+    _MALFORMED_ERRORS += _compat_errors(
+        "APIResponseValidationError",
+        "ResponseValidationError",
+        "NoResponseError",
+    )
+    _TRANSPORT_ERRORS += _compat_errors("APIConnectionError")
+    # GeminiNextGenAPIClientError is the broad base of the compat tree, listed last so
+    # anything not classified above is still mapped to a provider error rather than
+    # escaping as a 500.
+    _STATUS_ERRORS += _compat_errors("APIStatusError", "GeminiNextGenAPIClientError")
+
+
+def _provider_status_code(exc: BaseException) -> int | None:
+    """Read the HTTP status from whichever SDK exception tree raised."""
+
+    code = getattr(exc, "code", None)  # google.genai.errors.APIError
+    if isinstance(code, int):
+        return code
+    status = getattr(exc, "status_code", None)  # compat_errors.APIStatusError
+    if isinstance(status, int):
+        return status
+    return None
+
+
+def _provider_retry_after(exc: BaseException, fallback: int = 1) -> int:
+    """Prefer the provider's own Retry-After so callers wait a useful amount.
+
+    A quota rejection commonly asks for several seconds; advertising one second makes
+    the client retry into the same wall.
+    """
+
+    response = getattr(exc, "response", None)
+    header = getattr(getattr(response, "headers", None), "get", lambda _name: None)("retry-after")
+    if isinstance(header, str) and header.strip():
+        try:
+            return max(1, int(float(header.strip())))
+        except ValueError:
+            return fallback
+    return fallback
+
 
 SYSTEM_INSTRUCTION = """
 <role>
@@ -162,25 +248,31 @@ class GoogleGenAIGateway:
                     system_instruction=system_instruction,
                     schema=schema,
                 )
-            except errors.APIError as exc:
-                is_retriable = exc.code == 429 or exc.code >= 500
-                if is_retriable and attempt >= self._max_retries:
-                    raise LLMUnavailableError(
-                        "Gemini API tạm thời không sẵn sàng.",
-                        retry_after_seconds=1,
-                    ) from exc
-                if not is_retriable:
-                    raise LLMProviderError(
-                        f"Gemini API trả lỗi {exc.code}; không có dữ liệu provider được ghi log."
-                    ) from exc
-            except httpx.TransportError as exc:
+            # Ordered most specific first: a malformed response is never worth
+            # retrying, a transport failure always is, and everything else is decided
+            # by its HTTP status.
+            except _MALFORMED_ERRORS as exc:
+                raise LLMProviderError("Gemini API trả response không thể đọc an toàn.") from exc
+            except _TRANSPORT_ERRORS as exc:
                 if attempt >= self._max_retries:
                     raise LLMUnavailableError(
                         "Không thể kết nối ổn định tới Gemini API.",
-                        retry_after_seconds=1,
+                        retry_after_seconds=_provider_retry_after(exc),
                     ) from exc
-            except errors.UnknownApiResponseError as exc:
-                raise LLMProviderError("Gemini API trả response không thể đọc an toàn.") from exc
+            except _STATUS_ERRORS as exc:
+                status = _provider_status_code(exc)
+                # A provider error carrying no status cannot be judged safe to give up
+                # on, so it is retried like a transient failure.
+                is_retriable = status is None or status == 429 or status >= 500
+                if is_retriable and attempt >= self._max_retries:
+                    raise LLMUnavailableError(
+                        "Gemini API tạm thời không sẵn sàng.",
+                        retry_after_seconds=_provider_retry_after(exc),
+                    ) from exc
+                if not is_retriable:
+                    raise LLMProviderError(
+                        f"Gemini API trả lỗi {status}; không có dữ liệu provider được ghi log."
+                    ) from exc
 
             await asyncio.sleep(min(0.25 * (2**attempt), 2.0))
 

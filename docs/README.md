@@ -7,11 +7,14 @@ Thư mục này chuyển kế hoạch sản phẩm thành các quyết định v
 | Tài liệu | Mục đích |
 | --- | --- |
 | [Tổng quan kiến trúc](./architecture/overview.md) | Ranh giới module, luồng text/voice, dữ liệu và trust boundary |
+| [Hybrid search PostgreSQL](./architecture/postgres-hybrid-search.md) | Service Catalog runtime, FTS + trigram + pgvector và quyền publish |
+| [Review Console API](./architecture/admin-api.md) | API quản trị catalog cho FOne-Admin: session, guardrail publish và audit |
 | [ADR-0001](./decisions/0001-modular-monolith.md) | Chọn modular monolith cho MVP |
 | [ADR-0002](./decisions/0002-redis-queue.md) | Chọn RQ/Redis cho xử lý bất đồng bộ |
 | [ADR-0003](./decisions/0003-registry-source-of-truth.md) | Chọn Service Registry làm nguồn sự thật |
 | [ADR-0004](./decisions/0004-multichannel-and-optional-hybrid-retrieval.md) | Mở rộng service đa kênh và hybrid retrieval có kiểm soát |
 | [Checklist Zalo](./integrations/zalo-checklist.md) | Các contract/quyền phải xác minh trước khi bật tích hợp thật |
+| [Chạy local](./operations/local-development.md) | Backend + review console + landing page trên máy cá nhân |
 | [Runbook](./operations/runbook.md) | Khởi động, quan sát và xử lý sự cố |
 | [Evaluation](./evaluation/README.md) | Schema bộ test và cách đo chất lượng |
 | [Demo](./demo/README.md) | Kịch bản và checklist demo |

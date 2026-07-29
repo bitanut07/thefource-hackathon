@@ -230,7 +230,7 @@ def test_openapi_lists_the_complete_test_surface(
     app, _extractor = _create_app(monkeypatch, tmp_path)
     schema = TestClient(app).get("/openapi.json").json()
 
-    expected_paths = {
+    public_paths = {
         "/api/v1/intents/extract",
         "/api/v1/navigate",
         "/api/v1/research/search",
@@ -242,7 +242,21 @@ def test_openapi_lists_the_complete_test_surface(
         "/health/ready",
         "/webhooks/zalo",
     }
-    assert set(schema["paths"]) == expected_paths
+    admin_paths = {
+        "/api/v1/admin/services",
+        "/api/v1/admin/services/bulk-approve",
+        "/api/v1/admin/services/import",
+        "/api/v1/admin/services/import/template",
+        "/api/v1/admin/services/{service_id}",
+        "/api/v1/admin/services/{service_id}/approve",
+        "/api/v1/admin/services/{service_id}/deactivate",
+        "/api/v1/admin/services/{service_id}/events",
+        "/api/v1/admin/services/{service_id}/reject",
+        "/api/v1/admin/services/{service_id}/restore",
+        "/api/v1/admin/stats",
+        "/api/v1/admin/queue-health",
+    }
+    assert set(schema["paths"]) == public_paths | admin_paths | {"/api/v1/admin/session"}
     for path in (
         "/api/v1/intents/extract",
         "/api/v1/navigate",
@@ -252,3 +266,14 @@ def test_openapi_lists_the_complete_test_surface(
     ):
         operation = next(iter(schema["paths"][path].values()))
         assert {"NavigatorApiKey": []} in operation["security"]
+
+    # The console authorizes catalog writes, so it must never be reachable with the
+    # read-only navigator key, and login is the only unauthenticated route.
+    for path in admin_paths:
+        for operation in schema["paths"][path].values():
+            security = operation["security"]
+            assert {"AdminSession": []} in security
+            assert {"NavigatorApiKey": []} not in security
+    login = schema["paths"]["/api/v1/admin/session"]
+    assert "security" not in login["post"]
+    assert {"AdminSession": []} in login["delete"]["security"]

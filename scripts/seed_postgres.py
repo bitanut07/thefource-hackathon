@@ -25,6 +25,15 @@ REGISTRY_PATH = ROOT / "data" / "registry" / "services.real.json"
 CANDIDATES_PATH = ROOT / "data" / "research" / "oa-candidates.json"
 APPROVED_CANDIDATES_PATH = ROOT / "data" / "registry" / "approved-candidate-ids.json"
 
+# Import the runtime enum rather than restating the category list, so the seeder and
+# the navigator cannot drift apart. The path insert lets the script run from the repo
+# root on a host that has not exported PYTHONPATH=src.
+sys.path.insert(0, str(ROOT / "src"))
+
+from domain.models import ServiceCategory  # noqa: E402
+
+_VALID_CATEGORIES = frozenset(item.value for item in ServiceCategory)
+
 
 def configure_utf8_output() -> None:
     for stream in (sys.stdout, sys.stderr):
@@ -179,6 +188,75 @@ def embed_document(
     return [float(value) for value in values]
 
 
+EvidenceRow = tuple[str, str | None, datetime | None, str, str | None]
+
+
+def evidence_rows(record: Mapping[str, object]) -> list[EvidenceRow]:
+    """Flatten a record's research evidence into ``service_evidence`` rows.
+
+    The ``supports`` claims are joined into one block so the review console can show
+    why each source counts, and ``verification_status`` reflects the record-level
+    verdict because the source entries themselves carry no status of their own.
+    """
+
+    evidence = record.get("evidence")
+    if not isinstance(evidence, Iterable) or isinstance(evidence, (str, bytes, Mapping)):
+        return []
+    verification = record.get("verification")
+    official = isinstance(verification, Mapping) and verification.get("official_source") is True
+    status = "official_source" if official else "candidate"
+
+    rows: list[EvidenceRow] = []
+    seen: set[str] = set()
+    for item in evidence:
+        if not isinstance(item, Mapping):
+            continue
+        url = str(item.get("url", "")).strip()
+        if not url or url in seen:
+            continue
+        seen.add(url)
+        supports = item.get("supports")
+        if isinstance(supports, str):
+            supports_text: str | None = supports.strip() or None
+        elif isinstance(supports, Iterable) and not isinstance(supports, (bytes, Mapping)):
+            joined = "\n".join(str(value).strip() for value in supports if str(value).strip())
+            supports_text = joined or None
+        else:
+            supports_text = None
+        checked_at = item.get("checked_at")
+        checked = (
+            datetime.fromisoformat(str(checked_at)).replace(tzinfo=UTC)
+            if isinstance(checked_at, str) and checked_at.strip()
+            else None
+        )
+        rows.append((url, as_text(item.get("publisher")), checked, status, supports_text))
+    return rows
+
+
+def validated_category(record: Mapping[str, object], service_id: UUID) -> str:
+    """Return the record's category, refusing values the runtime cannot represent.
+
+    ``PostgresServiceRegistry`` coerces this column through ``ServiceCategory``, so a
+    value outside that enum produces a row the navigator has to skip. Defaulting to a
+    placeholder like ``uncategorized`` imported exactly such a row silently, so a
+    missing or unknown category now stops the import instead.
+    """
+
+    raw = record.get("category")
+    if not isinstance(raw, str) or not raw.strip():
+        raise SystemExit(
+            f"{service_id}: thiếu trường category. "
+            f"Giá trị hợp lệ: {', '.join(sorted(_VALID_CATEGORIES))}."
+        )
+    category = raw.strip().casefold()
+    if category not in _VALID_CATEGORIES:
+        raise SystemExit(
+            f"{service_id}: category {raw!r} nằm ngoài danh mục runtime. "
+            f"Giá trị hợp lệ: {', '.join(sorted(_VALID_CATEGORIES))}."
+        )
+    return category
+
+
 def upsert_record(
     connection: psycopg.Connection[tuple[object, ...]],
     record: Mapping[str, object],
@@ -195,6 +273,7 @@ def upsert_record(
     service_type = str(record.get("service_type", record.get("channel_type", "oa")))
     launch_url = str(record.get("launch_url", ""))
     search_text = joined_text(record)
+    category = validated_category(record, service_id)
     with connection.cursor() as cursor:
         cursor.execute(
             """
@@ -233,7 +312,7 @@ def upsert_record(
                 "name": str(record["name"]),
                 "provider": str(record.get("provider", "Unknown")),
                 "service_type": service_type,
-                "category": str(record.get("category", "uncategorized")),
+                "category": category,
                 "description": str(record.get("description", "No description")),
                 "launch_url": launch_url,
                 "owner": str(record.get("owner", "research")),
@@ -260,6 +339,7 @@ def upsert_record(
         )
         cursor.execute("DELETE FROM service_aliases WHERE service_id = %s", (service_id,))
         cursor.execute("DELETE FROM service_intents WHERE service_id = %s", (service_id,))
+        cursor.execute("DELETE FROM service_evidence WHERE service_id = %s", (service_id,))
         cursor.executemany(
             "INSERT INTO service_aliases (service_id, alias) VALUES (%s, %s)",
             [(service_id, alias) for alias in aliases],
@@ -267,6 +347,14 @@ def upsert_record(
         cursor.executemany(
             "INSERT INTO service_intents (service_id, intent, example_query) VALUES (%s, %s, %s)",
             [(service_id, intent, example) for intent, example in intents],
+        )
+        cursor.executemany(
+            """
+            INSERT INTO service_evidence (
+                service_id, source_url, publisher, checked_at, verification_status, supports
+            ) VALUES (%s, %s, %s, %s, %s, %s)
+            """,
+            [(service_id, *row) for row in evidence_rows(record)],
         )
 
 
