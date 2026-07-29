@@ -414,3 +414,34 @@ def test_search_service_does_not_mix_cities_or_confuse_lau_with_lau_hotpot(
     )
 
     assert candidates == []
+
+
+def test_search_service_does_not_cross_categories_for_a_vague_request(tmp_path: Path) -> None:
+    registry = JsonServiceRegistry(
+        _write_registry(
+            tmp_path,
+            [
+                _service(
+                    "00000000-0000-4000-8000-000000000041",
+                    name="Nhà hàng tại TP.HCM",
+                    category="food",
+                    region="TP.HCM",
+                    intent="find_food_service",
+                ),
+                _service(
+                    "00000000-0000-4000-8000-000000000042",
+                    name="Khoa đại học tại TP.HCM",
+                    category="education",
+                    region="TP.HCM",
+                    intent="find_education_service",
+                ),
+            ],
+        )
+    )
+    search = SearchService(registry, LaunchUrlPolicy(frozenset({"example.com"})))
+
+    candidates = asyncio.run(
+        search.search(StructuredQuery(intent="find_service", location="TP.HCM"))
+    )
+
+    assert candidates == []

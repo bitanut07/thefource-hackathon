@@ -227,6 +227,17 @@ def _has_service_constraint(query: StructuredQuery) -> bool:
     )
 
 
+def _has_specific_service_request(query: StructuredQuery) -> bool:
+    """Allow category-free retrieval only for a concrete service/provider request."""
+
+    if query.service is None:
+        return False
+    tokens = [
+        token for token in _normalize(query.service).split() if token not in _GENERIC_SERVICE_TOKENS
+    ]
+    return len(tokens) >= 2 or any(len(token) >= 3 for token in tokens)
+
+
 def _matches_service_constraint(query: StructuredQuery, service: RegistryService) -> bool:
     """Do not treat a category match as a match for a named dish/service."""
 
@@ -281,6 +292,11 @@ class SearchService:
         limit: int = MAX_PUBLIC_CHOICES,
     ) -> list[ServiceCandidate]:
         if limit <= 0 or query.out_of_scope or query.needs_clarification:
+            return []
+        # A broad category-free request has no reliable basis to choose between
+        # food, education, health, etc. Do not turn a location match into a
+        # cross-category recommendation; the response layer can ask a follow-up.
+        if query.category is None and not _has_specific_service_request(query):
             return []
 
         services = await self.registry.search(
