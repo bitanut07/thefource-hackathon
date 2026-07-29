@@ -1,7 +1,9 @@
 from config import Settings
+from domain.postgres_registry import PostgresServiceRegistry
 from domain.registry import JsonServiceRegistry, ServiceRegistryRepository
 from domain.search import LaunchUrlPolicy, SearchService
 from llm.client import ConfiguredLLMClient
+from llm.embeddings import GeminiEmbeddingClient
 from llm.response import GeminiResponseComposer
 from skills.navigator import NavigatorSkill
 
@@ -18,9 +20,20 @@ def build_navigator(
     url_policy: LaunchUrlPolicy | None = None,
 ) -> NavigatorSkill:
     """Build the controlled runtime pipeline from provider and registry settings."""
-    active_registry: ServiceRegistryRepository = registry or JsonServiceRegistry(
-        settings.registry_data_path
-    )
+    if registry is not None:
+        active_registry = registry
+    elif settings.search_backend.strip().casefold() == "postgres":
+        database_url = (
+            settings.database_url.get_secret_value().strip()
+            if settings.database_url is not None
+            else ""
+        )
+        active_registry = PostgresServiceRegistry(
+            database_url,
+            embedding_client=(GeminiEmbeddingClient(settings) if settings.semantic_search_enabled else None),
+        )
+    else:
+        active_registry = JsonServiceRegistry(settings.registry_data_path)
     active_url_policy = url_policy or LaunchUrlPolicy(
         parse_allowed_hosts(settings.allowed_launch_hosts)
     )
