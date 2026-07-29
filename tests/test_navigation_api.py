@@ -335,7 +335,7 @@ def test_readiness_fails_for_missing_or_weak_api_key_and_incomplete_allowlist(
         Settings(
             gemini_api_key=SecretStr("test-only"),
             navigator_api_key=SecretStr("test-navigator-key"),
-                allowed_launch_hosts="example.com",
+            allowed_launch_hosts="example.com",
         )
     )
     incomplete_allowlist.state.redis_connection = cast(Redis, HealthyRedis())
