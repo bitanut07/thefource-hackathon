@@ -25,6 +25,15 @@ REGISTRY_PATH = ROOT / "data" / "registry" / "services.real.json"
 CANDIDATES_PATH = ROOT / "data" / "research" / "oa-candidates.json"
 APPROVED_CANDIDATES_PATH = ROOT / "data" / "registry" / "approved-candidate-ids.json"
 
+# Import the runtime enum rather than restating the category list, so the seeder and
+# the navigator cannot drift apart. The path insert lets the script run from the repo
+# root on a host that has not exported PYTHONPATH=src.
+sys.path.insert(0, str(ROOT / "src"))
+
+from domain.models import ServiceCategory  # noqa: E402
+
+_VALID_CATEGORIES = frozenset(item.value for item in ServiceCategory)
+
 
 def configure_utf8_output() -> None:
     for stream in (sys.stdout, sys.stderr):
@@ -224,6 +233,30 @@ def evidence_rows(record: Mapping[str, object]) -> list[EvidenceRow]:
     return rows
 
 
+def validated_category(record: Mapping[str, object], service_id: UUID) -> str:
+    """Return the record's category, refusing values the runtime cannot represent.
+
+    ``PostgresServiceRegistry`` coerces this column through ``ServiceCategory``, so a
+    value outside that enum produces a row the navigator has to skip. Defaulting to a
+    placeholder like ``uncategorized`` imported exactly such a row silently, so a
+    missing or unknown category now stops the import instead.
+    """
+
+    raw = record.get("category")
+    if not isinstance(raw, str) or not raw.strip():
+        raise SystemExit(
+            f"{service_id}: thiếu trường category. "
+            f"Giá trị hợp lệ: {', '.join(sorted(_VALID_CATEGORIES))}."
+        )
+    category = raw.strip().casefold()
+    if category not in _VALID_CATEGORIES:
+        raise SystemExit(
+            f"{service_id}: category {raw!r} nằm ngoài danh mục runtime. "
+            f"Giá trị hợp lệ: {', '.join(sorted(_VALID_CATEGORIES))}."
+        )
+    return category
+
+
 def upsert_record(
     connection: psycopg.Connection[tuple[object, ...]],
     record: Mapping[str, object],
@@ -240,6 +273,7 @@ def upsert_record(
     service_type = str(record.get("service_type", record.get("channel_type", "oa")))
     launch_url = str(record.get("launch_url", ""))
     search_text = joined_text(record)
+    category = validated_category(record, service_id)
     with connection.cursor() as cursor:
         cursor.execute(
             """
@@ -278,7 +312,7 @@ def upsert_record(
                 "name": str(record["name"]),
                 "provider": str(record.get("provider", "Unknown")),
                 "service_type": service_type,
-                "category": str(record.get("category", "uncategorized")),
+                "category": category,
                 "description": str(record.get("description", "No description")),
                 "launch_url": launch_url,
                 "owner": str(record.get("owner", "research")),

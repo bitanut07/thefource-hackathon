@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import math
 from collections.abc import Sequence
 from datetime import datetime
@@ -14,6 +15,8 @@ from domain.models import RegistryService, ServiceCategory, ServiceIntent, Servi
 from domain.registry import ServiceRegistryRepository
 from llm.embeddings import EmbeddingClient
 from llm.schemas import StructuredQuery
+
+logger = logging.getLogger(__name__)
 
 
 class CatalogUnavailableError(RuntimeError):
@@ -115,7 +118,7 @@ class PostgresServiceRegistry(ServiceRegistryRepository):
         try:
             with self._connect() as connection, connection.cursor() as cursor:
                 cursor.execute(statement, (list(_PUBLISHED_STATUSES),))
-                return tuple(self._row_to_service(row) for row in cursor.fetchall())
+                return self._rows_to_services(cursor.fetchall())
         except psycopg.Error as exc:
             raise CatalogUnavailableError("Không thể đọc Service Catalog PostgreSQL.") from exc
 
@@ -131,7 +134,10 @@ class PostgresServiceRegistry(ServiceRegistryRepository):
                 row = cursor.fetchone()
         except psycopg.Error as exc:
             raise CatalogUnavailableError("Không thể đọc Service Catalog PostgreSQL.") from exc
-        return self._row_to_service(row) if row is not None else None
+        if row is None:
+            return None
+        services = self._rows_to_services([row])
+        return services[0] if services else None
 
     def _search_sync(
         self,
@@ -203,11 +209,38 @@ class PostgresServiceRegistry(ServiceRegistryRepository):
         try:
             with self._connect() as connection, connection.cursor() as cursor:
                 cursor.execute(statement, parameters)
-                return [self._row_to_service(row) for row in cursor.fetchall()]
+                return list(self._rows_to_services(cursor.fetchall()))
         except psycopg.Error as exc:
             raise CatalogUnavailableError(
                 "Không thể tìm trong Service Catalog PostgreSQL."
             ) from exc
+
+    @classmethod
+    def _rows_to_services(
+        cls,
+        rows: Sequence[dict[str, Any]],
+    ) -> tuple[RegistryService, ...]:
+        """Materialize rows, dropping any the runtime model cannot represent.
+
+        ``_row_to_service`` coerces ``category`` and ``service_type`` through their
+        enums, so a row carrying a value outside them raises ``ValueError`` — which is
+        not a ``psycopg.Error`` and so escaped as an unhandled 500 on every navigation
+        request. One unusable row must not take the assistant down, so it is skipped
+        and logged; the review console already flags the same row through
+        ``publish_blockers`` so the cause stays visible to whoever can fix it.
+        """
+
+        services: list[RegistryService] = []
+        for row in rows:
+            try:
+                services.append(cls._row_to_service(row))
+            except (ValueError, KeyError, TypeError) as exc:
+                logger.error(
+                    "Skipping unusable catalog row %s: %s",
+                    row.get("id"),
+                    exc,
+                )
+        return tuple(services)
 
     @staticmethod
     def _row_to_service(row: dict[str, Any]) -> RegistryService:
@@ -219,7 +252,9 @@ class PostgresServiceRegistry(ServiceRegistryRepository):
         )
         verified_at = row["last_verified_at"]
         if verified_at is not None and not isinstance(verified_at, datetime):
-            raise CatalogUnavailableError("Service Catalog có last_verified_at không hợp lệ.")
+            # A row-level data problem, not a catalog outage: raising ValueError lets
+            # `_rows_to_services` skip just this row instead of failing every request.
+            raise ValueError(f"last_verified_at is not a datetime: {type(verified_at).__name__}")
         return RegistryService(
             id=row["id"],
             name=str(row["name"]),
