@@ -179,7 +179,10 @@ def embed_document(
     return [float(value) for value in values]
 
 
-def evidence_rows(record: Mapping[str, object]) -> list[tuple[str, str | None, datetime | None, str, str | None]]:
+EvidenceRow = tuple[str, str | None, datetime | None, str, str | None]
+
+
+def evidence_rows(record: Mapping[str, object]) -> list[EvidenceRow]:
     """Flatten a record's research evidence into ``service_evidence`` rows.
 
     The ``supports`` claims are joined into one block so the review console can show
@@ -194,7 +197,7 @@ def evidence_rows(record: Mapping[str, object]) -> list[tuple[str, str | None, d
     official = isinstance(verification, Mapping) and verification.get("official_source") is True
     status = "official_source" if official else "candidate"
 
-    rows: list[tuple[str, str | None, datetime | None, str, str | None]] = []
+    rows: list[EvidenceRow] = []
     seen: set[str] = set()
     for item in evidence:
         if not isinstance(item, Mapping):
