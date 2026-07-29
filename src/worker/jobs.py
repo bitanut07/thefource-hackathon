@@ -47,12 +47,7 @@ def process_zalo_text_event(user_id: str, text: str, message_id: str) -> dict[st
     if not isinstance(choices, list):
         choices = []
     reply = _reply_text(response.message, choices)
-    if response.response_mode == "voice":
-        reply += (
-            "\n\nMÃ¬nh Ä‘Ã£ ghi nháº­n yÃªu cáº§u tráº£ lá»i báº±ng giá»ng nÃ³i. "
-            "OA hiá»‡n chÆ°a gá»­i audio trá»±c tiáº¿p nÃªn má»‹nh gá»­i báº£n chá»¯."
-        )
     asyncio.run(ConfiguredZaloClient(settings).send_text(user_id, reply))
     conversations.append(user_id, "user", text)
     conversations.append(user_id, "assistant", response.message)
-    return {"status": "sent", "choices": len(choices), "response_mode": response.response_mode}
+    return {"status": "sent", "choices": len(choices)}

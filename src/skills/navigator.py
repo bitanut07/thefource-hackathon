@@ -66,7 +66,6 @@ class TemplateResponseComposer:
                 "trong danh mục đã được kiểm chứng."
             ),
             choices=[candidate.to_public_choice() for candidate in safe_candidates],
-            response_mode=query.response_mode,
         )
 
     @staticmethod

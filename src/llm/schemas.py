@@ -16,7 +16,6 @@ ServiceCategoryValue = Literal[
     "other",
 ]
 ClarificationField = Literal["service", "location", "time", "target_user", "organization"]
-ResponseMode = Literal["text", "voice", "auto"]
 
 
 class StructuredQuery(BaseModel):
@@ -56,8 +55,6 @@ class StructuredQuery(BaseModel):
         default=False,
         description="True khi yêu cầu hệ thống thực hiện giao dịch/hành động thay người dùng.",
     )
-
-    response_mode: ResponseMode = "auto"
 
     @model_validator(mode="after")
     def validate_control_flags(self) -> Self:
@@ -108,4 +105,3 @@ class AgentResponse(BaseModel):
     choices: list[ServiceChoice] = Field(default_factory=list, max_length=5)
     clarification_question: str | None = None
     handoff_to_human: bool = False
-    response_mode: ResponseMode = "auto"

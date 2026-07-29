@@ -69,7 +69,6 @@ class GeminiResponseComposer:
             clarification_question=(
                 wording.clarification_question if query.needs_clarification else None
             ),
-            response_mode=query.response_mode,
         )
 
     @staticmethod

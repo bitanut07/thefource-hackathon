@@ -104,9 +104,8 @@ def test_intent_extraction_api_returns_validated_json(
         "organization": "VNG",
         "needs_clarification": False,
         "clarification_field": None,
-            "out_of_scope": False,
-            "response_mode": "auto",
-        }
+        "out_of_scope": False,
+    }
     assert extractor.received_texts == ["Là nhân viên VNG, tôi cần mua đồ ăn."]
 
 
