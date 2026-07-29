@@ -91,6 +91,7 @@ class AdminServiceView(BaseModel):
     category: str
     description: str
     launch_url: str
+    avatar_url: str | None
     owner: str
     active: bool
     review_status: str
@@ -188,6 +189,7 @@ def _to_view(record: AdminServiceRecord, url_policy: LaunchUrlPolicy) -> AdminSe
         category=record.category,
         description=record.description,
         launch_url=record.launch_url,
+        avatar_url=record.avatar_url,
         owner=record.owner,
         active=record.active,
         review_status=record.review_status,

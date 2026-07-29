@@ -43,5 +43,6 @@ class RegistryService:
     target_user: str | None = None
     organization: str | None = None
     last_verified_at: datetime | None = None
+    avatar_url: str | None = None
     aliases: tuple[str, ...] = ()
     intents: tuple[ServiceIntent, ...] = ()

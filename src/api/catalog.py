@@ -35,6 +35,7 @@ class RegistryServiceView(BaseModel):
     category: ServiceCategory
     description: str
     launch_url: HttpUrl
+    avatar_url: HttpUrl | None = None
     region: str | None = None
     target_user: str | None = None
     organization: str | None = None
@@ -69,6 +70,7 @@ def _to_view(service: RegistryService) -> RegistryServiceView:
         category=service.category,
         description=service.description,
         launch_url=HttpUrl(service.launch_url),
+        avatar_url=HttpUrl(service.avatar_url) if service.avatar_url else None,
         region=service.region,
         target_user=service.target_user,
         organization=service.organization,

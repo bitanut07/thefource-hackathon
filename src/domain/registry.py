@@ -52,6 +52,7 @@ class _ServiceRecord(BaseModel):
     category: ServiceCategory
     description: NonEmptyString
     launch_url: NonEmptyString
+    avatar_url: str | None = None
     owner: NonEmptyString
     active: bool = Field(strict=True)
     service_priority: int = Field(default=0, strict=True)
@@ -81,6 +82,7 @@ class _ServiceRecord(BaseModel):
             category=self.category,
             description=self.description,
             launch_url=self.launch_url,
+            avatar_url=self.avatar_url,
             owner=self.owner,
             active=self.active,
             service_priority=self.service_priority,

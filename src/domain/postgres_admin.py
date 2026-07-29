@@ -39,7 +39,7 @@ CONSOLE_SOURCE_TYPE = "console"
 
 _ADMIN_DETAILS = """
     s.id, s.name, s.provider, s.service_type, s.category, s.description,
-    s.launch_url, s.owner, s.active, s.review_status, s.service_priority,
+    s.launch_url, s.avatar_url, s.owner, s.active, s.review_status, s.service_priority,
     s.region, s.target_user, s.organization, s.last_verified_at,
     s.source_type, s.updated_at, s.deleted_at,
     (s.embedding IS NOT NULL) AS has_embedding,
@@ -503,6 +503,7 @@ class PostgresAdminCatalog:
                         category=category,
                         description=changes.get("description", current.description),
                         launch_url=changes.get("launch_url", current.launch_url),
+                        avatar_url=current.avatar_url,
                         owner=current.owner,
                         active=current.active,
                         review_status=current.review_status,
@@ -870,6 +871,7 @@ class PostgresAdminCatalog:
             category=str(row["category"]),
             description=str(row["description"]),
             launch_url=str(row["launch_url"]),
+            avatar_url=_optional_text(row.get("avatar_url")),
             owner=str(row["owner"]),
             active=bool(row["active"]),
             review_status=str(row["review_status"]),

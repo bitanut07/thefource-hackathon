@@ -351,6 +351,7 @@ class SearchService:
                 name=service.name,
                 service_type=service.service_type.value,
                 launch_url=HttpUrl(service.launch_url),
+                avatar_url=HttpUrl(service.avatar_url) if service.avatar_url else None,
                 region=service.region,
                 organization=service.organization,
                 reason=_reason(query, service, components),

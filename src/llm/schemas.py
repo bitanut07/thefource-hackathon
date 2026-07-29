@@ -76,6 +76,7 @@ class ServiceChoice(BaseModel):
     name: str
     service_type: str
     launch_url: HttpUrl
+    avatar_url: HttpUrl | None = None
     region: str | None = None
     organization: str | None = None
     reason: str

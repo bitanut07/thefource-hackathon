@@ -100,6 +100,7 @@ class AdminServiceRecord:
     category: str
     description: str
     launch_url: str
+    avatar_url: str | None
     owner: str
     active: bool
     review_status: str

@@ -57,6 +57,7 @@ def _record(
         category=category,
         description="Nền tảng học tiếng Anh trực tuyến.",
         launch_url=launch_url,
+        avatar_url=None,
         owner="service-catalog-review",
         active=active,
         review_status=review_status,

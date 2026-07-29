@@ -263,6 +263,7 @@ class PostgresServiceRegistry(ServiceRegistryRepository):
             category=ServiceCategory(str(row["category"])),
             description=str(row["description"]),
             launch_url=str(row["launch_url"]),
+            avatar_url=str(row["avatar_url"]) if row.get("avatar_url") else None,
             owner=str(row["owner"]),
             active=bool(row["active"]),
             service_priority=int(row["service_priority"]),
