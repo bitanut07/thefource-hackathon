@@ -33,6 +33,11 @@ x-app-environment: &app-environment
   NAVIGATOR_API_KEY: ${NAVIGATOR_API_KEY:-}
   NAVIGATOR_MAX_CONCURRENCY: ${NAVIGATOR_MAX_CONCURRENCY:-4}
   NAVIGATOR_QUEUE_TIMEOUT_SECONDS: ${NAVIGATOR_QUEUE_TIMEOUT_SECONDS:-0.1}
+  ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+  ADMIN_SESSION_TTL_SECONDS: ${ADMIN_SESSION_TTL_SECONDS:-43200}
+  ADMIN_LOGIN_MAX_ATTEMPTS: ${ADMIN_LOGIN_MAX_ATTEMPTS:-10}
+  ADMIN_LOGIN_ATTEMPT_WINDOW_SECONDS: ${ADMIN_LOGIN_ATTEMPT_WINDOW_SECONDS:-900}
+  ADMIN_ALLOWED_ORIGINS: ${ADMIN_ALLOWED_ORIGINS:-}
   STT_PROVIDER: ${STT_PROVIDER:-disabled}
   STT_API_KEY: ${STT_API_KEY:-}
   ALLOWED_LAUNCH_HOSTS: ${ALLOWED_LAUNCH_HOSTS:-zalo.me}
@@ -121,6 +126,9 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./db/migrations/001_service_catalog.sql:/docker-entrypoint-initdb.d/001_service_catalog.sql:ro
       - ./db/migrations/002_zalo_channels_only.sql:/docker-entrypoint-initdb.d/002_zalo_channels_only.sql:ro
+      # Init scripts only run on an empty data volume; an existing database picks
+      # new migrations up through `make catalog-migrate`.
+      - ./db/migrations/003_service_review_events.sql:/docker-entrypoint-initdb.d/003_service_review_events.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s

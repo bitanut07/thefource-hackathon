@@ -179,6 +179,48 @@ def embed_document(
     return [float(value) for value in values]
 
 
+def evidence_rows(record: Mapping[str, object]) -> list[tuple[str, str | None, datetime | None, str, str | None]]:
+    """Flatten a record's research evidence into ``service_evidence`` rows.
+
+    The ``supports`` claims are joined into one block so the review console can show
+    why each source counts, and ``verification_status`` reflects the record-level
+    verdict because the source entries themselves carry no status of their own.
+    """
+
+    evidence = record.get("evidence")
+    if not isinstance(evidence, Iterable) or isinstance(evidence, (str, bytes, Mapping)):
+        return []
+    verification = record.get("verification")
+    official = isinstance(verification, Mapping) and verification.get("official_source") is True
+    status = "official_source" if official else "candidate"
+
+    rows: list[tuple[str, str | None, datetime | None, str, str | None]] = []
+    seen: set[str] = set()
+    for item in evidence:
+        if not isinstance(item, Mapping):
+            continue
+        url = str(item.get("url", "")).strip()
+        if not url or url in seen:
+            continue
+        seen.add(url)
+        supports = item.get("supports")
+        if isinstance(supports, str):
+            supports_text: str | None = supports.strip() or None
+        elif isinstance(supports, Iterable) and not isinstance(supports, (bytes, Mapping)):
+            joined = "\n".join(str(value).strip() for value in supports if str(value).strip())
+            supports_text = joined or None
+        else:
+            supports_text = None
+        checked_at = item.get("checked_at")
+        checked = (
+            datetime.fromisoformat(str(checked_at)).replace(tzinfo=UTC)
+            if isinstance(checked_at, str) and checked_at.strip()
+            else None
+        )
+        rows.append((url, as_text(item.get("publisher")), checked, status, supports_text))
+    return rows
+
+
 def upsert_record(
     connection: psycopg.Connection[tuple[object, ...]],
     record: Mapping[str, object],
@@ -260,6 +302,7 @@ def upsert_record(
         )
         cursor.execute("DELETE FROM service_aliases WHERE service_id = %s", (service_id,))
         cursor.execute("DELETE FROM service_intents WHERE service_id = %s", (service_id,))
+        cursor.execute("DELETE FROM service_evidence WHERE service_id = %s", (service_id,))
         cursor.executemany(
             "INSERT INTO service_aliases (service_id, alias) VALUES (%s, %s)",
             [(service_id, alias) for alias in aliases],
@@ -267,6 +310,14 @@ def upsert_record(
         cursor.executemany(
             "INSERT INTO service_intents (service_id, intent, example_query) VALUES (%s, %s, %s)",
             [(service_id, intent, example) for intent, example in intents],
+        )
+        cursor.executemany(
+            """
+            INSERT INTO service_evidence (
+                service_id, source_url, publisher, checked_at, verification_status, supports
+            ) VALUES (%s, %s, %s, %s, %s, %s)
+            """,
+            [(service_id, *row) for row in evidence_rows(record)],
         )
 
 

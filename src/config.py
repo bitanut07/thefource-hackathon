@@ -48,6 +48,14 @@ class Settings(BaseSettings):
     navigator_api_key: SecretStr | None = None
     navigator_max_concurrency: int = Field(default=4, gt=0, le=64)
     navigator_queue_timeout_seconds: float = Field(default=0.1, gt=0, le=5)
+
+    # Review console. Deliberately a separate credential from NAVIGATOR_API_KEY:
+    # that key authorizes machine reads, this one authorizes catalog writes.
+    admin_password: SecretStr | None = None
+    admin_session_ttl_seconds: int = Field(default=43_200, ge=300, le=604_800)
+    admin_login_max_attempts: int = Field(default=10, ge=3, le=100)
+    admin_login_attempt_window_seconds: int = Field(default=900, ge=60, le=86_400)
+    admin_allowed_origins: str = ""
     stt_provider: str = "disabled"
     stt_api_key: SecretStr | None = None
 

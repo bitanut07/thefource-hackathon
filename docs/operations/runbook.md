@@ -72,6 +72,39 @@ Swagger cũng cung cấp API kiểm chứng từng lớp:
 - `/api/v1/research/search`: RAG research-only, không URL/CTA;
 - `/api/v1/navigate`: flow end-to-end.
 
+### Review console quản trị catalog
+
+Console là bề mặt duy nhất được ghi vào Service Catalog. Cần
+`SEARCH_BACKEND=postgres`, `DATABASE_URL` và `ADMIN_PASSWORD` dài từ 12 ký tự; mật
+khẩu ngắn hơn bị coi như chưa cấu hình và mọi route admin trả `503`.
+
+```powershell
+make catalog-migrate   # áp dụng bảng audit service_review_events
+```
+
+Lấy session rồi gọi API quản trị:
+
+```bash
+read -rsp "ADMIN_PASSWORD: " ADMIN_PASSWORD && echo
+TOKEN=$(curl -s -X POST http://localhost:8000/api/v1/admin/session \
+  -H "Content-Type: application/json" \
+  -d "{\"password\":\"$ADMIN_PASSWORD\"}" | python -c "import json,sys;print(json.load(sys.stdin)['token'])")
+curl --fail -H "Authorization: Bearer $TOKEN" \
+  "http://localhost:8000/api/v1/admin/stats"
+```
+
+`NAVIGATOR_API_KEY` **không** mở được route admin: key đó chỉ cấp quyền đọc.
+Chi tiết guardrail publish, audit và giới hạn hiện tại nằm trong
+[Review Console API](../architecture/admin-api.md).
+
+Hai số cần theo dõi từ `GET /api/v1/admin/stats`:
+
+- `publishable_with_blockers` khác `0`: có record đang phục vụ nhưng vi phạm
+  guardrail, nên `/health/ready` sẽ trả `503`. Dùng
+  `POST /api/v1/admin/services/{id}/deactivate` để rút record đó ra trước khi sửa.
+- `missing_embedding`: số record thiếu vector sau khi bị sửa nội dung; chạy
+  `make catalog-embed` để tạo lại.
+
 Nếu chỉ chạy Redis bằng container, chạy API trực tiếp ở terminal A:
 
 ```bash
